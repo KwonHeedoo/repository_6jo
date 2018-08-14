@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	
+	<!-- 파라미터가 Null인 경우 -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	
+	<!-- VO Class에 대한 alias -->
+	<typeAliases>
+		<typeAlias type="com.scit6jo.web.vo.Word" alias="Word" />
+	</typeAliases>
+	
+	<!-- Mapper 파일 resource 지정-->
+	<mappers>
+		<mapper resource="mappers/wordMapper.xml" />
+	</mappers>
+	
+</configuration>
