@@ -18,4 +18,11 @@ public class WordController {
 		
 		return "home";
 	}*/
+	
+	@RequestMapping(value = "/wordtest", method = RequestMethod.GET)
+	public String home(Model model) {
+		
+	return "wordpractice";
+	}
+	
 }
