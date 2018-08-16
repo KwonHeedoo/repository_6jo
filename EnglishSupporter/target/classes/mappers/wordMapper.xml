@@ -5,4 +5,13 @@
 
 <mapper namespace="com.scit6jo.web.dao.WordMapper">
 	
+	<select id="selectAllWord" resultType="Word" parameterType="String">
+		select word, wordnum, meaningk, meaningj, wordlevel
+		from word
+		where wordlevel=#{wordlevel}
+	
+	</select>
+	
+	
+	
 </mapper>
