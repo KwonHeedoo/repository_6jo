@@ -6,16 +6,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.scit6jo.web.dao.WordRepository;
+import com.scit6jo.web.dao.UserRepository;
 
 @Controller
 public class UserController {
 	@Autowired
-	WordRepository repository;
-	
-	/*@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		
-		return "home";
-	}*/
+	UserRepository Repository;
+
+	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
+	public String registerForm(Model model) {
+
+		return "user/registerForm";
+	}
 }

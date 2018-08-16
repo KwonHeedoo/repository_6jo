@@ -14,5 +14,6 @@
 <P>  The time on the server is ${serverTime}. </P>
 
 	<a href="./compositionForm">CompositionForm</a>
+	<a href="./registerForm">register</a>
 </body>
 </html>
