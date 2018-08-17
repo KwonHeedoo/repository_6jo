@@ -19,11 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.scit6jo.web.dao.DataRepository;
 import com.scit6jo.web.dao.WordRepository;
 import com.scit6jo.web.util.FileService;
+import com.scit6jo.web.vo.InterviewData;
 
 @Controller
 public class InterviewController {
+	
+	@Autowired
+	DataRepository repository;
 	
 	final String video_uploadPath = "/ES_uploadPath/video";
 	final String image_uploadPath = "/ES_uploadPath/images";
@@ -33,19 +38,26 @@ public class InterviewController {
 		
 		return "interview/webRTC_Test";
 	}
-	@RequestMapping(value = "/saveData", method = RequestMethod.POST)
+	@RequestMapping(value = "/savedata", method = RequestMethod.POST)
 	//public @ResponseBody String senddata(@RequestParam("file") MultipartFile file) {
 	public @ResponseBody String senddata(@RequestParam("file") MultipartFile file, HttpSession session) {
 		String userid = (String)session.getAttribute("loginId");
 		System.out.println("업로드 여부 : " + file + " ,파일의 크기 : " + file.getSize() + ", 비어있나? " + file.isEmpty());
-
+		
 		if (!file.isEmpty()) {
 			System.out.println("File is exist");
 			String saveFile = FileService.saveFile(file, video_uploadPath,userid);
 			//String saveFile = FileService.saveFile(file, video_uploadPath,session.get(userid));
+			InterviewData data = new InterviewData();
+			data.setQuestionNum(1);
+			data.setSaveFile(saveFile);
+			data.setUserid(userid);
+			data.setAnswer("test_answer");
+				
 			System.out.println("saveFile : " +saveFile);
 		}
 
 		return "#";
 	}
+	
 }

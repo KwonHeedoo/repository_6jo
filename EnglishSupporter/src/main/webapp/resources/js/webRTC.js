@@ -97,7 +97,7 @@ downloadButton.addEventListener('click', () => {
   data.append('file', file);
   console.log(JSON.stringify(data));
   $.ajax({
-      url: 'senddata',
+      url: 'savedata',
       data: data,
       processData: false,
       contentType: false,
