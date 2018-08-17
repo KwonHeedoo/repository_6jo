@@ -1,47 +1,94 @@
 package com.scit6jo.web.util;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class CrawlingWord {
-	public String crawling() throws Exception {
-
-		// 엔드포인트 설정
-		Document doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn#").header("User-Agent",
-				"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36 NetHelper70")
-				.header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.5,en;q=0.3")
-				.header("Accept-Encoding", "gzip, deflate, br").get();
-
-		// 페이지 안에서 div 이름 container에서 ul태그 중에 class 이름이 ul.lst_detail_t1
-		Elements ul = doc.select("ul.lst_detail_t1");
-		// 그리고 ul안에 있는 li들을 찾고 안의 a태그를 찾아서 주소 저장
-		Elements lisInUl = ul.select("li");
-		ArrayList<String> links = new ArrayList<String>();
-
-		for (Element li : lisInUl) {
-			// 청소년 유해물 제외, 상영시간 및 개봉일자 누락 영화 제외
-			if (!li.select("dl.lst_dsc").select("dt.tit").select("span").text().contains("유해물")
-					&& li.select("dl.lst_dsc").select("dl.info_txt1").select("dd").get(0).text().contains("분")
-					&& li.select("dl.lst_dsc").select("dl.info_txt1").select("dd").get(0).text().contains("개봉")) {
-				// 영화가 아닌 공연 제외
-				if (!li.select("dl.lst_dsc").select("dd").select("dl.info_txt1").select("dd").get(0).select(".link_txt")
-						.select("a").text().contains("공연")) {
-					// DB에 영화 존재여부 확인 후 link저장(이미 존재하는 영화는 Crawling하지 않는다.)
-					int idx = li.select("a").attr("href").indexOf("=");
-					String movieCode = li.select("a").attr("href").substring(idx + 1);
-					/*if (!movieList.contains(movieCode)) {
-						links.add(li.select("a").attr("href"));
-					}// if*/
+	public List<List<String>> crawling(List<String> wordList) throws Exception {
+		List<List<String>> synonymList = new ArrayList<>();
+		
+		for(String word : wordList) {
+			// 엔드포인트 설정
+			Document doc = Jsoup.connect("https://endic.naver.com/search.nhn?sLn=kr&searchOption=thesaurus&query=" + word).header("User-Agent",
+					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36")
+					.header("Accept-Language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
+					.header("Accept-Encoding", "gzip, deflate, br").get();
+			
+			System.out.println(doc);
+			
+			// 페이지 안에서 div 이름 container에서 ul태그 중에 class 이름이 word_num_nobor
+			Elements dl = doc.select("container").select("word_num_nobor").select("list_e3 list_e3x");
+			
+			System.out.println("dl : "+dl);
+			
+			String a = doc.select("header").select("Ngnb_inner").select("a").select("span").text();
+			System.out.println(a);
+			// ul안에 있는 li선택
+			//Elements lisInUl = ul.select("li");
+			
+			List<String> synonym = new ArrayList<>();
+			
+			/*for (Element li : lisInUl) {
+				System.out.println("들어옴?");
+				System.out.println(li);
+				System.out.println(li.select("span").select("a").attr("class"));
+				if (li.select("span").select("a").attr("class").equals("css-3kshty etbu2a31")) {
+					System.out.println("여기 옴?2");
+					String synonymWord = li.select("span").select("a").text();
+					System.out.println(synonymWord);
+					synonym.add(synonymWord);
 				}// if
-			}// if
-		}// for
+			}// for
+*/			
+			System.out.println("synonymList : " + synonymList);
+			synonymList.add(synonym);
+		}
 
-
-		return "redirect:/movieList";
+		return synonymList;
 	}
+	
+	/*public List<List<String>> crawling(List<String> wordList) throws Exception {
+		List<List<String>> synonymList = new ArrayList<>();
+		
+		for(String word : wordList) {
+			// 엔드포인트 설정
+			Document doc = Jsoup.connect("https://www.thesaurus.com/browse/" + word + "?s=t").header("User-Agent",
+					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36")
+					.header("Accept-Language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
+					.header("Accept-Encoding", "gzip, deflate, br").get();
+			
+			// 페이지 안에서 div 이름 loadingContainer에서 ul태그 중에 class 이름이css-1lc0dpe et6tpn80
+			//Elements ul = doc.select(".css-1lc0dpe et6tpn80");
+			Elements ul = doc.select("css-1lc0dpe et6tpn80");
+			System.out.println("ul : "+ul);
+			// ul안에 있는 li선택
+			Elements lisInUl = ul.select("li");
+			
+			List<String> synonym = new ArrayList<>();
+			
+			for (Element li : lisInUl) {
+				System.out.println("들어옴?");
+				System.out.println(li);
+				System.out.println(li.select("span").select("a").attr("class"));
+				if (li.select("span").select("a").attr("class").equals("css-3kshty etbu2a31")) {
+					System.out.println("여기 옴?2");
+					String synonymWord = li.select("span").select("a").text();
+					System.out.println(synonymWord);
+					synonym.add(synonymWord);
+				}// if
+			}// for
+			
+			System.out.println("synonymList : " + synonymList);
+			synonymList.add(synonym);
+		}
+
+		return synonymList;
+	}*/
 
 	// DB에 영화 저장
 	/*public ArrayList<Movie> crawlingDetail(List<String> links) throws Exception {

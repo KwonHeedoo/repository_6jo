@@ -12,6 +12,7 @@ import com.scit6jo.web.vo.Word;
 public class WordRepository {
 	@Autowired
 	SqlSession session;
+
 	
 	public List<Word> getWordList(String wordlevel, String userid){
 		WordMapper dao= session.getMapper(WordMapper.class);
@@ -32,4 +33,18 @@ public class WordRepository {
 		return null;
 	}
 	
+
+
+	public List<String> exceptionWord() {
+		WordMapper mapper = session.getMapper(WordMapper.class);
+
+		List<String> exceptionWord = null;
+		try {
+			exceptionWord = mapper.exceptionWord();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return exceptionWord;
+	}
+
 }

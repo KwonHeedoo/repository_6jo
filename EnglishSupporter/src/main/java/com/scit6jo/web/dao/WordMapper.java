@@ -21,4 +21,6 @@ public interface WordMapper {
 	 */
 	public List<Word> getMyWords(String userid);
 
+	public List<String> exceptionWord();
+
 }
