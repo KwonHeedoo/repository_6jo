@@ -11,6 +11,11 @@ public class Word {
 		super();
 	}
 
+	public Word(String word) {
+		super();
+		this.word = word;
+	}
+
 	public Word(int wordNum, String word, String meaningK, String meaningJ, int level) {
 		super();
 		this.wordNum = wordNum;
