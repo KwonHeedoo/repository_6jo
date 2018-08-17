@@ -12,8 +12,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-
-	<a href="./compositionForm">CompositionForm</a>
 	
 	<c:if test="${sessionScope.userid == null}">
 	<a href="./goLoginForm">로그인</a>
@@ -22,6 +20,7 @@
 	<c:if test="${sessionScope.userid != null}">
 	${sessionScope.userid}님. 로그인 중...<a href="logout">로그아웃</a>
 	</c:if>
-	
+
+	<a href="./goComposition">Composition</a>
 </body>
 </html>

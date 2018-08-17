@@ -69,7 +69,7 @@
 </head>
 <body>
 	Composition<br/>
-	<form id="compositionCheck" action="confirm" method="post">
+	<form id="compositionCheck" action="goConfirmed" method="post">
 		<textarea id="composition" rows="20" cols="50" name="composition"></textarea><br/>
 		<input class="confirm" type="checkbox" name="confirm" value="grammer">Grammer
 		<input class="confirm" type="checkbox" name="confirm" value="repetition">Repetition
