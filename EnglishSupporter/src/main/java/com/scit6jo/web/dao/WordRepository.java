@@ -13,15 +13,23 @@ public class WordRepository {
 	@Autowired
 	SqlSession session;
 	
-	public List<Word> getWordList(String wordlevel){
+	public List<Word> getWordList(String wordlevel, String userid){
 		WordMapper dao= session.getMapper(WordMapper.class);
-		List<Word>wordlist = dao.selectAllWord(wordlevel);
+		List<Word>wordlist = dao.selectAllWord(wordlevel, userid);
 		
 		if(wordlist==null) {
 			System.out.println("단어리스트 불러오기 실패!");
 		}
 		
 		return wordlist;
+	}
+
+	public List<Word> getMyWords(String userid) {
+		WordMapper dao= session.getMapper(WordMapper.class);
+		List<Word>wordlist = dao.getMyWords(userid);
+		
+		
+		return null;
 	}
 	
 }

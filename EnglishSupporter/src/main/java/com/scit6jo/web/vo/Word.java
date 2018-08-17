@@ -1,15 +1,31 @@
 package com.scit6jo.web.vo;
 
 public class Word {
+	
+	//myword 와 word 를 동시에 받아서 사용할 VO
+	
 	private int wordNum;
 	private String word;
 	private String meaningK;
 	private String meaningJ;
 	private String wordlevel;
+	private String userid;
+	private String wordtype;
 	
 	
 	
-	
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	public String getWordtype() {
+		return wordtype;
+	}
+	public void setWordtype(String wordtype) {
+		this.wordtype = wordtype;
+	}
 	public int getWordNum() {
 		return wordNum;
 	}
@@ -40,14 +56,11 @@ public class Word {
 	public void setWordlevel(String wordlevel) {
 		this.wordlevel = wordlevel;
 	}
-	
 	@Override
 	public String toString() {
 		return "Word [wordNum=" + wordNum + ", word=" + word + ", meaningK=" + meaningK + ", meaningJ=" + meaningJ
-				+ ", wordlevel=" + wordlevel + "]";
+				+ ", wordlevel=" + wordlevel + ", userid=" + userid + ", wordtype=" + wordtype + "]";
 	}
-	
-	
 	
 	
 	
