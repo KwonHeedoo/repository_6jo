@@ -13,6 +13,6 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-	<a href="./compositionForm">CompositionForm</a>
+	<a href="./goComposition">Composition</a>
 </body>
 </html>
