@@ -18,35 +18,54 @@ $(document).ready(function() {
 				, type : "post"
 				, dataType : "json"
 				, data : {"composition" : composition, "confirm" : confirm}
-				, success : repetitionCheck
+				, success : function(resp){
+					repetitionCheck(resp, composition, confirm);	
+				}
 				, error : function(resp){ alert("Error!");}
 			});
 		}else if(confirm.includes("grammer")){
 			grammerCheck(null, composition, confirm);
 		}else if(confirm.includes("emotion")){
 			emotionCheck(null, composition, confirm);
+		}else{
+			var result = "<p>" + composition + "</p>"
+			$("#result1").html(result);
 		}
 		
 	});
 });
 	
 function repetitionCheck(resp, composition, confirm){
-	var item = resp.wordList;
-	var result = "";
+	var wordList = resp;
+	var result1 = "";
+	var result2 = "";
 	
-	for(var i in item){
-		result += "<p>";
-		result += item[i];
-		result += "</p>";
-		result += "<br/>";
+	result1 = composition.replace(/\n/g, '<br/>');
+	
+	String.prototype.replaceAll = function(org, dest) {
+	    return this.split(org).join(dest);
 	}
+	
+	$.each(wordList, function(index, item){
+		result1 = result1.replaceAll(item.word, '<span style="background-color:yellow;">' + item.word + '</span>');
+	});
+	result1 += "<br/><br/>";
+	
+	$.each(wordList, function(index, item){
+		result2 += "<p>";
+		result2 += item.word;
+		result2 += "<br/>";
+		result2 += item.meaningK;
+		result2 += "</p>";
+	});
 	
 	if(confirm.includes("grammer")){
 		grammerCheck(resp, composition, confirm);
 	}else if(confirm.includes("emotion")){
 		emotionCheck(resp, composition, confirm);
 	}else{
-		$("#result").html(result);
+		$("#result1").html(result1);
+		$("#result2").html(result2);
 	}
 }
 
@@ -88,7 +107,6 @@ function emotionCheck(resp, composition, confirm){
             		
         })
         .done(function(data) {
-        	alert(data.documents.score);
             alert(JSON.stringify(data));
         })
         .fail(function() {
@@ -102,6 +120,9 @@ function emotionCheck(resp, composition, confirm){
 	<h1>Confirm Page</h1>
 	<input id="composition" type="hidden" value="${composition}">
 	<input id="confirm" type="hidden" value="${confirm}">
-	<div id="result"></div>
+	<div id="result1"></div>
+	<div id="result2"></div>
+	<div id="result3"></div>
+	<div id="result4"></div>
 </body>
 </html>

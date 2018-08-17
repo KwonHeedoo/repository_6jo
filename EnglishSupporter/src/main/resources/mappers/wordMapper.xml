@@ -4,6 +4,41 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.scit6jo.web.dao.WordMapper">
+	
+	<select id="selectAllWord" resultType="Word" parameterType="map">
+		select w.word, w.wordnum, w.meaningk, w.meaningj, w.wordlevel, m.wordtype 
+		from word w 
+        left outer join 
+        (select word, wordtype from myword where userid =#{userid} and wordtype=0) m
+        on w.word = m.word
+		where wordlevel=#{wordlevel}
+	
+	</select>
+	
+	<select id="getMyWords" resultType="Word" parameterType="String">
+		select word, meaningk, meaningJ, wordtype from myword where userid=#{userid}
+	</select>
+	
+	<insert id="intoMyWords" parameterType="Word">
+		insert into myword(
+			userid
+			,word
+			,meaningK
+			,meaningJ
+			,wordtype
+		)values(
+			#{userid}
+			,#{word}
+			,#{meaningK}
+			,#{meaningJ}
+			,#{wordtype}
+		)
+	</insert>
+	
+	<delete id="outMyWords" parameterType="Word">
+		delete from myword where word=#{word} and userid=#{userid}
+	
+	</delete>
 	<!-- 예외 단어 리스트 요청 -->
 	<select id="exceptionWord" resultType="string">
 		select
@@ -13,4 +48,5 @@
 		where
 			status = 1
 	</select>
+
 </mapper>
