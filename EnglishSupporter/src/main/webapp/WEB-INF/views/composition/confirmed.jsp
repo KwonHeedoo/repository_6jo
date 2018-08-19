@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Confirmed</title>
+<!-- google CDN -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -35,7 +36,7 @@ function grammerCheck(composition, confirm){
 				// 텍스트 감정 분석 체크를 한 경우
 				if(confirm.includes("emotion")){
 					emotionCheck(composition, confirm, grammer);
-				// 중복 단어 체크를 한 경우
+				// 중복 단어 체크만 한 경우
 				}else if(confirm.includes("repetition")){
 					repetitionCheck(composition, confirm, grammer, null)
 				// 둘 다 체크를 안 한 경우
@@ -107,7 +108,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 	var emoResult = "";
 	var graResult = "";
 	
-	// 문법 체크를 선택한 경우
+	// 문법 체크를 한 경우
 	if(grammer != null){
 		var jsonStrGrammer = JSON.stringify(grammer);
 		var gra = JSON.parse(jsonStrGrammer);
@@ -133,7 +134,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 			resultComp += composition.substring(strIndex);
 			graResult += '</table>';
 		}
-	// 문법 체크를 선택하지 않은 경우
+	// 문법 체크를 하지 않은 경우
 	}else{
 		resultComp = composition;
 	}

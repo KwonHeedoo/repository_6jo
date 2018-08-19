@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Composition</title>
+<!-- microsoft CDN -->
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -22,6 +23,16 @@ $(function(){
 		}
 		
 		$('#compositionCheck').submit();
+	});
+	
+	// 텍스트 음성 제공(TTS)
+	$('#tts').on('click',function(e) {
+		e.preventDefault();
+		var composition = $('#composition').val();
+		composition = encodeURIComponent(composition);
+		
+		var url = 'http://api.voicerss.org/?key=3100d4db68664b858bb58864ea49e91e&hl=en-gb&src='+ composition;
+		$('audio').attr('src', url).get(0).play();
 	});
 	
 	// STT 페이지 새창
@@ -47,7 +58,8 @@ function langCheck(value){
 		alert('형식에 맞는 문자 및 숫자만 입력가능합니다.');
 	}
 }
-	// 마지막 글자 추출
+
+// 마지막 글자 추출
 function lastLan(val){
 	var length = val.length;
 	var str = val.substr(length-1,length);
@@ -83,6 +95,8 @@ function isNumber(ch) {
 		<button id="check" type="button">Check</button>
 	</form>
 	<br/>
-	<button id="tts" type="button">TTS</button>
+	<!-- 텍스트 음성 제공 버튼(TTS Button) -->
+	<button id="tts" type="button"><img alt="speaker" src="./resources/img/speaker.png" style="width:20px;height:20px;"></button>
+	<audio src="" class="audio" hidden>
 </body>
 </html>
