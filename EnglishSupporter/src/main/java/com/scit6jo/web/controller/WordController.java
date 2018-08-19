@@ -27,19 +27,16 @@ public class WordController {
 		return "home";
 	}*/
 	
-	@RequestMapping(value = "/wordtest", method = RequestMethod.GET)
+	@RequestMapping(value = "/goWordtest", method = RequestMethod.GET)
 	public String home(Model model, @RequestParam(value="wordlevel", defaultValue="1")String wordlevel
 			,String userid) {
 		
-		List<Word> wList=repository.getWordList(wordlevel,userid);
-		
-		model.addAttribute("wordlist", wList);
-		return "wordpractice";
+		return "word/wordpractice";
 	}
 
 	
 	@RequestMapping(value = "/getMyWords", method = RequestMethod.POST)
-	public @ResponseBody List<Word> home(@RequestParam(value="wordlevel", defaultValue="1")String wordlevel, HttpSession session) {
+	public @ResponseBody List<Word> getMyWords(@RequestParam(value="wordlevel", defaultValue="1")String wordlevel, HttpSession session) {
 		List<Word> wList=null;
 		System.out.println(wordlevel);
 		String userid = "aaa";
@@ -54,6 +51,26 @@ public class WordController {
 			//System.out.println("내단어장 아닌거 불러오기");
 		}
 		return wList;
+	}
+	
+	@RequestMapping(value = "/controlMyWords", method = RequestMethod.POST)
+	public @ResponseBody boolean deleteMyWords(Word word, String command, HttpSession session) {
+		boolean result =false;
+		
+		//본래 세션의 아이디를 가져와서 사용
+		word.setUserid("aaa");
+
+		System.out.println(word);
+		System.out.println(command);
+		
+		if(command.equals("insert")) {
+			result =repository.insertMyWord(word);
+		}else {
+			result =repository.deleteMyWord(word);
+		}
+		
+		
+		return result;
 	}
 	
 	

@@ -47,4 +47,25 @@ public class WordRepository {
 		return exceptionWord;
 	}
 
+	public boolean insertMyWord(Word word) {
+		WordMapper mapper = session.getMapper(WordMapper.class);
+		int cnt = mapper.insertMyWord(word);
+		
+		if(cnt>0) {
+			return true;
+		}
+			return false;
+	}
+
+	public boolean deleteMyWord(Word word) {
+		WordMapper mapper = session.getMapper(WordMapper.class);
+		int cnt = mapper.deleteMyWord(word);
+		
+		if(cnt>0) {
+			return true;
+		}
+			return false;
+	}
+
+
 }
