@@ -87,6 +87,10 @@ input {
 
 		<audio src="" class="audio" hidden>
 	</div>
+	
+	<div class="col-md-12" style="text-align: right">
+						<a href="#" class="writeword btn btn-lg btn-primary">신규 단어 직접 입력</a>
+					</div>
 
 	<script type="text/javascript">
 		var index = 0;
@@ -137,13 +141,13 @@ input {
 			console.log(checked);
 			$('#userworddelete').html("");
 			if(checked=='star'){
-				$('#checkmyword').attr('src','/web/resources/img/golden.png');
+				$('#checkmyword').attr('src','./resources/img/golden.png');
 			}else if(checked =='user'){
-				$('#checkmyword').attr('src','/web/resources/img/golden.png');
+				$('#checkmyword').attr('src','./resources/img/golden.png');
 				var text ='<a id="deletemyword" href="#">삭제</a>';
 				$('#userworddelete').html(text);
 			}else{
-				$('#checkmyword').attr('src','/web/resources/img/silver.png');
+				$('#checkmyword').attr('src','./resources/img/silver.png');
 				
 			}
 		}
@@ -175,11 +179,11 @@ input {
 		var word = wordlist[index];
 		
 		if(src.includes('golden')){
-			$('#checkmyword').attr('src','/web/resources/img/silver.png');
+			$('#checkmyword').attr('src','./resources/img/silver.png');
 			// 나의 단어장에서 해당 단어 삭제처리하기 			
 			word.command = 'delete';
 		}else{
-			$('#checkmyword').attr('src','/web/resources/img/golden.png');
+			$('#checkmyword').attr('src','./resources/img/golden.png');
 			//나의 단어장에 해당단어 추가하기 
 			word.command = 'insert';
 		}
@@ -195,6 +199,12 @@ input {
 				}
 			});
 		
+	});
+	
+	$(function() {
+		$('a.writeword').on('click',function(){
+			window.open("insertword","newidwindow","top=150,left=150,width=500,height=400");
+		});
 	});
 		
 	</script>

@@ -28,10 +28,15 @@ public class WordController {
 	}*/
 	
 	@RequestMapping(value = "/goWordtest", method = RequestMethod.GET)
-	public String home(Model model, @RequestParam(value="wordlevel", defaultValue="1")String wordlevel
-			,String userid) {
+	public String goWordtest() {
 		
 		return "word/wordpractice";
+	}
+	
+	@RequestMapping(value = "/insertword", method = RequestMethod.GET)
+	public String insertword() {
+		
+		return "word/insertNewWord";
 	}
 
 	
@@ -65,12 +70,14 @@ public class WordController {
 		
 		if(command.equals("insert")) {
 			result =repository.insertMyWord(word);
+			word.setWordtype("star");
+			// 직접입혁하여 추가하는 경우 만들어야함 
 		}else {
 			result =repository.deleteMyWord(word);
 		}
-		
 		return result;
 	}
+	
 	
 	
 	
