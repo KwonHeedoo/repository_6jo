@@ -69,7 +69,6 @@ public class WordController {
 			result =repository.deleteMyWord(word);
 		}
 		
-		
 		return result;
 	}
 	
