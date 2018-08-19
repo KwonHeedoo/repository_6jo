@@ -96,9 +96,10 @@ input {
 		var index = 0;
 		var listsize=0;
 		var wordlist = new Array();
+		var level =0;
 
 		$(function() {
-			var level = 1;
+			level = 1;
 			callwordlist(level)
 			//initword(wordlist);
 			//단어이동 클릭이벤트 
@@ -122,8 +123,8 @@ input {
 			
 		//난이도별 단어 가져오기 
 		$('#level').change(function(){
-			
-			var level = $(this).val();
+			index=0; // 인덱스 초기화
+			level = $(this).val();
 			//console.log(level);
 			callwordlist(level);
 		});
@@ -161,7 +162,7 @@ input {
 			data : {'wordlevel' : level},
 			success: function(reps){
 				wordlist = reps;
-				index=0;
+				
 				listsize =wordlist.length;
 				
 				console.log(wordlist);
@@ -172,6 +173,7 @@ input {
 		});
 	}
 	
+	// 별 클릭후 다시 디비에서 단어들을 불러와야 함...
 	$('#mywordstar').on('click',function(){
 		var src = $('#checkmyword').attr('src');
 		console.log(src);
@@ -195,7 +197,7 @@ input {
 				data : word,
 				success: function(reps){
 					var result = reps;
-					console.log(result);
+					callwordlist(level);
 				}
 			});
 		
