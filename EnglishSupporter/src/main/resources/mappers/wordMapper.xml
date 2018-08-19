@@ -9,7 +9,7 @@
 		select w.word, w.wordnum, w.meaningk, w.meaningj, w.wordlevel, m.wordtype 
 		from word w 
         left outer join 
-        (select word, wordtype from myword where userid =#{userid} and wordtype=0) m
+        (select word, wordtype from myword where userid =#{userid} and wordtype='star') m
         on w.word = m.word
 		where wordlevel=#{wordlevel}
 	

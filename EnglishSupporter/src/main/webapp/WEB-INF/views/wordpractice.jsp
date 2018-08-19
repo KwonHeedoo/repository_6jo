@@ -49,7 +49,7 @@ input {
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<div>
-				<h4>학습어휘종류선택</h4> 
+				<span>[학습어휘종류선택]</span>   <button class="btn" id="btn"><img id="checkmyword" src=""></button>
 				<select id ="level" class="form-control">
 					<option value="1">난이도 초급</option>
 					<option value="2">난이도 중급</option>
@@ -93,23 +93,14 @@ input {
 		var wordlist = new Array();
 
 		$(function() {
-			<c:forEach items="${wordlist}" var="word">
-			var object = {
-				word : "${word.word}",
-				meaningK : "${word.meaningK}",
-				meaningJ : "${word.meaningJ}",
-				wordtype : "${word.wordtype}"
-			}
-			wordlist.push(object);
-			</c:forEach>
+			var level = 1;
+			callwordlist(level)
 
-			console.log(wordlist);
 			listsize =wordlist.length;
 
 			console.log(listsize);
-			$('#meaning').text(wordlist[index].meaningK);
-			$('input[name="text"]').val(wordlist[index].word);
-
+			
+			//initword(wordlist);
 			//단어이동 클릭이벤트 
 			$('#before').on('click', function() {
 				if(index>0){
@@ -117,7 +108,7 @@ input {
 				}
 				$('#meaning').text(wordlist[index].meaningK);
 				$('input[name="text"]').val(wordlist[index].word);
-				
+				checkstar();
 			});
 			
 			$('#next').on('click', function() {
@@ -126,6 +117,7 @@ input {
 				}
 				$('#meaning').text(wordlist[index].meaningK);
 				$('input[name="text"]').val(wordlist[index].word);
+				checkstar();
 			});
 			
 		//난이도별 단어 가져오기 
@@ -136,6 +128,23 @@ input {
 			callwordlist(level);
 		});
 	});
+	
+		function initword(wordlist){			
+			$('#meaning').text(wordlist[index].meaningK);
+			$('input[name="text"]').val(wordlist[index].word);
+			checkstar();
+		}
+		
+		function checkstar(){
+			var checked = wordlist[index].wordtype;
+			console.log(checked);
+			if(checked=='star'){
+				$('#checkmyword').attr('src',"/resources/img/golden.png");
+			}else{
+				$('#checkmyword').attr('src',"/resources/img/silver.png");
+			}
+		}
+		
 		
 	function callwordlist(level) {
 		$.ajax({
@@ -145,7 +154,11 @@ input {
 			data : {'wordlevel' : level},
 			success: function(reps){
 				wordlist = reps;
+				index=0;
+				listsize =wordlist.length;
+				
 				console.log(wordlist);
+				initword(wordlist);
 			},
 			
 		});

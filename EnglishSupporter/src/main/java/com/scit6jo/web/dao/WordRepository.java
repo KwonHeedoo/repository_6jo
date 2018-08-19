@@ -30,7 +30,7 @@ public class WordRepository {
 		List<Word>wordlist = dao.getMyWords(userid);
 		
 		
-		return null;
+		return wordlist;
 	}
 	
 
