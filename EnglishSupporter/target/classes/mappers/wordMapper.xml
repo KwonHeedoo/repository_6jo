@@ -39,6 +39,7 @@
 		delete from myword where word=#{word} and userid=#{userid}
 	
 	</delete>
+	
 	<!-- 예외 단어 리스트 요청 -->
 	<select id="exceptionWord" resultType="string">
 		select
