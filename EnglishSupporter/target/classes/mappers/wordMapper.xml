@@ -19,7 +19,7 @@
 		select word, meaningk, meaningJ, wordtype from myword where userid=#{userid}
 	</select>
 	
-	<insert id="intoMyWords" parameterType="Word">
+	<insert id="insertMyWord" parameterType="Word">
 		insert into myword(
 			userid
 			,word
@@ -35,7 +35,7 @@
 		)
 	</insert>
 	
-	<delete id="outMyWords" parameterType="Word">
+	<delete id="deleteMyWord" parameterType="Word">
 		delete from myword where word=#{word} and userid=#{userid}
 	
 	</delete>

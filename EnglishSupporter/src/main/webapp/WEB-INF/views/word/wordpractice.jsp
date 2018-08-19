@@ -49,8 +49,12 @@ input {
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<div>
-				<span>[학습어휘종류선택]</span>   <button class="btn" id="btn"><img id="checkmyword" src=""></button>
-				<select id ="level" class="form-control">
+				
+				<a href="#" id="mywordstar"><img id="checkmyword" src="" alt="star" border="0" /></a>
+				<br>
+				<span>[학습어휘종류선택]</span> <br>
+				<span id="userworddelete"></span>
+					<select id ="level" class="form-control">
 					<option value="1">난이도 초급</option>
 					<option value="2">난이도 중급</option>
 					<option value="3">난이도 상급</option>
@@ -59,19 +63,16 @@ input {
 			</div>
 
 			<div class="raw">
-				<c:if test="${wordlist!=null}">
 					<div class="col-md-12">
 						<input type="text" name="text" class="" value="" readonly>
 					</div>
 					<div class="col-md-12">
-						<p id="meaning"></p>
+						<span id="meaning"></span>
 					</div>
 					<br>
 					<div class="col-md-12">
 						<a href="#" class="say btn btn-lg btn-primary">sayit</a>
 					</div>
-
-				</c:if>
 			</div>
 		</div>
 		<div align="center">
@@ -86,6 +87,10 @@ input {
 
 		<audio src="" class="audio" hidden>
 	</div>
+	
+	<div class="col-md-12" style="text-align: right">
+						<a href="#" class="writeword btn btn-lg btn-primary">신규 단어 직접 입력</a>
+					</div>
 
 	<script type="text/javascript">
 		var index = 0;
@@ -95,11 +100,6 @@ input {
 		$(function() {
 			var level = 1;
 			callwordlist(level)
-
-			listsize =wordlist.length;
-
-			console.log(listsize);
-			
 			//initword(wordlist);
 			//단어이동 클릭이벤트 
 			$('#before').on('click', function() {
@@ -124,12 +124,13 @@ input {
 		$('#level').change(function(){
 			
 			var level = $(this).val();
-			console.log(level);
+			//console.log(level);
 			callwordlist(level);
 		});
 	});
 	
-		function initword(wordlist){			
+		function initword(wordlist){	
+			//console.log(wordlist[index].meaningK);
 			$('#meaning').text(wordlist[index].meaningK);
 			$('input[name="text"]').val(wordlist[index].word);
 			checkstar();
@@ -138,10 +139,16 @@ input {
 		function checkstar(){
 			var checked = wordlist[index].wordtype;
 			console.log(checked);
+			$('#userworddelete').html("");
 			if(checked=='star'){
-				$('#checkmyword').attr('src',"/resources/img/golden.png");
+				$('#checkmyword').attr('src','./resources/img/golden.png');
+			}else if(checked =='user'){
+				$('#checkmyword').attr('src','./resources/img/golden.png');
+				var text ='<a id="deletemyword" href="#">삭제</a>';
+				$('#userworddelete').html(text);
 			}else{
-				$('#checkmyword').attr('src',"/resources/img/silver.png");
+				$('#checkmyword').attr('src','./resources/img/silver.png');
+				
 			}
 		}
 		
@@ -158,11 +165,47 @@ input {
 				listsize =wordlist.length;
 				
 				console.log(wordlist);
+				console.log(listsize);
 				initword(wordlist);
 			},
 			
 		});
 	}
+	
+	$('#mywordstar').on('click',function(){
+		var src = $('#checkmyword').attr('src');
+		console.log(src);
+		var word= $('input[name="text"]').val();
+		var word = wordlist[index];
+		
+		if(src.includes('golden')){
+			$('#checkmyword').attr('src','./resources/img/silver.png');
+			// 나의 단어장에서 해당 단어 삭제처리하기 			
+			word.command = 'delete';
+		}else{
+			$('#checkmyword').attr('src','./resources/img/golden.png');
+			//나의 단어장에 해당단어 추가하기 
+			word.command = 'insert';
+		}
+		console.log(word);
+		
+			$.ajax({
+				method: "post",
+				url: "controlMyWords",
+				data : word,
+				success: function(reps){
+					var result = reps;
+					console.log(result);
+				}
+			});
+		
+	});
+	
+	$(function() {
+		$('a.writeword').on('click',function(){
+			window.open("insertword","newidwindow","top=150,left=150,width=500,height=400");
+		});
+	});
 		
 	</script>
 

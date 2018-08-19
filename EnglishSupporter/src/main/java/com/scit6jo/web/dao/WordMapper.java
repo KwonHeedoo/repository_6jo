@@ -22,5 +22,18 @@ public interface WordMapper {
 	public List<Word> getMyWords(String userid);
 
 	public List<String> exceptionWord();
+	/**
+	 * myword table 에 단어추가
+	 * @param word
+	 * @return
+	 */
+	public int insertMyWord(Word word);
+	/**
+	 * myword table 에 단어 delete하기
+	 * @param word
+	 * @return
+	 */
+	public int deleteMyWord(Word word);
+	
 
 }
