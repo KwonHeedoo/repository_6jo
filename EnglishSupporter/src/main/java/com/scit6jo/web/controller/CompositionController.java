@@ -21,8 +21,7 @@ public class CompositionController {
 	@Autowired
 	WordRepository repository;
 	
-	CrawlingWord cw = new CrawlingWord();
-	
+	// 작문 작성 페이지 요청
 	@RequestMapping(value = "/goComposition", method = RequestMethod.GET)
 	public String goComposition() {
 		System.out.println("going to Composition...");
@@ -30,16 +29,21 @@ public class CompositionController {
 		return "composition/composition";
 	}
 	
+	// 작문 체크 페이지 요청
 	@RequestMapping(value = "/goConfirmed", method = RequestMethod.POST)
 	public String goConfirmed(String composition, String confirm, Model model) {
+		System.out.println("going to Confirmed...");
+		
 		model.addAttribute("composition", composition);
 		model.addAttribute("confirm", confirm);
 		
 		return "composition/confirmed";
 	}
-
+	
+	// 중복 단어 및 유의어 체크
 	@RequestMapping(value = "/repetitionCheck", method = RequestMethod.POST)
 	public @ResponseBody List<Word> repetitionCheck(String composition, String confirm) {
+		CrawlingWord cw = new CrawlingWord();
 		List<Word> wordList = new ArrayList<>();
 		
 		// 중복단어 선별 및 유의어 찾기
@@ -95,6 +99,7 @@ public class CompositionController {
 	    System.out.println(secondStrings.toString());
 	}*/
 	
+	// 중복 단어 추가
 	public List<Word> selectWord(Map<String, Integer> repMap){
 		List<Word> wordList = new ArrayList<>();
 		
@@ -108,7 +113,10 @@ public class CompositionController {
 	        if(entry.getValue() > 2) {
 	        	// 예외 단어 대조
 	        	for(String word : exceptionWord) {
-	        		if(entry.getKey().toLowerCase().equals(word)) check = true; break;
+	        		if(entry.getKey().toLowerCase().equals(word)) {
+	        			check = true;
+	        			break;
+	        		}// if
 	        	}// for
 	        	// 예외 단어가 아니면 추가
 	        	if(check == false) wordList.add(new Word(entry.getKey()));
@@ -118,4 +126,11 @@ public class CompositionController {
 		return wordList;
 	}// method
 	
+	// STT 새창 페이지 요청
+	@RequestMapping(value = "/goSpeakingText", method = RequestMethod.GET)
+	public String goSpeakingText() {
+		System.out.println("going to SpeakingText...");
+		
+		return "composition/speakingText";
+	}
 }

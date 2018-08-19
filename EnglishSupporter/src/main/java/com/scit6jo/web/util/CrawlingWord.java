@@ -23,21 +23,24 @@ public class CrawlingWord {
 			Elements div = doc.select(".word_num_nobor");
 			Elements dl = doc.select(".list_e3x");
 			
-			for(int i = 1; i <= dl.size(); i++) {
-				// 유의어 품사 종류 추가
-				synonym += "[" + div.select("h3").get(i).attr("id") + "] ";
-				for(int j = 0; j < dl.get(i-1).select("dd").size(); j++) {
-					// 유의어인 경우면 추가
-					if(dl.get(i-1).select("dd").get(j).select("p").get(0).select("span").get(0).text().equals("[유의어]")) {
-						// 유의어 추가
-						synonym += dl.get(i-1).select("dd").get(j).select("p").get(0).select("span").get(1).select("a").text() + ", ";
-					}// if
+			// 유의어가 있는 경우에만 실행
+			if(dl.size() != 0) {
+				for(int i = 1; i <= dl.size(); i++) {
+					// 유의어 품사 종류 추가
+					synonym += "[" + div.select("h3").get(i).attr("id") + "] ";
+					for(int j = 0; j < dl.get(i-1).select("dd").size(); j++) {
+						// 유의어인 경우면 추가
+						if(dl.get(i-1).select("dd").get(j).select("p").get(0).select("span").get(0).text().equals("[유의어]")) {
+							// 유의어 추가
+							synonym += dl.get(i-1).select("dd").get(j).select("p").get(0).select("span").get(1).select("a").text() + ", ";
+						}// if
+					}// for
+					if(synonym.length() != 0) synonym = synonym.substring(0, synonym.length() - 2);
+					synonym += "<br/>";
 				}// for
-				if(synonym.length() != 0) synonym = synonym.substring(0, synonym.length() - 2);
-				synonym += "<br/>";
-			}// for
-			
-			word.setMeaningK(synonym);
+				
+				word.setMeaningK(synonym);
+			}// if
 		}// for
 
 		return wordList;
