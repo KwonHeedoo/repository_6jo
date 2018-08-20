@@ -5,13 +5,15 @@
 <html>
 <head>
 	<title>Home</title>
+<style type="text/css">
+.container{
+height: 60%;
+}
+</style>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+<%@ include file="/WEB-INF/views/header.jsp"%>
+<div class="container">
 	
 	<c:if test="${sessionScope.userid == null}">
 	<a href="./goLoginForm">로그인</a>
@@ -23,5 +25,9 @@
 	<br/>
 	<a href="./goComposition">Composition</a>
 <a href="/web/interview">123</a>
+
+</div>
+
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>
