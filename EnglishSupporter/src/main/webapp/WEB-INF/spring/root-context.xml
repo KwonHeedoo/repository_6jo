@@ -31,4 +31,10 @@
 		<constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>	
 	
+	<bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760"/>
+		<!-- value에 크기를 정해주는데, 수식으로 쓰면 안됨 -->
+	
+	</bean>	
+	
 </beans>

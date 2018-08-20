@@ -12,12 +12,15 @@
 	<typeAliases>
 		<typeAlias type="com.scit6jo.web.vo.Word" alias="Word" />
 		<typeAlias type="com.scit6jo.web.vo.User" alias="User" />
+		<typeAlias type="com.scit6jo.web.vo.IData" alias="iData" />
+		<typeAlias type="com.scit6jo.web.vo.IQuestion" alias="iQuestion" />
 	</typeAliases>
 	
 	<!-- Mapper 파일 resource 지정-->
 	<mappers>
 		<mapper resource="mappers/wordMapper.xml" />
 		<mapper resource="mappers/userMapper.xml" />
+		<mapper resource="mappers/dataMapper.xml" />
 	</mappers>
 	
 </configuration>
