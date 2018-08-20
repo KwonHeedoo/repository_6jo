@@ -51,7 +51,7 @@
 <!-- include adapter for srcObject shim -->
 <script type="text/javascript" src = "./resources/jquery-3.3.1.min.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="./resources/js/webRTC.js" async></script>
+<script src="./resources/js/webRTCs.js" async></script>
 <script src="./resources//js/lib/ga.js"></script>
 
 </body>
