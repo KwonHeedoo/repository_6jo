@@ -43,4 +43,15 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/header", method = RequestMethod.GET)
+	public String header() {
+		
+		return "header";
+	}
+	@RequestMapping(value = "/footer", method = RequestMethod.GET)
+	public String footer() {
+		
+		return "Footer";
+	}
+	
 }
