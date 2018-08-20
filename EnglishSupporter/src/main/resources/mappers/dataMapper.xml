@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit6jo.web.dao.DataMapper">
+	<insert id="insertIData" parameterType="iData">
+		INSERT INTO INTERVIEW_DATA(
+			dataNum,
+			userid,
+			questionNum,
+			answer,
+			regdate,
+			saveFile
+		)
+		VALUES(
+			data_seq.nextval,
+			#{userid},
+			#{questionNum},
+			#{answer},
+			sysdate,
+			#{saveFile}
+		)
+	
+	</insert>
+	<select id="selectAllQuestion" resultType="iQuestion">
+		select
+			questionNum,
+			question
+		from
+			interview_question
+	</select>
+	<select id="selectOneIdata" resultType="iQuestion" parameterType="int">
+		select
+			dataNum,
+			userid,
+			questionNum,
+			answer,
+			regdate,
+			saveFile
+		from
+			INTERVIEW_DATA
+		where
+			dataNum = #{value}
+	</select>
+	
+</mapper>
