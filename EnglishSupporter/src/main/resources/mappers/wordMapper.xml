@@ -12,11 +12,16 @@
         (select word, wordtype from myword where userid =#{userid} and wordtype='star') m
         on w.word = m.word
 		where wordlevel=#{wordlevel}
+		order by w.word
 	
 	</select>
 	
 	<select id="getMyWords" resultType="Word" parameterType="String">
-		select word, meaningk, meaningJ, wordtype from myword where userid=#{userid}
+		select word, meaningk, meaningJ, wordtype 
+		from myword 
+		where userid=#{userid}
+		order by word
+		
 	</select>
 	
 	<insert id="insertMyWord" parameterType="Word">

@@ -69,8 +69,8 @@ public class WordController {
 		System.out.println(command);
 		
 		if(command.equals("insert")) {
-			result =repository.insertMyWord(word);
 			word.setWordtype("star");
+			result =repository.insertMyWord(word);
 			// 직접입혁하여 추가하는 경우 만들어야함 
 		}else {
 			result =repository.deleteMyWord(word);
