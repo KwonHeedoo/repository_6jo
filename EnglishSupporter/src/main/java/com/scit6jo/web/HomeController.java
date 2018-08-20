@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.scit6jo.web.dao.DataRepository;
 import com.scit6jo.web.util.FileService;
-import com.scit6jo.web.vo.InterviewData;
+import com.scit6jo.web.vo.IData;
 
 /**
  * Handles requests for the application home page.

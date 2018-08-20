@@ -1,17 +1,17 @@
 package com.scit6jo.web.vo;
 
-public class InterviewData {
+public class IData {
 	private int dataNum;
 	private String userid;
 	private int questionNum;
 	private String answer;
 	private String regdate;
 	private String saveFile;
-	public InterviewData() {
+	public IData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public InterviewData(int dataNum, String userid, int questionNum, String answer, String regdate, String saveFile) {
+	public IData(int dataNum, String userid, int questionNum, String answer, String regdate, String saveFile) {
 		super();
 		this.dataNum = dataNum;
 		this.userid = userid;

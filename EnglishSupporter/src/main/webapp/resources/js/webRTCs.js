@@ -19,46 +19,60 @@ let mediaRecorder;
 let recordedBlobs;
 let sourceBuffer;
 
+
+/*//실행용 비디오 이벤트
 const recordedVideo = document.querySelector('video#recorded');
 recordedVideo.addEventListener('error', function(ev) {
   console.error('MediaRecording.recordedMedia.error()');
   alert(`Your browser can not play ${recordedVideo.src} media clip. event: ${JSON.stringify(ev)}`);
-}, true);
+}, true);*/
 
-const recordButton = document.querySelector('button#record');
+//녹화 버튼 클릭시 이벤트
+const startButton = document.querySelector('button#startInterview');
+
+const recordButton = document.querySelector('button#nextQuestion');
 recordButton.addEventListener('click', () => {
-  if (recordButton.textContent === 'Start Recording') {
-    startRecording();
-  } else {
+  if (recordButton.textContent === 'NEXT QUESTION') {
     stopRecording();
-    recordButton.textContent = 'Start Recording';
-    playButton.disabled = false;
-    downloadButton.disabled = false;
+    const blob = new Blob(recordedBlobs, {type: 'video/webm'});
+    var file = new File([blob], "test.webm", { type: "video/webm", lastModified: Date.now()});
+    var data;
+    data = new FormData();
+    data.append('file', file);
+    console.log(JSON.stringify(data));
+    $.ajax({
+        url: 'savedata',
+        data: data,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        // This will override the content type header, 
+        // regardless of whether content is actually sent.
+        // Defaults to 'application/x-www-form-urlencoded'
+        enctype: 'multipart/form-data',
+        //Before 1.5.1 you had to do this:
+        /*beforeSend: function (x) {
+            if (x && x.overrideMimeType) {
+                x.overrideMimeType("multipart/form-data");
+            }
+        },*/
+        // Now you should be able to do this:
+        //mimeType: 'multipart/form-data',    //Property added in 1.5.1
+
+        success: function (data) {
+      	  
+            alert(data);
+        }
+    });
   }
+  
 });
 
-const playButton = document.querySelector('button#play');
-playButton.addEventListener('click', () => {
-  const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
-  recordedVideo.src = window.URL.createObjectURL(superBuffer);
-  // workaround for non-seekable video taken from
-  // https://bugs.chromium.org/p/chromium/issues/detail?id=642012#c23
-  recordedVideo.addEventListener('loadedmetadata', () => {
-    if (recordedVideo.duration === Infinity) {
-      recordedVideo.currentTime = 1e101;
-      recordedVideo.ontimeupdate = function() {
-        recordedVideo.currentTime = 0;
-        recordedVideo.ontimeupdate = function() {
-          delete recordedVideo.ontimeupdate;
-          recordedVideo.play();
-        };
-      };
-    } else {
-      recordedVideo.play();
-    }
-  });
-});
 
+
+
+//다운로드 버튼 클릭시 이벤트
+// 현재 서버에 전송하는 것을 담당
 const downloadButton = document.querySelector('button#download');
 downloadButton.addEventListener('click', () => {
   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
@@ -202,4 +216,18 @@ function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
 }
 
-navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+
+
+
+
+function init(){
+	navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+	
+	startButton.addEventListener('click', () => {
+		  if (startButton.textContent === '시작하기') {
+		    startRecording();
+		  }
+		});
+}
+
+init();

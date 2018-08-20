@@ -11,7 +11,8 @@
 	<!-- VO Class에 대한 alias -->
 	<typeAliases>
 		<typeAlias type="com.scit6jo.web.vo.Word" alias="Word" />
-		<typeAlias type="com.scit6jo.web.vo.InterviewData" alias="interData" />
+		<typeAlias type="com.scit6jo.web.vo.IData" alias="iData" />
+		<typeAlias type="com.scit6jo.web.vo.IQuestion" alias="iQuestion" />
 	</typeAliases>
 	
 	<!-- Mapper 파일 resource 지정-->
