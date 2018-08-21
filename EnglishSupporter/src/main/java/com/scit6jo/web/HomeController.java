@@ -46,7 +46,7 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home() {
 		
-		return "word/audioTest";
+		return "home";
 	}
 
 }

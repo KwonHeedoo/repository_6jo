@@ -35,7 +35,7 @@
     </div>
     <nav id="mainav" class="fl_right">
       <ul class="clear">
-        <li id="home"><a href="/home">Home</a></li>
+        <li id="home"><a href="home">Home</a></li>
         <li id="wordtra"><a href="goWordtest">Word Training</a></li>
         <li><a href="#">Link Text</a></li>
         

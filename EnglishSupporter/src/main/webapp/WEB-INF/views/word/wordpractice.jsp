@@ -99,11 +99,12 @@ input {
 		<a href="#" class="writeword btn">신규 단어 직접 입력</a>
 		</div>
 	</div>	
-		<div align="center">
+		<div>
 	<hr>
-	<button id="btn-start-recording">Start Recording</button> <button id="btn-stop-recording" disabled>Stop Recording</button>
-	<hr>
+	<button id="btn-start-recording" type="button"><img  src="./resources/images/icons/mic.gif" style="width:20px;height:20px;"></button>
+	<button id="btn-stop-recording" type="button"><img  src="./resources/images/icons/mic-slash.gif" style="width:20px;height:20px;"></button>
 		<audio controls id="playaudio"></audio>
+	<hr>
 		</div>
 	
 	<audio src="" class="audio" hidden></audio>
