@@ -7,6 +7,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="resources/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body id="top">
 <div class="wrapper row0">
@@ -33,8 +35,8 @@
     </div>
     <nav id="mainav" class="fl_right">
       <ul class="clear">
-        <li class="active"><a href="index.html">Home</a></li>
-        <li><a href="#">Link Text</a></li>
+        <li id="home"><a href="home">Home</a></li>
+        <li id="wordtra"><a href="goWordtest">Word Training</a></li>
         <li><a href="#">Link Text</a></li>
         
         <li><a class="drop" href="#">Pages</a>
@@ -46,7 +48,7 @@
             <li><a href="#">Basic Grid</a></li>
           </ul>
         </li>
-        <li><a class="drop" href="#">Dropdown</a>
+        <li><a class="drop" href="#">MyPage</a>
           <ul>
             <li><a href="#">Level 2</a></li>
             <li><a class="drop" href="#">Level 2 + Drop</a>

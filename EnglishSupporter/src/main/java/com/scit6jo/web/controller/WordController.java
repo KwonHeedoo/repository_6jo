@@ -1,5 +1,6 @@
 package com.scit6jo.web.controller;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -43,7 +44,7 @@ public class WordController {
 	@RequestMapping(value = "/getMyWords", method = RequestMethod.POST)
 	public @ResponseBody List<Word> getMyWords(@RequestParam(value="wordlevel", defaultValue="1")String wordlevel, HttpSession session) {
 		List<Word> wList=null;
-		System.out.println(wordlevel);
+		//System.out.println(wordlevel);
 		String userid = "aaa";
 		//String userid = (String) session.getAttribute("userid");
 		//로그인과 합쳐져야 해서 세션의 로그인 
@@ -65,11 +66,24 @@ public class WordController {
 		//본래 세션의 아이디를 가져와서 사용
 		word.setUserid("aaa");
 
-		System.out.println(word);
+		//System.out.println(word);
 		System.out.println(command);
+		Class wordclass=null;
+		Field field =null;
+		try {
+			wordclass = Class.forName("Word");
+			field = wordclass.getDeclaredField("wordtype");
+			field.setAccessible(true);
+			System.out.println(field);
+		} catch (ClassNotFoundException | NoSuchFieldException | SecurityException e) {
+			e.printStackTrace();
+		}
 		
 		if(command.equals("insert")) {
-			word.setWordtype("star");
+			if(field==null) {
+				word.setWordtype("star");
+				System.out.println("일반단어 별찍기 in");
+			}
 			result =repository.insertMyWord(word);
 			// 직접입혁하여 추가하는 경우 만들어야함 
 		}else {
