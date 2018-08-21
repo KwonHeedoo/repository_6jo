@@ -96,7 +96,7 @@ function isNumber(ch) {
 	</form>
 	<br/>
 	<!-- 텍스트 음성 제공 버튼(TTS Button) -->
-	<button id="tts" type="button"><img alt="speaker" src="./resources/img/speaker.png" style="width:20px;height:20px;"></button>
+	<button id="tts" type="button"><img alt="speaker" src="./resources/images/icons/speaker.png" style="width:20px;height:20px;"></button>
 	<audio src="" class="audio" hidden>
 </body>
 </html>
