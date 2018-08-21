@@ -14,7 +14,6 @@
 
 <div class="wrapper row4">
   <footer id="footer" class="hoc clear"> 
-    <!-- ################################################################################################ -->
     <div class="one_third first">
       <h6 class="heading">Exative</h6>
       <nav>
@@ -62,7 +61,6 @@
         </fieldset>
       </form>
     </div>
-    <!-- ################################################################################################ -->
   </footer>
 </div> 
 <script src="resources/scripts/jquery.min.js"></script>

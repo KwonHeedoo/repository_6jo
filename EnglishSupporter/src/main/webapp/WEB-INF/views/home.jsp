@@ -30,7 +30,7 @@ $(function(){
 	<c:if test="${sessionScope.userid != null}">
 	${sessionScope.userid}님. 로그인 중...<a href="logout">로그아웃</a>
 	</c:if>
-
+	<br/>
 	<a href="./goComposition">Composition</a>
 <a href="/web/interview">123</a>
 
