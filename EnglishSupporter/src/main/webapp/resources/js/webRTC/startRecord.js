@@ -30,17 +30,22 @@ recordedVideo.addEventListener('error', function(ev) {
 //녹화 버튼 클릭시 이벤트
 const recordButton = document.querySelector('button#record');
 recordButton.addEventListener('click', () => {
-  if (recordButton.textContent === 'Start Recording') {
     startRecording();
-  } else {
-    stopRecording();
-    recordButton.textContent = 'Start Recording';
-    playButton.disabled = false;
-    downloadButton.disabled = false;
-  }
 });
 
-// 플레이 버튼 클릭시 이벤트
+
+const startButton = document.querySelector('button#start');
+startButton.addEventListener('click', () => {
+    startRecording();
+    console.log("record start!");
+});
+
+const endButton = document.querySelector('button#end');
+endButton.addEventListener('click', () => {
+	stopRecording();
+	uploadVideo();
+});
+
 const playButton = document.querySelector('button#play');
 playButton.addEventListener('click', () => {
   const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
@@ -63,43 +68,6 @@ playButton.addEventListener('click', () => {
   });
 });
 
-
-//다운로드 버튼 클릭시 이벤트
-// 현재 서버에 전송하는 것을 담당
-const downloadButton = document.querySelector('button#download');
-downloadButton.addEventListener('click', () => {
-  const blob = new Blob(recordedBlobs, {type: 'video/webm'});
-  var file = new File([blob], "test.webm", { type: "video/webm", lastModified: Date.now()});
-  var data;
-  data = new FormData();
-  data.append('file', file);
-  console.log(JSON.stringify(data));
-  $.ajax({
-      url: 'savedata',
-      data: data,
-      processData: false,
-      contentType: false,
-      type: 'POST',
-      // This will override the content type header, 
-      // regardless of whether content is actually sent.
-      // Defaults to 'application/x-www-form-urlencoded'
-      enctype: 'multipart/form-data',
-      //Before 1.5.1 you had to do this:
-      /*beforeSend: function (x) {
-          if (x && x.overrideMimeType) {
-              x.overrideMimeType("multipart/form-data");
-          }
-      },*/
-      // Now you should be able to do this:
-      //mimeType: 'multipart/form-data',    //Property added in 1.5.1
-
-      success: function (data) {
-    	  
-          alert(data);
-      }
-  });
-  
-});
 
 // window.isSecureContext could be used for Chrome
 let isSecureOrigin = location.protocol === 'https:' || location.hostname === 'localhost';
@@ -152,9 +120,6 @@ function startRecording() {
     return;
   }
   console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
-  recordButton.textContent = 'Stop Recording';
-  playButton.disabled = true;
-  downloadButton.disabled = true;
   mediaRecorder.onstop = handleStop;
   mediaRecorder.ondataavailable = handleDataAvailable;
   mediaRecorder.start(10); // collect 10ms of data
@@ -165,6 +130,28 @@ function stopRecording() {
   mediaRecorder.stop();
   console.log('Recorded Blobs: ', recordedBlobs);
   recordedVideo.controls = true;
+}
+
+function uploadVideo(){
+	const blob = new Blob(recordedBlobs, {type: 'video/webm'});
+	  var file = new File([blob], "test.webm", { type: "video/webm", lastModified: Date.now()});
+	  var data;
+	  data = new FormData();
+	  data.append('file', file);
+	  data.append('questionNum', questions[count].questionNum);
+	  console.log(JSON.stringify(data));
+	  $.ajax({
+	      url: 'savedata',
+	      data: data,
+	      processData: false,
+	      contentType: false,
+	      type: 'POST',
+	      enctype: 'multipart/form-data',
+	      success: function (data) {
+	    	  const download = document.querySelector('a#download');
+	    	  download.href = "getdata?dataNum="+data;
+	      }
+	  });
 }
 
 function handleSuccess(stream) {

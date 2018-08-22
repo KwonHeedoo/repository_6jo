@@ -10,6 +10,7 @@ public interface DataMapper {
 	// 회원가입
 	public int insertIData(IData iData);
 	public ArrayList<IQuestion> selectAllQuestion();
-	public IData selectOneIdata(int dataNum);
+	public IData selectOneIData(int dataNum);
+	public ArrayList<IData> selectAlIData(String userid);
 }
 

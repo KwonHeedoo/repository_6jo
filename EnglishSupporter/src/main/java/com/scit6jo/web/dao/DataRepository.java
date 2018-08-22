@@ -46,17 +46,31 @@ public class DataRepository {
 		return result;
 	}
 
-	public IData selectOneIdata(int dataNum) {
+	public IData selectOneIData(int dataNum) {
 		DataMapper mapper = session.getMapper(DataMapper.class);
 
 		IData result = null;
 		try {
-			result = mapper.selectOneIdata(dataNum);
+			result = mapper.selectOneIData(dataNum);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
+	public ArrayList<IData> selectAlIData(String userid) {
+		DataMapper mapper = session.getMapper(DataMapper.class);
+
+		ArrayList<IData> result = null;
+		try {
+			result = mapper.selectAlIData(userid);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
 }
 

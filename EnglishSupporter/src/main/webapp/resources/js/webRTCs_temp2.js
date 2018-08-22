@@ -13,36 +13,36 @@
 
 /* globals MediaRecorder */
 
-const mediaSource = new MediaSource();
-mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
-let mediaRecorder;
-let recordedBlobs;
-let sourceBuffer;
+var mediaSource = new MediaSource();
+var mediaRecorder;
+var recordedBlobs;
+var sourceBuffer;
 
 
-//실행용 비디오 이벤트
-const recordedVideo = document.querySelector('video#recorded');
+// 실행용 비디오 이벤트
+var startButton = document.querySelector('button#startInterview');
+var recordedVideo = document.querySelector('video#recorded');
 
 
-//녹화 버튼 클릭시 이벤트
-const recordButton = document.querySelector('button#record');
+// 녹화 버튼 클릭시 이벤트
+var recordButton = document.querySelector('button#record');
 
 
 // 플레이 버튼 클릭시 이벤트
-const playButton = document.querySelector('button#play');
+var playButton = document.querySelector('button#play');
 
 
 
 
 
 // window.isSecureContext could be used for Chrome
-let isSecureOrigin = location.protocol === 'https:' || location.hostname === 'localhost';
+var isSecureOrigin = location.protocol === 'https:' || location.hostname === 'localhost';
 if (!isSecureOrigin) {
   alert('getUserMedia() must be run from a secure origin: HTTPS or localhost.\n\nChanging protocol to HTTPS');
   location.protocol = 'HTTPS';
 }
 
-const constraints = {
+var constraints = {
   audio: true,
   video: true
 };
@@ -116,14 +116,14 @@ function handleError(error) {
 
 
 function init(){
-	navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
-	
-	startButton.addEventListener('click', () => {
-		  if (startButton.textContent === '시작하기') {
-		    startRecording();
-		  }
-		});
-	
+	if(startButton != null){
+		startButton.addEventListener('click', () => {
+			  if (startButton.textContent === '시작하기') {
+			    
+			  }
+			});
+	}
+	if(playButton != null){
 	playButton.addEventListener('click', () => {
 		  const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
 		  recordedVideo.src = window.URL.createObjectURL(superBuffer);
@@ -144,10 +144,18 @@ function init(){
 		    }
 		  });
 		});
+	}
+	if(recordedVideo != null){
 	recordedVideo.addEventListener('error', function(ev) {
 		  console.error('MediaRecording.recordedMedia.error()');
 		  alert(`Your browser can not play ${recordedVideo.src} media clip. event: ${JSON.stringify(ev)}`);
 		}, true);
+	}
+	if(recordButton != null){
+		navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+		mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
+
+	startRecording();
 	recordButton.addEventListener('click', () => {
 		  if (recordButton.textContent === 'Start Recording') {
 		    startRecording();
@@ -158,6 +166,7 @@ function init(){
 		    downloadButton.disabled = false;
 		  }
 		});
+	}
 }
 
 init();

@@ -40,8 +40,7 @@ recordButton.addEventListener('click', () => {
   }
 });
 
-// 플레이 버튼 클릭시 이벤트
-const playButton = document.querySelector('button#play');
+/*const playButton = document.querySelector('button#play');
 playButton.addEventListener('click', () => {
   const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
   recordedVideo.src = window.URL.createObjectURL(superBuffer);
@@ -61,11 +60,9 @@ playButton.addEventListener('click', () => {
       recordedVideo.play();
     }
   });
-});
+});*/
 
 
-//다운로드 버튼 클릭시 이벤트
-// 현재 서버에 전송하는 것을 담당
 const downloadButton = document.querySelector('button#download');
 downloadButton.addEventListener('click', () => {
   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
