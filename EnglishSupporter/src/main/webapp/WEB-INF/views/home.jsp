@@ -5,13 +5,23 @@
 <html>
 <head>
 	<title>Home</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style type="text/css">
+.container{
+height: 60%;
+}
+
+
+</style>
+<script type="text/javascript">
+$(function(){
+	$('#home').addClass('active');
+});
+</script>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+<%@ include file="/WEB-INF/views/header.jsp"%>
+<div class="container">
 	
 	<c:if test="${sessionScope.userid == null}">
 	<a href="./goLoginForm">로그인</a>
@@ -21,7 +31,10 @@
 	${sessionScope.userid}님. 로그인 중...<a href="logout">로그아웃</a>
 	</c:if>
 	<br/>
-	<a href="./goComposition">Composition</a>
 <a href="/web/interview">123</a>
+
+</div>
+
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

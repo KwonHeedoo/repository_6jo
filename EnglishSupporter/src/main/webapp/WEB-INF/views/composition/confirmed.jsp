@@ -7,6 +7,12 @@
 <title>Confirmed</title>
 <!-- google CDN -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	var composition = $("#composition").val();
@@ -147,7 +153,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 	}
 	
 	// 중복 단어가 있는 경우
-	if(wordList != null){
+	if(wordList.length != 0){
 		// 중복 단어에 하이라이트
 		$.each(wordList, function(index, item){
 			resultComp = resultComp.replaceAll(item.word, '<span style="background-color:yellow;">' + item.word + '</span>');
@@ -200,6 +206,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 </script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/header.jsp"%>
 	<h1>Confirmed Page</h1>
 	<input id="composition" type="hidden" value="${composition}">
 	<input id="confirm" type="hidden" value="${confirm}">
@@ -211,5 +218,6 @@ function result(composition, confirm, grammer, emotion, repetition){
 	<div id="repResult"></div>
 	<!-- 텍스트 감정 분석 결과 -->
 	<div id="emoResult"></div>
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>
