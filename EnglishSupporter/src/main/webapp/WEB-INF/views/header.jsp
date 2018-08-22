@@ -39,7 +39,7 @@
         <li id="wordtra"><a href="goWordtest">Word Training</a></li>
         <li><a href="#">Write Training</a></li>
         
-        <li><a class="drop" href="#">Resume Management</a>
+        <li><a class="drop" href="#">Resume</a>
           <ul>
             <li><a href="#">Gallery</a></li>
             <li><a href="#">Full Width</a></li>
