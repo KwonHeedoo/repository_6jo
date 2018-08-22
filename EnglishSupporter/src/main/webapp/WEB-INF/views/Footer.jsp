@@ -18,7 +18,7 @@
       <h6 class="heading">Exative</h6>
       <nav>
         <ul class="nospace">
-          <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
+          <li><a href="${pageContext.request.contextPath}/"><i class="fa fa-lg fa-home"></i></a></li>
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
           <li><a href="#">Terms</a></li>
