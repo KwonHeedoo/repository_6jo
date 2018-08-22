@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,6 +8,12 @@
 <title>Composition</title>
 <!-- microsoft CDN -->
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	// 문자 체크
@@ -81,22 +88,34 @@ function isNumber(ch) {
 	return false;
 }
 
+// STT 자식창의 값 가져오기
+function setSttData(sendData){
+	document.getElementById('composition').value = sendData;
+}
+
 </script>
 </head>
 <body>
-	Composition<br/>
+<%@ include file="/WEB-INF/views/header.jsp"%>
+	<h1>Composition</h1>
 	<form id="compositionCheck" action="goConfirmed" method="post">
 		<textarea id="composition" rows="20" cols="50" name="composition"></textarea><br/>
+		<div class="col-md-4">
 		<input class="confirm" type="checkbox" name="confirm" value="grammer">Grammer
+		</div>
+		<div class="col-md-4">
 		<input class="confirm" type="checkbox" name="confirm" value="emotion">Emotion
+		</div>
+		<div class="col-md-4">
 		<input class="confirm" type="checkbox" name="confirm" value="repetition">Repetition
-		<br/>
+		</div>
 		<button id="stt" type="button">STT</button>
 		<button id="check" type="button">Check</button>
 	</form>
 	<br/>
 	<!-- 텍스트 음성 제공 버튼(TTS Button) -->
 	<button id="tts" type="button"><img alt="speaker" src="./resources/images/icons/speaker.png" style="width:20px;height:20px;"></button>
-	<audio src="" class="audio" hidden>
+	<audio src="" class="audio" hidden></audio>
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

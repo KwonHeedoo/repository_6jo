@@ -147,7 +147,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 	}
 	
 	// 중복 단어가 있는 경우
-	if(wordList != null){
+	if(wordList.length != 0){
 		// 중복 단어에 하이라이트
 		$.each(wordList, function(index, item){
 			resultComp = resultComp.replaceAll(item.word, '<span style="background-color:yellow;">' + item.word + '</span>');
@@ -200,6 +200,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 </script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/header.jsp"%>
 	<h1>Confirmed Page</h1>
 	<input id="composition" type="hidden" value="${composition}">
 	<input id="confirm" type="hidden" value="${confirm}">
@@ -211,5 +212,6 @@ function result(composition, confirm, grammer, emotion, repetition){
 	<div id="repResult"></div>
 	<!-- 텍스트 감정 분석 결과 -->
 	<div id="emoResult"></div>
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

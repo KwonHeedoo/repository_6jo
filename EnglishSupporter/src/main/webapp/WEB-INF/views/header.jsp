@@ -37,8 +37,7 @@
       <ul class="clear">
         <li id="home"><a href="./">Home</a></li>
         <li id="wordtra"><a href="goWordtest">Word Training</a></li>
-        <li><a href="#">Write Training</a></li>
-        
+        <li><a href="./goComposition">Text Training</a></li>
         <li><a class="drop" href="#">Resume Management</a>
           <ul>
             <li><a href="#">Gallery</a></li>
