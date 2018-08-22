@@ -91,7 +91,7 @@ input {
 					</div>
 					<br><br>
 					<div class="col-md-12">
-						<a href="#" class="say btn">sayit</a>
+						<a href="#" class="say btn">say it!</a>
 					</div>
 							
 			</div>
@@ -106,7 +106,7 @@ input {
 		</div>
 
 	<div class="col-md-12" style="text-align: right">
-		<a href="#" class="writeword btn">신규 단어 직접 입력</a>
+		<a href="#" class="writeword btn">Add MyWord</a>
 		</div>
 	</div>	
 	<div class="raw" align="center">
@@ -289,8 +289,8 @@ function encodingBase64(blob) {
 				$('#checkmyword').attr('src','./resources/images/icons/golden.png');
 			}else if(checked =='user'){
 				$('#checkmyword').attr('src','./resources/images/icons/golden.png');
-				var text ='<a id="deletemyword" href="#">삭제</a>';
-				$('#userworddelete').html(text);
+				/* var text ='<a id="deletemyword" href="#">삭제</a>';
+				$('#userworddelete').html(text); */
 			}else{
 				$('#checkmyword').attr('src','./resources/images/icons/silver.png');
 				

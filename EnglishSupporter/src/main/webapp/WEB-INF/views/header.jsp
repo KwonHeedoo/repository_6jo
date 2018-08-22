@@ -38,16 +38,19 @@
         <li id="wordtra"><a href="goWordtest">Word Training</a></li>
         
         <li><a href="./goComposition">Text Training</a></li>
-        <li><a class="drop" href="#">Resume</a>
+        <li><a class="drop" href="#">My Resume</a>
           <ul>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Full Width</a></li>
-            <li><a href="#">Sidebar Left</a></li>
-            <li><a href="#">Sidebar Right</a></li>
-            <li><a href="#">Basic Grid</a></li>
+            <li><a href="#">My documents</a>
+              </li>
+            <li><a href="#" class="drop">write documents +</a>
+             	<ul>
+                <li><a href="#">resume(CV)</a></li>
+                <li><a href="#">cover letter</a></li>
+              	</ul>
+            </li>
           </ul>
         </li>
-        <li><a class="drop" href="#">Interview Management</a>
+        <li><a class="drop" href="#">Interview</a>
           <ul>
             <li><a href="#">Mock Interview</a></li>
             <li><a href="#">Interview Appraise</a></li>
@@ -56,15 +59,19 @@
         </li>
         <li><a class="drop" href="#">MyPage</a>
           <ul>
-            <li><a href="#">Level 2</a></li>
-            <li><a class="drop" href="#">Level 2 + Drop</a>
+            <li><a href="#">My Info</a></li>  <!-- 내정보 수정 여유있음 만들도록 하자...-->           
+            <li><a href="#">My Scheduler</a></li>
+            <li><a href="#">My Chatting</a></li>
+            <li><a href="#">My Words</a></li>
+            <li><a href="#">My Tree</a></li>
+            
+<!--             <li><a class="drop" href="#">Level 2 + Drop</a>
               <ul>
                 <li><a href="#">Level 3</a></li>
                 <li><a href="#">Level 3</a></li>
                 <li><a href="#">Level 3</a></li>
               </ul>
-            </li>
-            <li><a href="#">Level 2</a></li>
+            </li> -->
           </ul>
         </li>
       </ul>
