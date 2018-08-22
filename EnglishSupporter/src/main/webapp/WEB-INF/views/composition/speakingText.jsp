@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Speak to Text</title>
 </head>
 <body>
-	<input id="composition" type="hidden" value="${composition}">
-	<input id="map" type="hidden" value="${map}">
+	<h2>Speak to Text</h2>
+	<div id="result"></div>
 </body>
 </html>
