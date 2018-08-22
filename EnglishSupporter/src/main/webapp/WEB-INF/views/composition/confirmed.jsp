@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Confirmed</title>
+<!-- google CDN -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -35,7 +36,7 @@ function grammerCheck(composition, confirm){
 				// 텍스트 감정 분석 체크를 한 경우
 				if(confirm.includes("emotion")){
 					emotionCheck(composition, confirm, grammer);
-				// 중복 단어 체크를 한 경우
+				// 중복 단어 체크만 한 경우
 				}else if(confirm.includes("repetition")){
 					repetitionCheck(composition, confirm, grammer, null)
 				// 둘 다 체크를 안 한 경우
@@ -107,7 +108,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 	var emoResult = "";
 	var graResult = "";
 	
-	// 문법 체크를 선택한 경우
+	// 문법 체크를 한 경우
 	if(grammer != null){
 		var jsonStrGrammer = JSON.stringify(grammer);
 		var gra = JSON.parse(jsonStrGrammer);
@@ -133,7 +134,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 			resultComp += composition.substring(strIndex);
 			graResult += '</table>';
 		}
-	// 문법 체크를 선택하지 않은 경우
+	// 문법 체크를 하지 않은 경우
 	}else{
 		resultComp = composition;
 	}
@@ -146,7 +147,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 	}
 	
 	// 중복 단어가 있는 경우
-	if(wordList != null){
+	if(wordList.length != 0){
 		// 중복 단어에 하이라이트
 		$.each(wordList, function(index, item){
 			resultComp = resultComp.replaceAll(item.word, '<span style="background-color:yellow;">' + item.word + '</span>');
@@ -199,6 +200,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 </script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/header.jsp"%>
 	<h1>Confirmed Page</h1>
 	<input id="composition" type="hidden" value="${composition}">
 	<input id="confirm" type="hidden" value="${confirm}">
@@ -210,5 +212,6 @@ function result(composition, confirm, grammer, emotion, repetition){
 	<div id="repResult"></div>
 	<!-- 텍스트 감정 분석 결과 -->
 	<div id="emoResult"></div>
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

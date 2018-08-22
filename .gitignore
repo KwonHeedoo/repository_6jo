@@ -10,4 +10,8 @@ EnglishSupporter/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 =======
 /.metadata/
 >>>>>>> a11d3de86c7d2d6f12d555848a0cc2fd9994a46e
+<<<<<<< HEAD
 EnglishSupporter/target/classes/mybatis-config.xml
+=======
+EnglishSupporter/target/m2e-wtp/web-resources/META-INF/maven/global.sesoc/test/pom.properties
+>>>>>>> 65625ba44d2e9c23c7c0c5b485a16f81dee4e860

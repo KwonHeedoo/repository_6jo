@@ -20,14 +20,52 @@
 <body>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
+		<h2>Input New Word for My Wordlist</h2>
 			<input type="hidden" name="userid" value="${sessionScope.userid}">
+			<label>WORD</label>
 			<input type="text" name="word">
-			<c:choose>
-				<input type="text" name="meaningK">
+			<br>
+			<label>meaning</label>	
+			<input type="text" name="meaningK">
 			
-			</c:choose>
-		
+			
+			<input type="button" value="SUBMIT" class="btn" id="sendword">
+			<div id="result">
+				
+			</div>
 		</div>
 	</div>
+	
+<script type="text/javascript">
+	$(function(){
+		$('#sendword').on('click',function(){
+			var word =$('input[name="word"]');
+			var mean =$('input[name="meaningK"]');
+			var userid = $('input[name="userid"]').val();
+			var newword ={
+					'word' : word.val(),
+					'meaningK' : mean.val(),
+					'userid' : userid,
+					'wordtype':"user",
+					'command':"insert"
+			};
+		
+			$.ajax({
+				method: "post",
+				url: "controlMyWords",
+				data : newword,
+				success: function(reps){
+					var result = reps; // 성공....?
+					$('#result').text("새 단어 입력이 완료되었습니다.");
+					word.val('');
+					mean.val('');
+				}
+			
+			});
+			
+		});
+	});
+
+</script>
 </body>
 </html>
