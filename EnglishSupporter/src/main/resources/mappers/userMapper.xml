@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit6jo.web.dao.UserMapper">
+	<!-- 로그인 -->
+	<select id="selectOne" parameterType="User" resultType="User">
+		select 
+			userid,
+			userpwd,
+			nickname,
+			email,
+			birthdate,
+			username,
+			usertype,
+			regdate,
+			lastdate,
+			attendnum
+		from userlist
+		where userid=#{userid}
+		and userpwd=#{userpwd}
+	</select>
+	
+	<!--출석일수 + 최종접속일 -->
+	<update id="attendNum" parameterType="User">
+		update userlist
+		set attendnum = case 
+		when trunc(lastdate,'d') <![CDATA[<]]> trunc(sysdate,'d')
+		then attendnum+1
+		else attendnum
+		end,
+		lastdate = sysdate
+		where userid=#{userid}
+	</update>
+	  
+</mapper>
