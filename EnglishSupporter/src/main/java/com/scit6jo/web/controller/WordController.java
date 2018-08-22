@@ -60,27 +60,25 @@ public class WordController {
 	}
 	
 	@RequestMapping(value = "/controlMyWords", method = RequestMethod.POST)
-	public @ResponseBody boolean deleteMyWords(Word word, String command, HttpSession session) {
+	public @ResponseBody boolean controlMyWords(Word word, String command, HttpSession session) {
 		boolean result =false;
 		
 		//본래 세션의 아이디를 가져와서 사용
 		word.setUserid("aaa");
-
-		//System.out.println(word);
-		System.out.println(command);
-		Class wordclass=null;
-		Field field =null;
+		
+		String wordtype;
 		try {
-			wordclass = Class.forName("Word");
-			field = wordclass.getDeclaredField("wordtype");
-			field.setAccessible(true);
-			System.out.println(field);
-		} catch (ClassNotFoundException | NoSuchFieldException | SecurityException e) {
+			wordtype = word.getWordtype();
+		}catch (Exception e) {
 			e.printStackTrace();
+			wordtype= null;
 		}
 		
+		System.out.println(word);
+		System.out.println(command);
+	
 		if(command.equals("insert")) {
-			if(field==null) {
+			if(wordtype==null) {
 				word.setWordtype("star");
 				System.out.println("일반단어 별찍기 in");
 			}

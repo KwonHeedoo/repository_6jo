@@ -35,11 +35,11 @@
     </div>
     <nav id="mainav" class="fl_right">
       <ul class="clear">
-        <li id="home"><a href="home">Home</a></li>
+        <li id="home"><a href="./">Home</a></li>
         <li id="wordtra"><a href="goWordtest">Word Training</a></li>
-        <li><a href="#">Link Text</a></li>
+        <li><a href="#">Write Training</a></li>
         
-        <li><a class="drop" href="#">Pages</a>
+        <li><a class="drop" href="#">Resume Management</a>
           <ul>
             <li><a href="#">Gallery</a></li>
             <li><a href="#">Full Width</a></li>
