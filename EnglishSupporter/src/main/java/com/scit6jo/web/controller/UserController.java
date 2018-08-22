@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scit6jo.web.dao.UserRepository;
+import com.scit6jo.web.vo.User;
 
 @Controller
 public class UserController {
@@ -18,4 +19,12 @@ public class UserController {
 
 		return "user/registerForm";
 	}
+	
+	@RequestMapping(value = "/goinsert", method = RequestMethod.GET)
+	public String goinsert(User user) {
+		
+		
+		return "user/register";
+	}
+	
 }

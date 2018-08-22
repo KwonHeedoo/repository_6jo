@@ -9,3 +9,4 @@ public class UserRepository {
 	@Autowired
 	SqlSession session;
 }
+

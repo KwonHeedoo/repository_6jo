@@ -8,18 +8,13 @@ public class User {
 	private String email; 
 	private String birthdate;
 	private String username;
-	private String usertype;
-	private String regdate;
-	private String lastdata;
-	private String attendNum;
 	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String userid, String userpwd, String nickname, String email, String birthdate, String username,
-			String usertype, String regdate, String lastdata, String attendNum) {
+	public User(String userid, String userpwd, String nickname, String email, String birthdate, String username) {
 		super();
 		this.userid = userid;
 		this.userpwd = userpwd;
@@ -27,10 +22,6 @@ public class User {
 		this.email = email;
 		this.birthdate = birthdate;
 		this.username = username;
-		this.usertype = usertype;
-		this.regdate = regdate;
-		this.lastdata = lastdata;
-		this.attendNum = attendNum;
 	}
 
 	public String getUserid() {
@@ -81,45 +72,11 @@ public class User {
 		this.username = username;
 	}
 
-	public String getUsertype() {
-		return usertype;
-	}
-
-	public void setUsertype(String usertype) {
-		this.usertype = usertype;
-	}
-
-	public String getRegdate() {
-		return regdate;
-	}
-
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
-	}
-
-	public String getLastdata() {
-		return lastdata;
-	}
-
-	public void setLastdata(String lastdata) {
-		this.lastdata = lastdata;
-	}
-
-	public String getAttendNum() {
-		return attendNum;
-	}
-
-	public void setAttendNum(String attendNum) {
-		this.attendNum = attendNum;
-	}
-
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", userpwd=" + userpwd + ", nickname=" + nickname + ", email=" + email
-				+ ", birthdate=" + birthdate + ", username=" + username + ", usertype=" + usertype + ", regdate="
-				+ regdate + ", lastdata=" + lastdata + ", attendNum=" + attendNum + "]";
+				+ ", birthdate=" + birthdate + ", username=" + username + "]";
 	}
 	
 	
 }
-	

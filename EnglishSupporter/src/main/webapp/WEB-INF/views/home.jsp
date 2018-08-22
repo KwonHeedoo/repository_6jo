@@ -11,9 +11,9 @@
 	Hello world!  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
 
 	<a href="./compositionForm">CompositionForm</a>
 	<a href="./registerForm">register</a>
+	<a href="./goComposition">Composition</a>
 </body>
 </html>
