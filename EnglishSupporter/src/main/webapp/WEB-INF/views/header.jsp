@@ -44,7 +44,7 @@
               </li>
             <li><a href="#" class="drop">write documents +</a>
              	<ul>
-                <li><a href="#">resume(CV)</a></li>
+                <li><a href="goResumeForm">resume(CV)</a></li>
                 <li><a href="#">cover letter</a></li>
               	</ul>
             </li>
@@ -62,8 +62,6 @@
             <li><a href="#">My Info</a></li>  <!-- 내정보 수정 여유있음 만들도록 하자...-->           
             <li><a href="#">My Scheduler</a></li>
             <li><a href="#">My Chatting</a></li>
-            <li><a href="#">My Words</a></li>
-            <li><a href="#">My Tree</a></li>
             
 <!--             <li><a class="drop" href="#">Level 2 + Drop</a>
               <ul>
