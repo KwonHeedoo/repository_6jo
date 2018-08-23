@@ -31,7 +31,7 @@ public class UserController {
 		User u = repository.selectOne(user);
 	    
 		if(u != null) {
-			session.setAttribute("userid", u.getUserid());
+			session.setAttribute("loginId", u.getUserid());
 			
 			repository.attendNum(user); //출석일수
 		}
@@ -43,6 +43,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
+		System.out.println("logout");
 		
 		session.invalidate();
 		

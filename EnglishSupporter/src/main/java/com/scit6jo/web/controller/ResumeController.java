@@ -14,4 +14,11 @@ public class ResumeController {
 		return "resume/resumeForm";
 	}
 	
+	@RequestMapping(value = "/newResume", method = RequestMethod.GET)
+	public String newResume() {
+		System.out.println("saving a new Resume...");
+		
+		return "resume/resumeForm";
+	}
+	
 }

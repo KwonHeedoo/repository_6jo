@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <title>ENGLISH SUPPORTER</title>
@@ -20,7 +21,15 @@
     <div class="fl_right">
       <ul>
         <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-        <li><a href="#">Login</a></li>
+       	<!-- 로그인 하지 않은 경우 --> 
+       	<c:if test="${sessionScope.loginId == null}">
+        <li><a href="./goLoginForm">Login</a></li>
+        </c:if>
+        <!-- 로그인 한 경우 --> 
+        <c:if test="${sessionScope.loginId != null}">
+         ${sessionScope.loginId}
+		<li><a href="./logout">Logout</a></li>
+		</c:if>
         <li><a href="#">Register</a></li>
       </ul>
     </div>

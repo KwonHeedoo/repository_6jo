@@ -37,8 +37,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session) {
-		session.setAttribute("loginId", "aaa");
+	public String home() {
 		
 		return "home";
 	}
