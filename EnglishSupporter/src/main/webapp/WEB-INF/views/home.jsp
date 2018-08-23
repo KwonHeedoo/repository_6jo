@@ -5,21 +5,32 @@
 <html>
 <head>
 	<title>Home</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 .container{
 height: 60%;
+background-image: url('/web/resources/images/bible-book-christian-250609.jpg');
+background-size: 100%;
+background-repeat: no-repeat;
+background-position: center center; 
+opacity : 0.8;
 }
+
+
 </style>
+<script type="text/javascript">
+$(function(){
+	$('#home').addClass('active');
+});
+</script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
 <div class="container">
 
-	<a href="./goComposition">Composition</a>
-<a href="/web/interview">123</a>
+	
 
 </div>
-
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

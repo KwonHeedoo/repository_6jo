@@ -8,6 +8,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="resources/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <body>
 
 <div class="wrapper row4">
@@ -16,7 +18,7 @@
       <h6 class="heading">Exative</h6>
       <nav>
         <ul class="nospace">
-          <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
+          <li><a href="${pageContext.request.contextPath}/"><i class="fa fa-lg fa-home"></i></a></li>
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
           <li><a href="#">Terms</a></li>
@@ -50,14 +52,6 @@
     </div>
     <div class="one_third">
       <h6 class="heading">Aliquam sit condimentum</h6>
-      <form method="post" action="#">
-        <fieldset>
-          <legend>Newsletter:</legend>
-          <input class="btmspace-15" type="text" value="" placeholder="Name">
-          <input class="btmspace-15" type="text" value="" placeholder="Email">
-          <button type="submit" value="submit">Submit</button>
-        </fieldset>
-      </form>
     </div>
   </footer>
 </div> 

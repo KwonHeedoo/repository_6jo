@@ -25,11 +25,16 @@
 			text = encodeURIComponent(text);
 			//var apikey = "3100d4db68664b858bb58864ea49e91e";
 			var url = 'http://api.voicerss.org/?key=3100d4db68664b858bb58864ea49e91e&hl=en-gb&src='+ text;
-		$('audio').attr('src', url).get(0).play();
+		$('audio.audio').attr('src', url).get(0).play();
 
 		});
+		
+		$('#wordtra').addClass('active');
 	});
 </script>
+<script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
 <style type="text/css">
 .container {
 	text-align: center;
@@ -41,11 +46,25 @@ input {
 	font-size: 30pt;
 	width: 100%;
 	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 10px;	
+}
+.stopb{
+	float: right;
+    position: relative;
+    left: -45%;
+}
+.startb{
+	float: left;
+    position: relative;
+    left: 45%;
 }
 </style>
 </head>
-<body>
 
+
+<body>
+<%@ include file="/WEB-INF/views/header.jsp"%>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<div>
@@ -66,32 +85,155 @@ input {
 					<div class="col-md-12">
 						<input type="text" name="text" class="" value="" readonly>
 					</div>
+					<br>
 					<div class="col-md-12">
 						<span id="meaning"></span>
 					</div>
-					<br>
+					<br><br>
 					<div class="col-md-12">
-						<a href="#" class="say btn btn-lg btn-primary">sayit</a>
+						<a href="#" class="say btn">say it!</a>
 					</div>
+							
 			</div>
-		</div>
 		<div align="center">
-			<nav>
+		<div><span class="word"></span></div>
 			<ul class="pagination">
+			
 				<li class="page-item"><a class="page-link" href="#" id="before">Previous</a></li>
-
 				<li class="page-item"><a class="page-link" href="#" id="next">Next</a></li>
 			</ul>
-			</nav>
+		</div>
 		</div>
 
-		<audio src="" class="audio" hidden>
+	<div class="col-md-12" style="text-align: right">
+		<a href="#" class="writeword btn">Add MyWord</a>
+		</div>
+	</div>	
+	<div class="raw" align="center">
+	<hr>
+	<div class="col-md-12">
+		<div class="startb"> 
+	<button id="btn-start-recording" type="button"><img  src="./resources/images/icons/mic.gif" style="width:20px;height:20px;"></button>start
+		</div>
+		<div class="stopb"> 
+	<button id="btn-stop-recording" type="button"><img  src="./resources/images/icons/mic-slash.gif" style="width:20px;height:20px;"></button>stop
+		</div>
+		<br>
+	</div>
+		<br>
+		<div class="col-md-12">
+		<audio controls id="playaudio"></audio>
+		<br>
+		</div>
+	<hr>
 	</div>
 	
-	<div class="col-md-12" style="text-align: right">
-						<a href="#" class="writeword btn btn-lg btn-primary">신규 단어 직접 입력</a>
-					</div>
+	<audio src="" class="audio" hidden></audio>
+	
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
+<script>
+var audio = document.querySelector('#playaudio');
 
+function captureMicrophone(callback) {
+    navigator.mediaDevices.getUserMedia({audio: true}).then(callback).catch(function(error) {
+        alert('Unable to access your microphone.');
+        console.error(error);
+    });
+}
+
+var data; // globally 
+
+function stopRecordingCallback() {
+    var blob = recorder.getBlob();
+    audio.src = URL.createObjectURL(blob);
+    audio.play();
+    recorder.microphone.stop();
+   
+    data = encodingBase64(blob);
+    evaluation();
+}
+
+function evaluation() {
+	
+	var url = 'http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation';
+	var script = $('input[name="text"]').val();
+	var language_code = "english";
+	var audio = data;
+	var access_key = 'cd04e541-c278-4c71-b639-e6513ba4e239';
+	var argument = {
+			 'language_code': language_code,
+		      'script': script,
+		      'audio': audio
+	};
+	var requestJson= {'access_key' : access_key, 'argument': argument};
+	
+	
+	console.log(requestJson);
+	$.ajax({
+		method: "post",
+		url: url,
+		data : JSON.stringify(requestJson),
+		dataType:'json',
+		success: function(reps){
+			console.log(reps);
+		},
+		error : function name() {
+			
+		}
+	});
+}
+
+
+
+
+
+
+
+var recorder; // globally accessible
+
+document.getElementById('btn-start-recording').onclick = function() {
+    //this.disabled = true;
+    captureMicrophone(function(microphone) {
+        setSrcObject(microphone, audio);
+        audio.play();
+
+        recorder = RecordRTC(microphone, {
+            type: 'audio',
+            recorderType: StereoAudioRecorder,
+            desiredSampRate: 16000
+        });
+
+        recorder.startRecording();
+
+        // release microphone on stopRecording
+        recorder.microphone = microphone;
+
+        document.getElementById('btn-stop-recording').disabled = false;
+    });
+};
+
+document.getElementById('btn-stop-recording').onclick = function() {
+   // this.disabled = true;
+    recorder.stopRecording(stopRecordingCallback);
+};
+
+//encoding Base64 data return 
+
+function encodingBase64(blob) {
+	var reader = new FileReader();
+ 	reader.readAsDataURL(blob); 
+ 	reader.onloadend = function() {
+    var base64data = reader.result;                
+     //console.log(base64data);
+     return base64data;
+	 }
+}
+
+
+
+
+
+</script>					
 	<script type="text/javascript">
 		var index = 0;
 		var listsize=0;
@@ -110,6 +252,7 @@ input {
 				$('#meaning').text(wordlist[index].meaningK);
 				$('input[name="text"]').val(wordlist[index].word);
 				checkstar();
+				viewNum();
 			});
 			
 			$('#next').on('click', function() {
@@ -119,6 +262,7 @@ input {
 				$('#meaning').text(wordlist[index].meaningK);
 				$('input[name="text"]').val(wordlist[index].word);
 				checkstar();
+				viewNum();
 			});
 			
 		//난이도별 단어 가져오기 
@@ -139,19 +283,26 @@ input {
 		
 		function checkstar(){
 			var checked = wordlist[index].wordtype;
-			console.log(checked);
+			//console.log(checked);
 			$('#userworddelete').html("");
 			if(checked=='star'){
-				$('#checkmyword').attr('src','./resources/img/golden.png');
+				$('#checkmyword').attr('src','./resources/images/icons/golden.png');
 			}else if(checked =='user'){
-				$('#checkmyword').attr('src','./resources/img/golden.png');
-				var text ='<a id="deletemyword" href="#">삭제</a>';
-				$('#userworddelete').html(text);
+				$('#checkmyword').attr('src','./resources/images/icons/golden.png');
+				/* var text ='<a id="deletemyword" href="#">삭제</a>';
+				$('#userworddelete').html(text); */
 			}else{
-				$('#checkmyword').attr('src','./resources/img/silver.png');
+				$('#checkmyword').attr('src','./resources/images/icons/silver.png');
 				
 			}
 		}
+		
+	function viewNum(){
+		//console.log(index);
+		//console.log(listsize);
+		var wordnum = index+1;
+		$('span.word').text(wordnum+" / "+listsize);
+	}
 		
 		
 	function callwordlist(level) {
@@ -165,9 +316,10 @@ input {
 				
 				listsize =wordlist.length;
 				
-				console.log(wordlist);
-				console.log(listsize);
+				//console.log(wordlist);
+				//console.log(listsize);
 				initword(wordlist);
+				viewNum();
 			},
 			
 		});
@@ -181,15 +333,15 @@ input {
 		var word = wordlist[index];
 		
 		if(src.includes('golden')){
-			$('#checkmyword').attr('src','./resources/img/silver.png');
+			$('#checkmyword').attr('src','./resources/images/icons/silver.png');
 			// 나의 단어장에서 해당 단어 삭제처리하기 			
 			word.command = 'delete';
 		}else{
-			$('#checkmyword').attr('src','./resources/img/golden.png');
+			$('#checkmyword').attr('src','./resources/images/icons/golden.png');
 			//나의 단어장에 해당단어 추가하기 
 			word.command = 'insert';
 		}
-		console.log(word);
+		//console.log(word);
 		
 			$.ajax({
 				method: "post",
@@ -208,9 +360,7 @@ input {
 			window.open("insertword","newidwindow","top=150,left=150,width=500,height=400");
 		});
 	});
-		
+	
 	</script>
-
-
 </body>
 </html>
