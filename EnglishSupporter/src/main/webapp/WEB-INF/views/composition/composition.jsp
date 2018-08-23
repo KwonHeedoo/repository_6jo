@@ -33,7 +33,7 @@ $(function(){
 	});
 	
 	// 텍스트 음성 제공(TTS)
-	$('#tts').on('click',function(e) {
+	$('#ttsBtn').on('click',function(e) {
 		e.preventDefault();
 		var composition = $('#composition').val();
 		composition = encodeURIComponent(composition);
@@ -100,22 +100,22 @@ function setSttData(sendData){
 	<h1>Composition</h1>
 	<form id="compositionCheck" action="goConfirmed" method="post">
 		<textarea id="composition" rows="20" cols="50" name="composition"></textarea><br/>
-		<div class="col-md-4">
-		<input class="confirm" type="checkbox" name="confirm" value="grammer">Grammer
+		<div id="checkList" style="width:30%;">
+			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="grammer">Grammer</div>
+			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="emotion">Emotion</div>
+			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="repetition">Repetition</div>
 		</div>
-		<div class="col-md-4">
-		<input class="confirm" type="checkbox" name="confirm" value="emotion">Emotion
+		<div id="btn">
+			<div class="col-md-6"><button id="stt" type="button">STT</button></div>
+			<div class="col-md-6"><button id="check" type="button">Check</button></div>
 		</div>
-		<div class="col-md-4">
-		<input class="confirm" type="checkbox" name="confirm" value="repetition">Repetition
-		</div>
-		<button id="stt" type="button">STT</button>
-		<button id="check" type="button">Check</button>
 	</form>
 	<br/>
 	<!-- 텍스트 음성 제공 버튼(TTS Button) -->
-	<button id="tts" type="button"><img alt="speaker" src="./resources/images/icons/speaker.png" style="width:20px;height:20px;"></button>
-	<audio src="" class="audio" hidden></audio>
+	<div id="tts">
+		<button id="ttsBtn" type="button"><img alt="speaker" src="./resources/images/icons/speaker.png" style="width:20px;height:20px;"></button>
+		<audio src="" class="audio" hidden></audio>
+	</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>
