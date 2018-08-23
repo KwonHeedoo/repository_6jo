@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.scit6jo.web.dao.DataRepository;
+import com.scit6jo.web.dao.repository.DataRepository;
 import com.scit6jo.web.util.FileService;
 import com.scit6jo.web.vo.IData;
 
@@ -40,6 +40,12 @@ public class HomeController {
 	public String home() {
 		
 		return "home";
+	}
+
+	@RequestMapping(value = "/goMypage", method = RequestMethod.GET)
+	public String goMypage() {
+		
+		return "mypage/myInfo";
 	}
 
 }

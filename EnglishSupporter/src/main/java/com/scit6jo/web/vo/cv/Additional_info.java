@@ -1,4 +1,4 @@
-package com.scit6jo.web.vo.docs;
+package com.scit6jo.web.vo.cv;
 
 public class Additional_info {
 	private String title;
