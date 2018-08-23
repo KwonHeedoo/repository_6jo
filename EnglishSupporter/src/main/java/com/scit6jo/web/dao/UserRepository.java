@@ -4,14 +4,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-<<<<<<< HEAD
-@Repository
-public class UserRepository {
-	@Autowired
-	SqlSession session;
-}
-
-=======
 import com.scit6jo.web.vo.User;
 
 @Repository
@@ -34,4 +26,3 @@ public class UserRepository {
 		return result; 
 	}
 }
->>>>>>> 80812f0b683718742dd892a693fc448feb7478bb
