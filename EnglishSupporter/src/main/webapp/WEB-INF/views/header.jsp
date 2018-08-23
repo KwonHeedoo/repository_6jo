@@ -36,8 +36,9 @@
       <ul class="clear">
         <li id="home"><a href="${pageContext.request.contextPath}/">Home</a></li>
         <li id="wordtra"><a href="goWordtest">Word Training</a></li>
+        
         <li><a href="./goComposition">Text Training</a></li>
-        <li><a class="drop" href="#">Resume Management</a>
+        <li><a class="drop" href="#">Resume</a>
           <ul>
             <li><a href="#">Gallery</a></li>
             <li><a href="#">Full Width</a></li>
