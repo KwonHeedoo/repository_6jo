@@ -52,14 +52,6 @@
     </div>
     <div class="one_third">
       <h6 class="heading">Aliquam sit condimentum</h6>
-      <form method="post" action="#">
-        <fieldset>
-          <legend>Newsletter:</legend>
-          <input class="btmspace-15" type="text" value="" placeholder="Name">
-          <input class="btmspace-15" type="text" value="" placeholder="Email">
-          <button type="submit" value="submit">Submit</button>
-        </fieldset>
-      </form>
     </div>
   </footer>
 </div> 

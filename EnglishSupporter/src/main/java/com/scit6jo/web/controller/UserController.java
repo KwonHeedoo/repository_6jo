@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.scit6jo.web.dao.UserRepository;
+import com.scit6jo.web.dao.repository.UserRepository;
 import com.scit6jo.web.vo.User;
 
 @Controller
@@ -58,7 +58,7 @@ public class UserController {
 		User u = Repository.selectOne(user);
 	    
 		if(u != null) {
-			session.setAttribute("userid", u.getUserid());
+			session.setAttribute("loginId", u.getUserid());
 			
 			Repository.attendNum(user); //출석일수
 		}
@@ -70,6 +70,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
+		System.out.println("logout");
 		
 		session.invalidate();
 		

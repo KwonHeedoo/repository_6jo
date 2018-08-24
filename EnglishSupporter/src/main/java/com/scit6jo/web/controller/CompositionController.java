@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.scit6jo.web.dao.WordRepository;
+import com.scit6jo.web.dao.repository.WordRepository;
 import com.scit6jo.web.util.CrawlingWord;
 import com.scit6jo.web.vo.Word;
 

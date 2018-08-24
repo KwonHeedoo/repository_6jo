@@ -1,4 +1,4 @@
-package com.scit6jo.web.dao;
+package com.scit6jo.web.dao.repository;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.scit6jo.web.dao.WordMapper;
 import com.scit6jo.web.vo.Word;
 
 @Repository
@@ -15,8 +16,8 @@ public class WordRepository {
 
 	
 	public List<Word> getWordList(String wordlevel, String userid){
-		WordMapper dao= session.getMapper(WordMapper.class);
-		List<Word>wordlist = dao.selectAllWord(wordlevel, userid);
+		WordMapper mapper= session.getMapper(WordMapper.class);
+		List<Word>wordlist = mapper.selectAllWord(wordlevel, userid);
 		
 		if(wordlist==null) {
 			System.out.println("단어리스트 불러오기 실패!");
@@ -26,8 +27,8 @@ public class WordRepository {
 	}
 
 	public List<Word> getMyWords(String userid) {
-		WordMapper dao= session.getMapper(WordMapper.class);
-		List<Word>wordlist = dao.getMyWords(userid);
+		WordMapper mapper= session.getMapper(WordMapper.class);
+		List<Word>wordlist = mapper.getMyWords(userid);
 		
 		
 		return wordlist;

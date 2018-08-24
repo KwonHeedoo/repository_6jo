@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.scit6jo.web.dao.WordRepository;
+import com.scit6jo.web.dao.repository.WordRepository;
 import com.scit6jo.web.vo.Word;
 
 @Controller
@@ -63,19 +63,11 @@ public class WordController {
 		//본래 세션의 아이디를 가져와서 사용
 		word.setUserid("aaa");
 		
-		String wordtype;
-		try {
-			wordtype = word.getWordtype();
-		}catch (Exception e) {
-			e.printStackTrace();
-			wordtype= null;
-		}
-		
 		System.out.println(word);
 		System.out.println(command);
-	
+		System.out.println("wordtype"+word.getWordtype());
 		if(command.equals("insert")) {
-			if(wordtype==null) {
+			if(word.getWordtype().equals("")) {
 				word.setWordtype("star");
 				System.out.println("일반단어 별찍기 in");
 			}
