@@ -31,7 +31,7 @@ public class UserController {
 		User u = repository.selectOne(user);
 	    
 		if(u != null) {
-			session.setAttribute("loginId", u.getUserid());
+			session.setAttribute("u", u);
 			
 			repository.attendNum(user); //출석일수
 		}
