@@ -10,6 +10,7 @@
 margin :50px auto;
 text-align: center;
 width: 45%;
+margin-top: 70px;
 }
 input{
 width: 100%;
@@ -23,13 +24,16 @@ height: 35px;
 padding:8px 18px 10px; text-transform:uppercase; font-weight:700; cursor:pointer;
 border:1px solid; border-radius:22px;
 }
+.container{
+height: 40%;
+}
 </style>
 
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
 <div class="container" >
-	<div class="row justify-content-end">
+	<div class="row">
 		<div class="center">
 			<h2>[ LOGIN ]</h2>
 			<form action="login" method="post">

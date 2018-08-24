@@ -21,17 +21,21 @@
     </div>
     <div class="fl_right">
       <ul>
+        <c:if test="${sessionScope.loginId != null}">
+         <li>${sessionScope.loginId} 님  환영합니다.</li>
+        </c:if>
         <li><a href="./"><i class="fa fa-lg fa-home"></i></a></li>
        	<!-- 로그인 하지 않은 경우 --> 
        	<c:if test="${sessionScope.loginId == null}">
         <li><a href="goLoginForm">Login</a></li>
+        <li><a href="#">Register</a></li>
         </c:if>
         <!-- 로그인 한 경우 --> 
         <c:if test="${sessionScope.loginId != null}">
-         ${sessionScope.loginId}
+        
 		<li><a href="logout">Logout</a></li>
+		<li><a href="goMypage">My Page</a></li> 
 		</c:if>
-        <li><a href="#">Register</a></li>
       </ul>
     </div>
   </div>
@@ -66,11 +70,11 @@
             <li><a href="./goMatchingBoard">1:1 Video Chat</a></li>
           </ul>
         </li>
-        <li><a class="drop" href="#">MyPage</a>
+<!--         <li><a class="drop" href="#">MyPage</a>
           <ul>
-            <li><a href="#">My Info</a></li>  <!-- 내정보 수정 여유있음 만들도록 하자...-->           
+            <li><a href="goMypage">My Info</a></li>         
             <li><a href="#">My Scheduler</a></li>
-            <li><a href="#">My Chatting</a></li>
+            <li><a href="#">My Chatting</a></li> -->
             
 <!--             <li><a class="drop" href="#">Level 2 + Drop</a>
               <ul>

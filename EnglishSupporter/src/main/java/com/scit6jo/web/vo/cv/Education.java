@@ -1,4 +1,4 @@
-package com.scit6jo.web.vo.docs;
+package com.scit6jo.web.vo.cv;
 
 public class Education {
 	private String school_name;

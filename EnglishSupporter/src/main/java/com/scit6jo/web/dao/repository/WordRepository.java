@@ -1,4 +1,4 @@
-package com.scit6jo.web.dao;
+package com.scit6jo.web.dao.repository;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.scit6jo.web.dao.WordMapper;
 import com.scit6jo.web.vo.Word;
 
 @Repository

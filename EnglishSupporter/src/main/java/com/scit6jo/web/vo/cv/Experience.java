@@ -1,4 +1,4 @@
-package com.scit6jo.web.vo.docs;
+package com.scit6jo.web.vo.cv;
 
 public class Experience {
 	private String company_name;
