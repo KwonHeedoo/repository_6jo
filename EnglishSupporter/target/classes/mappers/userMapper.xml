@@ -34,4 +34,5 @@
 		where userid=#{userid}
 	</update>
 	  
+	  <insert id="insertUser" parameterType="User"></insert>
 </mapper>

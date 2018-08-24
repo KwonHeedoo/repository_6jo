@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+EnglishSupporter/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+EnglishSupporter/target/m2e-wtp/web-resources/META-INF/maven/com.scit6jo/web/pom.properties
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 patch.diff
@@ -11,3 +15,4 @@ EnglishSupporter/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 /.metadata/
 >>>>>>> a11d3de86c7d2d6f12d555848a0cc2fd9994a46e
 EnglishSupporter/target/m2e-wtp/web-resources/META-INF/maven/global.sesoc/test/pom.properties
+>>>>>>> 80812f0b683718742dd892a693fc448feb7478bb
