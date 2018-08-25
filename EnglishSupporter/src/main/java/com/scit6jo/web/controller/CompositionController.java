@@ -44,6 +44,7 @@ public class CompositionController {
 	@RequestMapping(value = "/repetitionCheck", method = RequestMethod.POST)
 	public @ResponseBody List<Word> repetitionCheck(String composition, String confirm) {
 		CrawlingWord cw = new CrawlingWord();
+		
 		List<Word> wordList = new ArrayList<>();
 		
 		// 중복단어 선별 및 유의어 찾기

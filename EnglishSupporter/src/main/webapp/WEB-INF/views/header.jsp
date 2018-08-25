@@ -20,18 +20,17 @@
     </div>
     <div class="fl_right">
       <ul>
-        <c:if test="${sessionScope.loginId != null}">
-         <li>${sessionScope.loginId} 님  환영합니다.</li>
+        <c:if test="${sessionScope.u.userid != null}">
+         <li>${sessionScope.u.nickname} 님  환영합니다.</li>
         </c:if>
         <li><a href="./"><i class="fa fa-lg fa-home"></i></a></li>
        	<!-- 로그인 하지 않은 경우 --> 
-       	<c:if test="${sessionScope.loginId == null}">
+       	<c:if test="${sessionScope.u.userid == null}">
         <li><a href="goLoginForm">Login</a></li>
         <li><a href="#">Register</a></li>
         </c:if>
         <!-- 로그인 한 경우 --> 
-        <c:if test="${sessionScope.loginId != null}">
-        
+        <c:if test="${sessionScope.u.userid != null}">
 		<li><a href="logout">Logout</a></li>
 		<li><a href="goMypage">My Page</a></li> 
 		</c:if>

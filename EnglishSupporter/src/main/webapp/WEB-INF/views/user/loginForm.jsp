@@ -7,7 +7,7 @@
 <title>Login</title>
 <style type="text/css">
 .center{
-margin :0 auto;
+margin :50px auto;
 text-align: center;
 width: 45%;
 margin-top: 70px;
@@ -44,7 +44,6 @@ height: 40%;
 			</div>
 			</form>
 		</div>
-		<div class="col-4"></div>
 	</div><!-- row -->
 </div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>

@@ -87,7 +87,7 @@ float:left;
 		<!-- Main Content -->
 		<div class="container-fluid">
 			<div class="side-body">
-				<h1>Main Content here</h1>
+				<h1>[ My Info Modification ]</h1>
 				<pre> Resize the screen to view the left slide menu </pre>
 				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
 					diam nonumy eirmod tempor invidunt ut labore et dolore magna
