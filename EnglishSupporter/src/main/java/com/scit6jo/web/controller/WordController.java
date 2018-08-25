@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.scit6jo.web.dao.repository.WordRepository;
+import com.scit6jo.web.repository.WordRepository;
 import com.scit6jo.web.vo.Word;
 
 @Controller

@@ -1,4 +1,4 @@
-package com.scit6jo.web.dao.repository;
+package com.scit6jo.web.repository;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.scit6jo.web.dao.repository;
+package com.scit6jo.web.repository;
 
 import java.util.List;
 

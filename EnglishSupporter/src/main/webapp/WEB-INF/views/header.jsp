@@ -10,7 +10,6 @@
 <link href="resources/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-<body id="top">
 <div class="wrapper row0">
   <div id="topbar" class="hoc clear"> 
     <div class="fl_left">
@@ -84,17 +83,12 @@
               </ul>
             </li> -->
           </ul>
-        </li>
-      </ul>
     </nav>
   </header>
-  
- 
   
 </div>
 <script src="resources/scripts/jquery.min.js"></script>
 <script src="resources/scripts/jquery.backtotop.js"></script>
 <script src="resources/scripts/jquery.mobilemenu.js"></script>
 <script src="resources/scripts/jquery.flexslider-min.js"></script>
-</body>
 </html>

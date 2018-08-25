@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.scit6jo.web.dao.repository.BoardRepository;
+import com.scit6jo.web.repository.BoardRepository;
 
 @Controller
 public class BoardController {

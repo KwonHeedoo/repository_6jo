@@ -1,4 +1,4 @@
-package com.scit6jo.web.vo.cv;
+package com.scit6jo.web.vo.resume;
 
 import java.util.List;
 
@@ -8,10 +8,11 @@ public class Resume {
 	private String title;
 	private String regdate;
 	private String deadline;
-	private String company;
+	private String phone;
+	private String address;
 	private List<Education> education;
-	private List<Experience> Experience;
-	private List<Additional_info> Additional_info;
+	private List<Experience> experience;
+	private List<Additional_info> additional_info;
 	
 	
 	public String getResume_no() {
@@ -44,11 +45,17 @@ public class Resume {
 	public void setDeadline(String deadline) {
 		this.deadline = deadline;
 	}
-	public String getCompany() {
-		return company;
+	public String getPhone() {
+		return phone;
 	}
-	public void setCompany(String company) {
-		this.company = company;
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public List<Education> getEducation() {
 		return education;
@@ -57,23 +64,25 @@ public class Resume {
 		this.education = education;
 	}
 	public List<Experience> getExperience() {
-		return Experience;
+		return experience;
 	}
 	public void setExperience(List<Experience> experience) {
-		Experience = experience;
+		this.experience = experience;
 	}
 	public List<Additional_info> getAdditional_info() {
-		return Additional_info;
+		return additional_info;
 	}
 	public void setAdditional_info(List<Additional_info> additional_info) {
-		Additional_info = additional_info;
+		this.additional_info = additional_info;
 	}
 	@Override
 	public String toString() {
 		return "Resume [resume_no=" + resume_no + ", userid=" + userid + ", title=" + title + ", regdate=" + regdate
-				+ ", deadline=" + deadline + ", company=" + company + ", education=" + education + ", Experience="
-				+ Experience + ", Additional_info=" + Additional_info + "]";
+				+ ", deadline=" + deadline + ", phone=" + phone + ", address=" + address + ", education=" + education
+				+ ", experience=" + experience + ", additional_info=" + additional_info + "]";
 	}
+	
+	
 
 	
 }

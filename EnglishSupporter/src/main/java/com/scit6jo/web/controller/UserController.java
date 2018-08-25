@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.scit6jo.web.dao.repository.UserRepository;
+import com.scit6jo.web.repository.UserRepository;
 import com.scit6jo.web.vo.User;
 
 @Controller
