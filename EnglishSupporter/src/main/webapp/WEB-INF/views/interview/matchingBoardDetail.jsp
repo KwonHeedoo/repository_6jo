@@ -137,9 +137,16 @@ function output(resp){
 
 // 신고 페이지 가기
 function report(reportee, report){
+	var openWin;
 	var reporter = $('#loginId').val();
 	var boardNum = $('#boardNum').val();
-	window.open("./goReportBox", "Report", "width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no");
+	
+	openWin = window.open("./goReportBox", "ReportBox", "width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no");
+	
+	openWin.document.getElementById('reporter').value = reporter;
+	openWin.document.getElementById('report').value = report;
+	openWin.document.getElementById('reportee').value = reportee;
+	openWin.document.getElementById('boardNum').value = boardNum;
 }
 
 // 댓글 삭제
