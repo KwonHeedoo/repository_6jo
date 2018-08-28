@@ -10,8 +10,10 @@
 <script type="text/javascript">
 $(function() {
 	$('#sendReport').on('click', function() {
-		var sendData = $('#report').text();
+		var test = $('reporter').val();
+		alert(test);
 		
+		//$('#sendData').submit();
 		window.close();
 	});
 });
@@ -19,8 +21,14 @@ $(function() {
 </head>
 <body>
 	<h1>Report to Administrator</h1>
-	<textarea id="report" rows="20" cols="50" name="composition"></textarea>
-	<button id="sendReport">Send</button>
-	<button id="calcel">Cancel</button>
+	<form id="sendData" action="report" method="post">
+		<input id="reporter" type="hidden" value="" name="reporter">
+		<input id="report" type="hidden" value="" name="report">
+		<input id="reportee" type="hidden" value="" name="reportee">
+		<input id="boardNum" type="hidden" value="">
+		<textarea id="reason" rows="20" cols="50" name="reason"></textarea>
+		<button id="sendReport">Send</button>
+		<button id="calcel" onclick="window.close()">Cancel</button>
+	</form>
 </body>
 </html>

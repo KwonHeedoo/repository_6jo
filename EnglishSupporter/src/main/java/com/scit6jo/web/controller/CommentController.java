@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.scit6jo.web.dao.BoardRepository;
-import com.scit6jo.web.dao.CommentRepository;
+import com.scit6jo.web.repository.BoardRepository;
+import com.scit6jo.web.repository.CommentRepository;
 import com.scit6jo.web.vo.Board;
 import com.scit6jo.web.vo.Comment;
 
