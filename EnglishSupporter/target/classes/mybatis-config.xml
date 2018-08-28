@@ -21,6 +21,7 @@
 		<mapper resource="mappers/wordMapper.xml" />
 		<mapper resource="mappers/userMapper.xml" />
 		<mapper resource="mappers/dataMapper.xml" />
+		<mapper resource="mappers/mypageMapper.xml" />
 	</mappers>
 	
 </configuration>

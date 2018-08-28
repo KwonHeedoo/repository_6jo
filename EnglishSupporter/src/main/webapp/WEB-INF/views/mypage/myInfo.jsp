@@ -71,8 +71,8 @@ float:left;
 							My Words</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
 							Scheduler</a></li>
-					<li><a href="goInfoModify"><span class="glyphicon glyphicon-wrench"></span>
-							Modify Info</a></li>
+					<li><a href="goInfoUpdate"><span class="glyphicon glyphicon-wrench"></span>
+							Info Update</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-lock"></span>
 							Change Password</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-remove"></span>
