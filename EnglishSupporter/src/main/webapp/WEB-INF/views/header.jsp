@@ -27,7 +27,7 @@
        	<!-- 로그인 하지 않은 경우 --> 
        	<c:if test="${sessionScope.u.userid == null}">
         <li><a href="goLoginForm">Login</a></li>
-        <li><a href="#">Register</a></li>
+        <li><a href="goRegisterForm">Register</a></li>
         </c:if>
         <!-- 로그인 한 경우 --> 
         <c:if test="${sessionScope.u.userid != null}">

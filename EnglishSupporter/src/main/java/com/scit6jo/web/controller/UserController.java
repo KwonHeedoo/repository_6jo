@@ -18,8 +18,8 @@ public class UserController {
 	@Autowired
 	UserRepository Repository;
 
-	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
-	public String registerForm(Model model) {
+	@RequestMapping(value = "/goRegisterForm", method = RequestMethod.GET)
+	public String goRegisterForm() {
 
 		return "user/registerForm";
 	}
@@ -36,13 +36,6 @@ public class UserController {
 	
 	
 	
-	@RequestMapping(value = "/goinsert", method = RequestMethod.GET)
-	public String goinsert(User user) {
-		
-		
-		return "user/register";
-	}
-
 	
 	@RequestMapping(value = "/goLoginForm", method = RequestMethod.GET)
 	public String goLoginForm() {
