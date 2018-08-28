@@ -8,13 +8,13 @@
 	<insert id="insertEdu" parameterType="map">
 		<foreach collection="education" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
 		INTO 
-		education(
-		resume_no
-		,school_name
-		,degree_level
-		,enter_date
-		,graduate_date
-		,major
+			education(
+			resume_no
+			,school_name
+			,degree_level
+			,enter_date
+			,graduate_date
+			,major
 		)VALUES
 		(	#{resume_no}
 			,#{item.school_name}
@@ -27,14 +27,40 @@
 	</insert>
 	
 	<insert id="insertExp" parameterType="map">
-		<foreach collection="education" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
-	
+		<foreach collection="experience" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+		INTO 
+			experience(
+			resume_no
+			,company_name
+			,job_description
+			,start_date
+			,end_date
+		)VALUES
+		(	#{resume_no}
+			,#{item.company_name}
+			,#{item.job_description}
+			,#{item.start_date}
+			,#{item.end_date}
+		)
 		</foreach>
 	</insert>
 	
 	<insert id="insertInfo" parameterType="map">
-		<foreach collection="education" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
-
+		<foreach collection="additional_info" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+		INTO 
+			additional_info(
+			resume_no
+			,info_title
+			,detail
+			,remarks
+			,info_date
+		)VALUES
+		(	#{resume_no}
+			,#{item.info_title}
+			,#{item.detail}
+			,#{item.remarks}
+			,#{item.info_date}
+		)
 		</foreach>
 	</insert>
 	
@@ -65,19 +91,10 @@
 		)
 	</insert>
 	
-<!-- 	<insert id="insertAddInfo" parameterType="Map">
-	
-	</insert>
-	
-	<insert id="insertExp">
-	
-	</insert>
-	
-	
 	<select id="getResume" parameterType="Map" resultMap="Resume">
 		
 	
-	</select> -->
+	</select>
 	
 	<resultMap type="HashMap" id="Resume">
 		<id property="resume_no" column="resume_no"/>
@@ -88,29 +105,33 @@
 		<result property="phone" column="phone"/>
 		<result property="address" column="address"/>
 		<!--  -->
-		<collection property="additional_info" javaType="java.util.List" ofType="AddInfo">
-			<id property="resume_no" column="resume_no"/>
+		<collection property="additional_info" javaType="java.util.List" resultMap="AddInfo"/>
+		<collection property="education" javaType="java.util.List" resultMap="Education"/>
+		<collection property="experience" javaType="java.util.List" resultMap="Experience"/>
+	</resultMap>
+	
+	<resultMap type="Hashmap" id="AddInfo">
+			<result property="resume_no" column="resume_no"/>
 			<result property="info_title" column="info_title"/>
 			<result property="detail" column="detail"/>
 			<result property="remarks" column="remarks"/>
 			<result property="info_date" column="info_date"/>
-			</collection>
-			
-		<collection property="education" javaType="java.util.List" ofType="Education">
-		<id property="resume_no" column="resume_no"/>
+	</resultMap>
+	
+	<resultMap type="Hashmap" id="Education">
+			<result property="resume_no" column="resume_no"/>
 			<result property="school_name" column="school_name"/>
 			<result property="degree_level" column="degree_level"/>
 			<result property="enter_date" column="enter_date"/>
 			<result property="graduate_date" column="graduate_date"/>
 			<result property="major" column="major"/>
-			</collection>
-		<collection property="experience" javaType="java.util.List" ofType="Experience">
-		<id property="resume_no" column="resume_no"/>
+	</resultMap>
+
+	<resultMap type="Hashmap" id="Experience">
+			<result property="resume_no" column="resume_no"/>
 			<result property="company_name" column="company_name"/>
 			<result property="job_description" column="job_description"/>
 			<result property="start_date" column="start_date"/>
 			<result property="end_date" column="end_date"/>
-			</collection>
-	</resultMap>
-	
+	</resultMap>	
 </mapper>
