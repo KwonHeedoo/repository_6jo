@@ -50,11 +50,11 @@ public class Board {
 		this.savedfile = savedfile;
 	}
 
-	public int getboardNum() {
+	public int getBoardNum() {
 		return boardNum;
 	}
 
-	public void setboardNum(int boardNum) {
+	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
 	}
 
@@ -98,11 +98,11 @@ public class Board {
 		this.hitcount = hitcount;
 	}
 
-	public String getmatchingId() {
+	public String getMatchingId() {
 		return matchingId;
 	}
 
-	public void setmatchingId(String matchingId) {
+	public void setMatchingId(String matchingId) {
 		this.matchingId = matchingId;
 	}
 

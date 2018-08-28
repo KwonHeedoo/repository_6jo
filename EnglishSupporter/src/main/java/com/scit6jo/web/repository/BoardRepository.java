@@ -112,12 +112,40 @@ public class BoardRepository {
 	}
 	
 	// 게시글 파일 삭제 처리
-	public int deleteFile(int boardnum) {
+	public int deleteFile(int boardNum) {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		int result = 0;
 		
 		try {
-			result = mapper.deleteFile(boardnum);
+			result = mapper.deleteFile(boardNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	// 게시판에 매칭 여부 추가
+	public int matching(Board board) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.matching(board);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	// 게시판에 매칭 여부 취소
+	public int unmatching(Board board) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.unmatching(board);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

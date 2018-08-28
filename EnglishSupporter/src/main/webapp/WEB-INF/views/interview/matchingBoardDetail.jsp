@@ -19,13 +19,11 @@
 <script>
 $(function(){
 	init();
-	$("#insertComment").on('click', insertComment);
 });
 
-//ajax로 전체 comment를 끌어옴
+// ajax로 전체 comment를 끌어옴
 function init() {
-	$(".userid").val("");
-	$(".comments").val("");
+	$('.comments').val("");
 	var boardNum = $('#boardNum').val();
 	
 	$.ajax({
@@ -37,28 +35,45 @@ function init() {
 	});
 }
 
+// 가져온 전체 comment를 html에 뿌리기
 function output(resp){
+	var loginId = $('#loginId').val();
 	var commentList = resp;
 	var commentResult = '';
+	var parentGroup = 0;
+	var matchingCount = 0;
+	
+	$.each(commentList, function(index, item){
+		if(item.matchingId != null){
+			matchingCount++;
+		}
+	});
 	
 	commentResult += '<div class="container">';
 	commentResult += '<div class="row">';
 	commentResult += '<div class="col-md-8">';
 	commentResult += '<h2 class="page-header">Comments</h2>';
+	commentResult += '<div class="writeComment">';
+	commentResult += '<div class=".col-xs-6"><input id="comment" class="comments" type="text" placeholder="댓글 내용" /></div>';
+	commentResult += '<div class=".col-xs-6"><input id="insertComment" type="button" value="댓글 추가" /></div>';
+	commentResult += '</div>';// writeComment
 	commentResult += '<section class="comment-list">';
 	$.each(commentList, function(index, item){
+		if(item.parentId == null){
+			parentGroup = item.groupNum;
+		}
 		commentResult += '<article class="row">';
-		if(item.parentCmtId == null){
+		if(item.parentId == null){
 			commentResult += '<div class="col-md-2 col-sm-2 hidden-xs">';
 		}else{
 			commentResult += '<div class="col-md-2 col-sm-2 col-md-offset-1 col-sm-offset-0 hidden-xs">';
 		}
 		commentResult += '<figure class="thumbnail">'; 
-		commentResult += '<figcaption class="text-center">'+ item.userid + '</figcaption>'
+		commentResult += '<figcaption class="text-center">' + item.nickname + '</figcaption>'
 		commentResult += '</figure>';//thumbnail
 		commentResult += '<img class="img-responsive" src="./resources/images/icons/user-avatar-placeholder.png" />';
 		commentResult += '</div>';//col-md-2 col-sm-2 hidden-xs | col-md-2 col-sm-2 col-md-offset-1 col-sm-offset-0 hidden-xs 
-		if(item.parentCmtId == null){
+		if(item.parentId == null){
 			commentResult += '<div class="col-md-10 col-sm-10">';
 		}else{
 			commentResult += '<div class="col-md-9 col-sm-9">';
@@ -67,10 +82,21 @@ function output(resp){
 		commentResult += '<div class="panel-body">';
 		commentResult += '<header class="text-left">';
 		commentResult += '<div class="comment-user">';
-		if(item.parentCmtId == null){
-			commentResult +=  '<i class="fa fa-user"></i>Comment'
-		}else{
-			commentResult += '<i class="fa fa-user"></i>' + item.parentCmtId;
+		if(item.parentId == null && item.nickname != '*****'){
+			commentResult += '<i class="fa fa-user"></i>Comment'
+			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white;">신고</button>';
+		}else if(item.parentId != null && item.nickname != '*****'){
+			commentResult += '<i class="fa fa-user"></i>' + item.parentNick;
+			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white;">신고</button>';
+		}
+		if(item.nickname != '*****'){
+			commentResult += '<button class="text-right" onclick="matching(\'' + item.userid + '\', ' + matchingCount + ', ' + item.commentNum + ')" style="border:none; background-color:white;">';
+			if(item.matchingId == null){
+				commentResult += '<img id="match' + item.commentNum + '" alt="match" src="./resources/images/icons/silver.png">';
+			}else{
+				commentResult += '<img id="match' + item.commentNum + '" alt="match" src="./resources/images/icons/golden.png">';
+			}
+			commentResult += '</button>';
 		}
 		commentResult += '</div>';//comment-user
 		commentResult += '<time class="comment-date" datetime="' + item.regdate + '">';// regdate형식 16-12-2014 01:05
@@ -78,17 +104,26 @@ function output(resp){
 		commentResult += '</time>';//comment-date
 		commentResult += '</header>';//text-left
 		commentResult += '<div class="comment-post">';
-		commentResult += '<p class="comment-text">' + item.comments + '</p>';
+		commentResult += '<p class="comment-text"><input id="cmt'+ item.commentNum +'" value="' + item.comments + '" disabled="true" style="border:0px; background-color:white;" /></p>';
 		commentResult += '</div>';//comment-post
 		commentResult += '<p class="text-right">';
-		commentResult += '<input class="btn btn-default btn-sm modifyComment" data-rno="'+ item.commentNum + '" type="button" value="Modify" /> ';
-		commentResult += '<input class="btn btn-default btn-sm deleteComment" data-dno="'+ item.commentNum + '" type="button" value="Delete" /> ';
-		commentResult += '<a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Reply</a>';
+		if(loginId === item.userid){
+			commentResult += '<button class="btn btn-default btn-sm" id="update' + item.commentNum + '" onclick="modifyComment(' + item.commentNum + ')">Modify</button>';
+			commentResult += '<button class="btn btn-default btn-sm" onclick="deleteComment('+ item.commentNum + ', ' + item.groupNum +')">Delete</button>';
+		}
+		if(item.parentId == null && item.nickname != '*****'){
+			commentResult += '<button class="btn btn-default btn-sm" onclick="reply(\'' + item.userid + '\', \'' + item.nickname + '\', ' + item.groupNum + ', ' + item.commentNum + ', this)"><i class="fa fa-reply"></i> Reply</button>';
+		}else if(item.parentId != null && item.nickname != '*****'){
+			commentResult += '<button class="btn btn-default btn-sm" onclick="reply(\'' + item.userid + '\', \'' + item.nickname + '\', ' + parentGroup + ', ' + item.commentNum + ', this)"><i class="fa fa-reply"></i> Reply</button>';
+		}else{
+			commentResult += '<br /><br />';
+		}
 		commentResult += '</p>';//text-right
 		commentResult += '</div>';//panel-body
 		commentResult += '</div>';//panel panel-default arrow left
 		commentResult += '</div>';//col-md-10 col-sm-10 | col-md-9 col-sm-9
 		commentResult += '</article>';//row
+		commentResult += '<div id="reply' + item.commentNum + '"></div>';
 	});
 	commentResult += '</section>';//comment-list
 	commentResult += '</div>';//col-md-8
@@ -96,52 +131,49 @@ function output(resp){
 	commentResult += '</div>';//container
 	
 	
-	$("#commentResult").html(commentResult);
-	$("input:button.deleteComment").click(deleteComment);
-	$("input:button.modifyComment").click(modifyComment);
+	$('#commentResult').html(commentResult);
+	$('#insertComment').click(insertComment);
 }
 
-//댓글 삭제
-function deleteComment() {
-	var commentNum = $(this).attr("data-dno");
-	
+// 신고 페이지 가기
+function report(reportee, report){
+	var reporter = $('#loginId').val();
+	var boardNum = $('#boardNum').val();
+	window.open("./goReportBox", "Report", "width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no");
+}
+
+// 댓글 삭제
+function deleteComment(commentNum, groupNum) {
 	$.ajax({
 		url  : 'deleteComment'
 		, type : 'get'
-		, data : {'commentNum' : commentNum, 'boardType' : 'matching'}
+		, data : {'commentNum' : commentNum, 'groupNum' : groupNum, 'boardType' : 'matching'}
 		, success : init
 		, error : function(){alert("Error!");}
 	});
 }
 
 // 댓글수정
-function modifyComment() {
-	var commentNum  = $(this).attr("data-rno");
-	var userid    = $(this).parent().children(".text-center").text();
-	var comments = $(this).parent().children(".comment-text").text();
-
-	$('.userid').val(userid);
-	$('.comments').val(comments);
-	$('#insertComment').val('댓글 수정');
-	$('.userid').prop('readonly', 'readonly');
+function modifyComment(commentNum) {
+	$('#cmt' + commentNum).attr('disabled', false);
+	$('#cmt' + commentNum).css('border', '1px solid');
+	$('#cmt' + commentNum).css('width', '100%');
+	document.getElementById('cmt' + commentNum).focus();
 	
-	$('#insertComment').off('click', insertComment);
-
-	$("#insertComment").on('click', update);
+	$('#update' + commentNum).on('click', update);
 			
 	function update(){
-		var comments = $("#comment").val();
+		var userid = $('#loginId').val();
+		var nickname = $('loginNick').val();
+		var comments = $('#cmt' + commentNum).val();
 		
 		$.ajax({
 			url  : 'updateComment'
 			, type : 'post'
-			, data : {'commentNum' : commentNum 
-					  , 'userid' : userid
-					  , 'comments' : comments
-					  , 'boardType' : 'matching'}
+			, data : {'commentNum' : commentNum, 'userid' : userid, 'nickname' : nickname
+					 ,'comments' : comments, 'boardType' : 'matching'}
 			, success : function(){
 				init();
-				$('.userid').prop('readonly', false);
 			}
 			, error : function(){alert("Error!");}
 		});
@@ -151,23 +183,105 @@ function modifyComment() {
 
 // 댓글 삽입
 function insertComment() {
-	var userid = $(".userid").val();
-	var comments = $(".comments").val();
+	var boardNum = $('#boardNum').val();
+	var userid = $('#loginId').val();
+	var nickname = $('#loginNick').val();
+	var comments = $('.comments').val();
 	
-	// alert("userid : "+ userid + ", comments : "+ comments);
-	if(userid.length == 0 || comments.length == 0) {
-		alert("아이디와 댓글을 입력하세요.");
-		
+	if(comments.length == 0) {
+		alert("Please Write Your Comment");
 		return ;
 	}
 	
 	$.ajax({
 		url  : 'insertComment'
 		, type : 'post'
-		, data : {"userid" : userid, "comments" : comments, 'boardType' : 'matching'}
+		, data : {'userid' : userid, 'nickname' : nickname, 'boardNum' : boardNum
+				 , 'comments' : comments, 'boardType' : 'matching'}
 		, success : init
 		, error : function(){alert("Error!");}
 	});
+}
+
+//reply 달기
+function reply(parentId, parentNick, groupNum, commentNum, btn){
+	var reply = '';
+	reply += 'To.' + parentNick;
+	reply += '<input id="replybox" type="text" />';
+	reply += '<button id="sendReply">Send</button>';
+	
+	$('#reply' + commentNum).append(reply);
+	$(this).html('Cancel');
+	
+	btn.onclick = function(){
+		$('#reply' + commentNum).remove();
+		init();
+	};
+	
+	$('#sendReply').on('click', function(){
+		var boardNum = $('#boardNum').val();
+		var comments = $('#replybox').val();
+		var userid = $('#loginId').val();
+		var nickname = $('#loginNick').val();
+
+		$.ajax({
+			url : 'insertComment'
+			, type : 'post'
+			, data : {'userid' : userid
+					  , 'nickname' : nickname
+					  , 'boardNum' : boardNum
+					  , 'comments' : comments
+					  , 'parentId' : parentId
+					  , 'parentNick' : parentNick
+					  , 'groupNum' : groupNum
+					  , 'reply' : 'reply'
+					  , 'boardType' : 'matching'}
+			, success : init
+			, error : function(){alert("Error!");} 
+		});
+	});
+}
+
+//matching ID 선택
+function matching(matchingId, matchingCount, commentNum){
+	var userid = $('#userid').val();
+	var loginId = $('#loginId').val();
+	var boardNum = $('#boardNum').val();
+	var check = $('#match' + commentNum).attr('src');
+	
+	if(userid === loginId && matchingCount <= 1){
+		// 이미 매칭이 되어있는 경우 매칭 취소
+		if(check.includes('golden') && matchingCount === 1){
+			$.ajax({
+				url : 'unmatching'
+				, type : 'post'
+				, data : {'boardNum' : boardNum, 'matchingId' : null
+						 , 'boardType' : 'matching', 'commentNum' : commentNum}
+				, success : function(resp){
+					if(resp == 1){
+						$('#match' + commentNum).attr('src', './resources/images/icons/silver.png');
+						init();
+					}
+				}
+				, error : function(){alert('Error!');}
+			});
+		}else if(matchingCount === 0 && matchingId !== loginId){
+			// 매칭
+			$.ajax({
+				url : 'matching'
+				, type : 'post'
+				, data : {'boardNum' : boardNum, 'matchingId' : matchingId
+						 , 'boardType' : 'matching', 'commentNum' : commentNum}
+				, success : function(resp){
+					if(resp == 1){
+						$('#match' + commentNum).attr('src', './resources/images/icons/golden.png');
+						init();
+					}
+				}
+				, error : function(){alert('Error!');}
+			});
+		}
+	}
 }
 </script>
 </head>
@@ -175,8 +289,11 @@ function insertComment() {
 <%@ include file="/WEB-INF/views/header.jsp"%>
 	<h1>Matching Board</h1>
 	<div>
-		<h4>${board.title}</h4>
+		<h4>${board.title}<button onclick="report('${board.userid}', '${board.contents}')" style="font-size:x-small; border:none; background-color:white;">신고</button></h4>
 		<input id="boardNum" type="hidden" value="${board.boardNum}">
+		<input id="userid" type="hidden" value="${board.userid}">
+		<input id="loginId" type="hidden" value="${sessionScope.loginId}">
+		<input id="loginNick" type="hidden" value="${sessionScope.loginNick}">
 		<div>
 			<pre>${board.contents}</pre>
 		</div>
@@ -184,11 +301,6 @@ function insertComment() {
 			<a href="./boardList?page=${page}&boardType=matching&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Back</button></a>
 			<a href="./updateBoardForm?boardNum=${board.boardNum}&boardType=matching&page=${page}&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Update</button></a>
 			<a href="./deleteBoard?boardNum=${board.boardNum}&boardType=matching"><button class="btn">Delete</button></a>
-		</div>
-		<div>
-			<input class="userid" type="text" placeholder="ID" />
-			<input id="comment" class="comments" type="text" placeholder="댓글 내용" />
-			<input id="insertComment" type="button" value="댓글 추가" />
 		</div>
 		<div id="commentResult"></div>
 	</div>

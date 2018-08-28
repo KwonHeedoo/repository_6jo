@@ -70,5 +70,33 @@ public class CommentRepository {
 		return result;
 	}
 	
+	// 코멘트 하나 요청
+	public Comment selectOne(Map<String, Object> map) {
+		CommentMapper mapper = session.getMapper(CommentMapper.class);
+		Comment comment = null;
+		
+		try {
+			comment = mapper.selectOne(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return comment;
+	}
+	
+	// 매칭 여부 처리
+	public int matching(Map<String, Object> map) {
+		CommentMapper mapper = session.getMapper(CommentMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.matching(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	
 }

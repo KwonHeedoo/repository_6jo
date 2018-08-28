@@ -14,5 +14,9 @@ public interface CommentMapper {
 	public int updateComment(Map<String, Object> map);
 	// 코멘트 삭제 처리
 	public int deleteComment(Map<String, Object> map);
+	// 코멘트 하나 요청
+	public Comment selectOne(Map<String, Object> map);
+	// 매칭 여부 처리
+	public int matching(Map<String, Object> map);
 
 }
