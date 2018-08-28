@@ -18,7 +18,8 @@
 		<typeAlias type="com.scit6jo.web.vo.resume.Education" alias="Education" />
 		<typeAlias type="com.scit6jo.web.vo.resume.Experience" alias="Experience" />
 		<typeAlias type="com.scit6jo.web.vo.resume.Resume" alias="Resume"/>
-		
+		<typeAlias type="com.scit6jo.web.vo.Board" alias="Board" />
+		<typeAlias type="com.scit6jo.web.vo.Comment" alias="Comment" />
 	</typeAliases>
 	
 	<!-- Mapper 파일 resource 지정-->
@@ -28,6 +29,8 @@
 		<mapper resource="mappers/dataMapper.xml" />
 		<mapper resource="mappers/resumeMapper.xml"/>
 		<mapper resource="mappers/mypageMapper.xml" />
+		<mapper resource="mappers/boardMapper.xml" />
+		<mapper resource="mappers/commentMapper.xml" />
 	</mappers>
 	
 </configuration>
