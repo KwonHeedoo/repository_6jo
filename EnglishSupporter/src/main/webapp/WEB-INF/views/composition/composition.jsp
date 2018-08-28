@@ -113,7 +113,7 @@ function setSttData(sendData){
 	<br/>
 	<!-- 텍스트 음성 제공 버튼(TTS Button) -->
 	<div id="tts">
-		<button id="ttsBtn" type="button"><img alt="speaker" src="./resources/images/icons/speaker.png" style="width:20px;height:20px;"></button>
+		<button id="ttsBtn"><img alt="speaker" src="./resources/images/icons/speaker.png" style="width:20px;height:20px;"></button>
 		<audio src="" class="audio" hidden></audio>
 	</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>

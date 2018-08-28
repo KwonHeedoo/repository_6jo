@@ -38,7 +38,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpSession session) {
-		session.setAttribute("loginId", "aaa");
+		//session.setAttribute("loginId", "aaa");
 		
 		return "home";
 	}

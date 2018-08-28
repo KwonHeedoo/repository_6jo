@@ -3,11 +3,14 @@ package com.scit6jo.web.vo;
 public class Comment {
 	private int commentNum;
 	private String userid;
+	private String nickname;
 	private int boardNum;
 	private String comments;
 	private String regdate;
-	private String parentCmtId;
+	private String parentId;
+	private String parentNick;
 	private int groupNum;
+	private String matchingId;
 	private int pronunciation;
 	private int contents;
 	private int posture;
@@ -16,27 +19,32 @@ public class Comment {
 		super();
 	}
 
-	public Comment(int commentNum, String userid, int boardNum, String comments, String regdate, String parentCmtId,
-			int groupNum) {
+	public Comment(int commentNum, String userid, String nickname, int boardNum, String comments, String regdate,
+			String parentId, String parentNick, int groupNum, String matchingId) {
 		super();
 		this.commentNum = commentNum;
 		this.userid = userid;
+		this.nickname = nickname;
 		this.boardNum = boardNum;
 		this.comments = comments;
 		this.regdate = regdate;
-		this.parentCmtId = parentCmtId;
+		this.parentId = parentId;
+		this.parentNick = parentNick;
 		this.groupNum = groupNum;
+		this.matchingId = matchingId;
 	}
 
-	public Comment(int commentNum, String userid, int boardNum, String comments, String regdate, String parentCmtId,
-			int groupNum, int pronunciation, int contents, int posture) {
+	public Comment(int commentNum, String userid, String nickname, int boardNum, String comments, String regdate,
+			String parentId, String parentNick, int groupNum, int pronunciation, int contents, int posture) {
 		super();
 		this.commentNum = commentNum;
 		this.userid = userid;
+		this.nickname = nickname;
 		this.boardNum = boardNum;
 		this.comments = comments;
 		this.regdate = regdate;
-		this.parentCmtId = parentCmtId;
+		this.parentId = parentId;
+		this.parentNick = parentNick;
 		this.groupNum = groupNum;
 		this.pronunciation = pronunciation;
 		this.contents = contents;
@@ -57,6 +65,14 @@ public class Comment {
 
 	public void setUserid(String userid) {
 		this.userid = userid;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public int getBoardNum() {
@@ -83,12 +99,20 @@ public class Comment {
 		this.regdate = regdate;
 	}
 
-	public String getParentCmtId() {
-		return parentCmtId;
+	public String getParentId() {
+		return parentId;
 	}
 
-	public void setParentCmtId(String parentCmtId) {
-		this.parentCmtId = parentCmtId;
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getParentNick() {
+		return parentNick;
+	}
+
+	public void setParentNick(String parentNick) {
+		this.parentNick = parentNick;
 	}
 
 	public int getGroupNum() {
@@ -97,6 +121,14 @@ public class Comment {
 
 	public void setGroupNum(int groupNum) {
 		this.groupNum = groupNum;
+	}
+
+	public String getMatchingId() {
+		return matchingId;
+	}
+
+	public void setMatchingId(String matchingId) {
+		this.matchingId = matchingId;
 	}
 
 	public int getPronunciation() {
@@ -125,8 +157,9 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [commentNum=" + commentNum + ", userid=" + userid + ", boardNum=" + boardNum + ", comments="
-				+ comments + ", regdate=" + regdate + ", parentCmtId=" + parentCmtId + ", groupNum=" + groupNum
+		return "Comment [commentNum=" + commentNum + ", userid=" + userid + ", nickname=" + nickname + ", boardNum="
+				+ boardNum + ", comments=" + comments + ", regdate=" + regdate + ", parentId=" + parentId
+				+ ", parentNick=" + parentNick + ", groupNum=" + groupNum + ", matchingId=" + matchingId
 				+ ", pronunciation=" + pronunciation + ", contents=" + contents + ", posture=" + posture + "]";
 	}
 	
