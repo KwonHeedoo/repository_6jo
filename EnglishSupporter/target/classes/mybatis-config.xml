@@ -17,7 +17,7 @@
 		<typeAlias type="com.scit6jo.web.vo.resume.Additional_info" alias="AddInfo" />
 		<typeAlias type="com.scit6jo.web.vo.resume.Education" alias="Education" />
 		<typeAlias type="com.scit6jo.web.vo.resume.Experience" alias="Experience" />
-		<typeAlias type="com.scit6jo.web.vo.resume.Resume" alias="Resume" />
+		<typeAlias type="com.scit6jo.web.vo.resume.Resume" alias="Resume"/>
 		
 	</typeAliases>
 	
@@ -26,6 +26,7 @@
 		<mapper resource="mappers/wordMapper.xml" />
 		<mapper resource="mappers/userMapper.xml" />
 		<mapper resource="mappers/dataMapper.xml" />
+		<mapper resource="mappers/resumeMapper.xml"/>
 	</mappers>
 	
 </configuration>

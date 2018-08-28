@@ -51,12 +51,12 @@
         <li><a href="./goComposition">Text Training</a></li>
         <li><a class="drop" href="#">My Resume</a>
           <ul>
-            <li><a href="#">My documents</a>
+            <li><a href="goMyDocs">My documents</a>
               </li>
-            <li><a href="#" class="drop">write documents +</a>
+            <li><a href="#" class="drop">write +</a>
              	<ul>
                 <li><a href="goResumeForm">resume(CV)</a></li>
-                <li><a href="#">cover letter</a></li>
+                <li><a href="goCoverletter">cover letter</a></li>
               	</ul>
             </li>
           </ul>

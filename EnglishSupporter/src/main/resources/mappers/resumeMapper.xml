@@ -5,27 +5,112 @@
 
 <mapper namespace="com.scit6jo.web.dao.ResumeMapper">
 	
-	<insert id="insertEdu" parameterType="Education">
-		INSERT INTO INTERVIEW_DATA(
-			dataNum,
-			userid,
-			questionNum,
-			answer,
-			regdate,
-			saveFile
+	<insert id="insertEdu" parameterType="map">
+		<foreach collection="education" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+		INTO 
+		education(
+		resume_no
+		,school_name
+		,degree_level
+		,enter_date
+		,graduate_date
+		,major
+		)VALUES
+		(	#{resume_no}
+			,#{item.school_name}
+			,#{item.degree_level}
+			,#{item.enter_date}
+			,#{item.graduate_date}
+			,#{item.major}
 		)
-		VALUES(
-			data_seq.nextval,
-			#{userid},
-			#{questionNum},
-			#{answer},
-			sysdate,
-			#{saveFile}
+		</foreach>
+	</insert>
+	
+	<insert id="insertExp" parameterType="map">
+		<foreach collection="education" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+	
+		</foreach>
+	</insert>
+	
+	<insert id="insertInfo" parameterType="map">
+		<foreach collection="education" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+
+		</foreach>
+	</insert>
+	
+	
+	<select id="selectResumeNo" parameterType="Resume" resultType="Resume">
+		select resume_no from resume 
+		where userid =#{userid} 
+		and title =#{title} 
+	</select>
+	
+	<insert id="insertResume" parameterType="Resume">
+		INSERT INTO	RESUME(
+			resume_no
+			,userid
+			,title
+			,regdate
+			,deadline
+			,phone
+			,address
+		)VALUES(
+			resume_seq.NEXTVAL
+			,#{userid}
+			,#{title}
+			,sysdate
+			,#{deadline}
+			,#{phone}
+			,#{address}
 		)
+	</insert>
+	
+<!-- 	<insert id="insertAddInfo" parameterType="Map">
+	
+	</insert>
+	
+	<insert id="insertExp">
 	
 	</insert>
 	
 	
-
+	<select id="getResume" parameterType="Map" resultMap="Resume">
+		
+	
+	</select> -->
+	
+	<resultMap type="HashMap" id="Resume">
+		<id property="resume_no" column="resume_no"/>
+		<result property="userid" column="userid"/>
+		<result property="title" column="title"/>
+		<result property="regdate" column="regdate"/>
+		<result property="deadline" column="deadline"/>
+		<result property="phone" column="phone"/>
+		<result property="address" column="address"/>
+		<!--  -->
+		<collection property="additional_info" javaType="java.util.List" ofType="AddInfo">
+			<id property="resume_no" column="resume_no"/>
+			<result property="info_title" column="info_title"/>
+			<result property="detail" column="detail"/>
+			<result property="remarks" column="remarks"/>
+			<result property="info_date" column="info_date"/>
+			</collection>
+			
+		<collection property="education" javaType="java.util.List" ofType="Education">
+		<id property="resume_no" column="resume_no"/>
+			<result property="school_name" column="school_name"/>
+			<result property="degree_level" column="degree_level"/>
+			<result property="enter_date" column="enter_date"/>
+			<result property="graduate_date" column="graduate_date"/>
+			<result property="major" column="major"/>
+			</collection>
+		<collection property="experience" javaType="java.util.List" ofType="Experience">
+		<id property="resume_no" column="resume_no"/>
+			<result property="company_name" column="company_name"/>
+			<result property="job_description" column="job_description"/>
+			<result property="start_date" column="start_date"/>
+			<result property="end_date" column="end_date"/>
+			</collection>
+	</resultMap>
 	
 </mapper>

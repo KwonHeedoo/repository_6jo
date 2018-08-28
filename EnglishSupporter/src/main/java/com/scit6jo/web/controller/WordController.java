@@ -16,6 +16,7 @@ import com.scit6jo.web.vo.Word;
 
 @Controller
 public class WordController {
+	
 	@Autowired
 	WordRepository repository;
 	

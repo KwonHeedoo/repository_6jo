@@ -49,7 +49,7 @@ font-weight: bold;
 			<h4>[ New Resume ]</h4>
 			<br>
 			<form id="resume">
-				<input type="hidden" name="userid" value="${user.userid}">
+				<input type="hidden" name="userid" value="${u.userid}">
 				<div class="row">
 					<div class="col-md-5">
 					<p>TITLE: </p><input id="title" type="text" name="title" placeholder="COMPANY NAME / JOB TITLE" />
@@ -63,10 +63,10 @@ font-weight: bold;
 					<h5>Personal Information</h5>
 				<div class="row">
 					<div class="col-md-2">
-						<p>NAME: </p><input type="text" name="username" value="${user.username}" readonly />
+						<p>NAME: </p><input type="text" name="username" value="${u.username}" readonly />
 					</div>
 					<div class="col-md-3">
-						<p>EMAIL: </p><input id="email" type="text" name="email" value="${user.email}" readonly />
+						<p>EMAIL: </p><input id="email" type="text" name="email" value="${u.email}" readonly />
 					</div>
 					<div class="col-md-2">
 						<p>PHONE NUMBER: </p><input type="text" name="phone" />
@@ -229,6 +229,7 @@ $(function(){
 	
 	$('#minusedu').on('click',function(){
 		//console.log($('#edu >.box:last-child'));
+		indexedu =  $('#edu >.box').length;
 		if(indexedu>1){
 			$('#edu >.box:last-child').remove();
 		}
@@ -249,6 +250,8 @@ $(function(){
 	
 	$('#minusexp').on('click',function(){
 		//console.log($('#exp >.box:last-child'));
+		indexexp = $('#exp >.box').length;
+		console.log(indexexp);
 		if(indexexp>1){
 			$('#exp >.box:last-child').remove();
 		}
@@ -353,6 +356,9 @@ $(function(){
 		
 		//공란 체크 추가정보
 		
+		
+		
+		//폼 오브젝트화 
 		var education = $('#education').serializeObject();
 		var resume = $('#resume').serializeObject();
 		var experience = $('#experience').serializeObject();
