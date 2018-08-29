@@ -135,20 +135,6 @@ function output(resp){
 	$('#insertComment').click(insertComment);
 }
 
-// 신고 페이지 가기
-function report(reportee, report){
-	var openWin;
-	var reporter = $('#loginId').val();
-	var boardNum = $('#boardNum').val();
-	
-	openWin = window.open("./goReportBox", "ReportBox", "width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no");
-	
-	openWin.document.getElementById('reporter').value = reporter;
-	openWin.document.getElementById('report').value = report;
-	openWin.document.getElementById('reportee').value = reportee;
-	openWin.document.getElementById('boardNum').value = boardNum;
-}
-
 // 댓글 삭제
 function deleteComment(commentNum, groupNum) {
 	$.ajax({
@@ -290,6 +276,76 @@ function matching(matchingId, matchingCount, commentNum){
 		}
 	}
 }
+
+//신고 페이지 오픈 및 데이터 값 보내기
+function report(reportee, report){
+	var reporter = $('#loginId').val();
+	var boardNum = $('#boardNum').val();
+	var page = $('#page').val();
+	var searchItem = $('#searchItem').val();
+	var searchText = $('#searchText').val();
+	
+	var form = document.createElement('form');
+	form.setAttribute('method', 'post');
+	form.setAttribute('action', 'goReportBox');
+	form.setAttribute('target', 'ReportBox');
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'reporter';
+	input.value = reporter;
+	form.appendChild(input);
+
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'reportee';
+	input.value = reportee;
+	form.appendChild(input);
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'report';
+	input.value = report;
+	form.appendChild(input);
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'page';
+	input.value = page;
+	form.appendChild(input);
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'boardNum';
+	input.value = boardNum;
+	form.appendChild(input);
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'boardType';
+	input.value = 'matching';
+	form.appendChild(input);
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'searchItem';
+	input.value = searchItem;
+	form.appendChild(input);
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'searchText';
+	input.value = searchText;
+	form.appendChild(input);
+	
+	document.body.appendChild(form);
+	
+	window.open('', 'ReportBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	
+	form.submit();
+	
+	document.body.removeChild(form);
+}
 </script>
 </head>
 <body>
@@ -299,6 +355,9 @@ function matching(matchingId, matchingCount, commentNum){
 		<h4>${board.title}<button onclick="report('${board.userid}', '${board.contents}')" style="font-size:x-small; border:none; background-color:white;">신고</button></h4>
 		<input id="boardNum" type="hidden" value="${board.boardNum}">
 		<input id="userid" type="hidden" value="${board.userid}">
+		<input id="page" type="hidden" value="${page}">
+		<input id="searchItem" type="hidden" value="${searchItem}">
+		<input id="searchText" type="hidden" value="${searchText}">
 		<input id="loginId" type="hidden" value="${sessionScope.loginId}">
 		<input id="loginNick" type="hidden" value="${sessionScope.loginNick}">
 		<div>
