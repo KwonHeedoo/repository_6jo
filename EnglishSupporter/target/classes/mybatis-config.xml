@@ -20,6 +20,7 @@
 		<typeAlias type="com.scit6jo.web.vo.resume.Resume" alias="Resume"/>
 		<typeAlias type="com.scit6jo.web.vo.Board" alias="Board" />
 		<typeAlias type="com.scit6jo.web.vo.Comment" alias="Comment" />
+		<typeAlias type="com.scit6jo.web.vo.Report" alias="Report" />
 	</typeAliases>
 	
 	<!-- Mapper 파일 resource 지정-->
@@ -31,6 +32,7 @@
 		<mapper resource="mappers/mypageMapper.xml" />
 		<mapper resource="mappers/boardMapper.xml" />
 		<mapper resource="mappers/commentMapper.xml" />
+		<mapper resource="mappers/reportMapper.xml" />
 	</mappers>
 	
 </configuration>
