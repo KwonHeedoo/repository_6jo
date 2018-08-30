@@ -21,7 +21,7 @@
     <div class="fl_right">
       <ul>
         <c:if test="${sessionScope.loginId != null}">
-         <li>${sessionScope.u.nickname} 님  환영합니다.</li>
+         <li>${sessionScope.loginNick} 님  환영합니다.</li>
         </c:if>
         <li><a href="./"><i class="fa fa-lg fa-home"></i></a></li>
        	<!-- 로그인 하지 않은 경우 --> 

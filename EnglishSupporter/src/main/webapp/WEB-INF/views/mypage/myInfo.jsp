@@ -57,7 +57,7 @@ float:left;
 
 					<!-- Brand -->
 					<div class="brand-name-wrapper">
-						<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span> ${sessionScope.u.nickname}'s My page </a>
+						<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span> ${sessionScope.loginNick}'s My page </a>
 					</div>
 				</div>
 
