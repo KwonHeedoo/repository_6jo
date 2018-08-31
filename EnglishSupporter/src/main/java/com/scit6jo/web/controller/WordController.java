@@ -64,16 +64,16 @@ public class WordController {
 		//본래 세션의 아이디를 가져와서 사용
 		word.setUserid("aaa");
 		
-		System.out.println(word);
+/*		System.out.println(word);
 		System.out.println(command);
 		System.out.println("wordtype"+word.getWordtype());
+*/		
 		if(command.equals("insert")) {
 			if(word.getWordtype().equals("")) {
 				word.setWordtype("star");
 				System.out.println("일반단어 별찍기 in");
 			}
 			result =repository.insertMyWord(word);
-			// 직접입혁하여 추가하는 경우 만들어야함 
 		}else {
 			result =repository.deleteMyWord(word);
 		}

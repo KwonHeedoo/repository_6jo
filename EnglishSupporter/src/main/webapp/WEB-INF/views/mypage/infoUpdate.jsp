@@ -11,7 +11,7 @@
 
 <style type="text/css">
 .raw{
-height: 60%;
+height: 70%;
 
 }
 .side-menu {
@@ -108,7 +108,7 @@ $(function(){
 
 					<!-- Brand -->
 					<div class="brand-name-wrapper">
-						<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span> ${sessionScope.u.nickname}'s My page </a>
+						<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span> ${sessionScope.loginNick}'s My page </a>
 					</div>
 				</div>
 			</div>
@@ -138,15 +138,18 @@ $(function(){
 					<div class="center">
 						<form action="infoUpdate" method="post">
 						<div class="center">
-						<h1>[ My Info Update ]</h1>
-							<p>ID: <input type="text" name="userid" value="${sessionScope.u.userid}" readonly /></p>
-							<p>NAME: <input type="text" name="username" placeholder="${sessionScope.u.username}" /></p>
-							<p>NICKNAME: <input type="text" name="nickname" id="nickname" placeholder="${sessionScope.u.nickname}" /></p>
+						<br>
+						<h3>[ My Info Update ]</h3>
+						<br>
+							<p>ID: <input type="text" name="userid" value="${u.userid}" readonly /></p>
+							<p>NAME: <input type="text" name="username" value="${u.username}" placeholder="${u.username}" /></p>
+							<p>NICKNAME: <input type="text" name="nickname" id="nickname" value="${u.nickname}" placeholder="${u.nickname}" /></p>
 							<span id="nicknameCheck"></span>
-							<p>EMAIL: <input type="text" name="email" placeholder="${sessionScope.u.email}" /></p>
+							<p>EMAIL: <input type="text" name="email" value="${u.email}" placeholder="${u.email}" /></p>
 							<p>BIRTH DATE: <input type="date" name="birthdate" value="" /></p>
-							<input type="hidden" value="${sessionScope.u.birthdate}" id="birthdate">
+							<input type="hidden" value="${u.birthdate}" id="birthdate">
 							<p>PASSWORD: <input type="password" name="userpwd" placeholder="Verify your Password" required /></p>
+							<br>
 							<p><input type="submit" value="UPDATE" class="btn" /></p>
 						</div><!-- center -->
 						</form>
@@ -160,7 +163,7 @@ $(function(){
 <script>
 $(function(){
 	alert("${msg}");
-	location.href = "${pageContext.request.contextPath}/";
+	location.href = "${pageContext.request.contextPath}/goInfoUpdate";
 });
 </script>
 </c:if>

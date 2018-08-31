@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.scit6jo.web.dao.BoardMapper;
 import com.scit6jo.web.vo.Board;
 
+
+
 @Repository
 public class BoardRepository {
 	@Autowired
