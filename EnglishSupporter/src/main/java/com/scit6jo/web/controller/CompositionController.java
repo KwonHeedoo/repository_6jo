@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.scit6jo.web.dao.WordRepository;
+import com.scit6jo.web.repository.WordRepository;
 import com.scit6jo.web.util.CrawlingWord;
 import com.scit6jo.web.vo.Word;
 
@@ -44,6 +44,7 @@ public class CompositionController {
 	@RequestMapping(value = "/repetitionCheck", method = RequestMethod.POST)
 	public @ResponseBody List<Word> repetitionCheck(String composition, String confirm) {
 		CrawlingWord cw = new CrawlingWord();
+		
 		List<Word> wordList = new ArrayList<>();
 		
 		// 중복단어 선별 및 유의어 찾기
