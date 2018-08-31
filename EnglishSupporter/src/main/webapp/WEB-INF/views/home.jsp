@@ -9,7 +9,7 @@
 <style type="text/css">
 .container{
 height: 60%;
-background-image: url('/web/resources/images/bible-book-christian-250609.jpg');
+background-image: url('./resources/images/bible-book-christian-250609.jpg');
 background-size: 100%;
 background-repeat: no-repeat;
 background-position: center center; 

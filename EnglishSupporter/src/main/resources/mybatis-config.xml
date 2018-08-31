@@ -18,6 +18,7 @@
 		<typeAlias type="com.scit6jo.web.vo.resume.Education" alias="Education" />
 		<typeAlias type="com.scit6jo.web.vo.resume.Experience" alias="Experience" />
 		<typeAlias type="com.scit6jo.web.vo.resume.Resume" alias="Resume"/>
+		<typeAlias type="com.scit6jo.web.vo.resume.CoverLetter" alias="CoverLetter"/>
 		<typeAlias type="com.scit6jo.web.vo.Board" alias="Board" />
 		<typeAlias type="com.scit6jo.web.vo.Comment" alias="Comment" />
 		<typeAlias type="com.scit6jo.web.vo.Report" alias="Report" />

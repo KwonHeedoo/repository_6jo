@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>New Resume</title>
+<title>CoverLetter</title>
 <script src="resources/jquery-3.3.1.min.js"></script>
 <script src="resources/jquery.serialize-object.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -67,31 +67,22 @@ textarea {
 		</div>
 		<hr>
 			<input type="hidden" name="userid" value="${sessionScope.loginId}">
+		<h2>${sessionScope.username}</h2>
 		<div class="row">
-		<div class="com-md-10">
-		<p>[${sessionScope.username}]</p>
 		<br>
+		<div class="col-md-3">
+		<input id="email" type="email" name="email" value="${sessionScope.email}" placeholder="EMAIL"/>
 		</div>
 		<div class="col-md-3">
-		<input id="email" type="email" name="email" value="${sessionScope.email}" placeholder="YOUR E-MAIL"/>
-		</div>
-		<div class="col-md-3">
-		<input type="text" name="phone" placeholder="YOUR PHONE NUMBER"/>
+		<input type="text" name="phone" placeholder="PHONE NUMBER"/>
 		</div>
 		<div class="col-md-6">
-		<input id="address" type="text" name="address" placeholder="YOUR ADDRESS"/>
+		<input id="address" type="text" name="address" placeholder="ADDRESS"/>
 		</div>
 	</div>
 	<hr>
 	<br>
 	<div class="raw">
-		<div class="right col-md-12">
-			<select name="sampleTemplete" id=selectbox>
-				<option value="sample1" selected>sample1</option>
-				<option value="sample2">sample2</option>
-				<option value="sample3">sample3</option>
-			</select>
-		</div>
 		<textarea rows="" cols="" name="maintext" >
 		${sample.maintext}
 		</textarea>
@@ -106,58 +97,5 @@ textarea {
 </div>
 	<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
-
-<script type="text/javascript">
-$.fn.serializeJSON   = FormSerializer.serializeJSON;
-
-$(function(){
-	
-	$('#datasend').on('click',function(){
-	 	var coverletter = $('#coverletter').serializeObject();
-		console.log(coverletter);
-		
-		$.ajax({
-			method: "post",
-			url: "sendCoverletter",
-			data : JSON.stringify(coverletter),
-			contentType : 'application/json; charset=UTF-8',
-			success: function(reps){
-				console.log(reps);
-				alert(resp);
-				if(resp.includes("완료")){
-				location.href = "${pageContext.request.contextPath}/goMyDocs";
-				}
-			},
-			error: function(error){
-				console.log("에러"+error);
-			}
-		});
-		
-	});
-	
-	//샘플박스 선택값을 DB에 보내서 갔다옴!
-	$('#selectbox').on('change',function(){
-		var sample_no = $('#selectbox option:selected').val();
-		
-		//ajax 로 보낼지 컨트롤러에서 리스트로 받아서 한번에 처리할지?
-		$.ajax({
-			method: "post",
-			url: "selectSamples",
-			data : {"userid":"admin", },
-			success: function(reps){
-			 $('textarea[name="maintext"]').text();
-			},
-			error: function(error){
-				console.log("에러"+error);
-			}
-		});
-
-		
-	});
-	
-	
-});
-
-</script>
 
 </html>

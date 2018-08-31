@@ -14,7 +14,17 @@ public class Resume {
 	private List<Experience> experience;
 	private List<Additional_info> additional_info;
 	
+	public Resume() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
+	public Resume(String userid, String title) {
+		super();
+		this.userid = userid;
+		this.title = title;
+	}
+
 	public String getResume_no() {
 		return resume_no;
 	}

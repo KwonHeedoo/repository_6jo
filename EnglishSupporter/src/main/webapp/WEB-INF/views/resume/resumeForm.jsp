@@ -16,7 +16,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
 
-input[type='text'], input[type='date'] {
+input[type='text'], input[type='date'], input[type='email'] {
 margin:0 auto;
 height: 28px;
 width: 100%
@@ -161,10 +161,10 @@ font-weight: bold;
 					<br>
 					<div class="box">
 					<div class="col-md-2">
-						<input type="date" name="additional_info[0][date]" placeholder="END DATE" />date of acquisition
+						<input type="date" name="additional_info[0][info_date]" placeholder="END DATE" />date of acquisition
 					</div>
 					<div class="col-md-2">
-						<input type="text" name="additional_info[0][title]" placeholder="TITLE" />
+						<input type="text" name="additional_info[0][info_title]" placeholder="TITLE" />
 					</div>
 					<div class="col-md-4">
 						<input type="text" name="additional_info[0][detail]" placeholder="DETAIL" />
@@ -261,8 +261,8 @@ $(function(){
 		var text = '<div class="box">';
 		var boxes = $('#info >.box');
 		indexinfo = boxes.length;
-		text += '<div class="col-md-2"><input type="date" name="additional_info['+indexinfo+'][date]" />date of acquisition</div>';
-		text += '<div class="col-md-2"><input type="text" name="additional_info['+indexinfo+'][title]" placeholder="TITLE" /></div>';
+		text += '<div class="col-md-2"><input type="date" name="additional_info['+indexinfo+'][info_date]" />date of acquisition</div>';
+		text += '<div class="col-md-2"><input type="text" name="additional_info['+indexinfo+'][info_title]" placeholder="TITLE" /></div>';
 		text += '<div class="col-md-4"><input type="text" name="additional_info['+indexinfo+'][detail]" placeholder="DETAIL" /></div>';
 		text += '<div class="col-md-4"><input type="text" name="additional_info['+indexinfo+'][remarks]" placeholder="REMARK" /></div></div>';
 			//console.log(text);
@@ -364,10 +364,10 @@ $(function(){
 		var experience = $('#experience').serializeObject();
 		var additional_info =$('#add_info').serializeObject();
 		
-		console.log("education : " + JSON.stringify(education));
+		/* console.log("education : " + JSON.stringify(education));
 		console.log("resume : "+ JSON.stringify(resume));
 		console.log("experience : "+ JSON.stringify(experience));
-		console.log("additional_info : "+ JSON.stringify(additional_info));
+		console.log("additional_info : "+ JSON.stringify(additional_info)); */
 		
 		$.extend(resume, education, experience, additional_info);
 		console.log("resume_extended : "+JSON.stringify(resume));
@@ -379,20 +379,16 @@ $(function(){
 			contentType : 'application/json; charset=UTF-8',
 			success: function(reps){
 				console.log(reps);
+				alert(resp);
+				if(resp.includes("완료")){
+					location.href = "${pageContext.request.contextPath}/goMyDocs";
+					}
 			},
 			error: function(error){
 				console.log("에러"+error);
 			}
-		
-			
-			
-			
 		});
-		
-		
 	});
-
-	
 });
 
 
