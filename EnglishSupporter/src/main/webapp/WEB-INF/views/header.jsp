@@ -65,7 +65,7 @@
           <ul>
             <li><a href="#">Mock Interview</a></li>
             <li><a href="#">Interview Appraise</a></li>
-            <li><a href="./boardList?boardType=matching">1:1 Video Chat</a></li>
+            <li><a href="./goBoardList?boardType=matching">1:1 Video Chat</a></li>
           </ul>
         </li>
 <!--         <li><a class="drop" href="#">MyPage</a>
@@ -81,6 +81,7 @@
                 <li><a href="#">Level 3</a></li>
               </ul>
             </li> -->
+            <li><a href="./goBoardList?boardType=notice">Notice</a></li>
           </ul>
     </nav>
   </header>

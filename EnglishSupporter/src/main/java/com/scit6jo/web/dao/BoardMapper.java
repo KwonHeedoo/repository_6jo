@@ -28,5 +28,7 @@ public interface BoardMapper {
 	public int matching(Board board);
 	// 게시판에 매칭 여부 취소
 	public int unmatching(Board board);
+	// 공지글 리스트 요청
+	public ArrayList<Board> noticeList(Map<String, String> map);
 
 }

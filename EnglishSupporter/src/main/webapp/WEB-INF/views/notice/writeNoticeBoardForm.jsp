@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Writing Matching Board</title>
+<title>Writing Notice Board</title>
 <script>
 	function board(page) {
-		location.href = "./goBoardList?page=" + page + "&boardType=matching";
+		location.href = "./goBoardList?page=" + page + "&boardType=notice";
 	};
 	
 	function formCheck(){
@@ -25,11 +25,11 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<h1>Writing Matching Board</h1>
+	<h1>Writing Notice Board</h1>
 	<div>
 	<form action="writeBoard" method="post" onsubmit="return formCheck()">
 		<div>
-			<input type="hidden" name="boardType" value="matching">
+			<input type="hidden" name="boardType" value="notice">
 			<input id="title" type="text" name="title" placeholder="TITLE" autocomplete="off">
 		</div>
 		<h1 id="introduce">Content</h1>

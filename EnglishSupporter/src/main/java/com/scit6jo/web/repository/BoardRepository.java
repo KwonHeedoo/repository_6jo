@@ -153,4 +153,17 @@ public class BoardRepository {
 		return result;
 	}
 	
+	// 공지글 리스트 요청
+	public ArrayList<Board> noticeList(Map<String, String> map) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		ArrayList<Board> noticeList = null;
+		
+		try {
+			noticeList = mapper.noticeList(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return noticeList;
+	}
+	
 }

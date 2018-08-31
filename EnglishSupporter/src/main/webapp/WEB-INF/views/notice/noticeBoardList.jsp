@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>Matching Board</title>
+<title>Notice Board</title>
 <script type="text/javascript">
 $(function(){
 	init();
@@ -22,7 +22,7 @@ function init(){
 	$.ajax({
 		url  : 'boardList'
 		, type : 'get'
-		, data : {'page' : page, 'boardType' : 'matching', 'searchItem' : searchItem, 'searchText' : searchText}
+		, data : {'page' : page, 'boardType' : 'notice', 'searchItem' : searchItem, 'searchText' : searchText}
 		, success : output
 		, error : function(){alert("Error!");}
 	});
@@ -32,13 +32,6 @@ function init(){
 function output(resp){
 	var map = resp;
 	var boardResult = '';
-	var matchingCount = 0;
-	// 매칭 된 게시판 카운트
-	$.each(map.boardList, function(index, item){
-		if(item.matchingId != null){
-			matchingCount++;
-		}
-	});
 	
 	boardResult += '<div id="boardTable">';
 	boardResult += '<table border="1">';
@@ -49,7 +42,6 @@ function output(resp){
 	boardResult += '<th>NICKNAME</th>';
 	boardResult += '<th>REGDATE</th>';
 	boardResult += '<th>HITS</th>';
-	boardResult += '<th><button id="unmatched" onclick="constraint(' + matchingCount + ')">MATCHING</button></th>'; 
 	boardResult += '</tr>';
 	// 게시판 내용부분 :: 데이터가 없을 경우
 	if(!map.boardList.length){
@@ -63,11 +55,10 @@ function output(resp){
 		$.each(map.noticeList, function(index, item){
 			boardResult += '<tr>';
 			boardResult += '<td><span style="color:red;">[공지]</span></td>';
-			boardResult += '<td class="boardTitle"><a href="./detailBoard?boardNum=' + item.boardNum + '&boardType=matching&page=' + map.navi.currentPage + '&back=false&searchItem=' + map.searchItem + '&searchText=' + map.searchText + '">' + item.title + '</a></td>';
+			boardResult += '<td class="boardTitle"><a href="./detailBoard?boardNum=' + item.boardNum + '&boardType=notice&page=' + map.navi.currentPage + '&back=false&searchItem=' + map.searchItem + '&searchText=' + map.searchText + '">' + item.title + '</a></td>';
 			boardResult += '<td>' + item.userid + '</td>';
 			boardResult += '<td>' + item.regdate + '</td>';
 			boardResult += '<td>' + item.hitcount + '</td>';
-			boardResult += '<td><span style="color:red;">[공지]</span></td>';
 			boardResult += '</tr>';
 		});
 	}
@@ -77,17 +68,10 @@ function output(resp){
 		$.each(map.boardList, function(index, item){
 			boardResult += '<tr>';
 			boardResult += '<td>' + (map.navi.totalRecordsCount - map.navi.startRecord - (count - 1)) + '</td>';
-			boardResult += '<td class="boardTitle"><a href="./detailBoard?boardNum=' + item.boardNum + '&boardType=matching&page=' + map.navi.currentPage + '&back=false&searchItem=' + map.searchItem + '&searchText=' + map.searchText + '">' + item.title + '</a></td>';
+			boardResult += '<td class="boardTitle"><a href="./detailBoard?boardNum=' + item.boardNum + '&boardType=notice&page=' + map.navi.currentPage + '&back=false&searchItem=' + map.searchItem + '&searchText=' + map.searchText + '">' + item.title + '</a></td>';
 			boardResult += '<td>' + item.userid + '</td>';
 			boardResult += '<td>' + item.regdate + '</td>';
 			boardResult += '<td>' + item.hitcount + '</td>';
-			boardResult += '<td>';
-			if(item.matchingId == null){
-				boardResult += '<img alt="possible" src="./resources/images/icons/silver.png">';
-			}else{
-				boardResult += '<img alt="possible" src="./resources/images/icons/golden.png">';
-			}
-			boardResult += '</td>';
 			boardResult += '</tr>';
 			count++;
 		});
@@ -112,7 +96,7 @@ function output(resp){
 		boardResult += '<a onclick="selectPage('+ map.navi.totalPageCount + ', \'' + map.searchItem + '\', \'' + map.searchText + '\')">▶▶</a>';
 		// 게시판 검색 기능
 		boardResult += '<form id="searchBox" action="boardList" method="get">';
-		boardResult += '<input type="hidden" name="boardType" value="matching">';
+		boardResult += '<input type="hidden" name="boardType" value="notice">';
 		boardResult += '<div class="col-md-4">';
 		boardResult += '<select id="selectItemBox" name="searchItem">';
 		if(map.searchItem === 'title'){
@@ -139,7 +123,7 @@ function output(resp){
 		boardResult += '</form>';
 	}
 	boardResult += '</div>';
-	boardResult += '<a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=matching"><button class="btn">Write Board</button></a>';
+	boardResult += '<a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=notice"><button class="btn">Write Board</button></a>';
 	
 	//$('#selectBox option[value='+map.searchItem+']').attr('selected', 'selected');
 	//$('#selectBox').val(map.searchItem);
@@ -153,7 +137,7 @@ function selectPage(page, searchItem, searchText){
 	$.ajax({
 		url  : 'boardList'
 		, type : 'get'
-		, data : {'page' : page, 'boardType' : 'matching', 'searchItem' : searchItem, 'searchText' : searchText}
+		, data : {'page' : page, 'boardType' : 'notice', 'searchItem' : searchItem, 'searchText' : searchText}
 		, success : output
 		, error : function(){alert("Error!");}
 	});
@@ -166,39 +150,16 @@ function search(){
 	$.ajax({
 		url  : 'boardList'
 		, type : 'get'
-		, data : {'boardType' : 'matching', 'searchItem' : searchItem, 'searchText' : searchText}
+		, data : {'boardType' : 'notice', 'searchItem' : searchItem, 'searchText' : searchText}
 		, success : output
 		, error : function(){alert("Error!");}
 	});
-}
-
-// 매칭 안된 게시글 찾기
-function constraint(matchingCount){
-	// 전체 게시글
-	if(matchingCount === 0){
-		$.ajax({
-			url  : 'boardList'
-			, type : 'get'
-			, data : {'boardType' : 'matching'}
-			, success : output
-			, error : function(){alert("Error!");}
-		});
-	// 매칭 안된 게시글
-	}else{
-		$.ajax({
-			url  : 'boardList'
-			, type : 'get'
-			, data : {'boardType' : 'matching', 'constraint' : 'unmatched'}
-			, success : output
-			, error : function(){alert("Error!");}
-		});
-	}
 }
 </script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<h1>Matching Board</h1>
+	<h1>Notice Board</h1>
 	<input id="boardType" type="hidden" value="${boardType}">
 	<input id="page" type="hidden" value="${page}">
 	<input id="searchItem" type="hidden" value="${searchItem}">

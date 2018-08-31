@@ -256,6 +256,19 @@ table{width:100%; margin-bottom:15px;}
 th, td{padding:5px 8px;}
 td{border-width:0 1px;}
 
+#unmatched{
+	color:#FFFFFF;
+	background-color:#373737;
+	border:none;
+	font-weight:bold;
+	text-align:-internal-center;
+	width:100%;
+	height:100%;
+}
+#unmatched:hover{
+	opacity:0.5;
+}
+
 
 /* Gallery
 --------------------------------------------------------------------------------------------------------------- */

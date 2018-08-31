@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Matching Board</title>
+<title>Notice Board</title>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -29,7 +29,7 @@ function init() {
 	$.ajax({
 		url  : 'commentList'
 		, type : 'get'
-		, data : {'boardNum' : boardNum, 'boardType' : 'matching'}
+		, data : {'boardNum' : boardNum, 'boardType' : 'notice'}
 		, success : output
 		, error : function(){alert("Error!");}
 	});
@@ -41,13 +41,6 @@ function output(resp){
 	var commentList = resp;
 	var commentResult = '';
 	var parentGroup = 0;
-	var matchingCount = 0;
-	
-	$.each(commentList, function(index, item){
-		if(item.matchingId != null){
-			matchingCount++;
-		}
-	});
 	
 	commentResult += '<div class="container">';
 	commentResult += '<div class="row">';
@@ -88,15 +81,6 @@ function output(resp){
 		}else if(item.parentId != null && item.nickname != '*****'){
 			commentResult += '<i class="fa fa-user"></i>' + item.parentNick;
 			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white;">신고</button>';
-		}
-		if(item.nickname != '*****'){
-			commentResult += '<button class="text-right" onclick="matching(\'' + item.userid + '\', ' + matchingCount + ', ' + item.commentNum + ')" style="border:none; background-color:white;">';
-			if(item.matchingId == null){
-				commentResult += '<img id="match' + item.commentNum + '" alt="match" src="./resources/images/icons/silver.png">';
-			}else{
-				commentResult += '<img id="match' + item.commentNum + '" alt="match" src="./resources/images/icons/golden.png">';
-			}
-			commentResult += '</button>';
 		}
 		commentResult += '</div>';//comment-user
 		commentResult += '<time class="comment-date" datetime="' + item.regdate + '">';//
@@ -140,7 +124,7 @@ function deleteComment(commentNum, groupNum) {
 	$.ajax({
 		url  : 'deleteComment'
 		, type : 'get'
-		, data : {'commentNum' : commentNum, 'groupNum' : groupNum, 'boardType' : 'matching'}
+		, data : {'commentNum' : commentNum, 'groupNum' : groupNum, 'boardType' : 'notice'}
 		, success : init
 		, error : function(){alert("Error!");}
 	});
@@ -164,7 +148,7 @@ function modifyComment(commentNum) {
 			url  : 'updateComment'
 			, type : 'post'
 			, data : {'commentNum' : commentNum, 'userid' : userid, 'nickname' : nickname
-					 ,'comments' : comments, 'boardType' : 'matching'}
+					 ,'comments' : comments, 'boardType' : 'notice'}
 			, success : function(){
 				init();
 			}
@@ -190,7 +174,7 @@ function insertComment() {
 		url  : 'insertComment'
 		, type : 'post'
 		, data : {'userid' : userid, 'nickname' : nickname, 'boardNum' : boardNum
-				 , 'comments' : comments, 'boardType' : 'matching'}
+				 , 'comments' : comments, 'boardType' : 'notice'}
 		, success : init
 		, error : function(){alert("Error!");}
 	});
@@ -228,53 +212,11 @@ function reply(parentId, parentNick, groupNum, commentNum, btn){
 					  , 'parentNick' : parentNick
 					  , 'groupNum' : groupNum
 					  , 'reply' : 'reply'
-					  , 'boardType' : 'matching'}
+					  , 'boardType' : 'notice'}
 			, success : init
 			, error : function(){alert("Error!");} 
 		});
 	});
-}
-
-//matching ID 선택
-function matching(matchingId, matchingCount, commentNum){
-	var userid = $('#userid').val();
-	var loginId = $('#loginId').val();
-	var boardNum = $('#boardNum').val();
-	var check = $('#match' + commentNum).attr('src');
-	
-	if(userid === loginId && matchingCount <= 1){
-		// 이미 매칭이 되어있는 경우 매칭 취소
-		if(check.includes('golden') && matchingCount === 1){
-			$.ajax({
-				url : 'unmatching'
-				, type : 'post'
-				, data : {'boardNum' : boardNum, 'matchingId' : null
-						 , 'boardType' : 'matching', 'commentNum' : commentNum}
-				, success : function(resp){
-					if(resp == 1){
-						$('#match' + commentNum).attr('src', './resources/images/icons/silver.png');
-						init();
-					}
-				}
-				, error : function(){alert('Error!');}
-			});
-		}else if(matchingCount === 0 && matchingId !== loginId){
-			// 매칭
-			$.ajax({
-				url : 'matching'
-				, type : 'post'
-				, data : {'boardNum' : boardNum, 'matchingId' : matchingId
-						 , 'boardType' : 'matching', 'commentNum' : commentNum}
-				, success : function(resp){
-					if(resp == 1){
-						$('#match' + commentNum).attr('src', './resources/images/icons/golden.png');
-						init();
-					}
-				}
-				, error : function(){alert('Error!');}
-			});
-		}
-	}
 }
 
 //신고 페이지 오픈 및 데이터 값 보내기
@@ -323,7 +265,7 @@ function report(reportee, report){
 	input = document.createElement('input');
 	input.type = 'hidden';
 	input.name = 'boardType';
-	input.value = 'matching';
+	input.value = 'notice';
 	form.appendChild(input);
 	
 	input = document.createElement('input');
@@ -350,7 +292,7 @@ function report(reportee, report){
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<h1>Matching Board</h1>
+	<h1>Notice Board</h1>
 	<div>
 		<h4>${board.title}<button onclick="report('${board.userid}', '${board.contents}')" style="font-size:x-small; border:none; background-color:white;">신고</button></h4>
 		<input id="boardNum" type="hidden" value="${board.boardNum}">
@@ -364,10 +306,10 @@ function report(reportee, report){
 			<pre>${board.contents}</pre>
 		</div>
 		<div>
-			<a href="./goBoardList?page=${page}&boardType=matching&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Back</button></a>
+			<a href="./goBoardList?page=${page}&boardType=notice&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Back</button></a>
 			<c:if test="${board.userid eq sessionScope.loginId}">
-			<a href="./updateBoardForm?boardNum=${board.boardNum}&boardType=matching&page=${page}&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Update</button></a>
-			<a href="./deleteBoard?boardNum=${board.boardNum}&boardType=matching"><button class="btn">Delete</button></a>
+			<a href="./updateBoardForm?boardNum=${board.boardNum}&boardType=notice&page=${page}&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Update</button></a>
+			<a href="./deleteBoard?boardNum=${board.boardNum}&boardType=notice"><button class="btn">Delete</button></a>
 			</c:if>
 		</div>
 		<div id="commentResult"></div>

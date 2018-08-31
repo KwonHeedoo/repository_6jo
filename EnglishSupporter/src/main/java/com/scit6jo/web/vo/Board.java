@@ -5,8 +5,9 @@ public class Board {
 	private String userid;
 	private String title;
 	private String contents;
-	private String regdate;
 	private int hitcount;
+	private String regdate;
+	private int status;
 	private String matchingId;
 	private String originalfile;
 	private String savedfile;
@@ -14,38 +15,41 @@ public class Board {
 	public Board() {
 		super();
 	}
-	
-	public Board(int boardNum, String userid, String title, String contents, String regdate, int hitcount) {
+
+	public Board(int boardNum, String userid, String title, String contents, int hitcount, String regdate, int status) {
 		super();
 		this.boardNum = boardNum;
 		this.userid = userid;
 		this.title = title;
 		this.contents = contents;
-		this.regdate = regdate;
 		this.hitcount = hitcount;
+		this.regdate = regdate;
+		this.status = status;
 	}
 
-	public Board(int boardNum, String userid, String title, String contents, String regdate, int hitcount,
+	public Board(int boardNum, String userid, String title, String contents, int hitcount, String regdate, int status,
 			String matchingId) {
 		super();
 		this.boardNum = boardNum;
 		this.userid = userid;
 		this.title = title;
 		this.contents = contents;
-		this.regdate = regdate;
 		this.hitcount = hitcount;
+		this.regdate = regdate;
+		this.status = status;
 		this.matchingId = matchingId;
 	}
 
-	public Board(int boardNum, String userid, String title, String contents, String regdate, int hitcount,
+	public Board(int boardNum, String userid, String title, String contents, int hitcount, String regdate, int status,
 			String originalfile, String savedfile) {
 		super();
 		this.boardNum = boardNum;
 		this.userid = userid;
 		this.title = title;
 		this.contents = contents;
-		this.regdate = regdate;
 		this.hitcount = hitcount;
+		this.regdate = regdate;
+		this.status = status;
 		this.originalfile = originalfile;
 		this.savedfile = savedfile;
 	}
@@ -82,6 +86,14 @@ public class Board {
 		this.contents = contents;
 	}
 
+	public int getHitcount() {
+		return hitcount;
+	}
+
+	public void setHitcount(int hitcount) {
+		this.hitcount = hitcount;
+	}
+
 	public String getRegdate() {
 		return regdate;
 	}
@@ -90,12 +102,12 @@ public class Board {
 		this.regdate = regdate;
 	}
 
-	public int getHitcount() {
-		return hitcount;
+	public int getStatus() {
+		return status;
 	}
 
-	public void setHitcount(int hitcount) {
-		this.hitcount = hitcount;
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public String getMatchingId() {
@@ -125,8 +137,8 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [boardNum=" + boardNum + ", userid=" + userid + ", title=" + title + ", contents=" + contents
-				+ ", regdate=" + regdate + ", hitcount=" + hitcount + ", matchingId=" + matchingId + ", originalfile="
-				+ originalfile + ", savedfile=" + savedfile + "]";
+				+ ", hitcount=" + hitcount + ", regdate=" + regdate + ", status=" + status + ", matchingId=" + matchingId
+				+ ", originalfile=" + originalfile + ", savedfile=" + savedfile + "]";
 	}
 	
 }

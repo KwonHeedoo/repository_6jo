@@ -9,8 +9,9 @@
 		, userid
 		, title
 		, contents
-		, to_char(regdate, 'YYYY-MM-DD') as regdate
 		, hitcount
+		, to_char(regdate, 'YYYY-MM-DD') as regdate
+		, status
 	</sql>
 	
 	<!-- 전체 글 개수(검색 필터링 후) -->
@@ -20,6 +21,7 @@
 		from
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
+			<when test="boardType == 'notice'">notice_board</when>
 		</choose>
 		<if test="searchItem != null || searchText != null">
 		where
@@ -27,6 +29,12 @@
 			${searchItem}
 		like
 			'%' || #{searchText} || '%'
+		and
+			status = 1
+		</if>
+		<if test="constraint != null">
+		and
+			matchingid is null
 		</if>
 	</select>
 	
@@ -40,9 +48,16 @@
 		from
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
+			<when test="boardType == 'notice'">notice_board</when>
 		</choose>
-		<if test="searchItem != null || searchText != null">
 		where
+			status = 1
+		<if test="constraint != null">
+		and
+			matchingid is null
+		</if>
+		<if test="searchItem != null || searchText != null">
+		and
 			<!-- #이 아니라 $를쓰면 해당 부분의 값을 ?로 해서 받는 것이 아니라 전달받은 값 자체로 넣음 -->
 			${searchItem}
 		like 
@@ -52,11 +67,28 @@
 			boardnum desc
 	</select>
 	
+	<!-- 공지글 리스트 요청 -->
+	<select id="noticeList" parameterType="map" resultType="Board">
+		select
+			<include refid="basicCols"/>
+			<choose>
+				<when test="boardType == 'matching'">, matchingid</when>
+			</choose>
+		from
+		<choose>
+			<when test="boardType == 'matching'">matching_board</when>
+			<when test="boardType == 'notice'">notice_board</when>
+		</choose>
+		where
+			status = 0
+	</select>
+	
 	<!-- 게시글 작성 -->
 	<insert id="writeBoard" parameterType="map">
 		insert into 
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
+			<when test="boardType == 'notice'">notice_board</when>
 		</choose>
 			( boardnum
 			, userid
@@ -72,6 +104,7 @@
 		values(
 			<choose>
 				<when test="boardType == 'matching'">matching_board_seq.nextVal</when>
+				<when test="boardType == 'notice'">notice_board_seq.nextVal</when>
 			</choose>
 			, #{board.userid}
 			, #{board.title}
@@ -95,6 +128,7 @@
 		from
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
+			<when test="boardType == 'notice'">notice_board</when>
 		</choose>
 		where
 			boardnum = #{boardNum}
@@ -105,6 +139,7 @@
 		update 
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
+			<when test="boardType == 'notice'">notice_board</when>
 		</choose>
 		set
 			hitcount = hitcount + 1
@@ -117,6 +152,7 @@
 		delete from
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
+			<when test="boardType == 'notice'">notice_board</when>
 		</choose>
 		where
 			boardnum = #{boardNum}
@@ -127,6 +163,7 @@
 		update
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
+			<when test="boardType == 'notice'">notice_board</when>
 		</choose>
 		set
 			title = #{board.title}
