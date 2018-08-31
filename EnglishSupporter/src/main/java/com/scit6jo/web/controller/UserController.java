@@ -55,6 +55,7 @@ public class UserController {
 			session.setAttribute("loginNick", u.getNickname());
 			session.setAttribute("email", u.getEmail());
 			session.setAttribute("username", u.getUsername());
+			session.setAttribute("loginType", u.getUsertype());
 			
 			Repository.attendNum(user); //출석일수
 		}

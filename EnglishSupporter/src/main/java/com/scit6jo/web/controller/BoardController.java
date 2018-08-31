@@ -190,9 +190,9 @@ public class BoardController {
 		map.put("boardNum", boardNum);
 		map.put("boardType", boardType);
 		
-		if(boardType.equals("appraise")) {
+		/*if(boardType.equals("appraise")) {
 			deleteFile(map);
-		}
+		}*/
 		
 		int result = repository.deleteBoard(map);
 		
@@ -200,7 +200,7 @@ public class BoardController {
 	}
 	
 	// 게시글 파일 삭제
-	@RequestMapping(value="/deleteFile", method=RequestMethod.GET)
+	/*@RequestMapping(value="/deleteFile", method=RequestMethod.GET)
 	public String deleteFile(Model model, String boardNum, String boardType, int page) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardNum", boardNum);
@@ -221,10 +221,10 @@ public class BoardController {
 		}else {
 			return "home";
 		}
-	}
+	}*/
 	
 	// 게시글 파일 삭제 메소드
-	public void deleteFile(Map<String, Object> map) {
+	/*public void deleteFile(Map<String, Object> map) {
 		Board board = repository.selectOne(map);
 		
 		if(board != null) {
@@ -234,7 +234,7 @@ public class BoardController {
 				file.delete();
 			}
 		}
-	}
+	}*/
 
 	// 게시글 수정 폼 요청
 	@RequestMapping(value="/updateBoardForm", method=RequestMethod.GET)

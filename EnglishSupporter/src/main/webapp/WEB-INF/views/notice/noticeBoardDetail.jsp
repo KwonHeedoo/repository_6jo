@@ -38,6 +38,7 @@ function init() {
 // 가져온 전체 comment를 html에 뿌리기
 function output(resp){
 	var loginId = $('#loginId').val();
+	var loginType = $('#loginType').val();
 	var commentList = resp;
 	var commentResult = '';
 	var parentGroup = 0;
@@ -93,6 +94,8 @@ function output(resp){
 		commentResult += '<p class="text-right">';
 		if(loginId === item.userid){
 			commentResult += '<button class="btn btn-default btn-sm" id="update' + item.commentNum + '" onclick="modifyComment(' + item.commentNum + ')">Modify</button>';
+		}
+		if(loginId === item.userid || loginType === 'admin'){
 			commentResult += '<button class="btn btn-default btn-sm" onclick="deleteComment('+ item.commentNum + ', ' + item.groupNum +')">Delete</button>';
 		}
 		if(item.parentId == null && item.nickname != '*****'){
@@ -302,6 +305,7 @@ function report(reportee, report){
 		<input id="searchText" type="hidden" value="${searchText}">
 		<input id="loginId" type="hidden" value="${sessionScope.loginId}">
 		<input id="loginNick" type="hidden" value="${sessionScope.loginNick}">
+		<input id="loginType" type="hidden" value="${sessionScope.loginType}">
 		<div>
 			<pre>${board.contents}</pre>
 		</div>

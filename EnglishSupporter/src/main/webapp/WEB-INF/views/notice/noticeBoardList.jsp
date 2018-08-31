@@ -32,6 +32,7 @@ function init(){
 function output(resp){
 	var map = resp;
 	var boardResult = '';
+	var loginType = $('#loginType').val();
 	
 	boardResult += '<div id="boardTable">';
 	boardResult += '<table border="1">';
@@ -50,19 +51,6 @@ function output(resp){
 		boardResult += '</tr>';
 	}
 	// 게시판 내용부분 :: 데이터가 있을 경우
-	// 공지글
-	if(map.noticeList.length){
-		$.each(map.noticeList, function(index, item){
-			boardResult += '<tr>';
-			boardResult += '<td><span style="color:red;">[공지]</span></td>';
-			boardResult += '<td class="boardTitle"><a href="./detailBoard?boardNum=' + item.boardNum + '&boardType=notice&page=' + map.navi.currentPage + '&back=false&searchItem=' + map.searchItem + '&searchText=' + map.searchText + '">' + item.title + '</a></td>';
-			boardResult += '<td>' + item.userid + '</td>';
-			boardResult += '<td>' + item.regdate + '</td>';
-			boardResult += '<td>' + item.hitcount + '</td>';
-			boardResult += '</tr>';
-		});
-	}
-	// 게시글
 	if(map.boardList.length){
 		var count = 1;
 		$.each(map.boardList, function(index, item){
@@ -123,7 +111,9 @@ function output(resp){
 		boardResult += '</form>';
 	}
 	boardResult += '</div>';
-	boardResult += '<a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=notice"><button class="btn">Write Board</button></a>';
+	if(loginType === 'admin'){
+		boardResult += '<a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=notice"><button class="btn">Write Board</button></a>';
+	}
 	
 	//$('#selectBox option[value='+map.searchItem+']').attr('selected', 'selected');
 	//$('#selectBox').val(map.searchItem);
@@ -164,6 +154,7 @@ function search(){
 	<input id="page" type="hidden" value="${page}">
 	<input id="searchItem" type="hidden" value="${searchItem}">
 	<input id="searchText" type="hidden" value="${searchText}">
+	<input id="loginType" type="hidden" value="${sessionScope.loginType}">
 	<div id="boardResult"></div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
