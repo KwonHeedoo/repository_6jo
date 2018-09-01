@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit6jo.web.repository.ResumeRepository;
+import com.scit6jo.web.repository.UserRepository;
+import com.scit6jo.web.vo.User;
 import com.scit6jo.web.vo.resume.CoverLetter;
 import com.scit6jo.web.vo.resume.Resume;
 
@@ -21,13 +23,28 @@ public class ResumeController {
 	@Autowired
 	ResumeRepository repository;	
 	
+	@Autowired
+	UserRepository userRepository;
+	
 	@RequestMapping(value = "/goResumeForm", method = RequestMethod.GET)
 	public String goResumeForm(Model model) {
 		System.out.println("going to ResumeForm...");
 		
 		return "resume/resumeForm";
 	}
-		
+	
+	//커버레터 샘플값 바꿔주기 
+	@RequestMapping(value = "/selectSamples", method = RequestMethod.POST)
+	public @ResponseBody String selectSamples(CoverLetter vo) {
+		//System.out.println(vo);
+		CoverLetter sample = repository.getCoverletter(vo);
+		String sampletext="sampletext";
+		if(sample!=null) {
+			sampletext = sample.getMaintext();
+		}
+		return sampletext;
+	}
+	
 
 	@RequestMapping(value = "/goCoverletter", method = RequestMethod.GET)
 	public String goCoverletter(Model model) {
@@ -142,6 +159,18 @@ public class ResumeController {
 			System.out.println("삭제실패"+cntR+"이력서/커버레터"+cntC);
 		}
 		return result;
+	}
+	
+	// 유저정보를 ajax로 받아옴..//ㅅ
+	@RequestMapping(value = "/getUserInfo", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	public @ResponseBody User getUserInfo(String userid) {
+		System.out.println(userid);
+		User user = new User();
+		user.setUserid(userid);
+		User findUser =userRepository.selectOne(user);
+		findUser.setUserpwd("0000");
+
+		return findUser;
 	}
 	
 }

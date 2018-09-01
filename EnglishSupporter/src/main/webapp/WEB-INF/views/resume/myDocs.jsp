@@ -46,6 +46,7 @@ ul.tabs {
     height: 32px;
     border-bottom: 1px solid #eee;
     border-left: 1px solid #eee;
+    border-right : 1px solid #eee;
     width: 100%;
     font-family:"dotum";
     font-size:12px;
@@ -65,7 +66,7 @@ ul.tabs li {
     position: relative;
 }
 ul.tabs li.active {
-    background: #f8dbdb;
+    background: #f1efef;
     border-bottom: 1px solid #FFFFFF;
 }
 .tab_container {
@@ -73,6 +74,7 @@ ul.tabs li.active {
     clear: both;
     float: left;
     background: #FFFFFF;
+    width: 100%;
 }
 .tab_content {
     padding: 5px;
@@ -129,7 +131,7 @@ ul.tabs li.active {
 		</c:if>
 		<!-- 게시판 내용부분 :: 데이터가 있을 경우 -->
 		<c:if test="${not empty clList}">
-			<c:forEach var="coverletter" items="${clList}" varStatus="i">
+			<c:forEach var="coverletter" items="${clList}" varStatus="status">
 				<tr>
 					<td>${i+1}</td>
 					<td class="boardTitle">
@@ -165,7 +167,7 @@ ul.tabs li.active {
 		</c:if>
 		<!-- 게시판 내용부분 :: 데이터가 있을 경우 -->
 		<c:if test="${not empty resumeList}">
-			<c:forEach var="resume" items="${resumeList}" varStatus="i">
+			<c:forEach var="resume" items="${resumeList}" varStatus="status">
 				<tr>
 					<td>${i+1}</td>
 					<td class="boardTitle"><a href="./viewMyResume?resume_no=${resume.resume_no}"
@@ -214,6 +216,8 @@ function deleteCdocs() {
 
 
 $(function () {
+	 $("ul.tabs li[rel='tab1']").addClass("active").css("color", "#d00202");
+	
     $(".tab_content").hide();
     $(".tab_content:first").show();
 

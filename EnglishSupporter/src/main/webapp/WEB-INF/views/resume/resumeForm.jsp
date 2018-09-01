@@ -49,7 +49,7 @@ font-weight: bold;
 			<h4>[ New Resume ]</h4>
 			<br>
 			<form id="resume">
-				<input type="hidden" name="userid" value="${sessionScope.loginId}">
+				<input type="hidden" name="userid" value="${sessionScope.userid}" id="userid">
 				<div class="row">
 					<div class="col-md-5">
 					<p>TITLE: </p><input id="title" type="text" name="title" placeholder="COMPANY NAME / JOB TITLE" />
@@ -63,10 +63,10 @@ font-weight: bold;
 					<h5>Personal Information</h5>
 				<div class="row">
 					<div class="col-md-2">
-						<p>NAME: </p><input type="text" name="username" value="${sessionScope.username}" readonly />
+						<p>NAME: </p><input type="text" name="username" value="" readonly />
 					</div>
 					<div class="col-md-3">
-						<p>EMAIL: </p><input id="email" type="email" name="email" value="${sessionScope.email}" readonly />
+						<p>EMAIL: </p><input id="email" type="email" name="email" value="" />
 					</div>
 					<div class="col-md-2">
 						<p>PHONE NUMBER: </p><input type="text" name="phone" />
@@ -207,6 +207,29 @@ font-weight: bold;
 	<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 <script type="text/javascript">
+
+$(function() {
+	var userid = $('input[name="userid"]').val();
+	
+	$.ajax({
+		method: "post",
+		url: "getUserInfo",
+		data : {"userid": userid},
+		dataType : "JSON",
+		success: function(reps){
+			var user= reps;
+			console.log(user);
+			$('input[name="username"]').val(user.username);
+			$('input[name="email"]').val(user.email);
+			
+		},
+		error: function(error){
+			console.log("에러"+error);
+		}
+	});
+});
+
+
 var indexedu=0;
 var indexexp=0;
 var indexinfo=0;

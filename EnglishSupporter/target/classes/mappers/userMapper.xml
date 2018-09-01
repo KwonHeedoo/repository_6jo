@@ -19,7 +19,9 @@
 			attendnum
 		from userlist
 		where userid=#{userid}
+		<if test="userpwd!=null">
 		and userpwd=#{userpwd}
+		</if>
 	</select>
 	
 	<!--출석일수 + 최종접속일 -->

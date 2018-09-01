@@ -69,7 +69,8 @@ textarea {
 			<input type="hidden" name="userid" value="${sessionScope.loginId}">
 		<div class="row">
 		<div class="com-md-10">
-		<p>[${sessionScope.username}]</p>
+		 &nbsp;&nbsp;&nbsp;[${sessionScope.username}]
+		<br>
 		<br>
 		</div>
 		<div class="col-md-3">
@@ -83,15 +84,14 @@ textarea {
 		</div>
 	</div>
 	<hr>
-	<br>
 	<div class="raw">
-		<div class="right col-md-12">
+		<div class="right">
 			<select name="sampleTemplete" id=selectbox>
-				<option value="sample1" selected>sample1</option>
-				<option value="sample2">sample2</option>
-				<option value="sample3">sample3</option>
+				<option value="sample1" selected>Entry Level sample</option>
+				<option value="sample2">Experienced Level sample</option>
 			</select>
 		</div>
+			<br>
 		<textarea rows="" cols="" name="maintext" >
 		${sample.maintext}
 		</textarea>
@@ -139,13 +139,14 @@ $(function(){
 	$('#selectbox').on('change',function(){
 		var sample_no = $('#selectbox option:selected').val();
 		
-		//ajax 로 보낼지 컨트롤러에서 리스트로 받아서 한번에 처리할지?
+		//ajax 로 처리 
 		$.ajax({
 			method: "post",
 			url: "selectSamples",
-			data : {"userid":"admin", },
+			data : {"userid":"admin", "title": sample_no},
 			success: function(reps){
-			 $('textarea[name="maintext"]').text();
+				console.log(reps);
+			 $('textarea[name="maintext"]').text(reps);
 			},
 			error: function(error){
 				console.log("에러"+error);
