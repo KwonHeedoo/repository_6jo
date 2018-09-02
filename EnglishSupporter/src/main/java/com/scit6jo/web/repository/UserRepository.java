@@ -9,20 +9,33 @@ import com.scit6jo.web.vo.User;
 
 @Repository
 public class UserRepository {
-	
 	@Autowired
 	SqlSession session;
 	
+	// 로그인
 	public User selectOne(User user) {
 		UserMapper mapper = session.getMapper(UserMapper.class);
-		User u = mapper.selectOne(user);
+		User u = null;
+
+		try {
+			u = mapper.selectOne(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	
 		return u;
 	}
 	
+	// 출석 처리
 	public int attendNum(User user) {
 		UserMapper mapper = session.getMapper(UserMapper.class);
-		int result = mapper.attendNum(user);
+		int result = 0;
+		
+		try {
+			result = mapper.attendNum(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return result; 
 	}

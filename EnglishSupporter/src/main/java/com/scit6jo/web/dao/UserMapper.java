@@ -7,7 +7,7 @@ public interface UserMapper {
 	public int insertUser(User user);
 	// 로그인
 	public User selectOne(User user);
-	// 출석일수
+	// 출석 처리
 	public int attendNum(User user);
 	// 방문자 등록
 	public int visit(String visitor);
