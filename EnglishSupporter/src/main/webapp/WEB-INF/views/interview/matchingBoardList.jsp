@@ -60,6 +60,7 @@ function search(searchItem, searchText){
 		</c:forEach>
 		<a href="./boardList?page=${navi.currentPage + 1}&boardType=matching&searchItem=${searchItem}&searchText=${searchText}">Next</a>&emsp; 
 		<a href="./boardList?page=${navi.totalPageCount}&boardType=matching&searchItem=${searchItem}&searchText=${searchText}">▶▶</a>
+		
 		<form id="searchBox" action="boardList" method="get">
 			<input type="hidden" name="boardType" value="matching">
 			<div class="col-md-4">

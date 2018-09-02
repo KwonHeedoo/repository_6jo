@@ -185,12 +185,6 @@ function evaluation() {
 	});
 }
 
-
-
-
-
-
-
 var recorder; // globally accessible
 
 document.getElementById('btn-start-recording').onclick = function() {

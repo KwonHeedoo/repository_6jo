@@ -96,7 +96,7 @@ ul.tabs li.active {
 
  #container {
 	width:80%;
-	height: inherit;
+	height: 60%;
 	margin :0 auto;    
     margin-top: 20px;
     margin-bottom: 30px;
@@ -133,26 +133,45 @@ ul.tabs li.active {
 		<c:if test="${not empty clList}">
 			<c:forEach var="coverletter" items="${clList}" varStatus="status">
 				<tr>
-					<td>${i+1}</td>
-					<td class="boardTitle">
-					<a href="./viewMyCoverletter?userid=${clList.userid}&title=${clList.title}">${clList.title}</a>
+					<td>${status.count}</td>
+					<td class="coverletterTitle">
+					<a class="cltitle${status.count}" href="">${coverletter.title}</a>
 					</td>
-					<td>${clList.regdate}</td>
+					<td class ="regdate"></td>
 					<td>
-					<a href="#" onclick="updateCdocs();">UPDATE</a> / <a href="#" onclick="deleteCdocs();">DELETE</a>
+					<a href="#" onclick="updateCL('${coverletter.userid}','${coverletter.title}');">UPDATE</a> / <a href="#" onclick="deleteCL('${coverletter.userid}','${coverletter.title}');">DELETE</a>
 					</td>
 				</tr>
+				<script>
+					var regdate = "${coverletter.regdate}";
+						regdate = regdate.substring(0,16);
+						$('td.regdate').text(regdate);
+					var link = "./viewMyCoverletter?userid=${coverletter.userid}&title="+encodeURI('${coverletter.title}');
+						$('a.cltitle${status.count}').attr('href',link);
+				</script>
 			</c:forEach>
 		</c:if>
 	</table>
-	</div>       
+	</div>     
+		<div id="page" align="center">
+		<a href="./goMyDocs?cpage=1">◀◀</a>&emsp; 
+		<a href="./goMyDocs?cpage=${c_navi.currentPage - 1}&selectedTab=coverletter">Prev</a>&emsp;
+		<c:forEach var="num" begin="${c_navi.startPageGroup}" end="${c_navi.endPageGroup}" step="1">
+			<a href="./goMyDocs?cpage=${num}&selectedTab=coverletter" >
+			<span <c:if test="${c_navi.currentPage == num}"> style="font-size:12pt; font-weight:bold;" </c:if>>${num}&emsp;</span></a>
+		</c:forEach>
+		<a href="./goMyDocs?cpage=${navi.currentPage + 1}&selectedTab=coverletter">Next</a>&emsp; 
+		<a href="./goMyDocs?cpage=${navi.totalPageCount}&selectedTab=coverletter">▶▶</a>
+		</div>
+	
+	  
 </div>
         <!-- #tab2 -->
         <div id="tab2" class="tab_content">
 	<div>
 	<table border="1">
 		<!-- 게시판 제목부분 -->
-		<tr id="boardMenu">
+		<tr>
 			<th>No</th>
 			<th class="boardTitle">TITLE</th>
 			<th>deadline</th>
@@ -169,21 +188,39 @@ ul.tabs li.active {
 		<c:if test="${not empty resumeList}">
 			<c:forEach var="resume" items="${resumeList}" varStatus="status">
 				<tr>
-					<td>${i+1}</td>
-					<td class="boardTitle"><a href="./viewMyResume?resume_no=${resume.resume_no}"
+					<td>${status.count}</td>
+					<td class="resumeTitle"><a href="./viewMyResume?resume_no=${resume.resume_no}"
 						>${resume.title}</a></td>
-					<td>${resume.deadline}</td>
-					<td>${resume.regdate}</td>
+					<td class="deadline">${resume.deadline}</td>
+					<td class="regdate2">${resume.regdate}</td>
 					<td>
-					<a href="#" onclick="updateRdocs();">UPDATE</a> / <a href="#" onclick="deleteRdocs();">DELETE</a>
+					<a href="#" onclick="updatedocs('${resume.resume_no}');">UPDATE</a> / <a href="#" onclick="deletedocs('${resume.resume_no}');">DELETE</a>
 					</td>
 				</tr>
+				<script>
+					var regdate2 = "${resume.regdate}";
+					var deadline = "${resume.deadline}";
+						regdate2 = regdate.substring(0,16);
+						deadline = deadline.substring(0,16);
+						$('td.regdate2').text(regdate);
+						$('td.deadline').text(deadline);
+				</script>
 			</c:forEach>
 		</c:if>
 	</table>
-	</div>       
-        </div>
-        <!-- #tab3 -->
+	</div>  
+		<div id="page" align="center">
+		<a href="./goMyDocs?rpage=1">◀◀</a>&emsp; 
+		<a href="./goMyDocs?rpage=${r_navi.currentPage - 1}&selectedTab=resume">Prev</a>&emsp;
+		<c:forEach var="num" begin="${r_navi.startPageGroup}" end="${r_navi.endPageGroup}" step="1">
+			<a href="./goMyDocs?rpage=${num}&selectedTab=resume" >
+			<span <c:if test="${r_navi.currentPage == num}"> style="font-size:12pt; font-weight:bold;" </c:if>>${num}&emsp;</span></a>
+		</c:forEach>
+		<a href="./goMyDocs?rpage=${r_navi.currentPage + 1}&selectedTab=resume">Next</a>&emsp; 
+		<a href="./goMyDocs?rpage=${r_navi.totalPageCount}&selectedTab=resume">▶▶</a>
+		</div>
+   <!-- tab2 -->
+   </div>
     </div>
     <!-- .tab_container -->
 </div>
@@ -196,40 +233,100 @@ $(document).on('click', 'a[href="#"]', function(e){
     e.preventDefault();
 });
 
-/*커버레터 수정*/
-function updateCdocs() {
-	var openNewWindow = window.open("about:blank"); // 새창띄우기
-
-	openNewWindow.location.href ="${pageContext.request.contextPath}/"; //수정창 주소...
+function ajaxDelete(object) {
+	$.ajax({
+		method: "post",
+		url: "deleteDocs",
+		data : object,
+		success: function(reps){
+			var text="";
+			text =reps;
+			alert(text);
+			if(text.includes("완료")){
+				var type = object.type;
+				console.log(type);
+				location.href = "${pageContext.request.contextPath}/goMyDocs?selectedTab="+type;
+				}
+		},
+		error: function(error){
+			console.log("에러"+error);
+		}
+	});
 }
 
-/*커버레터 삭제 확인창 띄워서 삭제확인 받고  페이지 재로딩*/
-function deleteCdocs() {
+
+function updateCL(userid,title) {
+	var openNewWindow = window.open("about:blank"); // 새창띄우기
+ 	var link = "updateMyCoverletter?userid="+userid+"&title="+encodeURI(title);
+	openNewWindow.location.href ="${pageContext.request.contextPath}/"+link; //수정창 주소...
+}
+
+function deleteCL(userid,title) {
 	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
 	    // 삭제는 에이젝스로 한 후 삭제결과 받아서 alert 한 후  location.href로 페이지 재로딩
+	    var object ={'userid':userid,'title':title,'type':'coverletter'};
+	    ajaxDelete(object);
 	    // 삭제시 넘길 것 userid, title, type= (resume, coverletter)
-		location.href="${pageContext.request.contextPath}/";
+		location.href="${pageContext.request.contextPath}/updateCoverletter";
 	}else{   //취소
 	    return;
 	}
 }
 
 
-$(function () {
-	 $("ul.tabs li[rel='tab1']").addClass("active").css("color", "#d00202");
-	
-    $(".tab_content").hide();
-    $(".tab_content:first").show();
 
-    $("ul.tabs li").click(function () {
-        $("ul.tabs li").removeClass("active").css("color", "#333");
-        //$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
-        $(this).addClass("active").css("color", "#d00202");
-        $(".tab_content").hide()
-        var activeTab = $(this).attr("rel");
-        $("#" + activeTab).fadeIn()
+
+/*이력서 수정*/
+function updatedocs(resume_no) {
+	var openNewWindow = window.open("about:blank"); // 새창띄우기
+
+	openNewWindow.location.href ="${pageContext.request.contextPath}/"; //수정창 주소...
+}
+
+/*이력서 삭제 확인창 띄워서 삭제확인 받고  페이지 재로딩*/
+function deletedocs(resume_no) {
+	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	    // 삭제는 에이젝스로 한 후 삭제결과 받아서 alert 한 후  location.href로 페이지 재로딩
+	   	var object ={'resume_no':resume_no,'type':'resume'};
+	    ajaxDelete(object);
+	    // 삭제시 넘길 것 userid, title, type= (resume, coverletter)
+		location.href="${pageContext.request.contextPath}/goMyDocs";
+	}else{   //취소
+	    return;
+	}
+}
+
+//this 는 선택된 탭을 가리킴...
+function selectTab(tab) {
+	$("ul.tabs li").removeClass("active").css("color", "#333");
+    //$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
+    tab.addClass("active").css("color", "#d00202");
+    $(".tab_content").hide();
+    var activeTab = tab.attr("rel");
+    $("#" + activeTab).fadeIn();
+}
+
+$(function () {
+	// 페이지에 들어올 때 어떤 탭을 선택해서 들어올것인지 변수 확인하기 
+	var selectedTab = "${selectedTab}";
+	var stab;
+	if(selectedTab=="coverletter"){
+		stab = $("ul.tabs li[rel='tab1']");
+		selectTab(stab);
+	}else{
+		//$("ul.tabs li[rel='tab2']").addClass("active").css("color", "#d00202");
+		stab= $("ul.tabs li[rel='tab2']");
+		selectTab(stab);
+	}
+	
+
+    // 클릭시 적용이벤트 
+    $("ul.tabs li").click(function(){
+    	var tab =$(this);
+    	selectTab(tab);
     });
-});
+    
+   });
 
 </script>
 </html>

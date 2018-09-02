@@ -69,12 +69,12 @@ textarea {
 			<input type="hidden" name="userid" value="${sessionScope.loginId}">
 		<div class="row">
 		<div class="com-md-10">
-		 &nbsp;&nbsp;&nbsp;[${sessionScope.username}]
+		 &nbsp;&nbsp;&nbsp;<span id="username">[${sessionScope.username}]</span>
 		<br>
 		<br>
 		</div>
 		<div class="col-md-3">
-		<input id="email" type="email" name="email" value="${sessionScope.email}" placeholder="YOUR E-MAIL"/>
+		<input id="email" type="email" name="email" value="" placeholder="YOUR E-MAIL"/>
 		</div>
 		<div class="col-md-3">
 		<input type="text" name="phone" placeholder="YOUR PHONE NUMBER"/>
@@ -85,22 +85,34 @@ textarea {
 	</div>
 	<hr>
 	<div class="raw">
+		<c:if test="${type eq 'insert'}">
 		<div class="right">
 			<select name="sampleTemplete" id=selectbox>
 				<option value="sample1" selected>Entry Level sample</option>
 				<option value="sample2">Experienced Level sample</option>
 			</select>
 		</div>
+		</c:if>
 			<br>
 		<textarea rows="" cols="" name="maintext" >
+		<c:if test="${type eq 'insert'}">
 		${sample.maintext}
+		</c:if>
+		<c:if test="${type eq 'update'}">
+		${myCL.maintext}
+		</c:if>
 		</textarea>
 	</div>
 	</form>
 	
 	<div class="right">
 		<br>
-	<input type="button" class="btn" value="send Form" id="datasend">
+	<c:if test="${type eq 'insert'}">
+	<input type="button" class="btn" value="Send Form" id="datasend">
+	</c:if>
+	<c:if test="${type eq 'update'}">
+	<input type="button" class="btn" value="Update Form" id="dataUpdate">
+	</c:if>
 	</div>
 	
 </div>
@@ -108,23 +120,66 @@ textarea {
 </body>
 
 <script type="text/javascript">
-$.fn.serializeJSON   = FormSerializer.serializeJSON;
+
+$(function() {
+	// username 박아주기...
+	var userid = $('input[name="userid"]').val();
+	console.log(userid);
+	$.ajax({
+		method: "post",
+		url: "getUserInfo",
+		data : {"userid": userid},
+		dataType : "JSON",
+		success: function(reps){
+			var user= reps;
+			$('#username').text(user.username);			
+		},
+		error: function(error){
+			console.log("에러"+error);
+		}
+	});
+	// 타입 update 인 경우  값들 박아주기 
+	
+	var type = '${type}';
+	console.log(type);
+	if(type == 'update'){
+		var title = '${myCL.title}';
+		//console.log(maintext);
+		var email = '${myCL.email}';
+		var address = '${myCL.address}';
+		var phone = '${myCL.phone}';
+		
+		$('input[name="title"]').val(title);
+		$('input[name="title"]').attr("readonly", true); //편집불가 
+		$('input[name="email"]').val(email);
+		$('input[name="phone"]').val(phone);
+		$('input[name="address"]').val(address);
+	}else{
+		var email = '${sessionScope.email}';
+		$('input[name="email"]').val(email);
+	}
+		
+});
+
 
 $(function(){
-	
+	$.fn.serializeJSON   = FormSerializer.serializeJSON;
+
 	$('#datasend').on('click',function(){
-	 	var coverletter = $('#coverletter').serializeObject();
+	 	var coverletter = $('#coverletter').serializeJSON();
 		console.log(coverletter);
 		
 		$.ajax({
 			method: "post",
 			url: "sendCoverletter",
-			data : JSON.stringify(coverletter),
+			data : coverletter,
 			contentType : 'application/json; charset=UTF-8',
 			success: function(reps){
 				console.log(reps);
-				alert(resp);
-				if(resp.includes("완료")){
+				var text="";
+				text =reps;
+				alert(text);
+				if(text.includes("완료")){
 				location.href = "${pageContext.request.contextPath}/goMyDocs";
 				}
 			},
@@ -132,6 +187,30 @@ $(function(){
 				console.log("에러"+error);
 			}
 		});
+		
+		$('#dataUpdate').on('click',function(){
+		 	var coverletter = $('#coverletter').serializeJSON();
+			console.log(coverletter);
+			
+			$.ajax({
+				method: "post",
+				url: "updateCoverletter",
+				data : coverletter,
+				contentType : 'application/json; charset=UTF-8',
+				success: function(reps){
+					console.log(reps);
+					var text="";
+					text =reps;
+					alert(text);
+					if(text.includes("완료")){
+					location.href = "${pageContext.request.contextPath}/viewMyCoverletter?userid=${sessionScope.loginId}&title="+encodeURI('${myCL.title}');
+					}
+				},
+				error: function(error){
+					console.log("에러"+error);
+				}
+			});
+
 		
 	});
 	
@@ -145,7 +224,7 @@ $(function(){
 			url: "selectSamples",
 			data : {"userid":"admin", "title": sample_no},
 			success: function(reps){
-				console.log(reps);
+				//console.log(reps);
 			 $('textarea[name="maintext"]').text(reps);
 			},
 			error: function(error){

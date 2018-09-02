@@ -3,6 +3,7 @@ package com.scit6jo.web.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import com.scit6jo.web.vo.resume.Additional_info;
 import com.scit6jo.web.vo.resume.CoverLetter;
@@ -56,21 +57,23 @@ public interface ResumeMapper {
 	 * @param title
 	 * @return
 	 */
-	public Resume getResume(@Param(value="userid")String userid,@Param(value="title")String title);
+	public Resume getResume(@Param(value="resume_no")String resume_no);
 	
 	/**
 	 * 특정 유저의 작성한 이력서목록 불러오기 (join 없이 불러옴)
 	 * @param userid
+	 * @param rbR 
 	 * @return
 	 */
-	public List<Resume> resumeList(String userid);
+	public List<Resume> resumeList(String userid, RowBounds rbR);
 	
 	/**
 	 * 특정 유저의 작성한 커버레터 목록 불러오기 (title만)
 	 * @param userid
+	 * @param rbC 
 	 * @return
 	 */
-	public List<CoverLetter> getCoverletterList(String userid);
+	public List<CoverLetter> getCoverletterList(String userid, RowBounds rbC);
 	
 	/**
 	 * 커버레터 꺼내오기 (특정)
@@ -93,9 +96,15 @@ public interface ResumeMapper {
 	 */
 	public int deleteCoverletter(CoverLetter vo);
 	
+	/**
+	 * 커버레터 수정
+	 * @param vo
+	 * @return
+	 */
+	public int updateCoverLetter(CoverLetter vo);	
 	
 	/**
-	 *  이력서 수정 전 학력, 경력, 추가정보 테이블 정리하기
+	 *  이력서 수정 전 학력, 경력, 추가정보 테이블 비우기
 	 * @param resume_no
 	 * @return
 	 */
@@ -114,5 +123,12 @@ public interface ResumeMapper {
 	 * @return
 	 */
 	public int updateResume(String resume_no);
+
+	/**
+	 * type을 받아서 동적으로 페이징용 total 값 구해오기 
+	 * @param type
+	 * @return
+	 */
+	public int getTotal(@Param(value="type")String type,@Param(value="userid")String userid);
 
 }

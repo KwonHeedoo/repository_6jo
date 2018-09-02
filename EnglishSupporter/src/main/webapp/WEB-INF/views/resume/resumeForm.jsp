@@ -16,7 +16,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
 
-input[type='text'], input[type='date'], input[type='email'] {
+input[type='text'], input[type='date'], input[type='email'], input[type='datetime-local'] {
 margin:0 auto;
 height: 28px;
 width: 100%
@@ -49,13 +49,13 @@ font-weight: bold;
 			<h4>[ New Resume ]</h4>
 			<br>
 			<form id="resume">
-				<input type="hidden" name="userid" value="${sessionScope.userid}" id="userid">
+				<input type="hidden" name="userid" value="${sessionScope.loginId}" id="userid">
 				<div class="row">
 					<div class="col-md-5">
 					<p>TITLE: </p><input id="title" type="text" name="title" placeholder="COMPANY NAME / JOB TITLE" />
 					</div>
-					<div class="col-md-2">
-					<p>DEADLINE: </p><input type="date" name="deadline" />
+					<div class="col-md-4">
+					<p>DEADLINE: </p><input type="datetime-local" name="deadline" />
 					</div>
 				</div>
 				<br>
@@ -177,24 +177,6 @@ font-weight: bold;
 				</form>
 				<br>
 				<br>
-	<!-- 			<p>LANGUAGES:</p>
-				<div class="row">
-					<div class="col-md-2">
-						<input type="text" name="lang" placeholder="LANGUAGE" />
-					</div>
-					<div class="col-md-2">
-						<select id="lang_pro">
-							<option value="elementary">elementary proficiency</option>
-							<option value="limited working">limited working
-								proficiency</option>
-							<option value="professional working">professional
-								working proficiency</option>
-							<option value="full professional working">full
-								professional working proficiency</option>
-							<option value="native or bilingual">native or bilingual</option>
-						</select>
-					</div>
-				</div> -->
 				<div class="right">
 				<input type="button" class="btn" value="send Form" id="CVsend">
 				<br>
@@ -210,7 +192,7 @@ font-weight: bold;
 
 $(function() {
 	var userid = $('input[name="userid"]').val();
-	
+	console.log(userid);
 	$.ajax({
 		method: "post",
 		url: "getUserInfo",
@@ -337,15 +319,18 @@ $(function(){
 	}
 	//공백 체크 함수 
 	function checkblank(array){
+		var result =true;
 		$.each(array, function(index,item){
 			//console.log(this);
 			if(this.value==""){
 				alert("빈칸을 채워주세요.");
+				console.log(this)
 				this.focus();
-				return false;
+				result =false;
+				return false;//each문 탈출용 return 
 			}
 		});
-		return true;
+		return result;
 	}
 	
 	
@@ -366,19 +351,20 @@ $(function(){
 		var dgree = $('input[name*="[degree_level]"]');
 		var major = $('input[name*="[major]"]');
 		
-		if(!checkblank(school)) return;
-		if(!checkblank(dgree)) return;
-		if(!checkblank(major)) return;
+		if(!checkblank(school))return;
+		if(!checkblank(dgree))return;
+		if(!checkblank(major))return;
 		
 		//공란 체크 경력 
 		var company= $('input[name*="[company_name]"]');
 		var job = $('input[name*="[job_description]"]');
 
-		if(!checkblank(company)) return;
-		if(!checkblank(job)) return;
+		if(!checkblank(company))return;
+		if(!checkblank(job))return;
 		
 		//공란 체크 추가정보
-		
+		var info_title= $('input[name*="[info_title]"]');
+		if(!checkblank(info_title))return;		
 		
 		
 		//폼 오브젝트화 
@@ -401,10 +387,11 @@ $(function(){
 			data : JSON.stringify(resume),
 			contentType : 'application/json; charset=UTF-8',
 			success: function(reps){
-				console.log(reps);
-				alert(resp);
-				if(resp.includes("완료")){
-					location.href = "${pageContext.request.contextPath}/goMyDocs";
+				var text="";
+				text =reps;
+				alert(text);
+				if(text.includes("완료")){
+					location.href = "${pageContext.request.contextPath}/goMyDocs?selectedTab=resume";
 					}
 			},
 			error: function(error){
