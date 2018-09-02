@@ -16,7 +16,7 @@ import com.scit6jo.web.vo.User;
 @Controller
 public class UserController {
 	@Autowired
-	UserRepository Repository;
+	UserRepository repository;
 
 	@RequestMapping(value = "/goRegisterForm", method = RequestMethod.GET)
 	public String goRegisterForm() {
@@ -28,13 +28,11 @@ public class UserController {
 	public @ResponseBody Integer idcheck(User user) {
 		if(user.getUserid().length() < 3 || user.getUserid().length() > 10 ) return -1;
 		
-		User u = Repository.selectOne(user);
+		User u = repository.selectOne(user);
 		
 		if( u != null) return 1;
 		else return 0;
 	}
-	
-	
 	
 	
 	@RequestMapping(value = "/goLoginForm", method = RequestMethod.GET)
@@ -48,7 +46,7 @@ public class UserController {
 	public String login(User user, HttpSession session, Model model) {
 		System.out.println("login");
 		
-		User u = Repository.selectOne(user);
+		User u = repository.selectOne(user);
 	    
 		if(u != null) {
 			session.setAttribute("loginId", u.getUserid());
@@ -57,7 +55,11 @@ public class UserController {
 			session.setAttribute("username", u.getUsername());
 			session.setAttribute("loginType", u.getUsertype());
 			
-			Repository.attendNum(user); //출석일수
+			// 출석일수
+			repository.attendNum(user); 
+			
+			// 방문자 등록
+			repository.visit(u.getUserid());
 		}
 	
 		System.out.println(user);

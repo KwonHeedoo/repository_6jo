@@ -35,6 +35,15 @@
 		lastdate = sysdate
 		where userid=#{userid}
 	</update>
+	
+	<!-- 방문자 등록 -->
+	<insert id="visit" parameterType="string">
+		insert into
+			visitor(
+				userid)
+		values(
+			#{value})
+	</insert>
 	  
-	  <insert id="insertUser" parameterType="User"></insert>
+	<insert id="insertUser" parameterType="User"></insert>
 </mapper>

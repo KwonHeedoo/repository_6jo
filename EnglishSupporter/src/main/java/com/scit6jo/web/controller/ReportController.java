@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.scit6jo.web.admin.vo.Report;
 import com.scit6jo.web.repository.ReportRepository;
-import com.scit6jo.web.vo.Report;
 
 @Controller
 public class ReportController {

@@ -1,4 +1,4 @@
-package com.scit6jo.web.vo;
+package com.scit6jo.web.admin.vo;
 
 public class Report {
 	private int reportNum;

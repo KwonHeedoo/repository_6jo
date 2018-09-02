@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit6jo.web.admin.dao.DashboardMapper">
+	<!-- 방문자 수 요청(주 별, 월 별) -->
+	<select id="visitorCount" parameterType="string" resultType="GraphData">
+		select
+		<choose>
+			<when test="value == 'week'">to_char(regdate, 'YYYY-MM-DD') as date</when>
+			<when test="value == 'month'">to_char(regdate, 'YYYY-MM') as date</when>
+		</choose>
+			, count(userid) as count
+		from
+			visitor
+		where
+		<choose>
+			<when test="value == 'week'"><![CDATA[regdate <= sysdate and regdate > sysdate - 7]]></when>
+			<when test="value == 'month'">to_char(regdate, 'YYYY') = to_char(sysdate, 'YYYY')</when>	
+		</choose>
+		group by
+		<choose>
+			<when test="value == 'week'">to_char(regdate, 'YYYY-MM-DD')</when>
+			<when test="value == 'month'">to_char(regdate, 'YYYY-MM')</when>	
+		</choose>
+	</select>
+	
+	<!-- 가입자 수 요청(주 별, 월 별) -->
+	<select id="joinCount" parameterType="string" resultType="GraphData">
+		select
+		<choose>
+			<when test="value == 'week'">to_char(regdate, 'YYYY-MM-DD') as date</when>
+			<when test="value == 'month'">to_char(regdate, 'YYYY-MM') as date</when>
+		</choose>
+			, count(userid) as count
+		from
+			userlist
+		where
+		<choose>
+			<when test="value == 'week'"><![CDATA[regdate <= sysdate and regdate > sysdate - 7]]></when>
+			<when test="value == 'month'">to_char(regdate, 'YYYY') = to_char(sysdate, 'YYYY')</when>	
+		</choose>
+		group by
+		<choose>
+			<when test="value == 'week'">to_char(regdate, 'YYYY-MM-DD')</when>
+			<when test="value == 'month'">to_char(regdate, 'YYYY-MM')</when>	
+		</choose>
+	</select>
+</mapper>

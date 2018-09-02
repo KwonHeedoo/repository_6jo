@@ -26,4 +26,18 @@ public class UserRepository {
 		
 		return result; 
 	}
+	
+	// 방문자 등록
+	public int visit(String visitor) {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.visit(visitor);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

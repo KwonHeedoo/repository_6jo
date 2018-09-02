@@ -2,7 +2,7 @@ package com.scit6jo.web.dao;
 
 import java.util.ArrayList;
 
-import com.scit6jo.web.vo.Report;
+import com.scit6jo.web.admin.vo.Report;
 
 public interface ReportMapper {
 	// 신고 처리

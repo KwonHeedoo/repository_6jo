@@ -6,8 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.scit6jo.web.admin.vo.Report;
 import com.scit6jo.web.dao.ReportMapper;
-import com.scit6jo.web.vo.Report;
 
 @Repository
 public class ReportRepository {
