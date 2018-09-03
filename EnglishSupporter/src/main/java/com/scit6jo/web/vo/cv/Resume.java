@@ -10,7 +10,6 @@ public class Resume {
 	private String deadline;
 	private String company;
 	private List<Education> education;
-	private List<Experience> Experience;
 	private List<Additional_info> Additional_info;
 	
 	
@@ -56,12 +55,8 @@ public class Resume {
 	public void setEducation(List<Education> education) {
 		this.education = education;
 	}
-	public List<Experience> getExperience() {
-		return Experience;
-	}
-	public void setExperience(List<Experience> experience) {
-		Experience = experience;
-	}
+	
+	
 	public List<Additional_info> getAdditional_info() {
 		return Additional_info;
 	}
@@ -72,7 +67,7 @@ public class Resume {
 	public String toString() {
 		return "Resume [resume_no=" + resume_no + ", userid=" + userid + ", title=" + title + ", regdate=" + regdate
 				+ ", deadline=" + deadline + ", company=" + company + ", education=" + education + ", Experience="
-				+ Experience + ", Additional_info=" + Additional_info + "]";
+				+ ", Additional_info=" + Additional_info + "]";
 	}
 
 	
