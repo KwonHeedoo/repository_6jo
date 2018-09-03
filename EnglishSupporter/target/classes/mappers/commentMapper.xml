@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit6jo.web.dao.CommentMapper">
+	<sql id="basicCols">
+		commentnum
+		, userid
+		, nickname
+		, boardnum
+		, comments
+		, to_char(regdate, 'YYYY-MM-DD HH24:MI') as regdate
+		, parentid
+		, parentnick
+		, groupnum
+	</sql>
+	
+	<!-- 코멘트 리스트 요청 -->
+	<select id="selectAll" parameterType="map" resultType="Comment">
+		select
+			<include refid="basicCols"/>
+			<choose>
+				<when test="boardType == 'matching'">, matchingid</when>
+				<when test="boardType == 'appraise'">, pronunciation, contents, posture</when>
+			</choose>
+		from
+		<choose>
+			<when test="boardType == 'matching'">matching_comment</when>
+		</choose>
+		where
+			boardnum = #{boardNum}
+		order by
+			groupnum
+			, commentnum
+	</select>
+	
+	<!-- 코멘트 작성 -->
+	<insert id="insertComment" parameterType="map">
+		insert into 
+		<choose>
+			<when test="boardType == 'matching'">matching_comment</when>
+		</choose>
+			( commentnum
+			, userid
+			, nickname
+			, boardnum
+			, comments
+			, parentid
+			, parentnick
+			, groupnum
+			<choose>
+				<when test="boardType == 'appraise'">, pronunciation, contents, posture</when>
+			</choose>)
+		values(
+			<choose>
+				<when test="boardType == 'matching'">mc_commentnum_seq.nextVal</when>
+			</choose>
+			, #{comment.userid}
+			, #{comment.nickname}
+			, #{comment.boardNum}
+			, #{comment.comments}
+			, #{comment.parentId}
+			, #{comment.parentNick}
+			<if test="comment.parentId == null">, mc_groupnum_seq.nextVal</if>
+			<if test="comment.parentId != null">, #{comment.groupNum}</if>
+			<if test="boardType == 'appraise'"> , #{comment.pronunciation}
+												, #{comment.contents}
+												, #{comment.posture}
+			</if>)
+	</insert>
+	
+	<!-- 코멘트 수정 -->
+	<update id="updateComment" parameterType="map">
+		update
+		<choose>
+			<when test="boardType == 'matching'">matching_comment</when>
+		</choose>
+		set
+			comments = #{comment.comments}
+			, regdate = sysdate
+			<!-- 삭제로 인한 코멘트 수정 시 check값이 false -->
+			<if test="check == false">
+			, userid = #{comment.userid}
+			, nickname = #{comment.nickname}
+			</if>
+			<if test="boardType == 'appraise'">, pronunciation = #{comment.pronunciation}
+			 								   , contents = #{comment.contents}
+											   , posture = #{comment.posture}
+			</if>
+		where
+			commentnum = #{comment.commentNum}
+	</update>
+	
+	<!-- 코멘트 삭제 -->
+	<delete id="deleteComment" parameterType="map">
+		delete from
+		<choose>
+			<when test="boardType == 'matching'">matching_comment</when>
+		</choose>
+		where
+			commentnum = #{commentNum}
+	</delete>
+	
+	<!-- 코멘트 하나 요청 -->
+	<select id="selectOne" parameterType="map" resultType="Comment">
+		select
+			<include refid="basicCols"/>
+			<choose>
+				<when test="boardType == 'matching'">, matchingid</when>
+				<when test="boardType == 'appraise'">, pronunciation, contents, posture</when>
+			</choose>
+		from
+		<choose>
+			<when test="boardType == 'matching'">matching_comment</when>
+		</choose>
+		where
+		<if test="check == true">
+			groupnum = #{groupNum}
+		and 
+			parentid is not null
+		and
+			rownum = 1
+		</if>
+		<if test="check == false">
+			groupnum = #{groupNum} 
+		and
+			parentid is null
+		</if>
+	</select>
+	
+	<!-- 매칭 여부 처리 -->
+	<update id="matching" parameterType="map">
+		update
+			matching_comment
+		set
+			matchingid = #{comment.matchingId}
+		where
+			commentnum = #{comment.commentNum}
+	</update>
+	
+</mapper>

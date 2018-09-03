@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.scit6jo.web.dao.repository.UserRepository;
+import com.scit6jo.web.repository.UserRepository;
 import com.scit6jo.web.vo.User;
 
 @Controller
@@ -18,8 +18,8 @@ public class UserController {
 	@Autowired
 	UserRepository Repository;
 
-	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
-	public String registerForm(Model model) {
+	@RequestMapping(value = "/goRegisterForm", method = RequestMethod.GET)
+	public String goRegisterForm() {
 
 		return "user/registerForm";
 	}
@@ -57,13 +57,6 @@ public class UserController {
 	
 	
 	
-	@RequestMapping(value = "/goinsert", method = RequestMethod.GET)
-	public String goinsert(User user) {
-		
-		
-		return "user/register";
-	}
-
 	
 	@RequestMapping(value = "/goLoginForm", method = RequestMethod.GET)
 	public String goLoginForm() {
@@ -80,6 +73,9 @@ public class UserController {
 	    
 		if(u != null) {
 			session.setAttribute("loginId", u.getUserid());
+			session.setAttribute("loginNick", u.getNickname());
+			session.setAttribute("email", u.getEmail());
+			session.setAttribute("username", u.getUsername());
 			
 			Repository.attendNum(user); //출석일수
 		}

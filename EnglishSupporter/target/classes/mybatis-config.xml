@@ -14,6 +14,14 @@
 		<typeAlias type="com.scit6jo.web.vo.User" alias="User" />
 		<typeAlias type="com.scit6jo.web.vo.IData" alias="iData" />
 		<typeAlias type="com.scit6jo.web.vo.IQuestion" alias="iQuestion" />
+		<typeAlias type="com.scit6jo.web.vo.resume.Additional_info" alias="AddInfo" />
+		<typeAlias type="com.scit6jo.web.vo.resume.Education" alias="Education" />
+		<typeAlias type="com.scit6jo.web.vo.resume.Experience" alias="Experience" />
+		<typeAlias type="com.scit6jo.web.vo.resume.Resume" alias="Resume"/>
+		<typeAlias type="com.scit6jo.web.vo.resume.CoverLetter" alias="CoverLetter"/>
+		<typeAlias type="com.scit6jo.web.vo.Board" alias="Board" />
+		<typeAlias type="com.scit6jo.web.vo.Comment" alias="Comment" />
+		<typeAlias type="com.scit6jo.web.vo.Report" alias="Report" />
 	</typeAliases>
 	
 	<!-- Mapper 파일 resource 지정-->
@@ -21,6 +29,11 @@
 		<mapper resource="mappers/wordMapper.xml" />
 		<mapper resource="mappers/userMapper.xml" />
 		<mapper resource="mappers/dataMapper.xml" />
+		<mapper resource="mappers/resumeMapper.xml"/>
+		<mapper resource="mappers/mypageMapper.xml" />
+		<mapper resource="mappers/boardMapper.xml" />
+		<mapper resource="mappers/commentMapper.xml" />
+		<mapper resource="mappers/reportMapper.xml" />
 	</mappers>
 	
 </configuration>

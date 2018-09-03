@@ -10,7 +10,6 @@
 <link href="resources/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-<body id="top">
 <div class="wrapper row0">
   <div id="topbar" class="hoc clear"> 
     <div class="fl_left">
@@ -22,17 +21,16 @@
     <div class="fl_right">
       <ul>
         <c:if test="${sessionScope.loginId != null}">
-         <li>${sessionScope.loginId} 님  환영합니다.</li>
+         <li>${sessionScope.loginNick} 님  환영합니다.</li>
         </c:if>
         <li><a href="./"><i class="fa fa-lg fa-home"></i></a></li>
        	<!-- 로그인 하지 않은 경우 --> 
        	<c:if test="${sessionScope.loginId == null}">
         <li><a href="goLoginForm">Login</a></li>
-        <li><a href="#">Register</a></li>
+        <li><a href="goRegisterForm">Register</a></li>
         </c:if>
         <!-- 로그인 한 경우 --> 
         <c:if test="${sessionScope.loginId != null}">
-        
 		<li><a href="logout">Logout</a></li>
 		<li><a href="goMypage">My Page</a></li> 
 		</c:if>
@@ -53,12 +51,12 @@
         <li><a href="./goComposition">Text Training</a></li>
         <li><a class="drop" href="#">My Resume</a>
           <ul>
-            <li><a href="#">My documents</a>
+            <li><a href="goMyDocs">My documents</a>
               </li>
-            <li><a href="#" class="drop">write documents +</a>
+            <li><a href="#" class="drop">write +</a>
              	<ul>
                 <li><a href="goResumeForm">resume(CV)</a></li>
-                <li><a href="#">cover letter</a></li>
+                <li><a href="goCoverletter">cover letter</a></li>
               	</ul>
             </li>
           </ul>
@@ -67,7 +65,7 @@
           <ul>
             <li><a href="#">Mock Interview</a></li>
             <li><a href="#">Interview Appraise</a></li>
-            <li><a href="./goMatchingBoard">1:1 Video Chat</a></li>
+            <li><a href="./goBoardList?boardType=matching">1:1 Video Chat</a></li>
           </ul>
         </li>
 <!--         <li><a class="drop" href="#">MyPage</a>
@@ -83,18 +81,14 @@
                 <li><a href="#">Level 3</a></li>
               </ul>
             </li> -->
+            <li><a href="./goBoardList?boardType=notice">Notice</a></li>
           </ul>
-        </li>
-      </ul>
     </nav>
   </header>
-  
- 
   
 </div>
 <script src="resources/scripts/jquery.min.js"></script>
 <script src="resources/scripts/jquery.backtotop.js"></script>
 <script src="resources/scripts/jquery.mobilemenu.js"></script>
 <script src="resources/scripts/jquery.flexslider-min.js"></script>
-</body>
 </html>

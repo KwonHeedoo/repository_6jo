@@ -149,10 +149,12 @@ function stopRecordingCallback() {
     audio.play();
     recorder.microphone.stop();
    
+    //인코딩을 했으나 정확한 형식으로 되는 것 같지 않음  
     data = encodingBase64(blob);
     evaluation();
 }
 
+// 작동하지 않음 
 function evaluation() {
 	
 	var url = 'http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation';
@@ -228,9 +230,6 @@ function encodingBase64(blob) {
      return base64data;
 	 }
 }
-
-
-
 
 
 </script>					
