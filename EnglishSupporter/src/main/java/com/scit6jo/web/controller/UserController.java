@@ -34,15 +34,6 @@ public class UserController {
 		else return 0;
 	}
 	
-	@RequestMapping(value ="/nicknameCheck" , method=RequestMethod.POST)
-	public @ResponseBody Integer nicknameCheck(User user) {
-		if(user.getNickname().length() < 3 || user.getNickname().length() > 7 ) return -1;
-		
-		User u = Repository.nicknameCheck(user);
-		
-		if( u != null) return 1;
-		else return 0;
-	}
 	
 	@RequestMapping(value ="/insertUser" , method=RequestMethod.POST) //회원가입 정보기입
 	public String insertUser(User user) {
@@ -54,7 +45,6 @@ public class UserController {
 		
 		return "home";
 	}
-	
 	
 	
 	

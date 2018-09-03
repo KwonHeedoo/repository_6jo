@@ -39,6 +39,9 @@ display: inline; /* display넣어주면 블록과 분리시켜준다 */
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 
+var okuserid=false;
+var oknickname=false;
+
 $(function(){ //id 중복검사
 	
 		$("#userid").on('keyup', function(){
@@ -51,15 +54,17 @@ $(function(){ //id 중복검사
 				if(resp == 1){
 					$('#idcheck').text("중복된 아이디가 있습니다");
 					$('#idcheck').css("color" , "red");
-					
+					okuserid=false;
 				}else if(resp == 0){
 					$('#idcheck').text("아이디를 사용할수 있습니다");
 					$('#idcheck').css("color" , "blue");
+					okuserid=true;
+					
 				
 				}else if(resp == -1){
 					$('#idcheck').text("id는 3~ 10자리로 입력해주세요");
 					$('#idcheck').css("color" , "black");
-					
+					okuserid=false;
 				}
 			}
 			,error : function(resp){
@@ -74,6 +79,11 @@ $(function(){ //id 중복검사
 		
 $(function(){  //닉네임 중복검사
 	
+	
+	
+	
+	
+	
 	$("#nickname").on('keyup', function(){
 		
 		$.ajax({
@@ -84,15 +94,16 @@ $(function(){  //닉네임 중복검사
 			if(resp == 1){
 				$('#nicknamecheck').text("중복된 닉네임이 있습니다");
 				$('#nicknamecheck').css("color" , "red");
-				
+				oknickname=false;
 			}else if(resp == 0){
 				$('#nicknamecheck').text("닉네임을 사용할수 있습니다");
 				$('#nicknamecheck').css("color" , "blue");
+				oknickname=true;
 				
 			}else if(resp == -1){
 				$('#nicknamecheck').text("닉네임은 3~ 7자리로 입력해주세요");
 				$('#nicknamecheck').css("color" , "black");
-				
+				oknickname=false;
 			}
 		}
 		,error : function(resp){
@@ -181,8 +192,13 @@ $(function(){  //닉네임 중복검사
 			}
 			
 			
-				
-				$('#useridcheck').submit();
+				console.log(okuserid+", "+oknickname);
+				if(okuserid==true &&  oknickname==true){
+					alert("회원가입을 축하합니다");
+					$('#useridcheck').submit();
+				}else{
+					alert("중복된 값이 있습니다");
+				}
 				
 			
 				
