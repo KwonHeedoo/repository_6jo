@@ -7,6 +7,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title>Matching Board</title>
 <script type="text/javascript">
 $(function(){
@@ -39,7 +44,6 @@ function output(resp){
 			matchingCount++;
 		}
 	});
-	
 	boardResult += '<div id="boardTable">';
 	boardResult += '<table border="1">';
 	// 게시판 제목부분
@@ -113,7 +117,7 @@ function output(resp){
 		// 게시판 검색 기능
 		boardResult += '<form id="searchBox" action="boardList" method="get">';
 		boardResult += '<input type="hidden" name="boardType" value="matching">';
-		boardResult += '<div class="col-md-4">';
+		boardResult += '<div class="col-md-1">';
 		boardResult += '<select id="selectItemBox" name="searchItem">';
 		if(map.searchItem === 'title'){
 			boardResult += '<option value="title" selected="selected">Title</option>';
@@ -129,16 +133,16 @@ function output(resp){
 			boardResult += '<option value="contents" selected="selected">Contents</option>';
 		}
 		boardResult += '</select>';
-		boardResult += '</div>';
-		boardResult += '<div class="col-md-4">';
+		boardResult += '</div>';//col-md-1
+		boardResult += '<div class="col-md-3">';
 		boardResult += '<input id="searchTextBox" type="text" name="searchText" value="' + map.searchText + '">';
-		boardResult += '</div>';
-		boardResult += '<div class="col-md-4">';
+		boardResult += '</div>';//col-md-3
+		boardResult += '<div class="col-md-1">';
 		boardResult += '<input id="search" type="button" value="Search">';
-		boardResult += '</div>';
+		boardResult += '</div>';//col-md-1
 		boardResult += '</form>';
 	}
-	boardResult += '</div>';
+	boardResult += '</div>';//page
 	boardResult += '<a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=matching"><button class="btn">Write Board</button></a>';
 	
 	//$('#selectBox option[value='+map.searchItem+']').attr('selected', 'selected');

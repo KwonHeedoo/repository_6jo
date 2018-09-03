@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.scit6jo.web.admin.dao.DashboardMapper;
 import com.scit6jo.web.admin.vo.GraphData;
+import com.scit6jo.web.vo.Board;
 
 @Repository
 public class DashboardRepository {
@@ -54,6 +55,20 @@ public class DashboardRepository {
 		}
 		
 		return countByUserAge;
+	}
+	
+	// 오늘의 게시물 수
+	public int countByBoard() {
+		DashboardMapper mapper = session.getMapper(DashboardMapper.class);
+		int countByBoard = 0;
+		
+		try {
+			countByBoard = mapper.countByBoard(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return countByBoard;
 	}
 
 }

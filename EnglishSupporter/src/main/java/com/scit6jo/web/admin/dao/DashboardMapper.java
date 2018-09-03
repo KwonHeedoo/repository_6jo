@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import com.scit6jo.web.admin.vo.GraphData;
+import com.scit6jo.web.vo.Board;
 
 public interface DashboardMapper {
 	// 방문자 & 가입자 수 요청(주 별, 월 별)
@@ -13,5 +14,7 @@ public interface DashboardMapper {
 	public ArrayList<GraphData> countByRptSanc(@Param(value="period")String period);
 	// 회원 연령대 별 인원수 요청
 	public GraphData countByUserAge();
+	// 오늘의 게시물 수
+	public int countByBoard();
 
 }

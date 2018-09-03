@@ -211,4 +211,24 @@
 			from 
 				userlist)
 	</select>
+	
+	<!-- 오늘의 게시물 수 -->
+	<select id="countByBoard" resultType="int">
+		select 
+			sum(a + b) as count 
+		from 
+			(select 
+				count(*) a 
+			from 
+				matching_board 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd')), 
+			(select 
+				count(*) b 
+			from 
+			<!-- 평가 게시물로 바꿔야함 -->
+				notice_board 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd'))
+	</select>
 </mapper>
