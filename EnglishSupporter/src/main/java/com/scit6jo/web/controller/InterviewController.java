@@ -38,7 +38,7 @@ public class InterviewController {
 
 	@Autowired
 	DataRepository repository;
-
+	
 	final String video_uploadPath = "c://ES_uploadPath//video";
 	final String image_uploadPath = "c://ES_uploadPath//images";
 	final String uploadPath = "c://ES_uploadPath";
