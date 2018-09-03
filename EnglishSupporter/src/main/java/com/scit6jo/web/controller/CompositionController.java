@@ -45,7 +45,7 @@ public class CompositionController {
 	public @ResponseBody List<Word> repetitionCheck(String composition, String confirm) {
 		CrawlingWord cw = new CrawlingWord();
 		
-		List<Word> wordList = new ArrayList<>();
+		List<Word> wordList = new ArrayList<Word>();
 		
 		// 중복단어 선별 및 유의어 찾기
 		if(confirm.contains("repetition")) {
@@ -61,7 +61,7 @@ public class CompositionController {
 			String[] list = rep.split(" ");
 			
 			// 중복단어 및 갯수 선별
-			Map<String, Integer> repMap = new HashMap<>();
+			Map<String, Integer> repMap = new HashMap<String, Integer>();
 			for (String temp : list) {
 				Integer count = repMap.get(temp);
 				repMap.put(temp, (count == null) ? 1 : count + 1);
@@ -102,7 +102,7 @@ public class CompositionController {
 	
 	// 중복 단어 추가
 	public List<Word> selectWord(Map<String, Integer> repMap){
-		List<Word> wordList = new ArrayList<>();
+		List<Word> wordList = new ArrayList<Word>();
 		
 		// 예외 단어 리스트 요청
 		List<String> exceptionWord = repository.exceptionWord();

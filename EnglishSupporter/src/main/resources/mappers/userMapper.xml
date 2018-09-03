@@ -34,5 +34,47 @@
 		where userid=#{userid}
 	</update>
 	  
-	  <insert id="insertUser" parameterType="User"></insert>
+	  <insert id="insertUser" parameterType="User">
+	insert into
+		userlist	
+		(
+		userid
+		,userpwd
+		,nickname
+		,email
+		,birthdate
+		,username
+		,regdate
+		,attendNum
+		)
+		
+		values
+		(
+		 #{userid}
+		, #{userpwd}
+		,#{nickname}
+		,#{email}
+		,#{birthdate}
+		,#{username}
+		,sysdate
+		,data_seq.nextval
+		 )	  
+	  
+	
+	  </insert>
+	  
+	  <select id="idcheck" parameterType="User" resultType="User">
+		select *
+		from userlist
+		where userid=#{userid}
+	</select>
+	
+	
+	<select id="nicknameCheck" parameterType="User" resultType="User">
+		select *
+		from userlist
+		where nickname=#{nickname}
+	</select>
+	
+	
 </mapper>
