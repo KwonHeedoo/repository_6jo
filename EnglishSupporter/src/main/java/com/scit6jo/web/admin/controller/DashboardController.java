@@ -1,8 +1,6 @@
 package com.scit6jo.web.admin.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,24 +17,28 @@ public class DashboardController {
 	DashboardRepository repository;
 	
 	// 회원가입 & 방문자 수 정보 요청
+	@RequestMapping(value = "/goDashboard", method = RequestMethod.GET)
+	public String goDashboard(){
+		System.out.println("Going to Dashboard...");
+		
+		return "admin/dashboard";
+	}
+	
+	// 회원가입 & 방문자 수 정보 요청
 	@RequestMapping(value = "/countByJoinVisit", method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> countByJoinVisit(String period){
-		Map<String, Object> map = new HashMap<>();
+	public @ResponseBody ArrayList<GraphData> countByJoinVisit(String period){
+		// 방문자 & 가입자 수 요청(주 별, 월 별)
+		ArrayList<GraphData> countByJoinVisit = repository.countByJoinVisit(period);
 		
-		// 방문자 수 요청(주 별, 월 별)
-		ArrayList<GraphData> visitorCount = repository.visitorCount(period);
-		// 가입자 수 요청(주 별, 월 별)
-		ArrayList<GraphData> joinCount = repository.joinCount(period);
-		
-		return map;
+		return countByJoinVisit;
 	}
 	
 	// 신고 & 재제 수 정보 요청
-	/*@RequestMapping(value = "/countBySanction", method = RequestMethod.GET)
+	@RequestMapping(value = "/countByRptSanc", method = RequestMethod.GET)
 	public @ResponseBody ArrayList<GraphData> countBySanction(String period){
 		// 신고 & 재제 수 요청(주 별, 월 별)
-		ArrayList<GraphData> sanctionCount = repository.sanctionCount(period);
+		ArrayList<GraphData> countByRptSanc = repository.countByRptSanc(period);
 		
-		return sanctionCount;
-	}*/
+		return countByRptSanc;
+	}
 }

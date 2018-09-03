@@ -1,38 +1,48 @@
 package com.scit6jo.web.admin.vo;
 
 public class GraphData {
-	private String date;
-	private int count;
+	private String day;
+	private int countOne;
+	private int countTwo;
 	
 	public GraphData() {
 		super();
 	}
 
-	public GraphData(String date, int count) {
+	public GraphData(String day, int countOne, int countTwo) {
 		super();
-		this.date = date;
-		this.count = count;
+		this.day = day;
+		this.countOne = countOne;
+		this.countTwo = countTwo;
 	}
 
-	public String getDate() {
-		return date;
+	public String getDay() {
+		return day;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setDay(String day) {
+		this.day = day;
 	}
 
-	public int getCount() {
-		return count;
+	public int getCountOne() {
+		return countOne;
 	}
 
-	public void setCount(int count) {
-		this.count = count;
+	public void setCountOne(int countOne) {
+		this.countOne = countOne;
+	}
+
+	public int getCountTwo() {
+		return countTwo;
+	}
+
+	public void setCountTwo(int countTwo) {
+		this.countTwo = countTwo;
 	}
 
 	@Override
 	public String toString() {
-		return "GraphData [date=" + date + ", count=" + count + "]";
+		return "GraphData [day=" + day + ", countOne=" + countOne + ", countTwo=" + countTwo + "]";
 	}
 	
 }

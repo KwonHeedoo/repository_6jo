@@ -14,32 +14,32 @@ public class DashboardRepository {
 	@Autowired
 	SqlSession session;
 	
-	// 방문자 수 요청(주 별, 월 별)
-	public ArrayList<GraphData> visitorCount(String period) {
+	// 방문자 & 가입자 수 요청(주 별, 월 별)
+	public ArrayList<GraphData> countByJoinVisit(String period) {
 		DashboardMapper mapper = session.getMapper(DashboardMapper.class);
-		ArrayList<GraphData> visitorCount = null;
+		ArrayList<GraphData> countByJoinVisit = null;
 		
 		try {
-			visitorCount = mapper.visitorCount(period); 
+			countByJoinVisit = mapper.countByJoinVisit(period); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return visitorCount;
+		return countByJoinVisit;
 	}
 	
-	// 가입자 수 요청(주 별, 월 별)
-	public ArrayList<GraphData> joinCount(String period) {
+	// 신고 & 재제 수 요청(주 별, 월 별)
+	public ArrayList<GraphData> countByRptSanc(String period) {
 		DashboardMapper mapper = session.getMapper(DashboardMapper.class);
-		ArrayList<GraphData> joinCount = null;
+		ArrayList<GraphData> countByRptSanc = null;
 		
 		try {
-			joinCount = mapper.joinCount(period); 
+			countByRptSanc = mapper.countByRptSanc(period); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return joinCount;
+		return countByRptSanc;
 	}
 
 }

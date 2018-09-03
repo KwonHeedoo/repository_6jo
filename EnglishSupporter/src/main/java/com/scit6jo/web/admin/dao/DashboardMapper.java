@@ -2,12 +2,14 @@ package com.scit6jo.web.admin.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.scit6jo.web.admin.vo.GraphData;
 
 public interface DashboardMapper {
-	// 방문자 수 요청(주 별, 월 별)
-	public ArrayList<GraphData> visitorCount(String period);
-	// 가입자 수 요청(주 별, 월 별)
-	public ArrayList<GraphData> joinCount(String period);
+	// 방문자 & 가입자 수 요청(주 별, 월 별)
+	public ArrayList<GraphData> countByJoinVisit(@Param(value="period")String period);
+	// 신고 & 재제 수 요청(주 별, 월 별)
+	public ArrayList<GraphData> countByRptSanc(@Param(value="period")String period);
 
 }
