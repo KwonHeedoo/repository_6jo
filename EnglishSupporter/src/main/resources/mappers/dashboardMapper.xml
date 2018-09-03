@@ -197,4 +197,18 @@
 		where 
 			r.day = s.day
 	</select>
+	
+	<!-- 회원 연령대 별 인원수 요청 -->
+	<select id="countByUserAge" resultType="GraphData">
+		select 
+			sum(decode(abs(age - 10) + abs(age - 19), 9, 1, 0)) as countOne
+			, sum(decode(abs(age - 20) + abs(age - 29), 9, 1, 0)) as countTwo
+			, sum(decode(abs(age - 30) + abs(age - 39), 9, 1, 0)) as countThree
+			, sum(decode(sign(age - 40), 1, 1, 0, 1, 0)) as countFour  
+		from 
+			(select 
+				floor(months_between(sysdate, birthdate) / 12) as age 
+			from 
+				userlist)
+	</select>
 </mapper>

@@ -41,5 +41,19 @@ public class DashboardRepository {
 		
 		return countByRptSanc;
 	}
+	
+	// 회원 연령대 별 인원수 요청
+	public GraphData countByUserAge() {
+		DashboardMapper mapper = session.getMapper(DashboardMapper.class);
+		GraphData countByUserAge = null;
+		
+		try {
+			countByUserAge = mapper.countByUserAge(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return countByUserAge;
+	}
 
 }

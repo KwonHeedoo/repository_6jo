@@ -14,6 +14,16 @@ $(function(){
 	callJoinAndVisit();
 	// 신고 & 재제 수 그래프
 	callRptAndSanc();
+	// 회원 연령대 별 분포도
+	graphAgePercent();
+	// 오늘의 게시물 수
+	recentBoard();
+	// 오늘의 코멘트 수
+	recentComment();
+	// 오늘의 Coverletter 수
+	recentCoverletter();
+	// 오늘의 Resume 수
+	recentResume();
 });
 
 // 회원가입 & 방문자 수 정보 요청
@@ -40,7 +50,7 @@ function callJoinAndVisit(){
 	});
 };
 
-//  회원가입 & 방문자 수 정보 그래프 응답
+// 회원가입 & 방문자 수 정보 그래프 응답
 function graphJoinAndVisit(array) {
 	google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
@@ -57,7 +67,7 @@ function graphJoinAndVisit(array) {
 	}
 };
 
-//신고 & 재제 수 정보 요청
+// 신고 & 재제 수 정보 요청
 function callRptAndSanc(){
 	var period = $('#period2 option:selected').val();
 	
@@ -97,11 +107,133 @@ function graphRptAndSanc(array) {
 		chart.draw(data, google.charts.Bar.convertOptions(options));
 	}
 };
+
+
+// 회원 연령대 별 분포도 정보 그래프 응답
+function graphAgePercent() {
+	google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+    	// 회원 연령대 별 분포도 정보 요청
+    	$.ajax({
+    		url : 'countByUserAge'
+    		, type : 'get'
+    		, success : function(resp){
+    			var percent = resp;
+    			
+    			var data = google.visualization.arrayToDataTable([
+    				['Age', 'Age per Users'],
+    				['10대', percent.countOne],
+    				['20대', percent.countTwo],
+    				['30대', percent.countThree],
+    				['40대 이상', percent.countFour]
+    			]);
+    			
+    			var options = {
+    				title: 'Percent of User\'s Age',
+    				is3D: true,
+    			};
+
+    			var chart = new google.visualization.PieChart(document.getElementById('ageGraph'));
+    			chart.draw(data, options);
+    		}
+    		, error : function(resp){
+    			alert('Error!');
+    		} 
+    	});
+	}
+};
+
+//오늘의 게시물 수
+function recentBoard(){
+	$.ajax({
+		url : 'countByBoard'
+		, type : 'get'
+		, success : function(resp){
+			panel(resp);
+		}
+		, error : function(resp){
+			alert('Error!');
+		} 
+	});
+}
+
+//오늘의 코멘트 수
+function recentComment(){
+	$.ajax({
+		url : 'countByComment'
+		, type : 'get'
+		, success : function(resp){
+			panel(resp);
+		}
+		, error : function(resp){
+			alert('Error!');
+		} 
+	});
+}
+
+//오늘의 Coverletter 수
+function recentCoverletter(){
+	$.ajax({
+		url : 'countByCoverletter'
+		, type : 'get'
+		, success : function(resp){
+			panel(resp);
+		}
+		, error : function(resp){
+			alert('Error!');
+		} 
+	});
+}
+
+//오늘의 Resume 수
+function recentResume(){
+	$.ajax({
+		url : 'countByResume'
+		, type : 'get'
+		, success : function(resp){
+			panel(resp);
+		}
+		, error : function(resp){
+			alert('Error!');
+		} 
+	});
+}
+
+// panel출력
+function panel(resp){
+	var color = resp;
+	var resultDiv = '';
+	
+	resultDiv += '<div class="col-lg-3 col-md-6">';
+	resultDiv += '<div class="panel panel-primary">';
+	resultDiv += '<div class="panel-heading">';
+	resultDiv += '<div class="row">';
+	resultDiv += '<div class="col-xs-3">';
+	resultDiv += '<i class="fa fa-comments fa-5x"></i>';
+	resultDiv += '</div>';// col-xs-3
+	resultDiv += '<div class="col-xs-9 text-right">';
+	resultDiv += '<div class="huge">26</div>';
+	resultDiv += '<div>New Comments!</div>';
+	resultDiv += '</div>';// col-xs-9 text-right
+	resultDiv += '</div>';// row
+	resultDiv += '</div>';// panel-heading
+	resultDiv += '<a href="#">';
+	resultDiv += '<div class="panel-footer">';
+	resultDiv += '<span class="pull-left">View Details</span>';
+	resultDiv += '<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>';
+	resultDiv += '<div class="clearfix"></div>';
+	resultDiv += '</div>';// panel-footer
+	resultDiv += '</a>';
+	resultDiv += '</div>';// panel panel-primary
+	resultDiv += '</div>';// col-lg-3 col-md-6
+}
 </script>
 <title>Dashboard</title>
 </head>
 <body>
 	<h1>Dashboard</h1>
+	<div class="row"></div>
 	<div>
 		<select id="period1">
 			<option value="week">Week</option>
@@ -117,11 +249,7 @@ function graphRptAndSanc(array) {
 		<div id="rptAndSancGraph"></div>
 	</div>
 	<div>
-		<select id="period3">
-			<option value="week">Week</option>
-			<option value="month">Month</option>
-		</select>
-		<div id="ageGraph"></div>
+		<div id="ageGraph" style="width:900px; height:500px;"></div>
 	</div>
 </body>
 </html>

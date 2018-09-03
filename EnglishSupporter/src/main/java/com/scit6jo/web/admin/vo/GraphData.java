@@ -4,6 +4,8 @@ public class GraphData {
 	private String day;
 	private int countOne;
 	private int countTwo;
+	private int countThree;
+	private int countFour;
 	
 	public GraphData() {
 		super();
@@ -14,6 +16,14 @@ public class GraphData {
 		this.day = day;
 		this.countOne = countOne;
 		this.countTwo = countTwo;
+	}
+	
+	public GraphData(int countOne, int countTwo, int countThree, int countFour) {
+		super();
+		this.countOne = countOne;
+		this.countTwo = countTwo;
+		this.countThree = countThree;
+		this.countFour = countFour;
 	}
 
 	public String getDay() {
@@ -40,9 +50,26 @@ public class GraphData {
 		this.countTwo = countTwo;
 	}
 
+	public int getCountThree() {
+		return countThree;
+	}
+
+	public void setCountThree(int countThree) {
+		this.countThree = countThree;
+	}
+
+	public int getCountFour() {
+		return countFour;
+	}
+
+	public void setCountFour(int countFour) {
+		this.countFour = countFour;
+	}
+
 	@Override
 	public String toString() {
-		return "GraphData [day=" + day + ", countOne=" + countOne + ", countTwo=" + countTwo + "]";
+		return "GraphData [day=" + day + ", countOne=" + countOne + ", countTwo=" + countTwo + ", countThree="
+				+ countThree + ", countFour=" + countFour + "]";
 	}
-	
+
 }
