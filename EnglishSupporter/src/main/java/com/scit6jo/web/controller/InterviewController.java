@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
-import com.scit6jo.web.dao.DataRepository;
-import com.scit6jo.web.dao.WordRepository;
 import com.scit6jo.web.util.AudioConverter;
+import com.scit6jo.web.repository.DataRepository;
+import com.scit6jo.web.repository.WordRepository;
 import com.scit6jo.web.util.FileService;
 import com.scit6jo.web.util.SpeechToText;
 import com.scit6jo.web.vo.IData;

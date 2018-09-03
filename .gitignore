@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+EnglishSupporter/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+EnglishSupporter/target/m2e-wtp/web-resources/META-INF/maven/com.scit6jo/web/pom.properties
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 patch.diff
@@ -14,4 +18,8 @@ EnglishSupporter/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 EnglishSupporter/target/classes/mybatis-config.xml
 =======
 EnglishSupporter/target/m2e-wtp/web-resources/META-INF/maven/global.sesoc/test/pom.properties
+<<<<<<< HEAD
 >>>>>>> 65625ba44d2e9c23c7c0c5b485a16f81dee4e860
+=======
+>>>>>>> 80812f0b683718742dd892a693fc448feb7478bb
+>>>>>>> e637c3526a37ce9b0f1c7fe4f4fd6f33ccde9bb6

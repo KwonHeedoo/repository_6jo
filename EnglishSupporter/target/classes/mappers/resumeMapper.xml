@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit6jo.web.dao.ResumeMapper">
+	
+	<select id="getCoverletter" parameterType="CoverLetter" resultType="CoverLetter">
+		 SELECT title, maintext, regdate, address, phone, email
+		 FROM coverletter
+		 WHERE userid = #{userid}
+		 and title =#{title}
+	</select>
+	
+	<select id="getCoverletterList" resultType="CoverLetter">
+		SELECT title, regdate, userid
+		FROM coverletter
+		WHERE userid = #{userid}
+		ORDER BY regdate
+	</select>
+	
+	<insert id="insertCoverLetter" parameterType="CoverLetter">
+		INSERT INTO coverletter(
+			userid
+			,title
+			,maintext
+			,address
+			,phone
+			,email
+		)VALUES(
+			#{userid}
+			,#{title}
+			,#{maintext}
+			,#{address}
+			,#{phone}
+			,#{email}
+		)
+	</insert>
+	
+	<delete id="deleteCoverletter" parameterType="CoverLetter">
+		delete from coverletter where userid =#{userid} and title =#{title}
+	</delete>
+	
+	<!-- Resume 관련  -->
+	<insert id="insertEdu" parameterType="map">
+		<foreach collection="education" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+		INTO 
+			education(
+			resume_no
+			,school_name
+			,degree_level
+			,enter_date
+			,graduate_date
+			,major
+		)VALUES
+		(	#{resume_no}
+			,#{item.school_name}
+			,#{item.degree_level}
+			,#{item.enter_date}
+			,#{item.graduate_date}
+			,#{item.major}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertExp" parameterType="map">
+		<foreach collection="experience" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+		INTO 
+			experience(
+			resume_no
+			,company_name
+			,job_description
+			,start_date
+			,end_date
+		)VALUES
+		(	#{resume_no}
+			,#{item.company_name}
+			,#{item.job_description}
+			,#{item.start_date}
+			,#{item.end_date}
+		)
+		</foreach>
+	</insert>
+	
+	
+	<insert id="insertInfo" parameterType="map">
+		<foreach collection="additional_info" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+		INTO 
+			additional_info(
+			resume_no
+			,info_title
+			,detail
+			,remarks
+			,info_date
+		)VALUES
+		(	#{resume_no}
+			,#{item.info_title}
+			,#{item.detail}
+			,#{item.remarks}
+			,#{item.info_date}
+		)
+		</foreach>
+	</insert>
+	
+	<delete id="clearTables" parameterType="String">
+		{call 
+			declare 
+			begin 
+			delete from education where resume_no = #{resume_no}; 
+			delete from additional_info where resume_no = #{resume_no};
+			delete from experience where resume_no = #{resume_no}; 
+		end}
+	</delete>
+	
+	<delete id="removeResume" parameterType="String">
+		{call 
+			declare 
+			begin 
+			delete from education where resume_no = #{resume_no}; 
+			delete from additional_info where resume_no = #{resume_no};
+			delete from experience where resume_no = #{resume_no};
+			delete from resume where resume_no = #{resume_no}; 
+		end}
+	</delete>
+	
+	<update id="updateResume" parameterType="Resume">
+		UPDATE resume SET
+			title = #{title}
+			,phone =#{phone}
+			,regdate = sysdate
+			,deadline = #{deadline}
+			,address =#{address}
+		WHERE resume_no =(
+			SELECT resume_no 
+			FROM resume 
+			WHERE userid =#{userid} 
+			and title =#{title})
+	</update>
+	
+	<select id="selectResume" parameterType="Resume" resultType="Resume">
+		SELECT resume_no, title, regdate, deadline, userid
+		FROM resume 
+		WHERE userid =#{userid} 
+		and title =#{title} 
+	</select>
+	
+	<select id="resumeList" parameterType="String" resultType="Resume">
+		SELECT resume_no, title, regdate, deadline, userid
+		FROM resume 
+		WHERE userid =#{userid}
+		ORDER BY resume_no 
+	</select>
+	
+	
+	<insert id="insertResume" parameterType="Resume">
+		INSERT INTO	RESUME(
+			resume_no
+			,userid
+			,title
+			,regdate
+			,deadline
+			,phone
+			,address
+		)VALUES(
+			resume_seq.NEXTVAL
+			,#{userid}
+			,#{title}
+			,sysdate
+			,#{deadline}
+			,#{phone}
+			,#{address}
+		)
+	</insert>
+	
+	<select id="getResume" parameterType="Map" resultMap="Resume">
+		SELECT 
+		r.RESUME_NO,r.TITLE, r.ADDRESS, r.DEADLINE, r.PHONE, r.REGDATE, r.USERID
+		,e.DEGREE_LEVEL, e.ENTER_DATE, e.GRADUATE_DATE, e.MAJOR, e.MAJOR, e.SCHOOL_NAME
+		,p.COMPANY_NAME, p.END_DATE, p.JOB_DESCRIPTION, p.START_DATE
+		, i.INFO_TITLE, i.DETAIL, i.INFO_DATE, i.REMARKS
+		FROM resume r
+		join education e
+		on r.resume_no = e.resume_no
+		join experience p 
+		on r.resume_no = p.resume_no
+		join additional_info i
+		on r.resume_no = i.resume_no
+		WHERE r.userid = #{userid} and r.title =#{title}
+	</select>
+	
+	
+	
+	<resultMap type="Resume" id="Resume">
+		<id property="resume_no" column="resume_no"/>
+		<result property="userid" column="userid"/>
+		<result property="title" column="title"/>
+		<result property="regdate" column="regdate"/>
+		<result property="deadline" column="deadline"/>
+		<result property="phone" column="phone"/>
+		<result property="address" column="address"/>
+		<!--  -->
+		<collection property="additional_info" javaType="java.util.List" resultMap="AddInfo"/>
+		<collection property="education" javaType="java.util.List" resultMap="Education"/>
+		<collection property="experience" javaType="java.util.List" resultMap="Experience"/>
+	</resultMap>
+	
+	<resultMap type="HashMap" id="AddInfo">
+			<result property="resume_no" column="resume_no"/>
+			<result property="info_title" column="info_title"/>
+			<result property="detail" column="detail"/>
+			<result property="remarks" column="remarks"/>
+			<result property="info_date" column="info_date"/>
+	</resultMap>
+	
+	<resultMap type="HashMap" id="Education">
+			<result property="resume_no" column="resume_no"/>
+			<result property="school_name" column="school_name"/>
+			<result property="degree_level" column="degree_level"/>
+			<result property="enter_date" column="enter_date"/>
+			<result property="graduate_date" column="graduate_date"/>
+			<result property="major" column="major"/>
+	</resultMap>
+
+	<resultMap type="HashMap" id="Experience">
+			<result property="resume_no" column="resume_no"/>
+			<result property="company_name" column="company_name"/>
+			<result property="job_description" column="job_description"/>
+			<result property="start_date" column="start_date"/>
+			<result property="end_date" column="end_date"/>
+	</resultMap>	
+</mapper>

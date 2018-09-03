@@ -35,6 +35,7 @@ public class CrawlingWord {
 							synonym += dl.get(i-1).select("dd").get(j).select("p").get(0).select("span").get(1).select("a").text() + ", ";
 						}// if
 					}// for
+					// 마지막 ", " 지우기
 					if(synonym.length() != 0) synonym = synonym.substring(0, synonym.length() - 2);
 					synonym += "<br/>";
 				}// for

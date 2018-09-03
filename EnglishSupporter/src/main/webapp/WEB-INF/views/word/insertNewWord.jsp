@@ -30,11 +30,11 @@
 			
 			
 			<input type="button" value="SUBMIT" class="btn" id="sendword">
+		</div>
+	</div>
 			<div id="result">
 				
 			</div>
-		</div>
-	</div>
 	
 <script type="text/javascript">
 	$(function(){

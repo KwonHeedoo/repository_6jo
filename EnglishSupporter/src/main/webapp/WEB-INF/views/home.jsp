@@ -9,6 +9,11 @@
 <style type="text/css">
 .container{
 height: 60%;
+background-image: url('./resources/images/bible-book-christian-250609.jpg');
+background-size: 100%;
+background-repeat: no-repeat;
+background-position: center center; 
+opacity : 0.8;
 }
 
 
@@ -30,8 +35,11 @@ $(function(){
 	${sessionScope.userid}님. 로그인 중...<a href="logout">로그아웃</a>
 	</c:if>
 	<br/>
+	<a href="./goDashboard">goDashboard</a>
+	<a href="./compositionForm">CompositionForm</a>
+	<a href="./registerForm">register</a>
+	<a href="./goComposition">Composition</a>
 </div>
-
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>
