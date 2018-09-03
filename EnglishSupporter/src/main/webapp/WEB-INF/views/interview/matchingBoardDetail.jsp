@@ -16,6 +16,25 @@
 <link href="./resources/css/comment.css" rel="stylesheet">
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style type="text/css">
+.btn2{
+display:inline-block;
+padding:6px 12px;
+margin-bottom:0;
+font-size:14px;
+font-weight:400;
+line-height:1.42857143;
+text-align:center;
+white-space:nowrap;
+vertical-align:middle;
+cursor:pointer;
+-webkit-user-select:none;
+-moz-user-select:none;-ms-user-select:none;user-select:none;
+background-image:none;
+border:1px solid transparent;
+border-color: #ccc;
+border-radius:4px}
+</style>
 <script>
 $(function(){
 	init();
@@ -84,10 +103,10 @@ function output(resp){
 		commentResult += '<div class="comment-user">';
 		if(item.parentId == null && item.nickname != '*****'){
 			commentResult += '<i class="fa fa-user"></i>Comment'
-			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white;">신고</button>';
+			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button>';
 		}else if(item.parentId != null && item.nickname != '*****'){
 			commentResult += '<i class="fa fa-user"></i>' + item.parentNick;
-			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white;">신고</button>';
+			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button>';
 		}
 		if(item.nickname != '*****'){
 			commentResult += '<button class="text-right" onclick="matching(\'' + item.userid + '\', ' + matchingCount + ', ' + item.commentNum + ')" style="border:none; background-color:white;">';
@@ -108,13 +127,13 @@ function output(resp){
 		commentResult += '</div>';//comment-post
 		commentResult += '<p class="text-right">';
 		if(loginId === item.userid){
-			commentResult += '<button class="btn btn-default btn-sm" id="update' + item.commentNum + '" onclick="modifyComment(' + item.commentNum + ')">Modify</button>';
-			commentResult += '<button class="btn btn-default btn-sm" onclick="deleteComment('+ item.commentNum + ', ' + item.groupNum +')">Delete</button>';
+			commentResult += '<button class="btn2 btn-sm btn-default" id="update' + item.commentNum + '" onclick="modifyComment(' + item.commentNum + ')">Modify</button>';
+			commentResult += '<button class="btn2 btn-sm btn-default" onclick="deleteComment('+ item.commentNum + ', ' + item.groupNum +')">Delete</button>';
 		}
 		if(item.parentId == null && item.nickname != '*****'){
-			commentResult += '<button class="btn btn-default btn-sm" onclick="reply(\'' + item.userid + '\', \'' + item.nickname + '\', ' + item.groupNum + ', ' + item.commentNum + ', this)"><i class="fa fa-reply"></i> Reply</button>';
+			commentResult += '<button class="btn2 btn-sm btn-default" onclick="reply(\'' + item.userid + '\', \'' + item.nickname + '\', ' + item.groupNum + ', ' + item.commentNum + ', this)"><i class="fa fa-reply"></i> Reply</button>';
 		}else if(item.parentId != null && item.nickname != '*****'){
-			commentResult += '<button class="btn btn-default btn-sm" onclick="reply(\'' + item.userid + '\', \'' + item.nickname + '\', ' + parentGroup + ', ' + item.commentNum + ', this)"><i class="fa fa-reply"></i> Reply</button>';
+			commentResult += '<button class="btn2 btn-sm btn-default" onclick="reply(\'' + item.userid + '\', \'' + item.nickname + '\', ' + parentGroup + ', ' + item.commentNum + ', this)"><i class="fa fa-reply"></i> Reply</button>';
 		}else{
 			commentResult += '<br /><br />';
 		}

@@ -6,11 +6,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Matching Board</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 function search(searchItem, searchText){
 	location.href = "./boardList?searchItem="+searchItem+"&searchText="+searchText+"&boardType=matching";
 }
 </script>
+<style type="text/css">
+
+select {
+height: 30.98px;
+margin-left: 10px;
+}
+.raw{
+display: inline-block;
+}
+
+
+</style>
+
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
@@ -51,7 +70,7 @@ function search(searchItem, searchText){
 		</c:if>
 	</table>
 	</div>
-	<div id="page">
+	<div id="page" align="center">
 		<a href="./boardList?page=1&boardType=matching&searchItem=${searchItem}&searchText=${searchText}">◀◀</a>&emsp; 
 		<a href="./boardList?page=${navi.currentPage - 1}&boardType=matching&searchItem=${searchItem}&searchText=${searchText}">Prev</a>&emsp;
 		<c:forEach var="num" begin="${navi.startPageGroup}" end="${navi.endPageGroup}" step="1">
@@ -60,25 +79,24 @@ function search(searchItem, searchText){
 		</c:forEach>
 		<a href="./boardList?page=${navi.currentPage + 1}&boardType=matching&searchItem=${searchItem}&searchText=${searchText}">Next</a>&emsp; 
 		<a href="./boardList?page=${navi.totalPageCount}&boardType=matching&searchItem=${searchItem}&searchText=${searchText}">▶▶</a>
-		
+		<br>
+			<div class="raw">	
 		<form id="searchBox" action="boardList" method="get">
 			<input type="hidden" name="boardType" value="matching">
-			<div class="col-md-4">
 			<select name="searchItem">
 				<option value="title" ${searchItem == 'title' ? 'selected' : ''}>Title</option>
 				<option value="userid" ${searchItem == 'userid' ? 'selected' : ''}>User</option>
 				<option value="contents" ${searchItem == 'contents' ? 'selected' : ''}>Contents</option>
 			</select>
-			</div>
-			<div class="col-md-4">
+
 				<input id="searchText" type="text" name="searchText" value="${searchText}">
-			</div>
-			<div class="col-md-4">
 				<input id="search" type="submit" value="Search" onclick="search('searchItem', 'searchText')">
-			</div>
 		</form>
-	</div>
+	<br>
 	<a href="./writeBoardForm?page=${navi.currentPage}&boardType=matching"><button class="btn">Write Board</button></a>
+	</div>
+	</div>
+	<br>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>
