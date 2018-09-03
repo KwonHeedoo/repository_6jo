@@ -37,6 +37,9 @@ height: 55px;
 h5{
 font-weight: bold;
 }
+.col-md-12{
+margin-bottom: 20px;
+}
 
 </style>
 </head>
@@ -62,16 +65,16 @@ font-weight: bold;
 				<hr>
 					<h5>Personal Information</h5>
 				<div class="row">
-					<div class="col-md-2">
-						<p>NAME: </p><input type="text" name="username" value="" readonly />
+					<div class="col-md-6">
+						<p>NAME: </p><input type="text" name="username" placeholder="First name Last name"/>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-6">
 						<p>EMAIL: </p><input id="email" type="email" name="email" value="" />
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-6">
 						<p>PHONE NUMBER: </p><input type="text" name="phone" />
 					</div>
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<p>ADDRESS: </p><input id="address" type="text" name="address" />
 					</div>
 					
@@ -128,16 +131,16 @@ font-weight: bold;
 					<br>
 					<br>
 					<div class="box">
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<input type="date" name="experience[0][start_date]" placeholder="START DATE" />(start date)
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<input type="date" name="experience[0][end_date]" placeholder="END DATE" />(end date)
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-6">
 						<input type="text" name="experience[0][company_name]" placeholder="organization/company NAME" />
 					</div>
-					<div class="col-md-5">
+					<div class="col-md-12">
 						<input  type="text" name="experience[0][job_description]" placeholder="DESCRIPTION" />
 					</div>
 					</div>
@@ -200,10 +203,7 @@ $(function() {
 		dataType : "JSON",
 		success: function(reps){
 			var user= reps;
-			console.log(user);
-			$('input[name="username"]').val(user.username);
 			$('input[name="email"]').val(user.email);
-			
 		},
 		error: function(error){
 			console.log("에러"+error);
@@ -244,10 +244,10 @@ $(function(){
 		var text = '<div class="box">';
 		var boxes = $('#exp >.box');
 		indexexp = boxes.length;
-		text += '<div class="col-md-2"><input type="date" name="experience['+indexexp+'][start_date]" placeholder="START DATE" />(start date)</div>';
-		text += '<div class="col-md-2"><input type="date" name="experience['+indexexp+'][end_date]" placeholder="END DATE" />(end date)</div>';
-		text += '<div class="col-md-3"><input type="text" name="experience['+indexexp+'][company_name]" placeholder="organization/company NAME" /></div>';
-		text += '<div class="col-md-5"><input type="text" name="experience['+indexexp+'][job_description]" placeholder="DESCRIPTION" /></div></div>';
+		text += '<div class="col-md-3"><input type="date" name="experience['+indexexp+'][start_date]" placeholder="START DATE" />(start date)</div>';
+		text += '<div class="col-md-3"><input type="date" name="experience['+indexexp+'][end_date]" placeholder="END DATE" />(end date)</div>';
+		text += '<div class="col-md-6"><input type="text" name="experience['+indexexp+'][company_name]" placeholder="organization/company NAME" /></div>';
+		text += '<div class="col-md-12"><input type="text" name="experience['+indexexp+'][job_description]" placeholder="DESCRIPTION" /></div></div>';
 			//console.log(text);
 			//console.log($('#edu'));
 			$('#exp').append(text);

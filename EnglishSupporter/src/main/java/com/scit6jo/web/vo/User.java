@@ -30,6 +30,12 @@ public class User {
 	}
 
 
+	public User(String userid) {
+		super();
+		this.userid = userid;
+	}
+
+
 	public String getUserid() {
 		return userid;
 	}

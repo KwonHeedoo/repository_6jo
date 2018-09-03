@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>New Resume</title>
+<title>My documentations</title>
 <script src="resources/jquery-3.3.1.min.js"></script>
 <script src="resources/jquery.serialize-object.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -278,9 +278,9 @@ function deleteCL(userid,title) {
 
 /*이력서 수정*/
 function updatedocs(resume_no) {
-	var openNewWindow = window.open("about:blank"); // 새창띄우기
+	//var openNewWindow = window.open("about:blank"); // 새창띄우기
 
-	openNewWindow.location.href ="${pageContext.request.contextPath}/"; //수정창 주소...
+	openNewWindow.location.href ="${pageContext.request.contextPath}/goUpdateResume"; //수정창 주소...
 }
 
 /*이력서 삭제 확인창 띄워서 삭제확인 받고  페이지 재로딩*/

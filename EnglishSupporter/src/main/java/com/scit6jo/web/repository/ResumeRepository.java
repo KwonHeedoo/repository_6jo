@@ -77,11 +77,11 @@ public class ResumeRepository {
 		return no;
 	}
 	
-	public Resume getResume(Resume resume) {
+	public Resume getResume(String resume_no) {
 		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
 		Resume vo= null;
 		try {
-			vo = mapper.selectResume(resume);
+			vo = mapper.getResume(resume_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,18 +89,7 @@ public class ResumeRepository {
 		return vo;
 		
 	}
-	
-	
-	public Resume selectResume(String resume_no) {
-		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
-		Resume result=null;
-		try {
-			result = mapper.getResume(resume_no);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+
 
 	public CoverLetter getCoverletter(CoverLetter vo) {
 		ResumeMapper mapper = session.getMapper(ResumeMapper.class);

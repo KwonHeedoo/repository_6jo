@@ -181,7 +181,7 @@
 		)
 	</insert>
 	
-	<select id="getResume" parameterType="Map" resultMap="Resume">
+	<select id="getResume" parameterType="String" resultMap="Resume">
 		SELECT 
 		r.RESUME_NO,r.TITLE, r.ADDRESS, r.DEADLINE, r.PHONE, r.REGDATE, r.USERID
 		,e.DEGREE_LEVEL, e.ENTER_DATE, e.GRADUATE_DATE, e.MAJOR, e.MAJOR, e.SCHOOL_NAME

@@ -26,6 +26,9 @@ public class ResumeController {
 	@Autowired
 	ResumeRepository repository;	
 	
+	@Autowired
+	UserRepository userRepository;
+	
 	private static final int countPerPage = 10;
 	private static final int pagePerGroup = 5;
 	
@@ -106,6 +109,13 @@ public class ResumeController {
 		}
 		return text;
 	}
+	
+	@RequestMapping(value = "/goUpdateResume", method = RequestMethod.GET)
+	public String goUpdateResume(Model model) {
+		
+		return "resume/editResume";
+	}
+	
 
 	@RequestMapping(value = "/updateCoverletter", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public @ResponseBody String updateCoverletter(@RequestBody CoverLetter coverletter) {
@@ -152,10 +162,14 @@ public class ResumeController {
 	// 이력서 상세보기 페이지 
 	@RequestMapping(value = "/viewMyResume", method = RequestMethod.GET, produces = "application/text; charset=utf8")
 	public String viewMyResume(String resume_no, Model model) {
-		 Resume myResume = repository.selectResume(resume_no);
-		 System.out.println(myResume);
-		 model.addAttribute("resume", myResume);
+		 Resume myResume = repository.getResume(resume_no);
 		 
+		 User user = userRepository.selectOne(new User(myResume.getUserid()));
+		 
+		 System.out.println(myResume);
+		 System.out.println(user);
+		 model.addAttribute("resume", myResume);
+		 model.addAttribute("user", user);
 		return "resume/viewResume";
 	}
 	
