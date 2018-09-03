@@ -16,7 +16,7 @@ import com.scit6jo.web.vo.User;
 @Controller
 public class UserController {
 	@Autowired
-	UserRepository Repository;
+	UserRepository repository;
 
 	@RequestMapping(value = "/goRegisterForm", method = RequestMethod.GET)
 	public String goRegisterForm() {
@@ -28,7 +28,7 @@ public class UserController {
 	public @ResponseBody Integer idcheck(User user) {
 		if(user.getUserid().length() < 3 || user.getUserid().length() > 10 ) return -1;
 		
-		User u = Repository.idcheck(user);
+		User u = repository.selectOne(user);
 		
 		if( u != null) return 1;
 		else return 0;
@@ -40,13 +40,12 @@ public class UserController {
 	public String insertUser(User user) {
 		
 		System.out.println(user);
-		int u = Repository.insertUser(user);
+		int u = repository.insertUser(user);
 		
 		System.out.println(u);
 		
 		return "home";
 	}
-	
 	
 	
 	@RequestMapping(value = "/goinsert", method = RequestMethod.GET)
@@ -68,15 +67,19 @@ public class UserController {
 	public String login(User user, HttpSession session, Model model) {
 		System.out.println("login");
 		
-		User u = Repository.selectOne(user);
+		User u = repository.selectOne(user);
 	    
 		if(u != null) {
 			session.setAttribute("loginId", u.getUserid());
 			session.setAttribute("loginNick", u.getNickname());
 			session.setAttribute("email", u.getEmail());
-			//session.setAttribute("username", u.getUsername());
+			session.setAttribute("loginType", u.getUsertype());
 			
-			Repository.attendNum(user); //출석일수
+			// 출석일수
+			repository.attendNum(user); 
+			
+			// 방문자 등록
+			repository.visit(u.getUserid());
 		}
 	
 		System.out.println(user);
@@ -100,7 +103,7 @@ public class UserController {
 		System.out.println(userid);
 		User user = new User();
 		user.setUserid(userid);
-		User findUser =Repository.selectOne(user);
+		User findUser =repository.selectOne(user);
 		findUser.setUserpwd("0000");
 
 		return findUser;

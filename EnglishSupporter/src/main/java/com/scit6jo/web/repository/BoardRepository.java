@@ -114,7 +114,7 @@ public class BoardRepository {
 	}
 	
 	// 게시글 파일 삭제 처리
-	public int deleteFile(int boardNum) {
+	/*public int deleteFile(int boardNum) {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		int result = 0;
 		
@@ -125,7 +125,7 @@ public class BoardRepository {
 		}
 		
 		return result;
-	}
+	}*/
 	
 	// 게시판에 매칭 여부 추가
 	public int matching(Board board) {
@@ -153,6 +153,19 @@ public class BoardRepository {
 		}
 		
 		return result;
+	}
+	
+	// 공지글 리스트 요청
+	public ArrayList<Board> noticeList(Map<String, String> map) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		ArrayList<Board> noticeList = null;
+		
+		try {
+			noticeList = mapper.noticeList(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return noticeList;
 	}
 	
 }

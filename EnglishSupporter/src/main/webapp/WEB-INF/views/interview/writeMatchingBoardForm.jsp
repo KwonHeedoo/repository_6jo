@@ -7,7 +7,7 @@
 <title>Writing Matching Board</title>
 <script>
 	function board(page) {
-		location.href = "./boardList?page=" + page + "&boardType=matching";
+		location.href = "./goBoardList?page=" + page + "&boardType=matching";
 	};
 	
 	function formCheck(){
@@ -31,6 +31,9 @@
 		<div>
 			<input type="hidden" name="boardType" value="matching">
 			<input id="title" type="text" name="title" placeholder="TITLE" autocomplete="off">
+			<c:if test="${sessionScope.loginType eq 'admin'}">
+				<input id="notice" type="checkbox" name="status" value="1">공지글
+			</c:if>
 		</div>
 		<h1 id="introduce">Content</h1>
 		<div>

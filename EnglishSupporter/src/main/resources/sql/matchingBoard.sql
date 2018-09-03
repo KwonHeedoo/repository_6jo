@@ -13,6 +13,7 @@ boardnum number primary key	-- 게시물 번호
 , contents varchar2(2000) not null	-- 내용
 , hitcount number default 0		-- 조회수
 , regdate date default sysdate	-- 최종 수정일
+, status number default 0 not null constraint mb_status_ck check(status in(0, 1))	-- 공지 여부(1이면 공지 / 0이면 일반게시물)
 , matchingid varchar2(20)		-- 매칭 ID
 );
 

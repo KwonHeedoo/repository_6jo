@@ -273,14 +273,11 @@ function deleteCL(userid,title) {
 	}
 }
 
-
-
-
 /*이력서 수정*/
 function updatedocs(resume_no) {
 	//var openNewWindow = window.open("about:blank"); // 새창띄우기
 
-	openNewWindow.location.href ="${pageContext.request.contextPath}/goUpdateResume"; //수정창 주소...
+	location.href ="${pageContext.request.contextPath}/goUpdateResume"; //수정창 주소...
 }
 
 /*이력서 삭제 확인창 띄워서 삭제확인 받고  페이지 재로딩*/

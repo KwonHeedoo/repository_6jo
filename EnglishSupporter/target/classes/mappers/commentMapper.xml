@@ -27,6 +27,7 @@
 		from
 		<choose>
 			<when test="boardType == 'matching'">matching_comment</when>
+			<when test="boardType == 'notice'">notice_comment</when>
 		</choose>
 		where
 			boardnum = #{boardNum}
@@ -40,6 +41,7 @@
 		insert into 
 		<choose>
 			<when test="boardType == 'matching'">matching_comment</when>
+			<when test="boardType == 'notice'">notice_comment</when>
 		</choose>
 			( commentnum
 			, userid
@@ -55,6 +57,7 @@
 		values(
 			<choose>
 				<when test="boardType == 'matching'">mc_commentnum_seq.nextVal</when>
+				<when test="boardType == 'notice'">nc_commentnum_seq.nextVal</when>
 			</choose>
 			, #{comment.userid}
 			, #{comment.nickname}
@@ -62,7 +65,12 @@
 			, #{comment.comments}
 			, #{comment.parentId}
 			, #{comment.parentNick}
-			<if test="comment.parentId == null">, mc_groupnum_seq.nextVal</if>
+			<if test="comment.parentId == null">
+			<choose>
+				<when test="boardType == 'matching'">, mc_groupnum_seq.nextVal</when>
+				<when test="boardType == 'notice'">, nc_groupnum_seq.nextVal</when>
+			</choose>
+			</if>
 			<if test="comment.parentId != null">, #{comment.groupNum}</if>
 			<if test="boardType == 'appraise'"> , #{comment.pronunciation}
 												, #{comment.contents}
@@ -75,6 +83,7 @@
 		update
 		<choose>
 			<when test="boardType == 'matching'">matching_comment</when>
+			<when test="boardType == 'notice'">notice_comment</when>
 		</choose>
 		set
 			comments = #{comment.comments}
@@ -97,6 +106,7 @@
 		delete from
 		<choose>
 			<when test="boardType == 'matching'">matching_comment</when>
+			<when test="boardType == 'notice'">notice_comment</when>
 		</choose>
 		where
 			commentnum = #{commentNum}
@@ -113,6 +123,7 @@
 		from
 		<choose>
 			<when test="boardType == 'matching'">matching_comment</when>
+			<when test="boardType == 'notice'">notice_comment</when>
 		</choose>
 		where
 		<if test="check == true">

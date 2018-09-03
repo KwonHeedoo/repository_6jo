@@ -23,10 +23,12 @@ public interface BoardMapper {
 	// 게시글 수정 처리
 	public int updateBoard(Map<String, Object> map);
 	// 게시글 파일 삭제 처리
-	public int deleteFile(int boardNum);
+	//public int deleteFile(int boardNum);
 	// 게시판에 매칭 여부 추가
 	public int matching(Board board);
 	// 게시판에 매칭 여부 취소
 	public int unmatching(Board board);
+	// 공지글 리스트 요청
+	public ArrayList<Board> noticeList(Map<String, String> map);
 
 }

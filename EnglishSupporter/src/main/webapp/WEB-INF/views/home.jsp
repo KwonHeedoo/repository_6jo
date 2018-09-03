@@ -30,7 +30,7 @@ $(function(){
 
 	
 
-
+	<a href="./goDashboard">goDashboard</a>
 	<a href="./compositionForm">CompositionForm</a>
 	<a href="./registerForm">register</a>
 	<a href="./goComposition">Composition</a>
