@@ -1,23 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <html>
 <head>
 <title>ENGLISH SUPPORTER</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="resources/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+
 <style type="text/css">
 span#idcheck {
 	color: white;
-
 }
+.center{
+margin :0 auto;
+text-align: center;
+width: 45%;
+margin-top: 70px;
+}
+input{
+width: 100%;
+height: 30px;
+border:1px solid; border-radius:22px;
+display:block; width:100%; padding:8px 15px;
+}
+.btn{
+width: 40%;
+height: 35px;
+padding:8px 18px 10px; text-transform:uppercase; font-weight:700; cursor:pointer;
+border:1px solid; border-radius:22px;
+}
+.container{
+height: 40%;
+display: inline; /* display넣어주면 블록과 분리시켜준다 */
+}
+
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script>
+
+
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+var okuserid=false;
+var oknickname=false;
+
+$(function(){ //id 중복검사
 	
-	$(function(){
 		$("#userid").on('keyup', function(){
 			
 			$.ajax({
@@ -28,193 +54,219 @@ span#idcheck {
 				if(resp == 1){
 					$('#idcheck').text("중복된 아이디가 있습니다");
 					$('#idcheck').css("color" , "red");
+					okuserid=false;
 				}else if(resp == 0){
 					$('#idcheck').text("아이디를 사용할수 있습니다");
 					$('#idcheck').css("color" , "blue");
+					okuserid=true;
+					
+				
 				}else if(resp == -1){
-					$('#idcheck').text("id는 3~ 7자리로 입력해주세요");
+					$('#idcheck').text("id는 3~ 10자리로 입력해주세요");
 					$('#idcheck').css("color" , "black");
+					okuserid=false;
 				}
 			}
 			,error : function(resp){
 				alert("통신실패")
+				
 			}
 			
 					});
 
 			});
 		});
+		
+$(function(){  //닉네임 중복검사
 	
 	
-	</script>
 	
 	
 	
+	
+	$("#nickname").on('keyup', function(){
+		
+		$.ajax({
+		url : "nicknameCheck"
+		,type : "post"
+		,data : {"nickname" : $(this).val()}
+		,success : function(resp){
+			if(resp == 1){
+				$('#nicknamecheck').text("중복된 닉네임이 있습니다");
+				$('#nicknamecheck').css("color" , "red");
+				oknickname=false;
+			}else if(resp == 0){
+				$('#nicknamecheck').text("닉네임을 사용할수 있습니다");
+				$('#nicknamecheck').css("color" , "blue");
+				oknickname=true;
+				
+			}else if(resp == -1){
+				$('#nicknamecheck').text("닉네임은 3~ 7자리로 입력해주세요");
+				$('#nicknamecheck').css("color" , "black");
+				oknickname=false;
+			}
+		}
+		,error : function(resp){
+			alert("통신실패")
+		}
+		
+				});
+
+		});
+		
+		$("#userpwd").on('keyup', function(){ //패스워드 중복검사
+			
+			
+			
+			var userpwd = $('#userpwd').val();
+			var userpwdCheck = $('#userpwdCheck').val();
+			
+		
+			if(userpwd.length == 0){
+				$('#pwdcheck').text("비밀번호를 입력하세요");
+			}
+			
+			
+		});
+		
+		
+		$("#userpwdCheck").on('keyup', function(){
+			
+			
+			
+			var userpwd = $('#userpwd').val();
+			var userpwdCheck = $('#userpwdCheck').val();
+			
+
+			if(userpwdCheck != userpwd){
+				$('#pwdcheck').text("비밀번호가일치하지않습니다");
+				
+			}else if(userpwdCheck == userpwd){
+				$('#pwdcheck').text("비밀번호가 일치합니다");	
+				
+			}
+			
+		});
+		
+		$('#registbtn').on('click', function(){
+			
+			var userid =$("#userid").val();
+			var userpwd =$("#userpwd").val();
+			var userpwdCheck =$("#userpwdCheck").val();
+			var nickname =$("#nickname").val();
+			var email =$("#email").val();
+			var birthdate =$("#birthdate").val();
+			var username =$("#username").val();
+			
+			
+ 
+			
+			if(userid == 0){
+				alert("ID를 입력하세요");
+				return;
+			}else if(userid.length < 3 || userid.length > 10){
+				alert("아이디는 3~10자리로 입력하세요");
+				return;
+			}else if(userpwd == 0 || userpwd.length < 6 || userpwd.length > 12){
+				alert("비밀번호는 6 ~ 12자리로 입력하세요");
+				
+				return;
+			}else if(userpwdCheck == 0 || userpwdCheck < 6 || userpwdCheck.length > 12){
+				alert("비밀번호확인란을 6 ~ 12자리로 입력하세요");
+				return;
+			}else if(userpwd != userpwdCheck){
+				alert("비밀번호가 다릅니다 확인해주세요");
+				return;
+			}else if(nickname == 0 || nickname.length < 3 || nickname.length > 7){
+				alert("닉네임은 3~7자리로 입력해주세요");
+				return;
+			}else if(email == 0  ){
+				alert("이메일을 입력하세요");
+				return;
+			}else if(birthdate == 0){
+				alert("생년월일을 입력하세요");
+				return;
+			}else if(username == 0 ){
+				alert("이름을 입력하세요");
+				return;
+			}
+			
+			
+				
+				if(okuserid==true  && oknickname==true){
+					alert("회원가입을 축하드립니다");
+					$('#useridcheck').submit();
+				}else{
+					alert("중복된 값이 있습니다");
+				}
+				
+			
+				
+			
+		});
+		
+});
+
+	
+	</script>	
 </head>
-<body id="top">
-<div class="wrapper row0">
-  <div id="topbar" class="hoc clear"> 
-    <div class="fl_left">
-      <ul>
-        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
-      </ul>
-    </div>
-    <div class="fl_right">
-      <ul>
-        <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-        <li><a href="#">Login</a></li>
-        <li><a href="#">Register</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="wrapper row1">
-  <header id="header" class="hoc clear"> 
-    <div id="logo" class="fl_left">
-      <h1><a href="#">ENGLISH SUPPORTER</a></h1>
-    </div>
-    
-    
-    <nav id="mainav" class="fl_right">
-      <ul class="clear">
-        <li id="home"><a href="./">Home</a></li>
-        <li id="wordtra"><a href="goWordtest">Word Training</a></li>
-        <li><a href="./goComposition">Text Training</a></li>
-        <li><a class="drop" href="#">Resume Management</a>
-          <ul>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Full Width</a></li>
-            <li><a href="#">Sidebar Left</a></li>
-            <li><a href="#">Sidebar Right</a></li>
-            <li><a href="#">Basic Grid</a></li>
-          </ul>
-        </li>
-        <li><a class="drop" href="#">MyPage</a>
-          <ul>
-            <li><a href="#">Level 2</a></li>
-            <li><a class="drop" href="#">Level 2 + Drop</a>
-              <ul>
-                <li><a href="#">Level 3</a></li>
-                <li><a href="#">Level 3</a></li>
-                <li><a href="#">Level 3</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Level 2</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-    
-  </header>
-  </div>
+<body>
+<%@ include file="/WEB-INF/views//header.jsp" %>
   
+<div class="container">
+	<div class="row">
+		<div class="center">
 
-	<form id="useridcheck" method="post" action="#">
+	<form id="useridcheck" method="post" action="insertUser">
 
-		<h3 align=left>회원가입양식</h3>
+		<h3 align=center>회원가입양식</h3>
 
-		<div class="form-group">
-			<input type="text" class="form-control" placeholder="아이디"
-				name="userid" maxlength="20" id="userid">
-				<span id="idcheck" ></span>
-		</div>
+		<div class="center">
+			
+			<p><input type="text"  placeholder="아이디"
+				name="userid"id="userid">
+				<span id="idcheck" ></span></p>
 
-		<div class="form-group">
-			<input type="password" class="form-control" placeholder="비밀번호"
-				name="userpwd" maxlength="20" id="userpwd">
-		</div>
-		<div class="form-group">
-			<input type="password" class="form-control" placeholder="비밀번호확인"
-				name="userpwdCheck" maxlength="20" id="userpwdCheck">
 
-		</div>
-		<div class="form-group">
-			<input type="text" class="form-control" placeholder="닉네임"
+			<p><input type="password"  placeholder="비밀번호"
+				name="userpwd" maxlength="20" id="userpwd"></p>
+		
+		
+			<p><input type="password" placeholder="비밀번호확인" name="userpwdCheck" maxlength="20" id="userpwdCheck"></p>
+					<span id="pwdcheck"></span>
+	
+			<p><input type="text" placeholder="닉네임"
 				id="nickname" name="nickname" maxlength="20">
-		</div>
-		<div class="form-group">
-			<input type="text" class="form-control" placeholder="이메일주소"
-				id="email" name="email" maxlength="20"> 
+				<span id="nicknamecheck"></span></p>
+		
+			<p><input type="email" placeholder="이메일주소"
+				id="email" name="email" maxlength="20"> ex ) abcd@abcd.com (공백없이)</p>
 
-		</div>
-		<div class="form-group">
-			<input type="text" class="form-control" placeholder="생일"
-				name="birthdate" maxlength="20"> ex ) 900101 (공백없이)
-		</div>
-		<div class="form-group">
-			<input type="text" class="form-control" placeholder="이름"
+		
+		
+			<p><input type="date"  placeholder="생일"
+				name="birthdate" maxlength="20">  </p>
+		
+		
+			<p><input type="text" placeholder="이름"
 				name="username" maxlength="20" id="username">
-		</div>
-
-		<p>
-			<input id="login" type="button" value="로그인" />
 		</p>
-
+			
+			<p><input value="회원가입" type="button" class="btn"  id="registbtn" /></p>
+		
+</div>
 	</form>
+	</div>
+
+	</div>
+	</div>
+	
 
 <!------ Include the above in your HEAD tag ---------->
-</body>
+
 	
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
 
-
-
-<div class="wrapper row4">
-  <footer id="footer" class="hoc clear"> 
-    <div class="one_third first">
-      <h6 class="heading">Exative</h6>
-      <nav>
-        <ul class="nospace">
-          <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Terms</a></li>
-          <li><a href="#">Privacy</a></li>
-          <li><a href="#">Cookies</a></li>
-          <li><a href="#">Disclaimer</a></li>
-          <li><a href="#">Online Shop</a></li>
-          <li><a href="#">Sitemap</a></li>
-        </ul>
-      </nav>
-      <ul class="faico clear">
-        <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-        <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-        <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-        <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-        <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-        <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
-      </ul>
-    </div>
-    <div class="one_third">
-      <h6 class="heading">Aenean molestie velit</h6>
-      <ul class="nospace linklist contact">
-        <li><i class="fa fa-map-marker"></i>
-          <address>
-          Street Name &amp; Number, Town, Postcode/Zip
-          </address>
-        </li>
-        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
-      </ul>
-    </div>
-    <div class="one_third">
-      <h6 class="heading">Aliquam sit condimentum</h6>
-      <form method="post" action="#">
-        <fieldset>
-          <legend>Newsletter:</legend>
-          <input class="btmspace-15" type="text" value="" placeholder="Name">
-          <input class="btmspace-15" type="text" value="" placeholder="Email">
-          <button type="submit" value="submit">Submit</button>
-        </fieldset>
-      </form>
-    </div>
-  </footer>
-</div> 
-<script src="resources/scripts/jquery.min.js"></script>
-<script src="resources/scripts/jquery.backtotop.js"></script>
-<script src="resources/scripts/jquery.mobilemenu.js"></script>
-<script src="resources/scripts/jquery.flexslider-min.js"></script>
 </body>
 
 </html>
