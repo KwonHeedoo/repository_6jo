@@ -63,8 +63,8 @@
         </li>
         <li><a class="drop" href="#">Interview</a>
           <ul>
-            <li><a href="#">Mock Interview</a></li>
-            <li><a href="#">Interview Appraise</a></li>
+            <li><a href="./goInterview">Mock Interview</a></li>
+            <li><a href="./goMatching">Interview Appraise</a></li>
             <li><a href="./goBoardList?boardType=matching">1:1 Video Chat</a></li>
           </ul>
         </li>

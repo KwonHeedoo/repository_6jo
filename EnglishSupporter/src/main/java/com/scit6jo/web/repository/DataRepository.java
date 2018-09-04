@@ -34,6 +34,20 @@ public class DataRepository {
 		}
 		return result;
 	}
+	
+	public int updateIData(IData iData) {
+		DataMapper mapper = session.getMapper(DataMapper.class);
+
+		int result = 0;
+		try {
+			result = mapper.updateIData(iData);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public ArrayList<IQuestion> selectAllQuestion() {
 		DataMapper mapper = session.getMapper(DataMapper.class);
 

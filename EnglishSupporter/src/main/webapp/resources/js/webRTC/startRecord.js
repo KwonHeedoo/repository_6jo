@@ -48,8 +48,15 @@ endButton.addEventListener('click', () => {
 
 const playButton = document.querySelector('button#play');
 playButton.addEventListener('click', () => {
+	console.log(recordedVideo.src);
+	if(recordedVideo.src == ""){
   const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
+	
   recordedVideo.src = window.URL.createObjectURL(superBuffer);
+	}
+	else{
+		console.log("else");
+	}
   // workaround for non-seekable video taken from
   // https://bugs.chromium.org/p/chromium/issues/detail?id=642012#c23
   recordedVideo.addEventListener('loadedmetadata', () => {
@@ -140,6 +147,7 @@ function uploadVideo(){
 	  data.append('file', file);
 	  data.append('questionNum', questions[count].questionNum);
 	  console.log(JSON.stringify(data));
+	  const download = document.getElementById("download");
 	  $.ajax({
 	      url: 'savedata',
 	      data: data,
@@ -148,9 +156,10 @@ function uploadVideo(){
 	      type: 'POST',
 	      enctype: 'multipart/form-data',
 	      success: function (data) {
-	    	  const download = document.querySelector('a#download');
 	    	  download.href = "getdata?dataNum="+data;
-	      }
+	      },
+	  		error: function(){
+	  		}
 	  });
 }
 

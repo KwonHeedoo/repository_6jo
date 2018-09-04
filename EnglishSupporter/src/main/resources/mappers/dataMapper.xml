@@ -23,6 +23,17 @@
 		)
 	
 	</insert>
+	<update id="updateIData" parameterType="iData">
+		UPDATE 
+			INTERVIEW_DATA
+		SET 
+			answer = #{answer}
+		WHERE
+			dataNum = #{dataNum}
+	
+	</update>
+	
+	
 	<select id="selectAllQuestion" resultType="iQuestion">
 		select
 			questionNum,

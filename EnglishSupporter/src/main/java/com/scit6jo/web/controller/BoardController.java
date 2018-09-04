@@ -145,17 +145,17 @@ public class BoardController {
 	
 	// 게시글 쓰기 처리
 	@RequestMapping(value="/writeBoard", method=RequestMethod.POST)
-	public String writeBoard(HttpSession session, Model model, Board board, String boardType, MultipartFile uploadfile) {
+	public String writeBoard(HttpSession session, Model model, Board board, String boardType, int dataNum) {
 		String userid = (String)session.getAttribute("loginId");
 		board.setUserid(userid);
 		
-		if(uploadfile != null) {
-			if(uploadfile.getOriginalFilename() != "") {
+		if(dataNum != 0) {
+			/*if(uploadfile.getOriginalFilename() != "") {
 				String savedFileName = saveFile(uploadfile);
 				
 				board.setOriginalfile(uploadfile.getOriginalFilename());
 				board.setSavedfile(savedFileName);
-			}
+			}*/
 		}
 		
 		Map<String, Object> map = new HashMap<>();
