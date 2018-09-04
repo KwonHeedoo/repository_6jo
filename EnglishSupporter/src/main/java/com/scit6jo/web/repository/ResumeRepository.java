@@ -149,6 +149,25 @@ public class ResumeRepository {
 
 		return result;
 	}
+	
+	public int updateResume(Resume resume) {
+		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
+		 int cnt =0;
+		 int cnt2 =0;
+		 int result =0;
+		 try {
+		 cnt =mapper.clearTables(resume.getResume_no());
+		 cnt2 =mapper.updateResume(resume);
+		 }catch (Exception e) {
+			e.printStackTrace();
+		}
+		 if(cnt>0&&cnt2>0) {
+			 result=1;
+		 }
+		
+		 return result;
+	}
+	
 
 	public int removeCoverLetter(CoverLetter vo) {
 		ResumeMapper mapper = session.getMapper(ResumeMapper.class);

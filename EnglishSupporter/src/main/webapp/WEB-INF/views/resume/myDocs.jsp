@@ -121,7 +121,7 @@ ul.tabs li.active {
 			<th>No</th>
 			<th class="boardTitle">TITLE</th>
 			<th>Registration Date</th>
-			<th>Update/Delete</th>
+			<th>UPDATE/DELETE</th>
 		</tr>
 		<!-- 게시판 내용부분 :: 데이터가 없을 경우 -->
 		<c:if test="${empty clList}">
@@ -267,7 +267,7 @@ function deleteCL(userid,title) {
 	    var object ={'userid':userid,'title':title,'type':'coverletter'};
 	    ajaxDelete(object);
 	    // 삭제시 넘길 것 userid, title, type= (resume, coverletter)
-		location.href="${pageContext.request.contextPath}/updateCoverletter";
+		//location.href="${pageContext.request.contextPath}/goMyDocs";
 	}else{   //취소
 	    return;
 	}
@@ -277,7 +277,7 @@ function deleteCL(userid,title) {
 function updatedocs(resume_no) {
 	//var openNewWindow = window.open("about:blank"); // 새창띄우기
 
-	location.href ="${pageContext.request.contextPath}/goUpdateResume"; //수정창 주소...
+	location.href ="${pageContext.request.contextPath}/goUpdateResume?resume_no="+resume_no; //수정창 주소...
 }
 
 /*이력서 삭제 확인창 띄워서 삭제확인 받고  페이지 재로딩*/
@@ -287,7 +287,7 @@ function deletedocs(resume_no) {
 	   	var object ={'resume_no':resume_no,'type':'resume'};
 	    ajaxDelete(object);
 	    // 삭제시 넘길 것 userid, title, type= (resume, coverletter)
-		location.href="${pageContext.request.contextPath}/goMyDocs";
+		//location.href="${pageContext.request.contextPath}/goMyDocs";
 	}else{   //취소
 	    return;
 	}

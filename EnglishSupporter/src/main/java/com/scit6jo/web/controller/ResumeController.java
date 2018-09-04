@@ -111,9 +111,11 @@ public class ResumeController {
 	}
 	
 	@RequestMapping(value = "/goUpdateResume", method = RequestMethod.GET)
-	public String goUpdateResume(Model model) {
+	public String goUpdateResume(Model model, String resume_no) {
+		Resume myResume = repository.getResume(resume_no);
 		
-		return "resume/editResume";
+		model.addAttribute("resume", myResume);
+		return "resume/resumeForm";
 	}
 	
 
@@ -129,8 +131,26 @@ public class ResumeController {
 		}
 		return text;
 	}
-
-	
+	@RequestMapping(value = "/updateResumeForm", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	public @ResponseBody String updateResumeForm(@RequestBody Resume resume) {
+		String text=null;
+		int check1 = repository.updateResume(resume);
+		int insertEdu = repository.insertEdu(resume.getResume_no(),resume.getEducation());
+		int insertExp = repository.insertExp(resume.getResume_no(),resume.getExperience());
+		int insertInfo = repository.insertInfo(resume.getResume_no(),resume.getAdditional_info());
+		
+		System.out.println("학력삽입수"+insertEdu);
+		System.out.println("경력삽입수"+insertExp);
+		System.out.println("정보삽입수"+insertInfo);
+		
+		if(check1>0&&(insertEdu>0||insertExp>0||insertInfo>0)) {
+			text = "이력서 저장 완료";
+		}else {
+			text = "이력서 저장 실패!";
+		}
+		
+		return text;
+	}
 
 	@RequestMapping(value = "/sendresumeForm", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public @ResponseBody String newResume(@RequestBody Resume resume) {
@@ -196,7 +216,7 @@ public class ResumeController {
 	
 	
 	//이력서 및 커버레터 삭제 
-	@RequestMapping(value = "/deleteDocs", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "/deleteDocs", method = {RequestMethod.POST,RequestMethod.GET}, produces = "application/text; charset=utf8")
 	public @ResponseBody String deleteDocs(String title, String userid, String type, String resume_no) {
 		// 이력서는 type resume_no
 		// 커버레터는 type title, userid 필요
@@ -211,11 +231,11 @@ public class ResumeController {
 			cntC = repository.removeCoverLetter(vo);
 		}
 		
-		if(cntC>0) {
-			result = "삭제가 완료되었습니다.";
-		}else {
+		if(cntC==0&&cntR==0) {
 			result="삭제실패!";
 			System.out.println("삭제실패"+cntR+"이력서/커버레터"+cntC);
+		}else {
+			result = "삭제가 완료되었습니다.";
 		}
 		return result;
 	}

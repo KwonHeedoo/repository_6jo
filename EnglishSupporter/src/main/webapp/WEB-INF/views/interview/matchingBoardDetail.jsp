@@ -34,6 +34,24 @@ background-image:none;
 border:1px solid transparent;
 border-color: #ccc;
 border-radius:4px}
+
+#comment{
+width: 90%;
+}
+#replybox{
+width:85%; 
+}
+
+div.reples{
+margin-right: 40px;
+}
+.parentNick{
+border-style: solid; 
+border-color: #e7e7e7;
+border-radius: 5px;
+padding: 4px;
+}
+
 </style>
 <script>
 $(function(){
@@ -70,12 +88,12 @@ function output(resp){
 	});
 	
 	commentResult += '<div class="container">';
-	commentResult += '<div class="row">';
-	commentResult += '<div class="col-md-8">';
+	commentResult += '<div class="row reples">';
+	commentResult += '<div>';
 	commentResult += '<h2 class="page-header">Comments</h2>';
 	commentResult += '<div class="writeComment">';
-	commentResult += '<div class=".col-xs-6"><input id="comment" class="comments" type="text" placeholder="댓글 내용" /></div>';
-	commentResult += '<div class=".col-xs-6"><input id="insertComment" type="button" value="댓글 추가" /></div>';
+	commentResult += '<div><input id="comment" class="comments" type="text" placeholder="댓글 내용" />';
+	commentResult += '&ensp;<input id="insertComment" type="button" value="댓글 추가" /></div><br>';
 	commentResult += '</div>';// writeComment
 	commentResult += '<section class="comment-list">';
 	$.each(commentList, function(index, item){
@@ -143,7 +161,7 @@ function output(resp){
 		commentResult += '</div>';//panel panel-default arrow left
 		commentResult += '</div>';//col-md-10 col-sm-10 | col-md-9 col-sm-9
 		commentResult += '</article>';//row
-		commentResult += '<div id="reply' + item.commentNum + '"></div>';
+		commentResult += '<br><div id="reply' + item.commentNum + '"></div><br>';
 	});
 	commentResult += '</section>';//comment-list
 	commentResult += '</div>';//col-md-8
@@ -219,10 +237,9 @@ function insertComment() {
 //reply 달기
 function reply(parentId, parentNick, groupNum, commentNum, btn){
 	var reply = '';
-	reply += 'To.' + parentNick;
-	reply += '<input id="replybox" type="text" />';
-	reply += '<button id="sendReply">Send</button>';
-	
+	reply += '<span class="parentNick">To.' + parentNick+'</span>';
+	reply += '&emsp;<input id="replybox" type="text" />&emsp;';
+	reply += '<button id="sendReply">Send</button><br>';
 	$('#reply' + commentNum).append(reply);
 	$(this).html('Cancel');
 	
@@ -370,9 +387,11 @@ function report(reportee, report){
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
+<div class="container">
+	<br>
 	<h1>Matching Board</h1>
 	<div>
-		<h4>${board.title}<button onclick="report('${board.userid}', '${board.contents}')" style="font-size:x-small; border:none; background-color:white;">신고</button></h4>
+		<h4>${board.title}<button onclick="report('${board.userid}', '${board.contents}')" style="font-size:x-small; border:none; background-color:white;color:red;">신고</button></h4>
 		<input id="boardNum" type="hidden" value="${board.boardNum}">
 		<input id="userid" type="hidden" value="${board.userid}">
 		<input id="page" type="hidden" value="${page}">
@@ -384,7 +403,7 @@ function report(reportee, report){
 		<div>
 			<pre>${board.contents}</pre>
 		</div>
-		<div>
+		<div align="right">
 			<a href="./goBoardList?page=${page}&boardType=matching&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Back</button></a>
 			<c:if test="${board.userid eq sessionScope.loginId}">
 			<a href="./updateBoardForm?boardNum=${board.boardNum}&boardType=matching&page=${page}&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Update</button></a>
@@ -395,6 +414,7 @@ function report(reportee, report){
 		</div>
 		<div id="commentResult"></div>
 	</div>
+</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

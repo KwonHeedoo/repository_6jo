@@ -187,7 +187,7 @@ $(function(){
 				console.log("에러"+error);
 			}
 		});
-		
+	});
 		$('#dataUpdate').on('click',function(){
 		 	var coverletter = $('#coverletter').serializeJSON();
 			console.log(coverletter);
@@ -210,10 +210,8 @@ $(function(){
 					console.log("에러"+error);
 				}
 			});
-
-		
 	});
-	
+});
 	//샘플박스 선택값을 DB에 보내서 갔다옴!
 	$('#selectbox').on('change',function(){
 		var sample_no = $('#selectbox option:selected').val();
@@ -236,7 +234,7 @@ $(function(){
 	});
 	
 	
-});
+
 
 </script>
 

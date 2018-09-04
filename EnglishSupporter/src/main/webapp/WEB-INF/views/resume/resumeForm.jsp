@@ -49,13 +49,18 @@ margin-bottom: 20px;
 		<div class="row justify-content-end">
 			<div class="col-4">
 			<br>
+			<c:if test="${empty resume}">
 			<h4>[ New Resume ]</h4>
+				</c:if>
+				<c:if test="${not empty resume}">
+			<h4>[ Update Resume ]</h4>
+				</c:if>
 			<br>
 			<form id="resume">
 				<input type="hidden" name="userid" value="${sessionScope.loginId}" id="userid">
 				<div class="row">
 					<div class="col-md-5">
-					<p>TITLE: </p><input id="title" type="text" name="title" placeholder="COMPANY NAME / JOB TITLE" />
+					<p>TITLE: </p><input id="title" type="text" name="title" value ="${resume.title}" placeholder="COMPANY NAME / JOB TITLE" />
 					</div>
 					<div class="col-md-4">
 					<p>DEADLINE: </p><input type="datetime-local" name="deadline" />
@@ -66,16 +71,16 @@ margin-bottom: 20px;
 					<h5>Personal Information</h5>
 				<div class="row">
 					<div class="col-md-6">
-						<p>NAME: </p><input type="text" name="username" placeholder="First name Last name"/>
+						<p>NAME: </p><input type="text" name="username" value="" placeholder="First name Last name"/>
 					</div>
 					<div class="col-md-6">
-						<p>EMAIL: </p><input id="email" type="email" name="email" value="" />
+						<p>EMAIL: </p><input id="email" type="email" name="email" value="${sessionScope.email}" />
 					</div>
 					<div class="col-md-6">
-						<p>PHONE NUMBER: </p><input type="text" name="phone" />
+						<p>PHONE NUMBER: </p><input type="text" name="phone" value="${resume.phone}"/>
 					</div>
 					<div class="col-md-6">
-						<p>ADDRESS: </p><input id="address" type="text" name="address" />
+						<p>ADDRESS: </p><input id="address" type="text" name="address" value="${resume.address}"/>
 					</div>
 					
 				</div>
@@ -181,7 +186,13 @@ margin-bottom: 20px;
 				<br>
 				<br>
 				<div class="right">
+				<c:if test="${empty resume}">
 				<input type="button" class="btn" value="send Form" id="CVsend">
+				</c:if>
+				<c:if test="${not empty resume}">
+				<input type="button" class="btn" value="Update Form" id="CVupdate">
+				</c:if>
+				
 				<br>
 				<br>
 				</div>
@@ -333,8 +344,7 @@ $(function(){
 		return result;
 	}
 	
-	
-	$('#CVsend').on('click',function(){
+	function validation() {
 		/*유효성 검사 
 		길이체크, 숫자 아닌것 체크 / 시작일 <종료일 체크 /빈칸 체크 */ 
 		var enterd= $('input[name$="[enter_date]"]');
@@ -343,31 +353,30 @@ $(function(){
 		var stad =  $('input[name$="[start_date]"]');
 		var endd =  $('input[name$="[end_date]"]');
 		
-		if(!checkdate(enterd,graduated))return;
-		if(!checkdate(stad,endd))return;
+		if(!checkdate(enterd,graduated))return false;
+		if(!checkdate(stad,endd))return false;
 		
 		//공란 체크  학력 
 		var school= $('input[name*="[school_name]"]');
 		var dgree = $('input[name*="[degree_level]"]');
 		var major = $('input[name*="[major]"]');
 		
-		if(!checkblank(school))return;
-		if(!checkblank(dgree))return;
-		if(!checkblank(major))return;
+		if(!checkblank(school))return false;
+		if(!checkblank(dgree))return false;
+		if(!checkblank(major))return false;
 		
 		//공란 체크 경력 
 		var company= $('input[name*="[company_name]"]');
 		var job = $('input[name*="[job_description]"]');
 
-		if(!checkblank(company))return;
-		if(!checkblank(job))return;
-		
+		if(!checkblank(company))return false;
+		if(!checkblank(job))return false;
 		//공란 체크 추가정보
 		var info_title= $('input[name*="[info_title]"]');
-		if(!checkblank(info_title))return;		
-		
-		
-		//폼 오브젝트화 
+		if(!checkblank(info_title))return false;		
+	}
+
+	function formToObject() {
 		var education = $('#education').serializeObject();
 		var resume = $('#resume').serializeObject();
 		var experience = $('#experience').serializeObject();
@@ -381,6 +390,14 @@ $(function(){
 		$.extend(resume, education, experience, additional_info);
 		console.log("resume_extended : "+JSON.stringify(resume));
 		
+		return resume;
+	}
+	
+	
+	$('#CVsend').on('click',function(){
+		if(!validation()){return;}
+		//폼 오브젝트화 
+		var resume = formToObject();
 		$.ajax({
 			method: "post",
 			url: "sendresumeForm",
@@ -399,9 +416,35 @@ $(function(){
 			}
 		});
 	});
+
+	$('#CVupdate').on('click',function(){
+		if(!validation()){return;}
+		//폼 오브젝트화 
+		var resume = formToObject();
+		$.ajax({
+			method: "post",
+			url: "updateResumeForm",
+			data : JSON.stringify(resume),
+			contentType : 'application/json; charset=UTF-8',
+			success: function(reps){
+				var text="";
+				text =reps;
+				alert(text);
+				if(text.includes("완료")){
+					var title = $('input[name="title"]').val();
+					var userid = $('input[name="userid"]').val();
+					var link = 'viewMyCoverletter?userid='+userid+'&title='+encodeURI(title);
+					location.href = "${pageContext.request.contextPath}/viewMyCoverletter?selectedTab=resume";
+					}
+			},
+			error: function(error){
+				console.log("에러"+error);
+			}
+		});
+	});
+	
+	
 });
-
-
 
 </script>
 

@@ -122,7 +122,7 @@ public interface ResumeMapper {
 	 * @param resume_no
 	 * @return
 	 */
-	public int updateResume(String resume_no);
+	public int updateResume(Resume resume);
 
 	/**
 	 * type을 받아서 동적으로 페이징용 total 값 구해오기 
