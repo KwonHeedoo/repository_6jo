@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>My Info</title>
+<title>My Info Update</title>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -122,8 +122,8 @@ $(function(){
 							Scheduler</a></li>
 					<li><a href="goInfoUpdate"><span class="glyphicon glyphicon-wrench"></span>
 							Info Update</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-lock"></span>
-							Change Password</a></li>
+					<li><a href="goPwdChange"><span class="glyphicon glyphicon-lock"></span>
+							Password Change</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-remove"></span>
 							Withdrawal</a></li>
 				</ul>
