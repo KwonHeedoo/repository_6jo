@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,23 +55,11 @@ public class MypageController {
 	
 	// 개인정보수정 처리 요청 
 	@RequestMapping(value = "/infoUpdate", method = RequestMethod.POST)
-	public String infoUpdate(String userid, String userpwd, String username, String nickname, String email, String birthdate, 
-			User u, HttpSession session, Model model) {
+	public String infoUpdate(User u, HttpSession session, Model model) {
 		
-		// 받아온 아이디와 패스워드로 해당 회원의 정보 가져오기  
-		u.setUserid(userid);
-		u.setUserpwd(userpwd);
-		User user = urepository.selectOne(u);
+		System.out.println(u);
 		
-		// 새로 입력받은 정보로 업데이트 
-		user.setUsername(username);
-		user.setNickname(nickname);
-		user.setEmail(email);
-		user.setBirthdate(birthdate);
-				
-		System.out.println(user);
-		
-		int result = repository.infoUpdate(user);
+		int result = repository.infoUpdate(u);
 		
 		// 업데이트 성공 여부에 따라 메시지 출력 
 		String message = null;
@@ -79,7 +68,7 @@ public class MypageController {
 			message = "Information Update Completed";
 			
 			// 새로 업데이트된 정보로 재로그인 
-			User uu = urepository.selectOne(user);		    
+			User uu = urepository.selectOne(u);		    
 			if(uu != null) {
 				session.setAttribute("loginId", uu.getUserid());
 				session.setAttribute("loginNick", uu.getNickname());
@@ -127,5 +116,37 @@ public class MypageController {
 		
 		return "mypage/pwdChange";
 	}
+
+	// 회원탈퇴 화면 요청
+	@RequestMapping(value = "/goUnregister", method = RequestMethod.GET)
+	public String goUnregister() {
+		System.out.println("going to Unregister...");
+		
+		return "mypage/unregister";
+	}
 	
+	// 회원탈퇴시 비밀번호 인증 처리
+	@RequestMapping(value = "pwdCheck", method = RequestMethod.POST)
+	public @ResponseBody Integer pwdCheck(@RequestBody User user) {
+		System.out.println("pwdCheck...");
+		
+		User u = urepository.selectOne(user);
+		
+		if(u != null) 	return 1;
+		else 			return 0;
+	}
+	
+	// 회원탈퇴 처리 요청
+	@RequestMapping(value = "unregister", method = RequestMethod.POST)
+	public @ResponseBody Integer unregister(@RequestBody User user, HttpSession session, Model model) {
+		System.out.println("unregister...");
+		
+		int result = repository.unregister(user);        
+		
+		if(result == 1) {
+			session.invalidate();
+		}
+		
+		return result;
+	}
 }

@@ -120,8 +120,8 @@ $(function(){
 							Info Update</a></li>
 					<li><a href="goPwdChange"><span class="glyphicon glyphicon-lock"></span>
 							Password Change</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-remove"></span>
-							Withdrawal</a></li>
+					<li><a href="goUnregister"><span class="glyphicon glyphicon-remove"></span>
+							Unregister</a></li>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse --> </nav>
