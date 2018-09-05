@@ -49,6 +49,7 @@ public class InterviewController {
 
 	final String video_uploadPath = "c://ES_uploadPath//video";
 	final String image_uploadPath = "c://ES_uploadPath//images";
+	
 	final String uploadPath = "c://ES_uploadPath";
 
 	// 인터뷰 페이지로 이동
@@ -57,6 +58,14 @@ public class InterviewController {
 		session.setAttribute("loginId", "aaa");
 		return "interview/interviewPractice";
 	}
+	
+	// 면접질문 list 페이지 이동
+	@RequestMapping(value = "/viewQuestions", method = RequestMethod.GET)
+	public String goQuestions(Model model) {
+		
+		return "interview/interviewQlist";
+	}
+	
 	/*
 	 * public String interview(Model model) { ArrayList<IQuestion> result =
 	 * repository.selectAllQuestion(); return "interview/interviewPractice"; }

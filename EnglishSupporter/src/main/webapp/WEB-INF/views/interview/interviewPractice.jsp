@@ -35,7 +35,6 @@
 		var count = 0;
 		var max;
 		
-		
 		$(function(){
 			$("#start_part").show();
 			$("#question_part").hide();
@@ -47,12 +46,14 @@
 				$("#question_part").show();
 				$("#download_part").hide();
 			});
-			$("#end").on('click',function(){
+			$("#end").on('click',function(){ //대답완료시 
 				$("#start_part").hide();
 				$("#question_part").hide();
 				$("#download_part").show();
+				
 			});
 			$("#record").on('click',function(){
+				//$('#recorded').attr('src','');
 				$("#start_part").hide();
 				$("#question_part").show();
 				$("#download_part").hide();
@@ -86,13 +87,18 @@
 	<style type="text/css">
 .container {
 	text-align: center;
+	height: 600px;
+}
+
+.jumbotron{
+height: 70%;
+margin-top: 30px;
 }
 
 button {
 	border: none;
 	background: transparent;
 	font-size: 30pt;
-	width: 100%;
 	text-align: center;
 	margin-top: 50px;
 	margin-bottom: 10px;	
@@ -107,6 +113,11 @@ button {
     position: relative;
     left: 45%;
 }
+
+button{
+margin: 0;
+}
+
 </style>
 
 </head>
@@ -118,23 +129,24 @@ button {
 	<div id="container">
 
 		<div id="start_part" style="text-align:center">
-			<button id="start">Start</button>
+		 <h4>면접 연습을 위한 동영상 녹화를 시작하시려면 start 버튼을 눌러주세요!</h4>
+		
+			<button id="start" class="btn">Start</button>
 		</div>
 		<div id="question_part" style="display: none;text-align:center">
-			<h1 id="question"></h1>
+			<h1 id="question"> Q: </h1>
 			<video id="gum" playsinline autoplay muted></video>
 			<br>
-			<button id="end">대답 완료</button>
+			<button id="end" class="btn">대답 완료</button>
 		</div>
-		<div id="download_part" style="display: none;text-align:center">
-			<video id="recorded" controls autoplay loop></video>
-			<br>
-			<button id="play">Play</button>
-			<br> <a id="download" href="#">download</a>
-			<button id="record">다음 질문</button>
+		<div id="download_part" style="text-align:center">
+			<video id="recorded" controls height="480" width="680"></video>
+			<br><br><br>
+			<a id="download" href="#" class="btn">영상 download</a>
+			<button id="record" class="btn">다음 질문</button>
 		</div>
 	</div>
-	</div>
+</div>
 
 	<!-- include adapter for srcObject shim -->
 
