@@ -39,7 +39,7 @@ border-radius:4px}
 width: 90%;
 }
 #replybox{
-width:85%; 
+width:80%; 
 }
 
 div.reples{
@@ -122,10 +122,8 @@ function output(resp){
 		commentResult += '<div class="comment-user">';
 		if(item.parentId == null && item.nickname != '*****'){
 			commentResult += '<i class="fa fa-user"></i>Comment'
-			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button>';
 		}else if(item.parentId != null && item.nickname != '*****'){
 			commentResult += '<i class="fa fa-user"></i>' + item.parentNick;
-			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button>';
 		}
 		if(item.nickname != '*****'){
 			commentResult += '<button class="text-right" onclick="matching(\'' + item.userid + '\', ' + matchingCount + ', ' + item.commentNum + ')" style="border:none; background-color:white;">';
@@ -135,6 +133,11 @@ function output(resp){
 				commentResult += '<img id="match' + item.commentNum + '" alt="match" src="./resources/images/icons/golden.png">';
 			}
 			commentResult += '</button>';
+		}
+		if(item.parentId == null && item.nickname != '*****'){
+			commentResult += '<span style="float:right"><button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
+		}else if(item.parentId != null && item.nickname != '*****'){
+			commentResult += '<span style="float:right"><button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
 		}
 		commentResult += '</div>';//comment-user
 		commentResult += '<time class="comment-date" datetime="' + item.regdate + '">';//
@@ -175,13 +178,19 @@ function output(resp){
 
 // 댓글 삭제
 function deleteComment(commentNum, groupNum) {
-	$.ajax({
-		url  : 'deleteComment'
-		, type : 'get'
-		, data : {'commentNum' : commentNum, 'groupNum' : groupNum, 'boardType' : 'matching'}
-		, success : init
-		, error : function(){alert("Error!");}
-	});
+	//확인
+	if (confirm("Are you Sure??") == true){
+		$.ajax({
+			url  : 'deleteComment'
+			, type : 'get'
+			, data : {'commentNum' : commentNum, 'groupNum' : groupNum, 'boardType' : 'matching'}
+			, success : init
+			, error : function(){alert("Error!");}
+		});
+	//취소
+	}else{
+	    return;
+	}
 }
 
 // 댓글수정
@@ -282,35 +291,58 @@ function matching(matchingId, matchingCount, commentNum){
 	if(userid === loginId && matchingCount <= 1){
 		// 이미 매칭이 되어있는 경우 매칭 취소
 		if(check.includes('golden') && matchingCount === 1){
-			$.ajax({
-				url : 'unmatching'
-				, type : 'post'
-				, data : {'boardNum' : boardNum, 'matchingId' : null
-						 , 'boardType' : 'matching', 'commentNum' : commentNum}
-				, success : function(resp){
-					if(resp == 1){
-						$('#match' + commentNum).attr('src', './resources/images/icons/silver.png');
-						init();
+			//확인
+			if (confirm("Are you Sure??") == true){
+				$.ajax({
+					url : 'unmatching'
+					, type : 'post'
+					, data : {'boardNum' : boardNum, 'matchingId' : null
+							 , 'boardType' : 'matching', 'commentNum' : commentNum}
+					, success : function(resp){
+						if(resp == 1){
+							$('#match' + commentNum).attr('src', './resources/images/icons/silver.png');
+							init();
+						}
 					}
-				}
-				, error : function(){alert('Error!');}
-			});
+					, error : function(){alert('Error!');}
+				});
+			//취소
+			}else{
+			    return;
+			}
 		}else if(matchingCount === 0 && matchingId !== loginId){
-			// 매칭
-			$.ajax({
-				url : 'matching'
-				, type : 'post'
-				, data : {'boardNum' : boardNum, 'matchingId' : matchingId
-						 , 'boardType' : 'matching', 'commentNum' : commentNum}
-				, success : function(resp){
-					if(resp == 1){
-						$('#match' + commentNum).attr('src', './resources/images/icons/golden.png');
-						init();
+			//확인
+			if (confirm("Are you Sure??") == true){
+				// 매칭
+				$.ajax({
+					url : 'matching'
+					, type : 'post'
+					, data : {'boardNum' : boardNum, 'matchingId' : matchingId
+							 , 'boardType' : 'matching', 'commentNum' : commentNum}
+					, success : function(resp){
+						if(resp == 1){
+							$('#match' + commentNum).attr('src', './resources/images/icons/golden.png');
+							init();
+						}
 					}
-				}
-				, error : function(){alert('Error!');}
-			});
+					, error : function(){alert('Error!');}
+				});
+			//취소
+			}else{
+			    return;
+			}
 		}
+	}
+}
+
+// 게시물 삭제 확인
+function checkDel(){
+	//확인
+	if (confirm("Are you Sure??") == true){
+		return true;
+	//취소
+	}else{
+	    return false;
 	}
 }
 
@@ -391,7 +423,6 @@ function report(reportee, report){
 	<br>
 	<h1>Matching Board</h1>
 	<div>
-		<h4>${board.title}<button onclick="report('${board.userid}', '${board.contents}')" style="font-size:x-small; border:none; background-color:white;color:red;">신고</button></h4>
 		<input id="boardNum" type="hidden" value="${board.boardNum}">
 		<input id="userid" type="hidden" value="${board.userid}">
 		<input id="page" type="hidden" value="${page}">
@@ -400,6 +431,10 @@ function report(reportee, report){
 		<input id="loginId" type="hidden" value="${sessionScope.loginId}">
 		<input id="loginNick" type="hidden" value="${sessionScope.loginNick}">
 		<input id="loginType" type="hidden" value="${sessionScope.loginType}">
+		<h4>${board.title}<button onclick="report('${board.userid}', '${board.contents}')" style="font-size:x-small; border:none; background-color:white;color:red;">신고</button></h4>
+		<c:if test="${board.status != 1}">
+			<h5 style="color:blue;">Appointed Time [ ${board.appointedTime} ]</h5>
+		</c:if>
 		<div>
 			<pre>${board.contents}</pre>
 		</div>
@@ -409,7 +444,7 @@ function report(reportee, report){
 			<a href="./updateBoardForm?boardNum=${board.boardNum}&boardType=matching&page=${page}&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Update</button></a>
 			</c:if>
 			<c:if test="${board.userid eq sessionScope.loginId || sessionScope.loginType eq 'admin'}">
-			<a href="./deleteBoard?boardNum=${board.boardNum}&boardType=matching"><button class="btn">Delete</button></a>
+			<a href="./deleteBoard?boardNum=${board.boardNum}&boardType=matching" onclick="return checkDel()"><button class="btn">Delete</button></a>
 			</c:if>
 		</div>
 		<div id="commentResult"></div>

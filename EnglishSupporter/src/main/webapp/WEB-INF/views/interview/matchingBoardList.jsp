@@ -50,16 +50,20 @@ function output(resp){
 			matchingCount++;
 		}
 	});
+	boardResult += '<div class="container">';
+	boardResult += '<div class="row justify-content-end">';
+	boardResult += '<h1>Matching Board</h1>';
 	boardResult += '<div id="boardTable">';
 	boardResult += '<table border="1">';
 	// 게시판 제목부분
 	boardResult += '<tr id="boardMenu">';
-	boardResult += '<th>No</th>';
-	boardResult += '<th class="boardTitle">TITLE</th>';
-	boardResult += '<th>NICKNAME</th>';
-	boardResult += '<th>REGDATE</th>';
-	boardResult += '<th>HITS</th>';
-	boardResult += '<th><button id="unmatched" onclick="constraint(' + matchingCount + ')">MATCHING</button></th>'; 
+	boardResult += '<th style="width:5%;">No</th>';
+	boardResult += '<th style="width:15%;">TIME</th>';
+	boardResult += '<th class="boardTitle" style="width:45%;">TITLE</th>';
+	boardResult += '<th style="width:10%;">NICKNAME</th>';
+	boardResult += '<th style="width:10%;">REGDATE</th>';
+	boardResult += '<th style="width:5%;">HITS</th>';
+	boardResult += '<th style="width:10%;"><button id="unmatched" onclick="constraint(' + matchingCount + ')">MATCHING</button></th>'; 
 	boardResult += '</tr>';
 	// 게시판 내용부분 :: 데이터가 없을 경우
 	if(!map.boardList.length){
@@ -72,7 +76,7 @@ function output(resp){
 	if(map.noticeList.length){
 		$.each(map.noticeList, function(index, item){
 			boardResult += '<tr>';
-			boardResult += '<td><span style="color:red;">[공지]</span></td>';
+			boardResult += '<td colspan="2"><span style="color:red;">[공지]</span></td>';
 			boardResult += '<td class="boardTitle"><a href="./detailBoard?boardNum=' + item.boardNum + '&boardType=matching&page=' + map.navi.currentPage + '&back=false&searchItem=' + map.searchItem + '&searchText=' + map.searchText + '">' + item.title + '</a></td>';
 			boardResult += '<td>' + item.userid + '</td>';
 			boardResult += '<td>' + item.regdate + '</td>';
@@ -87,6 +91,7 @@ function output(resp){
 		$.each(map.boardList, function(index, item){
 			boardResult += '<tr>';
 			boardResult += '<td>' + (map.navi.totalRecordsCount - map.navi.startRecord - (count - 1)) + '</td>';
+			boardResult += '<td>' + item.appointedTime + '</td>';
 			boardResult += '<td class="boardTitle"><a href="./detailBoard?boardNum=' + item.boardNum + '&boardType=matching&page=' + map.navi.currentPage + '&back=false&searchItem=' + map.searchItem + '&searchText=' + map.searchText + '">' + item.title + '</a></td>';
 			boardResult += '<td>' + item.userid + '</td>';
 			boardResult += '<td>' + item.regdate + '</td>';
@@ -104,6 +109,8 @@ function output(resp){
 	}
 	boardResult += '</table>';
 	boardResult += '</div>';// boardTable
+	boardResult += '</div>';//row justify-content-end
+	boardResult += '</div>';// container
 	// 페이징
 	boardResult += '<div id="page" align="center">';
 	if(map.boardList.length){
@@ -121,6 +128,7 @@ function output(resp){
 		boardResult += '<a onclick="selectPage('+ (map.navi.currentPage + 1) + ', \'' + map.searchItem + '\', \'' + map.searchText + '\')">Next</a>&emsp;'; 
 		boardResult += '<a onclick="selectPage('+ map.navi.totalPageCount + ', \'' + map.searchItem + '\', \'' + map.searchText + '\')">▶▶</a>';
 		// 게시판 검색 기능
+		boardResult += '<div class="container">';
 		boardResult += '<form id="searchBox" action="boardList" method="get">';
 		boardResult += '<input type="hidden" name="boardType" value="matching">';
 		boardResult += '<div class="col-md-1">';
@@ -150,10 +158,8 @@ function output(resp){
 	}
 	boardResult += '</div>';//page
 	boardResult += '<a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=matching"><button class="btn">Write Board</button></a>';
+	boardResult += '</div>';//container
 	
-	//$('#selectBox option[value='+map.searchItem+']').attr('selected', 'selected');
-	//$('#selectBox').val(map.searchItem);
-	//$("#selectBox").val(map.searchItem).attr("selected", true); //값이 1인 option 선택
 	$('#boardResult').html(boardResult);
 	$('#search').click(search);
 }
@@ -214,14 +220,17 @@ margin-left: 10px;
 .raw{
 display: inline-block;
 }
-
-
+td, th{
+text-align:center;
+}
+td.boardTitle{
+text-align:left;
+}
 </style>
 
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<h1>Matching Board</h1>
 	<input id="boardType" type="hidden" value="${boardType}">
 	<input id="page" type="hidden" value="${page}">
 	<input id="searchItem" type="hidden" value="${searchItem}">
