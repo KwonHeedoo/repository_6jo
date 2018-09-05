@@ -30,21 +30,33 @@ recordedVideo.addEventListener('error', function(ev) {
 //녹화 버튼 클릭시 이벤트
 const recordButton = document.querySelector('button#record');
 recordButton.addEventListener('click', () => {
-  if (recordButton.textContent === 'Start Recording') {
     startRecording();
-  } else {
-    stopRecording();
-    recordButton.textContent = 'Start Recording';
-    playButton.disabled = false;
-    downloadButton.disabled = false;
-  }
 });
 
-// 플레이 버튼 클릭시 이벤트
-const playButton = document.querySelector('button#play');
+
+const startButton = document.querySelector('button#start');
+startButton.addEventListener('click', () => {
+    startRecording();
+    console.log("record start!");
+});
+
+/*const endButton = document.querySelector('button#end');
+endButton.addEventListener('click', () => {
+
+});*/
+
+const playButton = document.querySelector('button#end');
 playButton.addEventListener('click', () => {
-  const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
-  recordedVideo.src = window.URL.createObjectURL(superBuffer);
+	stopRecording();
+	uploadVideo();	
+	
+	console.log(recordedVideo.src);
+/*	if(recordedVideo.src != ""){
+		recordedVideo.src="";
+	}
+*/	const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
+	recordedVideo.src = window.URL.createObjectURL(superBuffer);
+	recordedVido.load();
   // workaround for non-seekable video taken from
   // https://bugs.chromium.org/p/chromium/issues/detail?id=642012#c23
   recordedVideo.addEventListener('loadedmetadata', () => {
@@ -54,81 +66,16 @@ playButton.addEventListener('click', () => {
         recordedVideo.currentTime = 0;
         recordedVideo.ontimeupdate = function() {
           delete recordedVideo.ontimeupdate;
-          recordedVideo.play();
+          //recordedVideo.play();
         };
       };
     } else {
-      recordedVideo.play();
+     //recordedVideo.play();
+    	
     }
   });
 });
 
-
-//다운로드 버튼 클릭시 이벤트
-// 현재 서버에 전송하는 것을 담당
-const downloadButton = document.querySelector('button#download');
-downloadButton.addEventListener('click', () => {
-  const blob = new Blob(recordedBlobs, {type: 'video/webm'});
-  /*var myReader = new FileReader();
-  myReader.onload = function(event){
-	    console.log(JSON.stringify(myReader.result));
-	};
-	myReader.readAsText(blob);*/
-  //기본 코드
-  /*const url = window.URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.style.display = 'none';
-  a.href = url;
-  a.download = 'test.webm';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => {
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  }, 100);*/
-  
-  //추가 코드 1
-  /*var xhr = new XMLHttpRequest();
-  var formData = new FormData();
-  formData.append('blob', blob);
-  xhr.open('POST', '/test005/senddata', true);
-  xhr.onload = function(e) {
-    console.log('Sent');
-  };
-  xhr.send(formData);
-  console.log(xhr.response);*/
-  // 추가 코드 2
-  var file = new File([blob], "test.webm", { type: "video/webm", lastModified: Date.now()});
-  var data;
-  data = new FormData();
-  data.append('file', file);
-  console.log(JSON.stringify(data));
-  $.ajax({
-      url: 'savedata',
-      data: data,
-      processData: false,
-      contentType: false,
-      type: 'POST',
-      // This will override the content type header, 
-      // regardless of whether content is actually sent.
-      // Defaults to 'application/x-www-form-urlencoded'
-      enctype: 'multipart/form-data',
-      //Before 1.5.1 you had to do this:
-      /*beforeSend: function (x) {
-          if (x && x.overrideMimeType) {
-              x.overrideMimeType("multipart/form-data");
-          }
-      },*/
-      // Now you should be able to do this:
-      //mimeType: 'multipart/form-data',    //Property added in 1.5.1
-
-      success: function (data) {
-    	  
-          alert(data);
-      }
-  });
-  
-});
 
 // window.isSecureContext could be used for Chrome
 let isSecureOrigin = location.protocol === 'https:' || location.hostname === 'localhost';
@@ -181,9 +128,6 @@ function startRecording() {
     return;
   }
   console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
-  recordButton.textContent = 'Stop Recording';
-  playButton.disabled = true;
-  downloadButton.disabled = true;
   mediaRecorder.onstop = handleStop;
   mediaRecorder.ondataavailable = handleDataAvailable;
   mediaRecorder.start(10); // collect 10ms of data
@@ -194,6 +138,30 @@ function stopRecording() {
   mediaRecorder.stop();
   console.log('Recorded Blobs: ', recordedBlobs);
   recordedVideo.controls = true;
+}
+
+function uploadVideo(){
+	const blob = new Blob(recordedBlobs, {type: 'video/webm; codecs="vp9"'});
+	  var file = new File([blob], "test.webm", { type: 'video/webm; codecs="vp9"', lastModified: Date.now()});
+	  var data;
+	  data = new FormData();
+	  data.append('file', file);
+	  data.append('questionNum', questions[count].questionNum);
+	  console.log(JSON.stringify(data));
+	  const download = document.getElementById("download");
+	  $.ajax({
+	      url: 'savedata',
+	      data: data,
+	      processData: false,
+	      contentType: false,
+	      type: 'POST',
+	      enctype: 'multipart/form-data',
+	      success: function (data) {
+	    	  download.href = "getdata?dataNum="+data;
+	      },
+	  		error: function(){
+	  		}
+	  });
 }
 
 function handleSuccess(stream) {

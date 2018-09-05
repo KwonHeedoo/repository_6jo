@@ -13,6 +13,12 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title>Matching Board</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 $(function(){
 	init();
@@ -99,7 +105,7 @@ function output(resp){
 	boardResult += '</table>';
 	boardResult += '</div>';// boardTable
 	// 페이징
-	boardResult += '<div id="page">';
+	boardResult += '<div id="page" align="center">';
 	if(map.boardList.length){
 		var i = 1;
 		boardResult += '<a onclick="selectPage('+ 1 + ', \'' + map.searchItem + '\', \'' + map.searchText + '\')">◀◀</a>&emsp;'; 
@@ -199,6 +205,19 @@ function constraint(matchingCount){
 	}
 }
 </script>
+<style type="text/css">
+
+select {
+height: 30.98px;
+margin-left: 10px;
+}
+.raw{
+display: inline-block;
+}
+
+
+</style>
+
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>

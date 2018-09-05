@@ -36,6 +36,26 @@ public class UserController {
 		else return 0;
 	}
 	
+	//회원가입 정보기입
+	@RequestMapping(value ="/insertUser" , method=RequestMethod.POST) 
+	public String insertUser(User user) {
+		
+		System.out.println(user);
+		int u = repository.insertUser(user);
+		
+		System.out.println(u);
+		
+		return "home";
+	}
+	
+	
+	@RequestMapping(value = "/goinsert", method = RequestMethod.GET)
+	public String goinsert(User user) {
+		
+		
+		return "user/register";
+	}
+
 	// 로그인 폼 요청
 	@RequestMapping(value = "/goLoginForm", method = RequestMethod.GET)
 	public String goLoginForm() {
@@ -55,7 +75,6 @@ public class UserController {
 			session.setAttribute("loginId", u.getUserid());
 			session.setAttribute("loginNick", u.getNickname());
 			session.setAttribute("email", u.getEmail());
-			session.setAttribute("username", u.getUsername());
 			session.setAttribute("loginType", u.getUsertype());
 			
 			// 출석일수
@@ -79,6 +98,18 @@ public class UserController {
 		
 		return "redirect:/";
 
+	}
+	
+	// 유저정보를 ajax로 받아옴..
+	@RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
+	public @ResponseBody User getUserInfo(String userid) {
+		System.out.println(userid);
+		User user = new User();
+		user.setUserid(userid);
+		User findUser =repository.selectOne(user);
+		findUser.setUserpwd("0000");
+
+		return findUser;
 	}
 	
 }

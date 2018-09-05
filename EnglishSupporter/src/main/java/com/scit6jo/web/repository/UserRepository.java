@@ -41,6 +41,27 @@ public class UserRepository {
 		
 		return result; 
 	}
+
+	public int insertUser(User user) {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		int result = mapper.insertUser(user);
+		
+		return result;
+	}
+
+	public User idcheck(User user) {
+		UserMapper mapper=session.getMapper(UserMapper.class);
+		User result=mapper.idcheck(user);
+		
+		return result;
+	}
+	
+	public User nicknameCheck(User user) {
+		UserMapper mapper=session.getMapper(UserMapper.class);
+		User result=mapper.nicknameCheck(user);
+		
+		return result;
+	}
 	
 	// 방문자 등록
 	public int visit(String visitor) {

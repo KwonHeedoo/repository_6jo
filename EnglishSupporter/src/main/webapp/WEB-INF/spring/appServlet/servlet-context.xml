@@ -23,6 +23,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	
+	
 	<context:component-scan base-package="com.scit6jo.web" />
 	
 	<!-- 인터셉터 클래스를 빈으로 등록 -->
