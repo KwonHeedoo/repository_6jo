@@ -212,22 +212,50 @@
 				userlist)
 	</select>
 	
-	<!-- 오늘의 게시물 수 -->
-	<select id="countByBoard" resultType="int">
+	<!-- 오늘의 게시물, 코멘트, Coverlette, Resume 수 -->
+	<select id="countToday" resultType="GraphData">
 		select 
-			sum(a + b) as count 
+			(a + b) as countOne
+			, (c + d) as countTwo
+			, e as countThree
+			, f as countFour
 		from 
 			(select 
 				count(*) a 
 			from 
 				matching_board 
 			where 
-				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd')), 
-			(select 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd'))
+			, (select 
 				count(*) b 
 			from 
-			<!-- 평가 게시물로 바꿔야함 -->
+		<!-- 평가 게시물로 변경해야함 -->
 				notice_board 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd'))
+			, (select 
+				count(*) c 
+			from 
+				matching_comment 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd')) 
+			, (select 
+				count(*) d 
+			from 
+		<!-- 평가 게시물로 변경해야함 -->
+				notice_comment 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd'))
+			, (select 
+				count(*) e 
+			from 
+				coverletter 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd')) 
+			, (select 
+				count(*) f 
+			from 
+				resume 
 			where 
 				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd'))
 	</select>

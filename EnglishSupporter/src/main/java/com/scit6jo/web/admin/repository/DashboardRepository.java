@@ -57,18 +57,18 @@ public class DashboardRepository {
 		return countByUserAge;
 	}
 	
-	// 오늘의 게시물 수
-	public int countByBoard() {
+	// 오늘의 게시물, 코멘트, Coverlette, Resume 수
+	public GraphData countToday() {
 		DashboardMapper mapper = session.getMapper(DashboardMapper.class);
-		int countByBoard = 0;
+		GraphData countToday = null;
 		
 		try {
-			countByBoard = mapper.countByBoard(); 
+			countToday = mapper.countToday(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return countByBoard;
+		return countToday;
 	}
 
 }

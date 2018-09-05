@@ -16,7 +16,7 @@ public class DashboardController {
 	@Autowired
 	DashboardRepository repository;
 	
-	// 회원가입 & 방문자 수 정보 요청
+	// Dashboard 페이지 요청
 	@RequestMapping(value = "/goDashboard", method = RequestMethod.GET)
 	public String goDashboard(){
 		System.out.println("Going to Dashboard...");
@@ -50,16 +50,8 @@ public class DashboardController {
 	
 	// 오늘의 게시물, 코멘트, Coverlette, Resume 수
 	@RequestMapping(value = "/countToday", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<Integer> countToday(){
-		ArrayList<Integer> countToday = null;
-		// 오늘의 게시물 수
-		int countByBoard = repository.countByBoard();
-		// 오늘의 코멘트 수
-		int recentComment = 0;
-		// 오늘의 Coverletter 수
-		int recentCoverletter = 0;
-		// 오늘의 Resume 수
-		int recentResume = 0;
+	public @ResponseBody GraphData countToday(){
+		GraphData countToday = repository.countToday();
 		
 		return countToday;
 	}

@@ -17,13 +17,15 @@ import com.scit6jo.web.vo.User;
 public class UserController {
 	@Autowired
 	UserRepository repository;
-
+	
+	// 회원가입 폼 요청
 	@RequestMapping(value = "/goRegisterForm", method = RequestMethod.GET)
 	public String goRegisterForm() {
 
 		return "user/registerForm";
 	}
 	
+	// ID 체크
 	@RequestMapping(value ="/idcheck" , method=RequestMethod.POST)
 	public @ResponseBody Integer idcheck(User user) {
 		if(user.getUserid().length() < 3 || user.getUserid().length() > 10 ) return -1;
@@ -34,7 +36,7 @@ public class UserController {
 		else return 0;
 	}
 	
-	
+	// 로그인 폼 요청
 	@RequestMapping(value = "/goLoginForm", method = RequestMethod.GET)
 	public String goLoginForm() {
 		System.out.println("going to LoginForm...");
@@ -42,6 +44,7 @@ public class UserController {
 		return "user/loginForm";
 	}
 	
+	// 로그인 처리
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(User user, HttpSession session, Model model) {
 		System.out.println("login");
@@ -67,6 +70,7 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	// 로그아웃 처리
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		System.out.println("logout");

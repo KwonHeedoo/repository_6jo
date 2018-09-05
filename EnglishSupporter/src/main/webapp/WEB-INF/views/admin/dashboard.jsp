@@ -10,6 +10,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 $(function(){
+	$('#dashboard').addClass('active');
 	// 회원가입 & 방문자 수 그래프
 	callJoinAndVisit('week');
 	// 신고 & 재제 수 그래프
@@ -17,7 +18,7 @@ $(function(){
 	// 회원 연령대 별 분포도
 	graphAgePercent();
 	// 오늘의 게시물, 코멘트, Coverlette, Resume 수
-	//countToday();
+	countToday();
 });
 
 // 회원가입 & 방문자 수 정보 요청
@@ -140,7 +141,8 @@ function countToday(){
 		url : 'countToday'
 		, type : 'get'
 		, success : function(resp){
-			panel(resp);
+			var countList = [resp.countOne, resp.countTwo, resp.countThree, resp.countFour];
+			panel(countList);
 		}
 		, error : function(resp){
 			alert('Error!');
@@ -149,8 +151,7 @@ function countToday(){
 }
 
 // panel출력
-function panel(resp){
-	var countList = resp;
+function panel(countList){
 	var resultDiv = '';
 	var color = ['primary', 'green', 'yellow', 'red'];
 	var category = ['Boards', 'Comments', 'Coverletters', 'Resume'];
@@ -159,27 +160,28 @@ function panel(resp){
 	
 	$.each(countList, function(index, item){
 		resultDiv += '<div class="col-lg-3 col-md-6">';
-		resultDiv += '<div class="panel panel-' + color[count++] + '">';
+		resultDiv += '<div class="panel panel-' + color[count] + '">';
 		resultDiv += '<div class="panel-heading">';
 		resultDiv += '<div class="row">';
 		resultDiv += '<div class="col-xs-3">';
-		resultDiv += '<i class="fa ' + icon[count++] + ' fa-5x"></i>';
+		resultDiv += '<i class="fa ' + icon[count] + ' fa-5x"></i>';
 		resultDiv += '</div>';// col-xs-3
 		resultDiv += '<div class="col-xs-9 text-right">';
-		resultDiv += '<div class="huge">26</div>';
-		resultDiv += '<div>New ' + category[count++] + '!</div>';
+		resultDiv += '<div class="huge">' + item + '</div>';
+		resultDiv += '<div>New ' + category[count] + '!</div>';
 		resultDiv += '</div>';// col-xs-9 text-right
 		resultDiv += '</div>';// row
 		resultDiv += '</div>';// panel-heading
 		resultDiv += '<a href="#">';
-		resultDiv += '<div class="panel-footer">';
+		/* resultDiv += '<div class="panel-footer">';
 		resultDiv += '<span class="pull-left">View Details</span>';
 		resultDiv += '<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>';
 		resultDiv += '<div class="clearfix"></div>';
-		resultDiv += '</div>';// panel-footer
+		resultDiv += '</div>'; */// panel-footer
 		resultDiv += '</a>';
 		resultDiv += '</div>';// panel panel-primary
 		resultDiv += '</div>';// col-lg-3 col-md-6
+		count++
 	});
 	
 	$('#panels').html(resultDiv);
@@ -212,7 +214,7 @@ function panel(resp){
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<h4>Percent of User\'s Age</h4>
+				<h4>Percentage of User's Age</h4>
 				<div id="ageGraph" style="width:900px; height:500px;"></div>
 			</div>
 		</div>
