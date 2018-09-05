@@ -26,5 +26,11 @@
 		where userid = #{userid}
 		and userpwd = #{currpwd}		
 	</update>  
-	  
+	
+	<!-- 회원탈퇴 -->
+	<delete id="unregister" parameterType="User">
+		delete from userlist
+		where userid = #{userid}
+		and userpwd = #{userpwd}		
+	</delete> 
 </mapper>

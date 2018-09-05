@@ -59,4 +59,18 @@ public class MypageRepository {
 		return result;
 	}
 	
+	// 회원탈퇴 처리
+	public int unregister(User user) {
+		MypageMapper mapper = session.getMapper(MypageMapper.class);
+		
+		int result = 0;
+		
+		try {
+			result = mapper.unregister(user);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

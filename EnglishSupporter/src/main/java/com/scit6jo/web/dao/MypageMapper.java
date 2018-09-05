@@ -14,4 +14,7 @@ public interface MypageMapper {
 	
 	// 비밀번호수정
 	public int pwdChange(Map<String, String> map);
+	
+	// 회원탈퇴
+	public int unregister(User user);
 }
