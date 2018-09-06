@@ -32,7 +32,10 @@ public interface UserMapper {
 	public ArrayList<User> searchUser(String userid);
 	// 유저 계정 사용 일시 정지
 	public int sanctionUser(String userid);
+	// 유저 계정 사용 정지 해제
+	public int cancelSanction(int sanctionNum);
 	// 유저 계정이 정지 중인지 체크
 	public User checkSanction(String userid);
+	
 }
 

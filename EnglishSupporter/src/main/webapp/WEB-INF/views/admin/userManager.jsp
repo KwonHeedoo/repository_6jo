@@ -83,20 +83,50 @@ function output(resp){
 
 // 유저 계정 사용 일시 정지
 function sanction(userid){
-	$.ajax({
-		url : 'sanctionUser'
-		, type : 'get'
-		, data : {'userid' : userid}
-		, success : function(resp){
-			if(resp === 1){
-				alert('Stop User');
-				blackList('sanction');
-			}else{
-				alert('Already Stoped');
+	//확인
+	if (confirm("Are you Sure??") == true){
+		$.ajax({
+			url : 'sanctionUser'
+			, type : 'get'
+			, data : {'userid' : userid}
+			, success : function(resp){
+				if(resp === 1){
+					alert('Stop User');
+					blackList('sanction');
+				}else{
+					alert('Already Stoped');
+				}
 			}
-		}
-		, error : function(){alert('Error!');}
-	});
+			, error : function(){alert('Error!');}
+		});
+	//취소
+	}else{
+	    return;
+	}
+}
+
+// 유저 강제 탈퇴
+function release(userid){
+	//확인
+	if (confirm("Are you Sure??") == true){
+		$.ajax({
+			url : 'releaseUser'
+			, type : 'get'
+			, data : {'userid' : userid}
+			, success : function(resp){
+				if(resp === 1){
+					alert('Complete Release User');
+					blackList('sanction');
+				}else{
+					alert('Sorry, Can not release');
+				}
+			}
+			, error : function(){alert('Error!');}
+		});
+	//취소
+	}else{
+	    return;
+	}
 }
 </script>
 <style type="text/css">

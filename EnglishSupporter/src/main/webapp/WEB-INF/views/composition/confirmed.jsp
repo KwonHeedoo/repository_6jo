@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Confirmed</title>
 <!-- google CDN -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -15,6 +15,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	$('#comp').addClass('active');
+	
 	var composition = $("#composition").val();
 	var confirm = $("#confirm").val();
 	
@@ -120,6 +122,8 @@ function result(composition, confirm, grammer, emotion, repetition){
 		var gra = JSON.parse(jsonStrGrammer);
 		if(gra.result == true){
 			graResult += '<h3>[Grammer Check]</h3>';
+			graResult += '<div class="container">';
+			graResult += '<div class="row justify-content-end">';
 			graResult += '<table>';
 			var strIndex = 0;
 			// 틀린 단어 & 개선 단어
@@ -139,6 +143,8 @@ function result(composition, confirm, grammer, emotion, repetition){
 			});
 			resultComp += composition.substring(strIndex);
 			graResult += '</table>';
+			graResult += '</div>';
+			graResult += '</div>';
 		}
 	// 문법 체크를 하지 않은 경우
 	}else{
@@ -153,6 +159,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 	}
 	
 	// 중복 단어가 있는 경우
+	if(wordList != null){
 	if(wordList.length != 0){
 		// 중복 단어에 하이라이트
 		$.each(wordList, function(index, item){
@@ -173,7 +180,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 	}else{
 		resultComp += '<br/><br/>';
 	}
-	
+	}
 	// 텍스트 감정 분석이 된 경우
 	if(emotion != null){
 		var jsonStrEmotion = JSON.stringify(emotion);

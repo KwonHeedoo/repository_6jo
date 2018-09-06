@@ -53,7 +53,7 @@
         <li id="home"><a href="${pageContext.request.contextPath}/">Home</a></li>
         <li id="wordtra"><a href="goWordtest">Word Training</a></li>
         
-        <li><a href="./goComposition">Text Training</a></li>
+        <li id="comp"><a href="./goComposition">Text Training</a></li>
         <li><a class="drop" href="#">My Resume</a>
           <ul>
             <li><a href="goMyDocs">My documents</a>
@@ -66,7 +66,7 @@
             </li>
           </ul>
         </li>
-        <li><a class="drop" href="#">Interview</a>
+        <li id="interview"><a class="drop" href="#">Interview</a>
           <ul>
             <li><a href="./goInterview">Mock Interview</a></li>
             <!-- <li><a href="./goBoardList?boardType=appraise">Interview Appraise</a></li> -->
@@ -87,7 +87,7 @@
                 <li><a href="#">Level 3</a></li>
               </ul>
             </li> -->
-            <li><a href="./goBoardList?boardType=notice">Notice</a></li>
+            <li id="nBoard"><a href="./goBoardList?boardType=notice">Notice</a></li>
           </ul>
     </nav>
   </header>

@@ -9,7 +9,7 @@ drop sequence mc_groupnum_seq;
 create table matching_board(
 boardnum number primary key	-- 게시물 번호
 , userid varchar2(20) not null		-- 게시물 작성자
-, title varchar2(30) not null		-- 제목
+, title varchar2(100) not null		-- 제목
 , contents varchar2(2000) not null	-- 내용
 , hitcount number default 0		-- 조회수
 , regdate date default sysdate	-- 최종 수정일

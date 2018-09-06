@@ -21,6 +21,8 @@
 
 <script type="text/javascript">
 $(function(){
+	$('#nBoard').addClass('active');
+	
 	init();
 });
 

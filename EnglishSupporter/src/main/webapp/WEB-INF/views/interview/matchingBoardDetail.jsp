@@ -55,6 +55,8 @@ padding: 4px;
 </style>
 <script>
 $(function(){
+	$('#interview').addClass('active');
+	
 	init();
 });
 
@@ -150,6 +152,8 @@ function output(resp){
 		commentResult += '<p class="text-right">';
 		if(loginId === item.userid){
 			commentResult += '<button class="btn2 btn-sm btn-default" id="update' + item.commentNum + '" onclick="modifyComment(' + item.commentNum + ')">Modify</button>';
+		}
+		if(loginId === item.userid || loginType === 'admin'){
 			commentResult += '<button class="btn2 btn-sm btn-default" onclick="deleteComment('+ item.commentNum + ', ' + item.groupNum +')">Delete</button>';
 		}
 		if(item.parentId == null && item.nickname != '*****'){

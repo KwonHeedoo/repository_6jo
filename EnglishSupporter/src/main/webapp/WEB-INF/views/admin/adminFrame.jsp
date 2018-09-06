@@ -90,8 +90,8 @@ nav {height:50px;}
 	                    <li><a href="#">Mock Interview</a></li>
 	                </ul>
 
-                 <li>
-                  <a href="#">
+                 <li id="reportManager">
+                  <a href="./goReportManager">
                   <i class="fa fa-ban fa-lg"></i> Report Management
                   </a>
                   </li>
