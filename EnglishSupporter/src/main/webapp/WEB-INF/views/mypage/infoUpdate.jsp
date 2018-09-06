@@ -116,7 +116,7 @@ $(function(){
 			<!-- Main Menu -->
 			<div class="side-menu-container">
 				<ul class="nav navbar-nav">
-					<li><a href="#"><span class="glyphicon glyphicon-book"></span>
+					<li><a href="goMyWords"><span class="glyphicon glyphicon-book"></span>
 							My Words</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
 							Scheduler</a></li>

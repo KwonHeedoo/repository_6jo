@@ -1,5 +1,7 @@
 package com.scit6jo.web.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit6jo.web.repository.MypageRepository;
 import com.scit6jo.web.repository.UserRepository;
+import com.scit6jo.web.repository.WordRepository;
 import com.scit6jo.web.vo.User;
+import com.scit6jo.web.vo.Word;
 
 
 @Controller
@@ -22,7 +26,24 @@ public class MypageController {
 	MypageRepository repository;
 	
 	@Autowired
+	WordRepository wrepository;
+	
+	@Autowired
 	UserRepository urepository;
+	
+	// 내단어장 화면 요청 
+	@RequestMapping(value = "/goMyWords", method = RequestMethod.GET)
+	public String goMyWords(HttpSession session, Model model) {
+		System.out.println("going to MyWords...");
+		
+		// 세션의 loginId로 내단어장 목록 가져오기  
+		String userid = (String) session.getAttribute("loginId");
+		List<Word> wordlist = wrepository.getMyWords(userid);
+		
+		model.addAttribute("wordlist", wordlist);	
+		
+		return "mypage/myWords";
+	}
 	
 	// 개인정보수정 화면 요청 
 	@RequestMapping(value = "/goInfoUpdate", method = RequestMethod.GET)
