@@ -47,10 +47,14 @@ public class BoardController {
 		}else if(boardType.equals("notice")){
 			System.out.println("going to WriteNoticeBoardForm...");
 			return "notice/noticeBoardList";
+		}else if(boardType.equals("appraise")) {
+			System.out.println("going to WriteAppraiseBoardForm...");
+			return "interview/appraiseBoardList";
 		}else {
 			return "home";
 		}
 	}
+	
 	
 	/*
 	 * 게시판(글 목록) 요청
@@ -67,6 +71,7 @@ public class BoardController {
 		Map<String, String> map = new HashMap<>();
 		map.put("searchItem", searchItem);
 		map.put("searchText", searchText);
+		System.out.println("boardType : " + boardType);
 		map.put("boardType", boardType);
 		map.put("constraint", constraint);
 				
@@ -122,6 +127,8 @@ public class BoardController {
 			return "interview/matchingBoardDetail";
 		}else if(boardType.equals("notice")){
 			return "notice/noticeBoardDetail";
+		}else if(boardType.equals("appraise")){
+			return "interview/appraiseBoardDetail";
 		}else {
 			return "home";
 		}
@@ -138,6 +145,9 @@ public class BoardController {
 		}else if(boardType.equals("notice")){
 			System.out.println("going to WriteNoticeBoardForm...");
 			return "notice/writeNoticeBoardForm";
+		}else if(boardType.equals("appraise")){
+			System.out.println("going to WriteAppraiseBoardForm...");
+			return "interview/appraiseWriteBoardForm";
 		}else {
 			return "home";
 		}
@@ -145,24 +155,18 @@ public class BoardController {
 	
 	// 게시글 쓰기 처리
 	@RequestMapping(value="/writeBoard", method=RequestMethod.POST)
-	public String writeBoard(HttpSession session, Model model, Board board, String boardType, int dataNum) {
+	public String writeBoard(HttpSession session, Model model, Board board, String boardType) {
 		String userid = (String)session.getAttribute("loginId");
 		board.setUserid(userid);
 		
-		if(dataNum != 0) {
-			/*if(uploadfile.getOriginalFilename() != "") {
-				String savedFileName = saveFile(uploadfile);
-				
-				board.setOriginalfile(uploadfile.getOriginalFilename());
-				board.setSavedfile(savedFileName);
-			}*/
-		}
 		
+		System.out.println(board);
 		Map<String, Object> map = new HashMap<>();
 		map.put("board", board);
 		map.put("boardType", boardType);
 		
 		int result = repository.writeBoard(map);
+		System.out.println("write board : result : " + result);
 		
 		return goBoardList(1, boardType, null, null, model);
 	}
@@ -271,8 +275,8 @@ public class BoardController {
 			if(uploadfile.getOriginalFilename() != "") {
 				String savedFileName = saveFile(uploadfile);
 				
-				board.setOriginalfile(uploadfile.getOriginalFilename());
-				board.setSavedfile(savedFileName);
+				//board.setOriginalfile(uploadfile.getOriginalFilename());
+				//board.setSavedfile(savedFileName);
 			}
 		}
 		

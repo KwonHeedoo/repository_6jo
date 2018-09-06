@@ -5,10 +5,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Writing Matching Board</title>
-<script>
+<title>Writing appraise Board</title>
+<script> 
+function test(func){
+	
+}
+
+function a(value){
+	test(
+			function (){
+				var sum = value * 10;
+	});
+	
+}
+
+
 	function board(page) {
-		location.href = "./goBoardList?page=" + page + "&boardType=matching";
+		location.href = "./goBoardList?page=" + page + "&boardType=appraise";
 	};
 	
 	function formCheck(){
@@ -22,16 +35,35 @@
 		
 		return true;
 	};
-	
+	function dataList(){
+		var form = document.createElement('form');
+		form.setAttribute('method', 'post');
+		form.setAttribute('action', 'goInterviewData');
+		form.setAttribute('target', 'data');
+		input = document.createElement('input');
+		input.type = 'hidden';
+		input.name = 'userid';
+		input.value = "aaa";
+		form.appendChild(input);
+		
+		document.body.appendChild(form);
+		window.open('', 'data', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=yes, resizable=no');
+		form.submit();
+		document.body.removeChild(form);
+	}
+	function setFile(datanum,fileName){
+		$("#dataNum").value = datanum;
+		$("#fileName").text(fileName);
+	}
 </script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<h1>Writing Matching Board</h1>
+	<h1>Writing appraise Board</h1>
 	<div>
 	<form action="writeBoard" method="post" onsubmit="return formCheck()">
 		<div>
-			<input type="hidden" name="boardType" value="matching">
+			<input type="hidden" name="boardType" value="appraise">
 			<input id="dataNum" type="hidden" name="dataNum" value="">
 			<input id="title" type="text" name="title" placeholder="TITLE" autocomplete="off">
 			<c:if test="${sessionScope.loginType eq 'admin'}">
@@ -55,6 +87,7 @@
 		
 		
 	</form>
+	<button onclick="dataList()">button</button>
 	</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>

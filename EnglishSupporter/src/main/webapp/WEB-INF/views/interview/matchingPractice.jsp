@@ -18,7 +18,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
 	var connection = new RTCMultiConnection();
-	
+	var localVideoContainer;
+	var remoteVideoContainer;
 	// this line is VERY_important
 	connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
 	//connection.socketURL = 'ws://localhost:8085/video/pong-ws/';
@@ -34,19 +35,24 @@
 		OfferToReceiveVideo : true	
 	};
 	
+	connection.onstream = function(event){
+		var video = event.mediaElement;
+		if(event.type === 'local'){
+			console.log("local");
+			localVideoContainer.appendChild(video);
+		}
+		if(event.type === 'remote'){
+			console.log("remote");
+			remoteVideoContainer.appendChild(video);
+		}
+	}
+	
 	var predefinedRoomId = '${roomid}';
 
 $(function(){
+	localVideoContainer = document.getElementById("local-videos-container");
+	remoteVideoContainer = document.getElementById("remote-videos-container");
 	connection.openOrJoin( predefinedRoomId );
-$("#btn-open-room").click(function(){
-		
-		this.disabled = true;
-	    connection.open( predefinedRoomId );
-	});
-	$("#btn-join-room").click(function(){
-		this.disabled = true;
-	    connection.open( predefinedRoomId );
-	});
 })
 	
 	
@@ -57,6 +63,10 @@ $("#btn-open-room").click(function(){
 <body>
 
 <%@ include file="/WEB-INF/views/header.jsp"%>
+<div id = "local-videos-container">
+</div>
+<div id = "remote-videos-container">
+</div>
 <p> 123 </p>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 	</body>
