@@ -1,11 +1,14 @@
 package com.scit6jo.web.repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.scit6jo.web.dao.MypageMapper;
 import com.scit6jo.web.dao.UserMapper;
 import com.scit6jo.web.vo.User;
 
@@ -41,24 +44,31 @@ public class UserRepository {
 		
 		return result; 
 	}
-
+	
+	// 회원가입
 	public int insertUser(User user) {
 		UserMapper mapper = session.getMapper(UserMapper.class);
-		int result = mapper.insertUser(user);
+		int result = 0;
 		
-		return result;
-	}
-
-	public User idcheck(User user) {
-		UserMapper mapper=session.getMapper(UserMapper.class);
-		User result=mapper.idcheck(user);
+		try {
+			result = mapper.insertUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return result;
 	}
 	
-	public User nicknameCheck(User user) {
+	// ID 중복체크
+	public User idcheck(User user) {
 		UserMapper mapper=session.getMapper(UserMapper.class);
-		User result=mapper.nicknameCheck(user);
+		User result = null;
+		
+		try {
+			result = mapper.idcheck(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return result;
 	}
@@ -129,5 +139,66 @@ public class UserRepository {
 		}
 		
 		return user;
+	}
+	
+	// 닉네임 중복체크 처리
+	public User nicknameCheck(User user) {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		User u = null;
+		
+		try {
+			u = mapper.nicknameCheck(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		return u;
+	}
+	
+	// 개인정보수정 처리
+	public int infoUpdate(User user) {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.infoUpdate(user);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	// 비밀번호수정 처리
+	public int pwdChange(String loginId, String currpwd, String newpwd) {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		int result = 0;
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("userid", loginId);
+		map.put("currpwd", currpwd);
+		map.put("newpwd", newpwd);
+		
+		try {
+			result = mapper.pwdChange(map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	// 회원탈퇴 처리
+	public int unregister(User user) {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.unregister(user);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }

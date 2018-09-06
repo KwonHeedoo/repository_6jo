@@ -7,20 +7,23 @@
 	<!-- 로그인 -->
 	<select id="selectOne" parameterType="User" resultType="User">
 		select 
-			userid,
-			userpwd,
-			nickname,
-			email,
-			birthdate,
-			username,
-			usertype,
-			regdate,
-			lastdate,
-			attendnum
-		from userlist
-		where userid=#{userid}
+			userid
+			, userpwd
+			, nickname
+			, email
+			, birthdate
+			, username
+			, usertype
+			, to_char(regdate, 'YYYY-MM-DD') as regdate
+			, to_char(lastdate, 'yyyy-mm-dd hh24:mi:ss') as lastdate
+			, attendnum
+		from 
+			userlist
+		where 
+			userid = #{userid}
 		<if test="userpwd!=null">
-		and userpwd=#{userpwd}
+		and 
+			userpwd = #{userpwd}
 		</if>
 	</select>
 	
@@ -140,46 +143,86 @@
 			endtime <![CDATA[>=]]> sysdate
 	</select>
 	  
-	  <insert id="insertUser" parameterType="User">
+	<insert id="insertUser" parameterType="User">
 	insert into
-		userlist	
-		(
-		userid
-		,userpwd
-		,nickname
-		,email
-		,birthdate
-		,username
-		,regdate
-		,attendNum
-		)
-		
-		values
-		(
-		 #{userid}
-		, #{userpwd}
-		,#{nickname}
-		,#{email}
-		,#{birthdate}
-		,#{username}
-		,sysdate
-		,data_seq.nextval
-		 )	  
+		userlist(
+			userid
+			,userpwd
+			,nickname
+			,email
+			,birthdate
+			,username
+			,regdate
+			,attendNum)
+		values(
+			#{userid}
+			, #{userpwd}
+			,#{nickname}
+			,#{email}
+			,#{birthdate}
+			,#{username}
+			,sysdate
+			,data_seq.nextval)	  
+	</insert>
 	
-	  </insert>
-	  
-	  <select id="idcheck" parameterType="User" resultType="User">
-		select *
-		from userlist
-		where userid=#{userid}
+	<!-- ID 중복체크 -->
+	<select id="idcheck" parameterType="User" resultType="User">
+		select 
+			userid
+		from 
+			userlist
+		where 
+			userid = #{userid}
 	</select>
 	
-	
+	<!-- 닉네임 중복체크 -->
 	<select id="nicknameCheck" parameterType="User" resultType="User">
-		select *
-		from userlist
-		where nickname=#{nickname}
+		select 
+			nickname 
+		from 
+			userlist
+		where 
+			nickname = #{nickname}
 	</select>
+	 
+	<!-- 개인정보 수정 -->  
+	<update id="infoUpdate" parameterType="User">
+		update 
+			userlist
+		set 
+			username = #{username}
+			, nickname = #{nickname}
+			, email = #{email}
+			, birthdate = #{birthdate}
+		where 
+			userid = #{userid} 
+		and 
+			userpwd = #{userpwd}		
+	</update>  
+	
+	<!-- 비밀번호 수정 -->  
+	<update id="pwdChange" parameterType="map">
+		update 
+			userlist
+		set 
+			userpwd = #{newpwd}
+		where 
+			userid = #{userid}
+		and 
+			userpwd = #{currpwd}		
+	</update>  
+	
+	<!-- 회원탈퇴 -->
+	<delete id="unregister" parameterType="User">
+		delete from 
+			userlist
+		where 
+			userid = #{userid}
+		<if test="userpwd!=null">
+		and 
+			userpwd = #{userpwd}
+		</if>		
+	</delete> 
 	
 	
 </mapper>

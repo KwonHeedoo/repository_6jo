@@ -74,7 +74,7 @@ $(function(){
 			type: 'post'
 			, url: 'pwdCheck'
 			, data: JSON.stringify(sendData)
-			, contentType: 'application/json;charset=UTF'
+			, contentType: 'application/json;charset=UTF-8'
 			, success: function(resp){
 				if(resp == 1){
 					unregister();
@@ -100,7 +100,7 @@ function unregister() {
 		type: 'post'
 		, url: 'unregister'
 		, data: JSON.stringify(sendData)
-		, contentType: 'application/json;charset=UTF'
+		, contentType: 'application/json;charset=UTF-8'
 		, success: function(resp){
 			if(resp == 1){
 				alert("Unregister Completed.");
