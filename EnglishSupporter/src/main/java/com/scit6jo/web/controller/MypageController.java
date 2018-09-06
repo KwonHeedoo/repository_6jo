@@ -1,5 +1,9 @@
 package com.scit6jo.web.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit6jo.web.repository.MypageRepository;
 import com.scit6jo.web.repository.UserRepository;
+import com.scit6jo.web.vo.IQuestion;
+import com.scit6jo.web.vo.Schedule;
 import com.scit6jo.web.vo.User;
 
 
@@ -20,112 +26,32 @@ public class MypageController {
 	@Autowired
 	MypageRepository repository;
 	
-	@Autowired
-	UserRepository urepository;
-	
-	// 개인정보수정 화면 요청 
-	@RequestMapping(value = "/goInfoUpdate", method = RequestMethod.GET)
-	public String goInfoUpdate(HttpSession session, Model model) {
-		System.out.println("going to InfoUpdate...");
-		
-		// 세션의 loginId로 개인정보 가져오기  
-		String userid = (String) session.getAttribute("loginId");
-		User u = new User();
-		u.setUserid(userid);
-		User user = urepository.selectOne(u);
-		
-		user.setUserpwd("0000");	// 비밀번호 노출 방지 
-		System.out.println(user);
-		
-		model.addAttribute("u", user);	// 기존 개인정보 띄워주는 용도
-		
-		return "mypage/infoUpdate";
-	}
-	
-	// 닉네임 중복체크 
-	@RequestMapping(value = "nicknameCheck", method = RequestMethod.POST)
-	public @ResponseBody Integer nicknameCheck(User user) {
-		
-		User u = repository.nicknameCheck(user);
-		
-		if(u != null) return 1;		// 사용 불가능한 닉네임
-		else		  return 0;		// 사용 가능한 닉네임
-	}
-	
-	// 개인정보수정 처리 요청 
-	@RequestMapping(value = "/infoUpdate", method = RequestMethod.POST)
-	public String infoUpdate(String userid, String userpwd, String username, String nickname, String email, String birthdate, 
-			User u, HttpSession session, Model model) {
-		
-		// 받아온 아이디와 패스워드로 해당 회원의 정보 가져오기  
-		u.setUserid(userid);
-		u.setUserpwd(userpwd);
-		User user = urepository.selectOne(u);
-		
-		// 새로 입력받은 정보로 업데이트 
-		user.setUsername(username);
-		user.setNickname(nickname);
-		user.setEmail(email);
-		user.setBirthdate(birthdate);
-				
-		System.out.println(user);
-		
-		int result = repository.infoUpdate(user);
-		
-		// 업데이트 성공 여부에 따라 메시지 출력 
-		String message = null;
-		
-		if(result == 1) {
-			message = "Information Update Completed";
-			
-			// 새로 업데이트된 정보로 재로그인 
-			User uu = urepository.selectOne(user);		    
-			if(uu != null) {
-				session.setAttribute("loginId", uu.getUserid());
-				session.setAttribute("loginNick", uu.getNickname());
-				session.setAttribute("email", uu.getEmail());
-				session.setAttribute("username", uu.getUsername());
-				session.setAttribute("loginType", uu.getUsertype());
-			}
-			
-		}else {
-			message = "Information Update Failed";
-		}
-		
-		model.addAttribute("msg", message);
-		
-		return "mypage/infoUpdate";
-	}
-	
-	// 비밀번호수정 화면 요청
-	@RequestMapping(value = "/goPwdChange", method = RequestMethod.GET)
-	public String goPwdChange() {
+	/* 스케쥴 관련  메소드 시작 */
+	@RequestMapping(value = "/goMyschedule", method = RequestMethod.GET)
+	public String goMyschedule() {
 		System.out.println("going to PwdChange...");
 		
-		return "mypage/pwdChange";
+		return "mypage/mySchedule";
 	}
 	
-	// 비밀번호수정 처리 요청
-	@RequestMapping(value = "/pwdChange", method = RequestMethod.POST)
-	public String pwdChange(String currpwd, String newpwd, HttpSession session, Model model) {
-		System.out.println("PwdChange submitted...");
+	@RequestMapping(value = "/makeMyschedule", method = RequestMethod.GET)
+	public String makeMyschedule(String date, Model model) {
 		
-		String loginId = (String) session.getAttribute("loginId");
-		
-		int result = repository.pwdChange(loginId, currpwd, newpwd);
-		
-		String message = null;
-		
-		if(result==1) {
-			message = "Password Change Completed. Please Login Again.";
-			session.invalidate();
-		}else {
-			message = "Password Change Failed.";
-		}
-		
-		model.addAttribute("msg", message);
-		
-		return "mypage/pwdChange";
+		model.addAttribute("date", date);
+		return "mypage/writeSchedule";
+	}
+	
+	@RequestMapping(value = "/reviseMyschedule", method = RequestMethod.GET)
+	public String reviseMyschedule(String date, Model model) {
+
+		model.addAttribute("date", date);
+		return "mypage/writeSchedule";
+	}
+	
+	@RequestMapping(value = "/getschedule", method = RequestMethod.POST)
+	public @ResponseBody List<Schedule> getSchedule() {
+		List<Schedule> result = repository.selectAllSchedule();
+		return result;
 	}
 	
 }

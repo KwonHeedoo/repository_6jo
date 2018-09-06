@@ -250,11 +250,6 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 
 /* Tables
 --------------------------------------------------------------------------------------------------------------- */
-table:not(.t-exception), th:not(.t-exception), td:not(.t-exception){border:1px solid; border-collapse:collapse; vertical-align:top;}
-table:not(.t-exception), th:not(.t-exception){table-layout:auto;}
-table:not(.t-exception){width:100%; margin-bottom:15px;}
-th:not(.t-exception), td:not(.t-exception){padding:5px 8px;}
-td:not(.t-exception){border-width:0 1px;}
 
 #unmatched{
 	color:#FFFFFF;
@@ -322,7 +317,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#D64E3F;}
 .row1{color:#FFFFFF; background-color:#141414;}
 .row2{color:#474747; background-color:#F7F7F7;}
 .row3{color:#474747; background-color:#FFFFFF;}
-.row4{color:#CBCBCB; background-color:#252525;bottom: 0;}
+.row4{color:#CBCBCB; background-color:#252525;}
 .row5, .row5 a{color:#CBCBCB; background-color:#141414;}
 
 .coloured{color:#FFFFFF; background:linear-gradient(to top,#A22F22,#D64E3F);}

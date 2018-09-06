@@ -381,7 +381,7 @@ function report(reportee, report){
 	
 	form.submit();
 	
-	document.body.removeChild(form);
+	document.body.removeChild(form); // 만든 폼을 삭제한다. 
 }
 </script>
 </head>
