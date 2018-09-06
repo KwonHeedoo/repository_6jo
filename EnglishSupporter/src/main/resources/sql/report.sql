@@ -23,5 +23,5 @@ create table sanction(
 userid varchar2(20) primary key     -- 재제 대상자
 , attention number default 0        -- 경고
 , starttime date default sysdate    -- 재제 시작일
-, endtime date default sysdate + 7  -- 재제 종료일
+, endtime date default sysdate + 6  -- 재제 종료일
 );

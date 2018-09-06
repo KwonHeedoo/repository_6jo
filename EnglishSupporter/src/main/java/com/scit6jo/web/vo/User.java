@@ -12,6 +12,9 @@ public class User {
 	private String regdate;
 	private String lastdate;
 	private int attendNum;
+	private int reportCount;
+	private int sanctionCount;
+	
 	
 	public User() {
 		super();
@@ -31,6 +34,19 @@ public class User {
 		this.regdate = regdate;
 		this.lastdate = lastdate;
 		this.attendNum = attendNum;
+	}
+	
+	public User(String userid, String nickname, String email, String regdate, String lastdate, int attendNum,
+			int reportCount, int sanctionCount) {
+		super();
+		this.userid = userid;
+		this.nickname = nickname;
+		this.email = email;
+		this.regdate = regdate;
+		this.lastdate = lastdate;
+		this.attendNum = attendNum;
+		this.reportCount = reportCount;
+		this.sanctionCount = sanctionCount;
 	}
 
 	public User(String userid) {
@@ -93,36 +109,63 @@ public class User {
 	public void setUsertype(String usertype) {
 		this.usertype = usertype;
 	}
+	
 
 	public String getRegdate() {
 		return regdate;
 	}
 
+
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+
 
 	public String getLastdate() {
 		return lastdate;
 	}
 
+
 	public void setLastdate(String lastdate) {
 		this.lastdate = lastdate;
 	}
+
 
 	public int getAttendNum() {
 		return attendNum;
 	}
 
+
 	public void setAttendNum(int attendNum) {
 		this.attendNum = attendNum;
+	}
+
+
+	public int getReportCount() {
+		return reportCount;
+	}
+
+
+	public void setReportCount(int reportCount) {
+		this.reportCount = reportCount;
+	}
+
+
+	public int getSanctionCount() {
+		return sanctionCount;
+	}
+
+
+	public void setSanctionCount(int sanctionCount) {
+		this.sanctionCount = sanctionCount;
 	}
 
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", userpwd=" + userpwd + ", nickname=" + nickname + ", email=" + email
 				+ ", birthdate=" + birthdate + ", username=" + username + ", usertype=" + usertype + ", regdate="
-				+ regdate + ", lastdate=" + lastdate + ", attendNum=" + attendNum + "]";
+				+ regdate + ", lastdate=" + lastdate + ", attendNum=" + attendNum + ", reportCount=" + reportCount
+				+ ", sanctionCount=" + sanctionCount + "]";
 	}
 
 }

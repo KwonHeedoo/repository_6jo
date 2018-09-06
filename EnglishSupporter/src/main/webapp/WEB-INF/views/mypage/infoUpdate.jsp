@@ -82,7 +82,7 @@ $(function(){
 				}
 			}
 			,error : function(resp){
-				alert("통신실패")
+				alert("통신실패");
 			}
 		});
 	});

@@ -15,11 +15,23 @@
 	background-position: center center; 
 	opacity : 0.8;
 }
-
 </style>
 <script type="text/javascript">
 $(function(){
 	$('#home').addClass('active');
+	
+	var msg = '';
+	var msg1 = '${msg1}';
+	var msg2 = '${msg2}';
+	var msg3 = '${msg3}';
+	var msg4 = '${msg4}';
+	if(msg1 != '' && msg2 != '' && msg3 != '' && msg4 != ''){
+		msg = msg1 + '\n\n' + msg2 + '\n\n' + msg3 + '\n\n' + msg4;
+	}
+	
+	if(msg != ''){
+		alert(msg);
+	}
 });
 </script>
 </head>
@@ -27,10 +39,8 @@ $(function(){
 <%@ include file="/WEB-INF/views/header.jsp"%>
 <div class="container">
 	<a href="./goDashboard">goDashboard</a>
-	<a href="./compositionForm">CompositionForm</a>
-	<a href="./registerForm">register</a>
-	<a href="./goComposition">Composition</a>
 </div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
+<c:remove var="msg1" scope="session" />
 </body>
 </html>

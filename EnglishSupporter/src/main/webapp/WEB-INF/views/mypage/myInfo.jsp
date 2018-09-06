@@ -53,6 +53,7 @@ float:left;
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	<%@ include file="/WEB-INF/views/mypage/mypage_sidebar.jsp"%>
+
 		<!-- Main Content -->
 		<div class="container-fluid">
 			<div class="side-body">
