@@ -158,8 +158,7 @@ public class BoardController {
 	public String writeBoard(HttpSession session, Model model, Board board, String boardType) {
 		String userid = (String)session.getAttribute("loginId");
 		board.setUserid(userid);
-		
-		
+
 		System.out.println(board);
 		Map<String, Object> map = new HashMap<>();
 		map.put("board", board);
@@ -243,7 +242,7 @@ public class BoardController {
 	// 게시글 수정 폼 요청
 	@RequestMapping(value="/updateBoardForm", method=RequestMethod.GET)
 	public String updateBoardForm(Model model, String boardNum, String boardType, 
-									int page, String searchItem, String searchText) {
+										int page, String searchItem, String searchText) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardNum", boardNum);
 		map.put("boardType", boardType);

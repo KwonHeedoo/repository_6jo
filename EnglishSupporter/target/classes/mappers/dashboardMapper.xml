@@ -197,4 +197,66 @@
 		where 
 			r.day = s.day
 	</select>
+	
+	<!-- 회원 연령대 별 인원수 요청 -->
+	<select id="countByUserAge" resultType="GraphData">
+		select 
+			sum(decode(abs(age - 10) + abs(age - 19), 9, 1, 0)) as countOne
+			, sum(decode(abs(age - 20) + abs(age - 29), 9, 1, 0)) as countTwo
+			, sum(decode(abs(age - 30) + abs(age - 39), 9, 1, 0)) as countThree
+			, sum(decode(sign(age - 40), 1, 1, 0, 1, 0)) as countFour  
+		from 
+			(select 
+				floor(months_between(sysdate, birthdate) / 12) as age 
+			from 
+				userlist)
+	</select>
+	
+	<!-- 오늘의 게시물, 코멘트, Coverlette, Resume 수 -->
+	<select id="countToday" resultType="GraphData">
+		select 
+			(a + b) as countOne
+			, (c + d) as countTwo
+			, e as countThree
+			, f as countFour
+		from 
+			(select 
+				count(*) a 
+			from 
+				matching_board 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd'))
+			, (select 
+				count(*) b 
+			from 
+		<!-- 평가 게시물로 변경해야함 -->
+				notice_board 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd'))
+			, (select 
+				count(*) c 
+			from 
+				matching_comment 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd')) 
+			, (select 
+				count(*) d 
+			from 
+		<!-- 평가 게시물로 변경해야함 -->
+				notice_comment 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd'))
+			, (select 
+				count(*) e 
+			from 
+				coverletter 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd')) 
+			, (select 
+				count(*) f 
+			from 
+				resume 
+			where 
+				to_char(regdate, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd'))
+	</select>
 </mapper>

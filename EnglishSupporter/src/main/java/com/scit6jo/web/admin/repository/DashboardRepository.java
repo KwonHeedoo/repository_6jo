@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.scit6jo.web.admin.dao.DashboardMapper;
 import com.scit6jo.web.admin.vo.GraphData;
+import com.scit6jo.web.vo.Board;
 
 @Repository
 public class DashboardRepository {
@@ -40,6 +41,34 @@ public class DashboardRepository {
 		}
 		
 		return countByRptSanc;
+	}
+	
+	// 회원 연령대 별 인원수 요청
+	public GraphData countByUserAge() {
+		DashboardMapper mapper = session.getMapper(DashboardMapper.class);
+		GraphData countByUserAge = null;
+		
+		try {
+			countByUserAge = mapper.countByUserAge(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return countByUserAge;
+	}
+	
+	// 오늘의 게시물, 코멘트, Coverlette, Resume 수
+	public GraphData countToday() {
+		DashboardMapper mapper = session.getMapper(DashboardMapper.class);
+		GraphData countToday = null;
+		
+		try {
+			countToday = mapper.countToday(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return countToday;
 	}
 
 }

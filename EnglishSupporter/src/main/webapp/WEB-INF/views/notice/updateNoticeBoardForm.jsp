@@ -40,7 +40,7 @@ function formCheck(){
 			<input type="hidden" name="boardType" value="notice">
 			<input id="title" type="text" name="title" value="${board.title}" placeholder="TITLE" autocomplete="off">
 		</div>
-		<h1 id="introduce">Content</h1>
+		<h3 id="introduce">Content</h3>
 		<div>
 			<textarea id="contents" rows="15" cols="60" name="contents">${board.contents}</textarea><br/>
 		</div>

@@ -32,7 +32,12 @@
         <!-- 로그인 한 경우 --> 
         <c:if test="${sessionScope.loginId != null}">
 		<li><a href="logout">Logout</a></li>
-		<li><a href="goMypage">My Page</a></li> 
+		<c:if test="${sessionScope.loginType == 'user'}">
+		<li><a href="goMypage">My Page</a></li>
+		</c:if>
+		<c:if test="${sessionScope.loginType == 'admin'}">
+		<li><a href="./goDashboard">Admin Page</a></li>
+		</c:if> 
 		</c:if>
       </ul>
     </div>

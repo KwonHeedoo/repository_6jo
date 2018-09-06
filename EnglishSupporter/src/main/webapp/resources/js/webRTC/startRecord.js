@@ -40,23 +40,23 @@ startButton.addEventListener('click', () => {
     console.log("record start!");
 });
 
-const endButton = document.querySelector('button#end');
+/*const endButton = document.querySelector('button#end');
 endButton.addEventListener('click', () => {
-	stopRecording();
-	uploadVideo();
-});
 
-const playButton = document.querySelector('button#play');
+});*/
+
+const playButton = document.querySelector('button#end');
 playButton.addEventListener('click', () => {
-	console.log(recordedVideo.src);
-	if(recordedVideo.src == ""){
-  const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
+	stopRecording();
+	uploadVideo();	
 	
-  recordedVideo.src = window.URL.createObjectURL(superBuffer);
+	console.log(recordedVideo.src);
+/*	if(recordedVideo.src != ""){
+		recordedVideo.src="";
 	}
-	else{
-		console.log("else");
-	}
+*/	const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
+	recordedVideo.src = window.URL.createObjectURL(superBuffer);
+	recordedVido.load();
   // workaround for non-seekable video taken from
   // https://bugs.chromium.org/p/chromium/issues/detail?id=642012#c23
   recordedVideo.addEventListener('loadedmetadata', () => {
@@ -66,11 +66,12 @@ playButton.addEventListener('click', () => {
         recordedVideo.currentTime = 0;
         recordedVideo.ontimeupdate = function() {
           delete recordedVideo.ontimeupdate;
-          recordedVideo.play();
+          //recordedVideo.play();
         };
       };
     } else {
-      recordedVideo.play();
+     //recordedVideo.play();
+    	
     }
   });
 });
@@ -140,8 +141,13 @@ function stopRecording() {
 }
 
 function uploadVideo(){
+<<<<<<< HEAD
 	const blob = new Blob(recordedBlobs, {type: 'video/webm;codecs=vp9'});
 	  var file = new File([blob], "test.webm", { type: "video/webm;codecs=vp9", lastModified: Date.now()});
+=======
+	const blob = new Blob(recordedBlobs, {type: 'video/webm; codecs="vp9"'});
+	  var file = new File([blob], "test.webm", { type: 'video/webm; codecs="vp9"', lastModified: Date.now()});
+>>>>>>> 41f7f62b044dca81d05a19f60b11fd7d5e607eaa
 	  var data;
 	  data = new FormData();
 	  data.append('file', file);

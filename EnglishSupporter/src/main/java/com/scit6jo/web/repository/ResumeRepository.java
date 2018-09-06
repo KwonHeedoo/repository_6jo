@@ -2,6 +2,7 @@ package com.scit6jo.web.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,12 +22,13 @@ public class ResumeRepository {
 
 	public int insertResume(Resume resume) {
 		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
+		int cnt =0;
 		try {
-			int cnt = mapper.insertResume(resume);
+			cnt = mapper.insertResume(resume);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return cnt;
 	}
 
 	public int insertEdu(String resume_no, List<Education> education) {
@@ -75,11 +77,11 @@ public class ResumeRepository {
 		return no;
 	}
 	
-	public Resume getResume(Resume resume) {
+	public Resume getResume(String resume_no) {
 		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
 		Resume vo= null;
 		try {
-			vo = mapper.selectResume(resume);
+			vo = mapper.getResume(resume_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -87,18 +89,7 @@ public class ResumeRepository {
 		return vo;
 		
 	}
-	
-	
-	public Resume selectResume(String userid, String title) {
-		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
-		Resume result=null;
-		try {
-			result = mapper.getResume(userid, title);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+
 
 	public CoverLetter getCoverletter(CoverLetter vo) {
 		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
@@ -124,11 +115,11 @@ public class ResumeRepository {
 		return result;
 	}
 
-	public List<Resume> resumeList(String userid) {
+	public List<Resume> resumeList(String userid, RowBounds rbR) {
 		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
 		List<Resume> result = null;
 		try {
-			result = mapper.resumeList(userid);
+			result = mapper.resumeList(userid,rbR);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -136,11 +127,11 @@ public class ResumeRepository {
 		return result;
 	}
 
-	public List<CoverLetter> coverletterList(String userid) {
+	public List<CoverLetter> coverletterList(String userid, RowBounds rbC) {
 		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
 		List<CoverLetter> result = null;
 		try {
-			result = mapper.getCoverletterList(userid);
+			result = mapper.getCoverletterList(userid,rbC);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -158,12 +149,54 @@ public class ResumeRepository {
 
 		return result;
 	}
+	
+	public int updateResume(Resume resume) {
+		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
+		 int cnt =0;
+		 int cnt2 =0;
+		 int result =0;
+		 try {
+		 cnt =mapper.clearTables(resume.getResume_no());
+		 cnt2 =mapper.updateResume(resume);
+		 }catch (Exception e) {
+			e.printStackTrace();
+		}
+		 if(cnt>0&&cnt2>0) {
+			 result=1;
+		 }
+		
+		 return result;
+	}
+	
 
 	public int removeCoverLetter(CoverLetter vo) {
 		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
 		int result = 0;
 		try {
 			result = mapper.deleteCoverletter(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 페이징 용 
+	public int getTotal(String type, String userid) {
+		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
+		int result = 0;
+		try {
+			result = mapper.getTotal(type,userid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int updateCoverletter(CoverLetter vo) {
+		ResumeMapper mapper = session.getMapper(ResumeMapper.class);
+		int result = 0;
+		try {
+			result = mapper.updateCoverLetter(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
