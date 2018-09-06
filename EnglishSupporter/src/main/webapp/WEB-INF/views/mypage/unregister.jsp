@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>My Info Update</title>
+<title>Unregister</title>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
 .raw{
-height: 70%;
+height: 55%;
 
 }
 .side-menu {
@@ -60,37 +60,65 @@ border:1px solid; border-radius:22px;
 height: 40%;
 }
 /* ~~ 로그인폼에서 긁어옴 */
-
 </style>
 <script src="resources/jquery-3.3.1.min.js"></script>
 <script>
 $(function(){
-	$("#nickname").on('keyup', function(){
-		var nickname = $('#nickname').val();
+	$('#unregister').on('click', function(){
+		
+		var userid = $('#userid').val();
+		var userpwd = $('#userpwd').val();
+		var sendData = {"userid" : userid, "userpwd" : userpwd};
 		
 		$.ajax({
-			url : "nicknameCheck"
-			,type : "post"
-			,data : {"nickname" : nickname}
-			,success : function(resp){
+			type: 'post'
+			, url: 'pwdCheck'
+			, data: JSON.stringify(sendData)
+			, contentType: 'application/json;charset=UTF-8'
+			, success: function(resp){
 				if(resp == 1){
-					$('#nicknameCheck').text("This nickname is already taken");
-					$('#nicknameCheck').css("color" , "red");
+					unregister();
 				}else if(resp == 0){
-					$('#nicknameCheck').text("This nickname is available");
-					$('#nicknameCheck').css("color" , "blue");
+					alert("Please Check your Password.");
+					location.href = "${pageContext.request.contextPath}/goUnregister";
 				}
 			}
-			,error : function(resp){
-				alert("통신실패");
+			, error: function(resp){
+				alert("Password Check Error!");
 			}
 		});
 	});
 });
+
+function unregister() {
+	
+	var userid = $('#userid').val();
+	var userpwd = $('#userpwd').val();
+	var sendData = {"userid" : userid, "userpwd" : userpwd};
+	
+	$.ajax({
+		type: 'post'
+		, url: 'unregister'
+		, data: JSON.stringify(sendData)
+		, contentType: 'application/json;charset=UTF-8'
+		, success: function(resp){
+			if(resp == 1){
+				alert("Unregister Completed.");
+			}else if(resp == 0){
+				alert("Unregister Failed.");
+			}
+			location.href = "${pageContext.request.contextPath}/";
+		}
+		, error: function(resp){
+			alert("Unregister Error!");
+		}
+	});
+}
+
 </script>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/header.jsp"%>
+<%@ include file="/WEB-INF/views/header.jsp"%>
 	<div class="raw">
 		<!-- uncomment code for absolute positioning tweek see top comment in css -->
 		<!-- <div class="absolute-wrapper"> </div> -->
@@ -136,21 +164,16 @@ $(function(){
 			<div class="side-body">
 				<div class="row">
 					<div class="center">
-						<form action="infoUpdate" method="post">
+						<form action="unregister" method="post">
 						<div class="center">
 						<br>
-						<h3>[ My Info Update ]</h3>
+						<h3>[ Unregister ]</h3>
 						<br>
-							<p>ID: <input type="text" name="userid" value="${u.userid}" readonly /></p>
-							<p>NAME: <input type="text" name="username" value="${u.username}" placeholder="${u.username}" /></p>
-							<p>NICKNAME: <input type="text" name="nickname" id="nickname" value="${u.nickname}" placeholder="${u.nickname}" /></p>
-							<span id="nicknameCheck"></span>
-							<p>EMAIL: <input type="text" name="email" value="${u.email}" placeholder="${u.email}" /></p>
-							<p>BIRTH DATE: <input type="date" name="birthdate" value="" /></p>
-							<input type="hidden" value="${u.birthdate}" id="birthdate">
-							<p>PASSWORD: <input type="password" name="userpwd" placeholder="Verify your Password" required /></p>
+							<p>ID: <input type="text" id="userid" name="userid" value="${sessionScope.loginId}" readonly /></p>
+							<p>PASSWORD: <input id="userpwd" type="password" name="userpwd" placeholder="Enter your Password for Verification" required /></p>
+							<span id="pwdCheck"></span>
 							<br>
-							<p><input type="submit" value="UPDATE" class="btn" /></p>
+							<p><input id="unregister" type="button" value="UNREGISTER" class="btn" /></p>
 						</div><!-- center -->
 						</form>
 					</div><!-- center -->
@@ -159,40 +182,7 @@ $(function(){
 		</div><!-- container-fluid -->
 	</div><!-- raw -->
 	
-<c:if test="${not empty msg}">
-<script>
-$(function(){
-	alert("${msg}");
-	location.href = "${pageContext.request.contextPath}/goInfoUpdate";
-});
-</script>
-</c:if>
-
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 
 </body>
-
-<script type="text/javascript">
-$(function(){
-	var date = $('#birthdate').val();
-	date = date.split(' ');
-	console.log(date);
-
-	var birthdate = date[0];
-	$('input[name="birthdate"]').val(birthdate);
-	console.log(birthdate);
-});
-/*
-$(function(){
-	var date = $('#birthdate').val();
-	date =date.split('-');
-	console.log(date);
-
-	var birthdate = date[0]+"-"+date[1]+"-"+date[2].substring(0,2);
-	$('input[name="birthdate"]').val(birthdate);
-	console.log(birthdate);
-});
-*/
-</script>
-
 </html>

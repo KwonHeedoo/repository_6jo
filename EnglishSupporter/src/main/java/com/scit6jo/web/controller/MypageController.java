@@ -1,7 +1,6 @@
 package com.scit6jo.web.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,15 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit6jo.web.repository.MypageRepository;
-import com.scit6jo.web.repository.UserRepository;
-import com.scit6jo.web.vo.IQuestion;
 import com.scit6jo.web.vo.Schedule;
-import com.scit6jo.web.vo.User;
 
 
 @Controller
 public class MypageController {
-
 	@Autowired
 	MypageRepository repository;
 	

@@ -14,7 +14,7 @@ public interface DashboardMapper {
 	public ArrayList<GraphData> countByRptSanc(@Param(value="period")String period);
 	// 회원 연령대 별 인원수 요청
 	public GraphData countByUserAge();
-	// 오늘의 게시물 수
-	public int countByBoard();
+	// 오늘의 게시물, 코멘트, Coverlette, Resume 수
+	public GraphData countToday();
 
 }

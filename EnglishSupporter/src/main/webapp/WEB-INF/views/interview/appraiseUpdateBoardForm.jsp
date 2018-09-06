@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Updating Notice Board</title>
+<title>Updating Matching Board</title>
 <script>
 function cancell(boardNum, page, searchItem, searchText) {
-	location.href = "detailBoard?boardNum="+boardNum+"&&boardType=notice&page="+page+"&back=true&searchItem="+searchItem+"&searchText="+searchText;
+	location.href = "detailBoard?boardNum="+boardNum+"&&boardType=matching&page="+page+"&back=true&searchItem="+searchItem+"&searchText="+searchText;
 };
 
 function board(page) {
-	location.href = "./goBoardList?page=" + page + "&boardType=notice";
+	location.href = "./goBoardList?page=" + page + "&boardType=matching";
 };
 
 function formCheck(){
@@ -29,7 +29,7 @@ function formCheck(){
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<h1>Updating Notice Board</h1>
+	<h1>Updating Matching Board</h1>
 	<div>
 	<form action="updateBoard" method="post" onsubmit="return formCheck()">
 		<input type="hidden" name="boardNum" value="${board.boardNum}">
@@ -37,10 +37,10 @@ function formCheck(){
 		<input type="hidden" name="searchItem" value="${searchItem}">
 		<input type="hidden" name="searchText" value="${searchText}">
 		<div>
-			<input type="hidden" name="boardType" value="notice">
+			<input type="hidden" name="boardType" value="matching">
 			<input id="title" type="text" name="title" value="${board.title}" placeholder="TITLE" autocomplete="off">
 		</div>
-		<h3 id="introduce">Content</h3>
+		<h1 id="introduce">Content</h1>
 		<div>
 			<textarea id="contents" rows="15" cols="60" name="contents">${board.contents}</textarea><br/>
 		</div>

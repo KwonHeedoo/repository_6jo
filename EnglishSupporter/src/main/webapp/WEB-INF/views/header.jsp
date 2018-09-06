@@ -32,7 +32,12 @@
         <!-- 로그인 한 경우 --> 
         <c:if test="${sessionScope.loginId != null}">
 		<li><a href="logout">Logout</a></li>
-		<li><a href="goMypage">My Page</a></li> 
+		<c:if test="${sessionScope.loginType == 'user'}">
+		<li><a href="goMypage">My Page</a></li>
+		</c:if>
+		<c:if test="${sessionScope.loginType == 'admin'}">
+		<li><a href="./goDashboard">Admin Page</a></li>
+		</c:if> 
 		</c:if>
       </ul>
     </div>
@@ -64,7 +69,8 @@
         <li><a class="drop" href="#">Interview</a>
           <ul>
             <li><a href="./goInterview">Mock Interview</a></li>
-            <li><a href="./goMatching">Interview Appraise</a></li>
+            <!-- <li><a href="./goBoardList?boardType=appraise">Interview Appraise</a></li> -->
+            <li><a href="./goBoardList?boardType=appraise">Interview Appraise</a></li>
             <li><a href="./goBoardList?boardType=matching">1:1 Video Chat</a></li>
           </ul>
         </li>
