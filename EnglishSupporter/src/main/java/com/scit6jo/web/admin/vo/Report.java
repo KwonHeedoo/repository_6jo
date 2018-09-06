@@ -8,13 +8,14 @@ public class Report {
 	private String reason;
 	private String regdate;
 	private String reportURL;
+	private int status;
 	
 	public Report() {
 		super();
 	}
 
 	public Report(int reportNum, String reporter, String reportee, String report, String reason, String regdate,
-			String reportURL) {
+			String reportURL, int status) {
 		super();
 		this.reportNum = reportNum;
 		this.reporter = reporter;
@@ -23,6 +24,7 @@ public class Report {
 		this.reason = reason;
 		this.regdate = regdate;
 		this.reportURL = reportURL;
+		this.status = status;
 	}
 
 	public int getReportNum() {
@@ -81,10 +83,19 @@ public class Report {
 		this.reportURL = reportURL;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "Report [reportNum=" + reportNum + ", reporter=" + reporter + ", reportee=" + reportee + ", report="
-				+ report + ", reason=" + reason + ", regdate=" + regdate + ", reportURL=" + reportURL + "]";
+				+ report + ", reason=" + reason + ", regdate=" + regdate + ", reportURL=" + reportURL + ", status="
+				+ status + "]";
 	}
 	
 }

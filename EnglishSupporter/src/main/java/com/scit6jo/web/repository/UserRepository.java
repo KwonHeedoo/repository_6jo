@@ -127,6 +127,21 @@ public class UserRepository {
 		return result;
 	}
 	
+	// 유저 계정 사용 정지 해제
+	public int cancelSanction(int sanctionNum) {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.cancelSanction(sanctionNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+	
 	// 유저 계정이 정지 중인지 체크
 	public User checkSanction(String userid) {
 		UserMapper mapper = session.getMapper(UserMapper.class);
@@ -201,4 +216,5 @@ public class UserRepository {
 		
 		return result;
 	}
+
 }

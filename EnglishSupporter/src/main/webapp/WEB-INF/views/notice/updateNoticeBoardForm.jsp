@@ -4,8 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- google CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Updating Notice Board</title>
 <script>
+$(function(){
+	$('#nBoard').addClass('active');
+});
+
 function cancell(boardNum, page, searchItem, searchText) {
 	location.href = "detailBoard?boardNum="+boardNum+"&&boardType=notice&page="+page+"&back=true&searchItem="+searchItem+"&searchText="+searchText;
 };

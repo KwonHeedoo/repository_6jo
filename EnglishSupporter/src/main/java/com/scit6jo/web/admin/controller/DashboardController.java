@@ -16,7 +16,7 @@ public class DashboardController {
 	@Autowired
 	DashboardRepository repository;
 	
-	// Dashboard 페이지 요청
+	// 관리자 Dashboard 페이지 요청
 	@RequestMapping(value = "/goDashboard", method = RequestMethod.GET)
 	public String goDashboard(){
 		System.out.println("Going to Dashboard...");

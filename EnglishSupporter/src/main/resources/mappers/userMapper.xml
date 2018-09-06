@@ -27,16 +27,22 @@
 		</if>
 	</select>
 	
-	<!--출석일수 + 최종접속일 -->
+	<!-- 출석일수 + 최종접속일 -->
 	<update id="attendNum" parameterType="User">
-		update userlist
-		set attendnum = case 
-		when trunc(lastdate,'d') <![CDATA[<]]> trunc(sysdate,'d')
-		then attendnum+1
-		else attendnum
+		update 
+			userlist
+		set 
+			attendnum = case 
+		when 
+			trunc(lastdate,'d') <![CDATA[<]]> trunc(sysdate,'d')
+		then 
+			attendnum+1
+		else 
+			attendnum
 		end,
-		lastdate = sysdate
-		where userid=#{userid}
+			lastdate = sysdate
+		where 
+			userid = #{userid}
 	</update>
 	
 	<!-- 방문자 등록 -->
@@ -67,6 +73,8 @@
 				, count(*) as rcount 
 			from 
 				report 
+			where 
+				status = 1
 			group by 
 				reportee) r
 		on 
@@ -108,6 +116,8 @@
 			from 
 				report 
 			where 
+				status = 1 
+			and
 				reportee = #{value})
 			, (select 
 				count(*) as scount 
@@ -122,15 +132,27 @@
 	<!-- 유저 계정 사용 일시 정지 -->
 	<insert id="sanctionUser" parameterType="string">
 		insert into
-			sanction(userid)
+			sanction(
+				sanctionnum
+				, userid)
 		values(
-			#{value})
+			sanction_seq.nextVal
+			, #{value})
 	</insert>
+	
+	<!-- 유저 계정 사용 정지 해제 -->
+	<delete id="cancelSanction" parameterType="int">
+		delete from
+			sanction
+		where
+			sanctionnum = #{value}
+	</delete>
 	
 	<!-- 유저 계정이 정지 중인지 체크 -->
 	<select id="checkSanction" parameterType="string" resultType="User">
 		select
-			userid
+			sanctionnum as attendNum
+			, userid
 			, to_char(starttime, 'yyyy-mm-dd hh24:mi:ss') as regdate
 			, to_char(endtime, 'yyyy-mm-dd hh24:mi:ss') as lastdate
 		from
@@ -147,22 +169,22 @@
 	insert into
 		userlist(
 			userid
-			,userpwd
-			,nickname
-			,email
-			,birthdate
-			,username
-			,regdate
-			,attendNum)
+			, userpwd
+			, nickname
+			, email
+			, birthdate
+			, username
+			, regdate
+			, attendNum)
 		values(
 			#{userid}
 			, #{userpwd}
-			,#{nickname}
-			,#{email}
-			,#{birthdate}
-			,#{username}
-			,sysdate
-			,data_seq.nextval)	  
+			, #{nickname}
+			, #{email}
+			, #{birthdate}
+			, #{username}
+			, sysdate
+			, data_seq.nextVal)	  
 	</insert>
 	
 	<!-- ID 중복체크 -->

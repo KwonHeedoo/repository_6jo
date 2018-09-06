@@ -21,6 +21,8 @@
 
 <script type="text/javascript">
 $(function(){
+	$('#interview').addClass('active');
+	
 	init();
 });
 

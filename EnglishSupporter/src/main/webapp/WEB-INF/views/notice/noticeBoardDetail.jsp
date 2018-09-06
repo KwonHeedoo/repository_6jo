@@ -54,6 +54,8 @@ padding: 4px;
 </style>
 <script>
 $(function(){
+	$('#nBoard').addClass('active');
+	
 	init();
 });
 
