@@ -43,7 +43,11 @@
 		select
 			<include refid="basicCols"/>
 			<choose>
-				<when test="boardType == 'matching'">, matchingid</when>
+				<when test="boardType == 'matching'">
+				, matchingid
+				, to_char(appointedtime,'YYYY-MM-DD HH24:MI') as appointedTime
+				, roomNum
+				</when>
 			</choose>
 		from
 		<choose>
@@ -72,7 +76,11 @@
 		select
 			<include refid="basicCols"/>
 			<choose>
-				<when test="boardType == 'matching'">, matchingid</when>
+				<when test="boardType == 'matching'">
+				, matchingid
+				, to_char(appointedtime,'YYYY-MM-DD HH24:MI') as appointedTime
+				, roomNum
+				</when>
 			</choose>
 		from
 		<choose>
@@ -100,7 +108,7 @@
 			, contents
 			, status
 			<choose>
-				<when test="boardType == 'matching'">, matchingid</when>
+				<when test="boardType == 'matching'">, matchingid, appointedTime</when>
 			</choose>
 			<if test="originalfile != null and savedfile != null">
 			, originalfile
@@ -116,7 +124,9 @@
 			, #{board.contents}
 			, #{board.status}
 			<choose>
-				<when test="boardType == 'matching'">, #{board.matchingId}</when>
+				<when test="boardType == 'matching'">
+				, #{board.matchingId}
+				, to_timestamp(#{board.appointedTime}, 'YYYY-MM-DD"T"HH24:MI')</when>
 			</choose>
 			<if test="originalfile != null and savedfile != null">
 			, #{board.originalfile}
@@ -129,7 +139,11 @@
 		select
 			<include refid="basicCols"/>
 			<choose>
-				<when test="boardType == 'matching'">, matchingid</when>
+				<when test="boardType == 'matching'">
+				, matchingid
+				, to_char(appointedtime,'YYYY-MM-DD HH24:MI') as appointedTime
+				, roomNum
+				</when>
 			</choose>
 		from
 		<choose>

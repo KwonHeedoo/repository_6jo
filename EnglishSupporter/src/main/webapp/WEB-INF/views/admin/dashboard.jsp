@@ -10,26 +10,19 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 $(function(){
+	$('#dashboard').addClass('active');
 	// 회원가입 & 방문자 수 그래프
-	callJoinAndVisit();
+	callJoinAndVisit('week');
 	// 신고 & 재제 수 그래프
-	callRptAndSanc();
+	callRptAndSanc('week');
 	// 회원 연령대 별 분포도
 	graphAgePercent();
-	// 오늘의 게시물 수
-	recentBoard();
-	// 오늘의 코멘트 수
-	recentComment();
-	// 오늘의 Coverletter 수
-	recentCoverletter();
-	// 오늘의 Resume 수
-	recentResume();
+	// 오늘의 게시물, 코멘트, Coverlette, Resume 수
+	countToday();
 });
 
 // 회원가입 & 방문자 수 정보 요청
-function callJoinAndVisit(){
-	var period = $('#period1 option:selected').val();
-	
+function callJoinAndVisit(period){
 	$.ajax({
 		url : 'countByJoinVisit'
 		, type : 'get'
@@ -57,10 +50,10 @@ function graphJoinAndVisit(array) {
 	function drawChart(scoreGraph) {
 		var data = google.visualization.arrayToDataTable(array);
 			var options = {
-			chart : {
-				title : 'Count By Visitor & Join'
-				, subtitle : '[방문자] 및 [가입자] : 주간 별 & 월 별'
-			}
+		/* chart : {
+				title : '[방문자] 및 [가입자] : 주간 별 & 월 별'
+					, subtitle : '[방문자] 및 [가입자] : 주간 별 & 월 별'
+			} */
 		};
 			var chart = new google.charts.Bar(document.getElementById('joinAndVisitGraph'));
 		chart.draw(data, google.charts.Bar.convertOptions(options));
@@ -68,9 +61,7 @@ function graphJoinAndVisit(array) {
 };
 
 // 신고 & 재제 수 정보 요청
-function callRptAndSanc(){
-	var period = $('#period2 option:selected').val();
-	
+function callRptAndSanc(period){
 	$.ajax({
 		url : 'countByRptSanc'
 		, type : 'get'
@@ -98,10 +89,10 @@ function graphRptAndSanc(array) {
 	function drawChart(scoreGraph) {
 		var data = google.visualization.arrayToDataTable(array);
 			var options = {
-			chart : {
-				title : 'Count By Report & Sanction'
+			/* chart : {
+				title : '[신고] 및 [재제] : 주간 별 & 월 별'
 				, subtitle : '[신고] 및 [재제] : 주간 별 & 월 별'
-			}
+			} */
 		};
 			var chart = new google.charts.Bar(document.getElementById('rptAndSancGraph'));
 		chart.draw(data, google.charts.Bar.convertOptions(options));
@@ -130,7 +121,7 @@ function graphAgePercent() {
     			]);
     			
     			var options = {
-    				title: 'Percent of User\'s Age',
+    				/* title: 'Percent of User\'s Age', */
     				is3D: true,
     			};
 
@@ -144,55 +135,14 @@ function graphAgePercent() {
 	}
 };
 
-//오늘의 게시물 수
-function recentBoard(){
+// 오늘의 게시물, 코멘트, Coverlette, Resume 수
+function countToday(){
 	$.ajax({
-		url : 'countByBoard'
+		url : 'countToday'
 		, type : 'get'
 		, success : function(resp){
-			panel(resp);
-		}
-		, error : function(resp){
-			alert('Error!');
-		} 
-	});
-}
-
-//오늘의 코멘트 수
-function recentComment(){
-	$.ajax({
-		url : 'countByComment'
-		, type : 'get'
-		, success : function(resp){
-			panel(resp);
-		}
-		, error : function(resp){
-			alert('Error!');
-		} 
-	});
-}
-
-//오늘의 Coverletter 수
-function recentCoverletter(){
-	$.ajax({
-		url : 'countByCoverletter'
-		, type : 'get'
-		, success : function(resp){
-			panel(resp);
-		}
-		, error : function(resp){
-			alert('Error!');
-		} 
-	});
-}
-
-//오늘의 Resume 수
-function recentResume(){
-	$.ajax({
-		url : 'countByResume'
-		, type : 'get'
-		, success : function(resp){
-			panel(resp);
+			var countList = [resp.countOne, resp.countTwo, resp.countThree, resp.countFour];
+			panel(countList);
 		}
 		, error : function(resp){
 			alert('Error!');
@@ -201,55 +151,73 @@ function recentResume(){
 }
 
 // panel출력
-function panel(resp){
-	var color = resp;
+function panel(countList){
 	var resultDiv = '';
+	var color = ['primary', 'green', 'yellow', 'red'];
+	var category = ['Boards', 'Comments', 'Coverletters', 'Resume'];
+	var icon = ['fa-list-alt', 'fa-comments', 'fa-edit', 'fa-edit'];
+	var count = 0;
 	
-	resultDiv += '<div class="col-lg-3 col-md-6">';
-	resultDiv += '<div class="panel panel-primary">';
-	resultDiv += '<div class="panel-heading">';
-	resultDiv += '<div class="row">';
-	resultDiv += '<div class="col-xs-3">';
-	resultDiv += '<i class="fa fa-comments fa-5x"></i>';
-	resultDiv += '</div>';// col-xs-3
-	resultDiv += '<div class="col-xs-9 text-right">';
-	resultDiv += '<div class="huge">26</div>';
-	resultDiv += '<div>New Comments!</div>';
-	resultDiv += '</div>';// col-xs-9 text-right
-	resultDiv += '</div>';// row
-	resultDiv += '</div>';// panel-heading
-	resultDiv += '<a href="#">';
-	resultDiv += '<div class="panel-footer">';
-	resultDiv += '<span class="pull-left">View Details</span>';
-	resultDiv += '<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>';
-	resultDiv += '<div class="clearfix"></div>';
-	resultDiv += '</div>';// panel-footer
-	resultDiv += '</a>';
-	resultDiv += '</div>';// panel panel-primary
-	resultDiv += '</div>';// col-lg-3 col-md-6
+	$.each(countList, function(index, item){
+		resultDiv += '<div class="col-lg-3 col-md-6">';
+		resultDiv += '<div class="panel panel-' + color[count] + '">';
+		resultDiv += '<div class="panel-heading">';
+		resultDiv += '<div class="row">';
+		resultDiv += '<div class="col-xs-3">';
+		resultDiv += '<i class="fa ' + icon[count] + ' fa-5x"></i>';
+		resultDiv += '</div>';// col-xs-3
+		resultDiv += '<div class="col-xs-9 text-right">';
+		resultDiv += '<div class="huge">' + item + '</div>';
+		resultDiv += '<div>New ' + category[count] + '!</div>';
+		resultDiv += '</div>';// col-xs-9 text-right
+		resultDiv += '</div>';// row
+		resultDiv += '</div>';// panel-heading
+		resultDiv += '<a href="#">';
+		/* resultDiv += '<div class="panel-footer">';
+		resultDiv += '<span class="pull-left">View Details</span>';
+		resultDiv += '<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>';
+		resultDiv += '<div class="clearfix"></div>';
+		resultDiv += '</div>'; */// panel-footer
+		resultDiv += '</a>';
+		resultDiv += '</div>';// panel panel-primary
+		resultDiv += '</div>';// col-lg-3 col-md-6
+		count++
+	});
+	
+	$('#panels').html(resultDiv);
 }
 </script>
 <title>Dashboard</title>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/admin/adminFrame.jsp"%>
+	<div id="container" style="margin-left:350px;">
 	<h1>Dashboard</h1>
-	<div class="row"></div>
-	<div>
-		<select id="period1">
-			<option value="week">Week</option>
-			<option value="month">Month</option>
-		</select>
-		<div id="joinAndVisitGraph"></div>
-	</div>
-	<div>
-		<select id="period2">
-			<option value="week">Week</option>
-			<option value="month">Month</option>
-		</select>
-		<div id="rptAndSancGraph"></div>
-	</div>
-	<div>
-		<div id="ageGraph" style="width:900px; height:500px;"></div>
+		<div class="row">
+			<div id="panels"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-10">
+				<h4>Count By Visitor & Join</h4>
+				<button class="period" onclick="callJoinAndVisit('week')">Week</button>
+				<button class="period" onclick="callJoinAndVisit('month')">Month</button>
+				<div id="joinAndVisitGraph"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10">
+				<h4>Count By Report & Sanction</h4>
+				<button class="period" onclick="callRptAndSanc('week')">Week</button>
+				<button class="period" onclick="callRptAndSanc('month')">Month</button>
+				<div id="rptAndSancGraph"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<h4>Percentage of User's Age</h4>
+				<div id="ageGraph" style="width:900px; height:500px;"></div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

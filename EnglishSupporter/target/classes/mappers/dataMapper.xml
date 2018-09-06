@@ -23,6 +23,17 @@
 		)
 	
 	</insert>
+	<update id="updateIData" parameterType="iData">
+		UPDATE 
+			INTERVIEW_DATA
+		SET 
+			answer = #{answer}
+		WHERE
+			dataNum = #{dataNum}
+	
+	</update>
+	
+	
 	<select id="selectAllQuestion" resultType="iQuestion">
 		select
 			questionNum,
@@ -30,7 +41,7 @@
 		from
 			interview_question
 	</select>
-	<select id="selectOneIdata" resultType="iQuestion" parameterType="int">
+	<select id="selectOneIData" resultType="iData" parameterType="int">
 		select
 			dataNum,
 			userid,
@@ -42,6 +53,21 @@
 			INTERVIEW_DATA
 		where
 			dataNum = #{value}
+	</select>
+	
+	<select id="selectAlIData" resultType="iData" parameterType="string">
+		select
+			dataNum,
+			userid,
+			questionNum,
+			answer,
+			regdate,
+			saveFile
+		from
+			INTERVIEW_DATA
+		where
+			userid = #{value}
+		order by regdate desc
 	</select>
 	
 </mapper>

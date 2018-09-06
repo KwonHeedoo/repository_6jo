@@ -15,41 +15,25 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
-
-input{
-	background: transparent;
-}
-
-input[type='text'], input[type='date'], input[type='email'] {
-margin:0 auto;
-height: 28px;
-width: 100%
-}
-::placeholder{
- color: #dad9d9;
- font-size: 9pt;
-}
-
-.add{
-width: 30px;
-margin-left: 0;
-}
-
-.box{
-height: 55px;
-}
-h5{
-font-weight: bold;
+.container{
+    margin-bottom: 30px;
 }
 
 textarea {
 	width: 100%;
-	height: 500px;
+	height: 800px;
 	resize: none;
+	background-color: white;
 }
-
-.container{
-    margin-bottom: 30px;
+.center{
+text-align: center;
+}
+.username{
+height:60px;
+padding-top:20px;
+font-size :24pt;
+font-weight: bold;
+text-align: center;
 }
 
 </style>
@@ -57,45 +41,56 @@ textarea {
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	<div class="container">
-			<form id ="coverletter">
 		<div class="row justify-content-end">
 			<br>
 			<h3>[ COVER LETTER ]</h3>
-		<div class="col-md-5">
-		<p>COVER LETTER TITLE: </p><input id="title" type="text" name="title" /></div>
+			<table border="1">
+			<tr>
+			<th class="center">[TITLE]</th>
+			<th class="center" colspan="2">${myCL.title}</th>
+			</tr>
+			<tr>
+			<td colspan="3" class="username"></td>
+			</tr>
+			<tr>
+			<td colspan="3" class="center">
+			${myCL.email}<br>
+			${myCL.phone}<br>
+			${myCL.address}</td>
+			</tr>
+			<tr>
+			<td colspan="3">
+			<textarea disabled>
+			${myCL.maintext}
+			</textarea>
+			</td>
+			</tr>
+			</table>
+		<div class="center">
 		<br>
 		</div>
-		<hr>
-			<input type="hidden" name="userid" value="${sessionScope.loginId}">
-		<h2>${sessionScope.username}</h2>
-		<div class="row">
-		<br>
-		<div class="col-md-3">
-		<input id="email" type="email" name="email" value="${sessionScope.email}" placeholder="EMAIL"/>
-		</div>
-		<div class="col-md-3">
-		<input type="text" name="phone" placeholder="PHONE NUMBER"/>
-		</div>
-		<div class="col-md-6">
-		<input id="address" type="text" name="address" placeholder="ADDRESS"/>
-		</div>
 	</div>
-	<hr>
-	<br>
-	<div class="raw">
-		<textarea rows="" cols="" name="maintext" >
-		${sample.maintext}
-		</textarea>
-	</div>
-	</form>
-	
-	<div class="right">
-		<br>
-	<input type="button" class="btn" value="send Form" id="datasend">
-	</div>
-	
 </div>
 	<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 
+<script type="text/javascript">
+$(function() { // 유저이름 받아옴 
+	var userid = '${myCL.userid}';
+	console.log(userid);
+	$.ajax({
+		method: "post",
+		url: "getUserInfo",
+		data : {"userid": userid},
+		dataType : "JSON",
+		success: function(reps){
+			var user= reps;
+			$('td.username').text(user.username);			
+		},
+		error: function(error){
+			console.log("에러"+error);
+		}
+	});
+});
+</script>
 </html>

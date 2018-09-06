@@ -6,7 +6,7 @@
 <mapper namespace="com.scit6jo.web.dao.ResumeMapper">
 	
 	<select id="getCoverletter" parameterType="CoverLetter" resultType="CoverLetter">
-		 SELECT title, maintext, regdate, address, phone, email
+		 SELECT title, maintext, regdate, address, phone, email, userid
 		 FROM coverletter
 		 WHERE userid = #{userid}
 		 and title =#{title}
@@ -36,6 +36,15 @@
 			,#{email}
 		)
 	</insert>
+	<update id="updateCoverLetter" parameterType="CoverLetter">
+		UPDATE coverletter 
+		SET
+			maintext=#{maintext}
+			,address=#{address}
+			,phone=#{phone}
+			,email=#{email}
+		WHERE userid =#{userid} and title =#{title}
+	</update>
 	
 	<delete id="deleteCoverletter" parameterType="CoverLetter">
 		delete from coverletter where userid =#{userid} and title =#{title}
@@ -54,11 +63,11 @@
 			,major
 		)VALUES
 		(	#{resume_no}
-			,#{item.school_name}
-			,#{item.degree_level}
+			,NVL(#{item.school_name},'')
+			,NVL(#{item.degree_level},'')
 			,#{item.enter_date}
 			,#{item.graduate_date}
-			,#{item.major}
+			,NVL(#{item.major},'')
 		)
 		</foreach>
 	</insert>
@@ -74,8 +83,8 @@
 			,end_date
 		)VALUES
 		(	#{resume_no}
-			,#{item.company_name}
-			,#{item.job_description}
+			,NVL(#{item.company_name},'')
+			,NVL(#{item.job_description},'')
 			,#{item.start_date}
 			,#{item.end_date}
 		)
@@ -94,9 +103,9 @@
 			,info_date
 		)VALUES
 		(	#{resume_no}
-			,#{item.info_title}
-			,#{item.detail}
-			,#{item.remarks}
+			,NVL(#{item.info_title},'')
+			,NVL(#{item.detail},'')
+			,NVL(#{item.remarks},'')
 			,#{item.info_date}
 		)
 		</foreach>
@@ -166,13 +175,13 @@
 			,#{userid}
 			,#{title}
 			,sysdate
-			,#{deadline}
+			,to_timestamp(#{deadline}, 'YYYY-MM-DD"T"HH24:MI')
 			,#{phone}
 			,#{address}
 		)
 	</insert>
 	
-	<select id="getResume" parameterType="Map" resultMap="Resume">
+	<select id="getResume" parameterType="String" resultMap="Resume">
 		SELECT 
 		r.RESUME_NO,r.TITLE, r.ADDRESS, r.DEADLINE, r.PHONE, r.REGDATE, r.USERID
 		,e.DEGREE_LEVEL, e.ENTER_DATE, e.GRADUATE_DATE, e.MAJOR, e.MAJOR, e.SCHOOL_NAME
@@ -185,10 +194,8 @@
 		on r.resume_no = p.resume_no
 		join additional_info i
 		on r.resume_no = i.resume_no
-		WHERE r.userid = #{userid} and r.title =#{title}
+		WHERE r.resume_no = #{resume_no}
 	</select>
-	
-	
 	
 	<resultMap type="Resume" id="Resume">
 		<id property="resume_no" column="resume_no"/>
@@ -227,5 +234,17 @@
 			<result property="job_description" column="job_description"/>
 			<result property="start_date" column="start_date"/>
 			<result property="end_date" column="end_date"/>
-	</resultMap>	
+	</resultMap>
+	
+	<select id="getTotal" parameterType="map"  resultType="int">
+		select
+			count(*)
+		from
+		<choose>
+			<when test="type == 'resume'">resume</when>
+			<when test="type == 'coverletter'">coverletter</when>
+		</choose>
+		where userid = #{userid}
+	</select>
+		
 </mapper>

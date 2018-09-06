@@ -14,7 +14,7 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-<link href="resources/css/stylesheet.css" rel="stylesheet"> 
+<link href="./resources/admin/css/stylesheet.css" rel="stylesheet"> 
 <meta charset="UTF-8">
 
 <script type="text/javascript">
@@ -56,7 +56,7 @@ nav {height:50px;}
                         aria-expanded="false"><i class="fa fa-user-circle-o fa-lg" ></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="#"><i class="fa fa-id-badge"></i>&nbsp Admins Management</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i> Logout</a>
+                        <a class="dropdown-item" href="./logout"><i class="fa fa-sign-out"></i> Logout</a>
                     </div>
                 </li>
             </ul>
@@ -76,13 +76,13 @@ nav {height:50px;}
         <div class="menu-list">
   
             <ul id="menu-content" class="menu-content collapse out">
-                <li>
-                  <a href="#">
+                <li id="dashboard">
+                  <a href="./goDashboard">
                   <i class="fa fa-dashboard fa-lg"></i> Dashboard
                   </a>
                 </li>
 
-                <li  data-toggle="collapse" data-target="#products" class="collapsed active">
+                <li  data-toggle="collapse" data-target="#products" class="collapsed">
                   <a href="#"><i class="fa fa-book fa-lg"></i> Learning Services<span class="arrow"></span></a>
                 </li>
 	                <ul class="sub-menu collapse" id="products">
@@ -96,8 +96,8 @@ nav {height:50px;}
                   </a>
                   </li>
 
-                 <li>
-                  <a href="#">
+                 <li id="userManager">
+                  <a href="./goUserManager">
                   <i class="fa fa-users fa-lg"></i> Users Management
                   </a>
                 </li>

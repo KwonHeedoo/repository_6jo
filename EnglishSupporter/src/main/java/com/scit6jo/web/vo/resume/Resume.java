@@ -10,6 +10,7 @@ public class Resume {
 	private String deadline;
 	private String phone;
 	private String address;
+	private String email;
 	private List<Education> education;
 	private List<Experience> experience;
 	private List<Additional_info> additional_info;
@@ -85,14 +86,22 @@ public class Resume {
 	public void setAdditional_info(List<Additional_info> additional_info) {
 		this.additional_info = additional_info;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 		return "Resume [resume_no=" + resume_no + ", userid=" + userid + ", title=" + title + ", regdate=" + regdate
-				+ ", deadline=" + deadline + ", phone=" + phone + ", address=" + address + ", education=" + education
-				+ ", experience=" + experience + ", additional_info=" + additional_info + "]";
+				+ ", deadline=" + deadline + ", phone=" + phone + ", address=" + address + ", email=" + email
+				+ ", education=" + education + ", experience=" + experience + ", additional_info=" + additional_info
+				+ "]";
 	}
 	
-	
-
 	
 }

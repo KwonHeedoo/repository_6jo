@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +38,21 @@ public class WordController {
 		
 		return "word/insertNewWord";
 	}
+	
+	// 내단어장 화면 요청 
+	@RequestMapping(value = "/goMyWords", method = RequestMethod.GET)
+	public String goMyWords(HttpSession session, Model model) {
+		System.out.println("going to MyWords...");
+		
+		// 세션의 loginId로 내단어장 목록 가져오기  
+		String userid = (String) session.getAttribute("loginId");
+		List<Word> wordlist = repository.getMyWords(userid);
+		
+		model.addAttribute("wordlist", wordlist);	
+		
+		return "mypage/myWords";
+	}
+
 
 	
 	@RequestMapping(value = "/getMyWords", method = RequestMethod.POST)

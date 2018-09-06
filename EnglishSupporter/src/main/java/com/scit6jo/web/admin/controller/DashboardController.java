@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit6jo.web.admin.repository.DashboardRepository;
 import com.scit6jo.web.admin.vo.GraphData;
-import com.scit6jo.web.vo.Board;
 
 @Controller
 public class DashboardController {
 	@Autowired
 	DashboardRepository repository;
 	
-	// 회원가입 & 방문자 수 정보 요청
+	// Dashboard 페이지 요청
 	@RequestMapping(value = "/goDashboard", method = RequestMethod.GET)
 	public String goDashboard(){
 		System.out.println("Going to Dashboard...");
@@ -49,17 +48,12 @@ public class DashboardController {
 		return countByUserAge;
 	}
 	
-	// 오늘의 게시물 수
-	@RequestMapping(value = "/countByBoard", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<Board> countByBoard(){
-		ArrayList<Board> countByBoard = null;
+	// 오늘의 게시물, 코멘트, Coverlette, Resume 수
+	@RequestMapping(value = "/countToday", method = RequestMethod.GET)
+	public @ResponseBody GraphData countToday(){
+		GraphData countToday = repository.countToday();
 		
-		return countByBoard;
+		return countToday;
 	}
 	
-	// 오늘의 코멘트 수
-	
-	// 오늘의 Coverletter 수
-	
-	// 오늘의 Resume 수
 }

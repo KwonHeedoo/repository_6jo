@@ -145,18 +145,19 @@ public class BoardController {
 	
 	// 게시글 쓰기 처리
 	@RequestMapping(value="/writeBoard", method=RequestMethod.POST)
-	public String writeBoard(HttpSession session, Model model, Board board, String boardType, MultipartFile uploadfile) {
+	public String writeBoard(HttpSession session, Model model, Board board, String boardType, 
+									@RequestParam(value="dataNum", defaultValue="0")int dataNum) {
 		String userid = (String)session.getAttribute("loginId");
 		board.setUserid(userid);
 		
-		if(uploadfile != null) {
+		/*if(dataNum != 0) {
 			if(uploadfile.getOriginalFilename() != "") {
 				String savedFileName = saveFile(uploadfile);
 				
 				board.setOriginalfile(uploadfile.getOriginalFilename());
 				board.setSavedfile(savedFileName);
 			}
-		}
+		}*/
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("board", board);
@@ -239,7 +240,7 @@ public class BoardController {
 	// 게시글 수정 폼 요청
 	@RequestMapping(value="/updateBoardForm", method=RequestMethod.GET)
 	public String updateBoardForm(Model model, String boardNum, String boardType, 
-									int page, String searchItem, String searchText) {
+										int page, String searchItem, String searchText) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardNum", boardNum);
 		map.put("boardType", boardType);

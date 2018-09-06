@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,9 +14,15 @@
 	function formCheck(){
 		var title = document.getElementById("title").value;
 		var contents = document.getElementById("contents").value;
+		var appointedTime = document.getElementById("appointedTime").value;
 		
 		if(title.length == 0 || contents.length == 0){
 			alert("Please Write Title or Content");
+			return false;
+		}
+		
+		if(appointedTime.length == 0){
+			alert("Please Select Date And Time");
 			return false;
 		}
 		
@@ -34,17 +41,18 @@
 			<c:if test="${sessionScope.loginType eq 'admin'}">
 				<input id="notice" type="checkbox" name="status" value="1">공지글
 			</c:if>
+			<input id="appointedTime" type="datetime-local" name="appointedTime">
 		</div>
-		<h1 id="introduce">Content</h1>
+		<h3 id="introduce">Content</h3>
 		<div>
-			<textarea id="contents" rows="15" cols="60" name="contents"></textarea><br/>
+			<textarea id="contents" rows="15" cols="60" name="contents"></textarea>
 		</div>
 		<div>
 			<div class="col-md-6">
 				<input type="submit" value="Write">
 			</div>
 			<div class="col-md-6">
-				<input type="button" value="Cancell" onclick="board(${page})">
+				<input type="button" value="Cancel" onclick="board(${page})">
 			</div>
 		</div>
 	</form>
