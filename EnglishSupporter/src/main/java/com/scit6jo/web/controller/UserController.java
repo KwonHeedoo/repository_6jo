@@ -28,10 +28,32 @@ public class UserController {
 	public @ResponseBody Integer idcheck(User user) {
 		if(user.getUserid().length() < 3 || user.getUserid().length() > 10 ) return -1;
 		
-		User u = Repository.selectOne(user);
+		
+		User u = Repository.idcheck(user);
 		
 		if( u != null) return 1;
 		else return 0;
+	}
+	
+	@RequestMapping(value ="/nicknameCheck" , method=RequestMethod.POST)
+	public @ResponseBody Integer nicknameCheck(User user) {
+		if(user.getNickname().length() < 3 || user.getNickname().length() > 7 ) return -1;
+		
+		User u = Repository.nicknameCheck(user);
+		
+		if( u != null) return 1;
+		else return 0;
+	}
+	
+	@RequestMapping(value ="/insertUser" , method=RequestMethod.POST) //회원가입 정보기입
+	public String insertUser(User user) {
+		
+		System.out.println(user);
+		int u = Repository.insertUser(user);
+		
+		System.out.println(u);
+		
+		return "home";
 	}
 	
 	

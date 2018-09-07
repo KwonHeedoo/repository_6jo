@@ -73,6 +73,7 @@ public class Resume {
 	public void setEducation(List<Education> education) {
 		this.education = education;
 	}
+	
 	public List<Experience> getExperience() {
 		return experience;
 	}
@@ -85,6 +86,7 @@ public class Resume {
 	public void setAdditional_info(List<Additional_info> additional_info) {
 		this.additional_info = additional_info;
 	}
+
 	@Override
 	public String toString() {
 		return "Resume [resume_no=" + resume_no + ", userid=" + userid + ", title=" + title + ", regdate=" + regdate
