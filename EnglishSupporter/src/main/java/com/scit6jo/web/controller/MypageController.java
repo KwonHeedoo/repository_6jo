@@ -41,14 +41,7 @@ public class MypageController {
 		return "mypage/infoUpdate";
 	}
 	
-	@RequestMapping(value = "nicknameCheck", method = RequestMethod.POST)
-	public @ResponseBody Integer nicknameCheck(User user) {
-		
-		User u = repository.nicknameCheck(user);
-		
-		if(u != null) return 1;		// 사용 불가능한 닉네임
-		else		  return 0;		// 사용 가능한 닉네임
-	}
+	
 	
 	@RequestMapping(value = "/infoUpdate", method = RequestMethod.POST)
 	public String infoUpdate(String userid, String userpwd, String username, String nickname, String email, String birthdate, User u, Model model) {

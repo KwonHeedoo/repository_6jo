@@ -41,11 +41,16 @@ display: inline; /* display넣어주면 블록과 분리시켜준다 */
 
 var okuserid=false;
 var oknickname=false;
+var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+
 
 $(function(){ //id 중복검사
 	
 		$("#userid").on('keyup', function(){
 			
+		  var inputVal = $(this).val();
+	
+		
 			$.ajax({
 			url : "idcheck"
 			,type : "post"
@@ -66,7 +71,10 @@ $(function(){ //id 중복검사
 					$('#idcheck').css("color" , "black");
 					okuserid=false;
 				}
-			}
+
+				
+				}
+			
 			,error : function(resp){
 				alert("통신실패")
 				
@@ -78,11 +86,6 @@ $(function(){ //id 중복검사
 		});
 		
 $(function(){  //닉네임 중복검사
-	
-	
-	
-	
-	
 	
 	$("#nickname").on('keyup', function(){
 		
@@ -114,6 +117,7 @@ $(function(){  //닉네임 중복검사
 
 		});
 		
+		
 		$("#userpwd").on('keyup', function(){ //패스워드 중복검사
 			
 			
@@ -122,8 +126,10 @@ $(function(){  //닉네임 중복검사
 			var userpwdCheck = $('#userpwdCheck').val();
 			
 		
-			if(userpwd.length == 0){
+			if(userpwd.length == 0 ){
 				$('#pwdcheck').text("비밀번호를 입력하세요");
+			}else if(userpwd.length < 6 || userpwd.length > 12){
+				$('#pwdcheck').text("비밀번호는 6 ~ 12자리로 입력하세요");
 			}
 			
 			
@@ -140,13 +146,20 @@ $(function(){  //닉네임 중복검사
 
 			if(userpwdCheck != userpwd){
 				$('#pwdcheck').text("비밀번호가일치하지않습니다");
-				
+				$('#pwdcheck').css("color", "red");
 			}else if(userpwdCheck == userpwd){
 				$('#pwdcheck').text("비밀번호가 일치합니다");	
+				$('#pwdcheck').css("color", "blue");	
 				
 			}
 			
 		});
+		
+	
+
+		
+		
+
 		
 		$('#registbtn').on('click', function(){
 			
@@ -158,7 +171,6 @@ $(function(){  //닉네임 중복검사
 			var birthdate =$("#birthdate").val();
 			var username =$("#username").val();
 			
-			
  
 			
 			if(userid == 0){
@@ -167,6 +179,7 @@ $(function(){  //닉네임 중복검사
 			}else if(userid.length < 3 || userid.length > 10){
 				alert("아이디는 3~10자리로 입력하세요");
 				return;
+			      
 			}else if(userpwd == 0 || userpwd.length < 6 || userpwd.length > 12){
 				alert("비밀번호는 6 ~ 12자리로 입력하세요");
 				
@@ -180,9 +193,13 @@ $(function(){  //닉네임 중복검사
 			}else if(nickname == 0 || nickname.length < 3 || nickname.length > 7){
 				alert("닉네임은 3~7자리로 입력해주세요");
 				return;
-			}else if(email == 0  ){
-				alert("이메일을 입력하세요");
-				return;
+			}else if(!getMail.test($("#email").val())){
+		        alert("이메일형식에 맞게 입력해주세요")
+		        $("#email").val("");
+		        $("#email").focus();
+		        return false;
+		      
+		      
 			}else if(birthdate == 0){
 				alert("생년월일을 입력하세요");
 				return;
@@ -204,8 +221,9 @@ $(function(){  //닉네임 중복검사
 				
 			
 		});
-		
 });
+		
+
 
 	
 	</script>	
@@ -245,7 +263,7 @@ $(function(){  //닉네임 중복검사
 		
 		
 			<p><input type="date"  placeholder="생일"
-				name="birthdate" maxlength="20">  </p>
+				name="birthdate" maxlength="20" id="birthdate">  </p>
 		
 		
 			<p><input type="text" placeholder="이름"
@@ -253,7 +271,8 @@ $(function(){  //닉네임 중복검사
 		</p>
 			
 			<p><input value="회원가입" type="button" class="btn"  id="registbtn" /></p>
-		
+			
+			<p><input type="reset" class="btn" value="다시 입력"> </p>
 </div>
 	</form>
 	</div>

@@ -28,6 +28,7 @@ public class UserController {
 	public @ResponseBody Integer idcheck(User user) {
 		if(user.getUserid().length() < 3 || user.getUserid().length() > 10 ) return -1;
 		
+		
 		User u = Repository.idcheck(user);
 		
 		if( u != null) return 1;
