@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,7 +54,21 @@ public class WordController {
 		return "mypage/myWords";
 	}
 
-
+	// 내단어장 업데이트 요청 
+	@RequestMapping(value = "mywordUpdate", method = RequestMethod.POST)
+	public @ResponseBody Integer mywordUpdate(@RequestBody Word word, HttpSession session) {
+		System.out.println("mywordUpdate...");
+		
+		String userid = (String) session.getAttribute("loginId");
+		word.setUserid(userid);
+		
+		System.out.println(word);
+		
+		int result = repository.updateMyWord(word);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
 	
 	@RequestMapping(value = "/getMyWords", method = RequestMethod.POST)
 	public @ResponseBody List<Word> getMyWords(@RequestParam(value="wordlevel", defaultValue="1")String wordlevel, HttpSession session) {

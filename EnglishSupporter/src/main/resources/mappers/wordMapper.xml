@@ -17,7 +17,7 @@
 	</select>
 	
 	<select id="getMyWords" resultType="Word" parameterType="String">
-		select word, meaningk, meaningJ, wordtype 
+		select myword_no, word, meaningk, meaningJ, wordtype 
 		from myword 
 		where userid=#{userid}
 		order by word
@@ -39,6 +39,12 @@
 			,#{wordtype}
 		)
 	</insert>
+	
+	<update id="updateMyWord" parameterType="Word">
+		update myword
+		set word = #{word}, meaningK = #{meaningK}
+		where userid = #{userid} and myword_no = #{myword_no}		
+	</update>
 	
 	<delete id="deleteMyWord" parameterType="Word">
 		delete from myword where word=#{word} and userid=#{userid}

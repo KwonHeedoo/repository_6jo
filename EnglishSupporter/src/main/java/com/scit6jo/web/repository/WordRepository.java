@@ -57,6 +57,15 @@ public class WordRepository {
 		}
 			return false;
 	}
+	
+	public int updateMyWord(Word word) {
+		WordMapper mapper = session.getMapper(WordMapper.class);
+		int result = mapper.updateMyWord(word);
+		
+		if(result == 1) return 1;
+		else			return 0;
+		
+	}
 
 	public boolean deleteMyWord(Word word) {
 		WordMapper mapper = session.getMapper(WordMapper.class);

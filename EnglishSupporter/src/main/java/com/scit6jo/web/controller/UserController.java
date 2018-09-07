@@ -225,7 +225,7 @@ public class UserController {
 	
 	// 회원탈퇴 처리 요청
 	@RequestMapping(value = "unregister", method = RequestMethod.POST)
-	public @ResponseBody Integer unregister(@RequestBody User user, HttpSession session, Model model) {
+	public @ResponseBody Integer unregister(@RequestBody User user, HttpSession session) {
 		System.out.println("unregister...");
 		
 		int result = repository.unregister(user);        

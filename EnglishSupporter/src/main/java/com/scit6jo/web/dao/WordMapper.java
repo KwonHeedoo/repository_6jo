@@ -28,6 +28,14 @@ public interface WordMapper {
 	 * @return
 	 */
 	public int insertMyWord(Word word);
+	
+	/**
+	 * myword table 에 단어 update
+	 * @param word
+	 * @return
+	 */
+	public int updateMyWord(Word word);
+	
 	/**
 	 * myword table 에 단어 delete하기
 	 * @param word
