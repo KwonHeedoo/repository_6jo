@@ -38,7 +38,7 @@ $(function(){
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
 <div class="container">
-	<a href="./goDashboard">goDashboard</a>
+
 </div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 <c:remove var="msg1" scope="session" />

@@ -62,7 +62,7 @@ function output(resp){
 	boardResult += '<th style="width:5%;">No</th>';
 	boardResult += '<th style="width:15%;">TIME</th>';
 	boardResult += '<th class="boardTitle" style="width:45%;">TITLE</th>';
-	boardResult += '<th style="width:10%;">NICKNAME</th>';
+	boardResult += '<th style="width:10%;">USER</th>';
 	boardResult += '<th style="width:10%;">REGDATE</th>';
 	boardResult += '<th style="width:5%;">HITS</th>';
 	boardResult += '<th style="width:10%;"><button id="unmatched" onclick="constraint(' + matchingCount + ')">MATCHING</button></th>'; 

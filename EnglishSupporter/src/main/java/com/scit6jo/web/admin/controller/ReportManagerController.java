@@ -48,7 +48,7 @@ public class ReportManagerController {
 		model.addAttribute("report", report);
 		model.addAttribute("reportURL", reportURL);
 		
-		System.out.println("going to ReportBox...");
+		System.out.println("Open the Report Box...");
 		
 		return "admin/reportBox";
 	}

@@ -23,6 +23,7 @@
 		<typeAlias type="com.scit6jo.web.vo.Comment" alias="Comment" />
 		<typeAlias type="com.scit6jo.web.admin.vo.Report" alias="Report" />
 		<typeAlias type="com.scit6jo.web.admin.vo.GraphData" alias="GraphData" />
+		<typeAlias type="com.scit6jo.web.admin.vo.Message" alias="Message" />
 	</typeAliases>
 	
 	<!-- Mapper 파일 resource 지정-->
@@ -36,6 +37,7 @@
 		<mapper resource="mappers/commentMapper.xml" />
 		<mapper resource="mappers/reportMapper.xml" />
 		<mapper resource="mappers/dashboardMapper.xml" />
+		<mapper resource="mappers/messageMapper.xml" />
 	</mappers>
 	
 </configuration>
