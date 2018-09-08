@@ -2,7 +2,8 @@ package com.scit6jo.web.vo;
 
 public class Word {
 	//myword 와 word 를 동시에 받아서 사용할 VO
-	private int wordNum;
+	private int wordNum; //word table pk
+	private String myword_no;//myword pk
 	private String word;
 	private String meaningK;
 	private String meaningJ;
@@ -73,13 +74,18 @@ public class Word {
 	public void setWordlevel(String wordlevel) {
 		this.wordlevel = wordlevel;
 	}
+	public String getMyword_no() {
+		return myword_no;
+	}
+	public void setMyword_no(String myword_no) {
+		this.myword_no = myword_no;
+	}
+
 	@Override
 	public String toString() {
-		return "Word [wordNum=" + wordNum + ", word=" + word + ", meaningK=" + meaningK + ", meaningJ=" + meaningJ
-				+ ", wordlevel=" + wordlevel + ", userid=" + userid + ", wordtype=" + wordtype + "]";
+		return "Word [wordNum=" + wordNum + ", myword_no=" + myword_no + ", word=" + word + ", meaningK=" + meaningK
+				+ ", meaningJ=" + meaningJ + ", wordlevel=" + wordlevel + ", userid=" + userid + ", wordtype="
+				+ wordtype + "]";
 	}
-	
-	
-	
 	
 }
