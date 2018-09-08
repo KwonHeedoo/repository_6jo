@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,7 @@ nav {height:50px;}
 <!-- header -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sidebarNavigation" data-sidebarClass="navbar-dark bg-dark">
         <div class="container-fluid">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/">English Supporter</a>
+        <a class="navbar-brand" href="./goUserPage">English Supporter</a>
         <button class="navbar-toggler leftNavbarToggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -42,12 +43,23 @@ nav {height:50px;}
             <ul class="nav navbar-nav nav-flex-icons ml-auto" style="padding-left:88%;">
                 
                 <li class="nav-item dropdown" style="padding-right:8px;">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false"><i class="fa fa-comments fa-lg" ></i></a>
+                    <a class="nav-link dropdown-toggle alarm" href="./goMessageList" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" style="position:relative;"><i class="fa fa-comments fa-lg"><c:if test="${msgCount != 0}"><span class="nav-counter">${msgCount}</span></c:if></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">message1</a>
-                        <a class="dropdown-item" href="#">message2</a>
-                        <a class="dropdown-item" href="#">message3</a>
+                    <c:if test="${not empty messageList}">
+	                    <c:forEach var="message" items="${messageList}">
+	                    	<div class="dropdown-item" style="width:280px;">
+	                    		<div style="float:left; width:50%;"><b>${message.userid}</b></div>
+	                    		<div style="float:right; width:50%">${message.regdate}</div><br/>
+	                    		<div class="msg">${message.message}</div>
+	                    	</div>
+	                    	<div class="divider"></div>
+	                    </c:forEach>
+	                    	<a class="dropdown-item" href="./goMessageList" style="width:280px;"><nobr><b>Read All Message ></b></nobr></a>
+                    </c:if>
+                    <c:if test="${empty messageList}">
+                    	<a class="dropdown-item" href="./goMessageList" style="width:280px;"><nobr><b>Read All Message ></b></nobr></a>
+                    </c:if>
                     </div>
                 </li>
                 
@@ -90,8 +102,8 @@ nav {height:50px;}
 	                    <li><a href="#">Mock Interview</a></li>
 	                </ul>
 
-                 <li>
-                  <a href="#">
+                 <li id="reportManager">
+                  <a href="./goReportManager">
                   <i class="fa fa-ban fa-lg"></i> Report Management
                   </a>
                   </li>

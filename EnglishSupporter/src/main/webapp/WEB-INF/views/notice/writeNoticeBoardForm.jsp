@@ -4,23 +4,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- google CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Writing Notice Board</title>
 <script>
-	function board(page) {
-		location.href = "./goBoardList?page=" + page + "&boardType=notice";
-	};
+$(function(){
+	$('#nBoard').addClass('active');
+});
+
+function board(page) {
+	location.href = "./goBoardList?page=" + page + "&boardType=notice";
+};
+
+function formCheck(){
+	var title = document.getElementById("title").value;
+	var contents = document.getElementById("contents").value;
 	
-	function formCheck(){
-		var title = document.getElementById("title").value;
-		var contents = document.getElementById("contents").value;
-		
-		if(title.length == 0 || contents.length == 0){
-			alert("Please Write Title or Content");
-			return false;
-		}
-		
-		return true;
-	};
+	if(title.length == 0 || contents.length == 0){
+		alert("Please Write Title or Content");
+		return false;
+	}
+	
+	return true;
+};
 </script>
 </head>
 <body>

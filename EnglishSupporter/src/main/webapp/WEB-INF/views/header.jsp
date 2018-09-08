@@ -9,13 +9,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="resources/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+function message(){
+	window.open('./goMessageBox', 'MessageBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+}
+</script>
 </head>
 <div class="wrapper row0">
   <div id="topbar" class="hoc clear"> 
     <div class="fl_left">
       <ul>
         <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+        <!-- <li><i class="fa fa-envelope-o"></i> info@domain.com</li> -->
+        <li><i class="fa fa-envelope-o"></i> <a onclick="message()">Ask to English Supporter</a></li>
       </ul>
     </div>
     <div class="fl_right">
@@ -36,7 +42,7 @@
 		<li><a href="goMypage">My Page</a></li>
 		</c:if>
 		<c:if test="${sessionScope.loginType == 'admin'}">
-		<li><a href="./goDashboard">Admin Page</a></li>
+		<li><a href="./goAdminPage">Admin Page</a></li>
 		</c:if> 
 		</c:if>
       </ul>
@@ -53,7 +59,7 @@
         <li id="home"><a href="${pageContext.request.contextPath}/">Home</a></li>
         <li id="wordtra"><a href="goWordtest">Word Training</a></li>
         
-        <li><a href="./goComposition">Text Training</a></li>
+        <li id="comp"><a href="./goComposition">Text Training</a></li>
         <li><a class="drop" href="#">My Resume</a>
           <ul>
             <li><a href="goMyDocs">My documents</a>
@@ -66,7 +72,7 @@
             </li>
           </ul>
         </li>
-        <li><a class="drop" href="#">Interview</a>
+        <li id="interview"><a class="drop" href="#">Interview</a>
           <ul>
             <li><a href="./goInterview">Mock Interview</a></li>
             <li><a href="./goMatching">Interview Appraise</a></li>
@@ -86,7 +92,7 @@
                 <li><a href="#">Level 3</a></li>
               </ul>
             </li> -->
-            <li><a href="./goBoardList?boardType=notice">Notice</a></li>
+            <li id="nBoard"><a href="./goBoardList?boardType=notice">Notice</a></li>
           </ul>
     </nav>
   </header>

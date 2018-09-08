@@ -54,4 +54,12 @@ public class UserManagerController {
 		
 		return result;
 	}
+	
+	// 유저 강제 탈퇴
+	@RequestMapping(value = "/releaseUser", method = RequestMethod.GET)
+	public @ResponseBody int releaseUser(User user){
+		int result = repository.unregister(user);
+		
+		return result;
+	}
 }

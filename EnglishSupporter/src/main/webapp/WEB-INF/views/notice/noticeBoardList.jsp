@@ -21,6 +21,8 @@
 
 <script type="text/javascript">
 $(function(){
+	$('#nBoard').addClass('active');
+	
 	init();
 });
 
@@ -54,7 +56,7 @@ function output(resp){
 	boardResult += '<tr id="boardMenu">';
 	boardResult += '<th style="width:5%;">No</th>';
 	boardResult += '<th class="boardTitle" style="width:65%;">TITLE</th>';
-	boardResult += '<th style="width:15%;">NICKNAME</th>';
+	boardResult += '<th style="width:15%;">USER</th>';
 	boardResult += '<th style="width:10%;">REGDATE</th>';
 	boardResult += '<th style="width:5%;">HITS</th>';
 	boardResult += '</tr>';
