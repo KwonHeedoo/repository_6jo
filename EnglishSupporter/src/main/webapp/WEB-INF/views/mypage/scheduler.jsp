@@ -4,58 +4,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>My Schedule</title>
 <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<script src="resources/fullcalendar/lib/jquery.min.js"></script>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="resources/modal/bootstrap.min.css"></script>
+
 <style type="text/css">
 html,body{
 height: inherit;
 }
-
-input:not([type=button]){
-width: 100%;
-}
-
-input[type=checkbox] {
-width: 20px;
-height: 20px;
-}
-
 .datecol{
 border: none;
 }
-
 .container{
     margin: 0;
     padding-left: 0;
     padding-right: 0;
     width: 100%;
-}
-
-
-.side-menu {
-margin-top:0;
-position:absolute;
-float:left;
-  width: 280px;
-  height: 80%;
-  background-color: #f8f8f8;
-  border-right: 1px solid #e7e7e7;
-}
-.side-menu .navbar-nav li {
-  display: block;
-  width: 100%;
-  border-bottom: 1px solid #e7e7e7;
-}
-.side-body {
-  margin-top: 20px;
-  margin-left: 300px;
-}
-
-.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus{
-	background-color: #c7c7c7 ;
 }
 </style>
 </head>
@@ -68,14 +35,13 @@ float:left;
 				<%@ include file="/WEB-INF/views/mypage/mySchedule.jsp"%>
 			</div>
 		</div>
-	</div>
 	<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
-<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 <link href="resources/fullcalendar/fullcalendar.min.css" rel="stylesheet">
 <link href="resources/fullcalendar/fullcalendar.print.min.css" rel="stylesheet" media="print">
 <script src="resources/fullcalendar/lib/moment.min.js"></script>
-<script src="resources/fullcalendar/lib/jquery.min.js"></script>
 <script src="resources/fullcalendar/fullcalendar.min.js"></script>
 <script src="resources/fullcalendar/theme-chooser.js"></script>
+<script src="resources/modal/bootstrap.min.js"></script>
+
 </html>

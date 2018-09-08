@@ -4,23 +4,13 @@ public class Schedule {
 	private String userid;
 	private String title;
 	private String allDay;
-	private String start;
-	private String end;
-	private String id;
+	private String startDate;
+	private String endDate;
+	private String s_id;
 	
 	public Schedule() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public Schedule(String userid, String title, String allDay, String start, String end, String id) {
-		super();
-		this.userid = userid;
-		this.title = title;
-		this.allDay = allDay;
-		this.start = start;
-		this.end = end;
-		this.id = id;
 	}
 
 	public String getUserid() {
@@ -47,35 +37,36 @@ public class Schedule {
 		this.allDay = allDay;
 	}
 
-	public String getStart() {
-		return start;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setStart(String start) {
-		this.start = start;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
-	public String getEnd() {
-		return end;
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public void setEnd(String end) {
-		this.end = end;
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
-	public String getId() {
-		return id;
+	public String getS_id() {
+		return s_id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setS_id(String s_id) {
+		this.s_id = s_id;
 	}
 
 	@Override
 	public String toString() {
-		return "Schedule [userid=" + userid + ", title=" + title + ", allDay=" + allDay + ", start=" + start + ", end="
-				+ end + ", id=" + id + "]";
+		return "Schedule [userid=" + userid + ", title=" + title + ", allDay=" + allDay + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", s_id=" + s_id + "]";
 	}
+	
 	
 
 }

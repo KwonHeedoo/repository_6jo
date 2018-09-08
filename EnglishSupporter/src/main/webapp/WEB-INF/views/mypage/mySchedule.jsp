@@ -3,45 +3,16 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-<link href="resources/fullcalendar/fullcalendar.min.css" rel="stylesheet">
-<link href="resources/fullcalendar/fullcalendar.print.min.css" rel="stylesheet" media="print">
-<script src="resources/fullcalendar/lib/moment.min.js"></script>
-<script src="resources/fullcalendar/lib/jquery.min.js"></script>
-<script src="resources/fullcalendar/fullcalendar.min.js"></script>
-<script src="resources/fullcalendar/theme-chooser.js"></script>
 <script>
-var dbevents=[];
 var today = new Date(); //오늘날짜 생성 
 	today = today.toISOString();
 	today = today.substring(0,10);
-// event Db에서 끌어오기 
-$(function() {
-	var userid = '${sessionScope.loginId}';
-	$.ajax({
-		method:'post',
-		url:'getschedule',
-		data:{'userid':userid},
-		dateType : 'json',
-		success :function(data){
-			dbevents = data;
-		}
-	});
-});
+var userid = $('input[name="userid"]').val();  
 
-// 이벤트 수정 창 띄우기
+$(document).ready(function() {
 
-// 날짜 클릭시 이벤트 생성 하기 
-
-
-
-  $(document).ready(function() {
-
-    initThemeChooser({
-
-      init: function(themeSystem) {
-        $('#calendar').fullCalendar({
-          themeSystem: themeSystem,
+	  $('#calendar').fullCalendar({
+          themeSystem: 'bootstrap3',
           header: {
             left: 'prev,next today',
             center: 'title',
@@ -51,97 +22,92 @@ $(function() {
           weekNumbers: true,
           navLinks: true, // can click day/week names to navigate views
           editable: true,
-          eventLimit: true, // allow "more" link when too many events
+          eventLimit: true, // allow "more" link when too many events          
           dayClick: function(date, jsEvent, view, resourceObj) { // 클릭 이벤트 
-      	    alert('Date: ' + date.format());
-          	var link = "./makeMyschedule?date="+date.format();
-      	  	window.open(link, "Schedule", "width=400, height=400, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no");
-
-          //alert('Resource ID: ' + resourceObj.id);
-          // 일단 입력받아서 달력에 띄우고  ajax로 Db에 보낸다 ?
-      	    var newEvent = {
-      	    	title:'event@@', 	
-      	    	start: date.format(),
-      	    	allDay : true,
-      	    	stick : true
-      	    };
-	      	  $('#calendar').fullCalendar('renderEvent', newEvent);
+        	$('#start').val(date.format('YYYY-MM-DD'))
+  			$('#shour').val(date.format('HH'))
+  			$('#smin').val(date.format('mm'))
+  			$('#end').val(date.format('YYYY-MM-DD'))
+  			$('#ehour').val(date.format('HH'))
+  			$('#emin').val(date.format('mm'))
+  			$('#title').val("");
+        	$('#writeModal').modal('show');
+ 			// 자식창에서 값 받아서 캘린더 재시작하기 
       	  },
-      	  eventClick: function(event, element) { // 일정 클릭 이벤트 
-			// 새창을 띄워서 id 값으로 db에서 이벤트 상세 받아서 출력하기 
-      	    event.title = "CLICKED!";
-
-      	    $('#calendar').fullCalendar('updateEvent', event);
-
+      	  eventClick: function(event, element) { // 일정 클릭 이벤트
+      		$('#viewModalBody').text(calEvent.title);
+        	$('#id').val(calEvent.id);
+        	$('#eventDate').text(calEvent.start.format('YYYY년 MM월 DD일 HH:mm'));
+        	if( calEvent.end != null && (calEvent.start.format('YYYY년 MM월 DD일 HH:mm') != calEvent.end.format('YYYY년 MM월 DD일 HH:mm')) ){
+        		$('#eventDate').text($('#eventDate').text() + ' ~ ' + calEvent.end.format('YYYY년 MM월 DD일 HH:mm'));
+        	}
+        	$('#viewModal').modal('show')
+      	  	// 수정창에서 DB 수정/삭제시  캘린더 재시작하기 
       	  },
-          events: [ // 이벤트 띄우는 부분   이벤트를 ajax로 띄워서 가져온 후 출력하는 메소드를 사용할것인가?
-            {
-              title: 'All Day Event',
-              start: '2018-09-01'
-            },
-            {
-              title: 'Long Event',
-              start: '2018-09-07',
-              end: '2018-03-10'
-            },
-            {
-              id: 999,
-              title: 'Repeating Event',
-              start: '2018-03-09T16:00:00'
-            },
-            {
-              id: 999,
-              title: 'Repeating Event',
-              start: '2018-03-16T16:00:00'
-            },
-            {
-              title: 'Conference',
-              start: '2018-03-11',
-              end: '2018-03-13'
-            },
-            {
-              title: 'Meeting',
-              start: '2018-03-12T10:30:00',
-              end: '2018-03-12T12:30:00'
-            },
-            {
-              title: 'Lunch',
-              start: '2018-03-12T12:00:00'
-            },
-            {
-              title: 'Meeting',
-              start: '2018-03-12T14:30:00'
-            },
-            {
-              title: 'Happy Hour',
-              start: '2018-03-12T17:30:00'
-            },
-            {
-              title: 'Dinner',
-              start: '2018-03-12T20:00:00'
-            },
-            {
-              title: 'Birthday Party',
-              start: '2018-03-13T07:00:00'
-            },
-            {
-              title: 'Click for Google',
-              url: 'http://google.com/',
-              start: '2018-03-28'
-            }
-          ]
-          
+          events: function(start, end ,timezone, callback) {
+        	 
+        	  console.log(userid);
+        	  $.ajax({
+        	        method:'post',
+        	        url: 'getschedule',
+        	        data:{'userid':userid},
+        	        success: function(doc) {
+        	        	console.log(doc);
+        	          var events = [];
+        	          $.each(doc,function() {
+        	            events.push({
+        	              allDay: (($(this).attr('allDay')==true) ? false: true),
+        	              title: $(this).attr('title'),
+        	              start: $(this).attr('startDate'), // will be parsed
+        	              end:$(this).attr('endDate'),  // if end 날짜가  null이면 어캄?...?...
+        	              id : [$(this).attr('s_id')]      
+        	            });
+        	          });        
+        	          callback(events);      
+        	        }
+        	      });
+        	    }
         });
-        
-      },
-
-      change: function(themeSystem) {
-        $('#calendar').fullCalendar('option', 'themeSystem', themeSystem);
-      }
-
+        // 저장버튼 클릭이벤트 
+    $('#saveBtn').click(function(){
+    	var start = $('#start').val()
+		var end = $('#end').val();
+    	var schedule = {startDate: start, endDate: (end == start) ? null : end, title: $('#title').val(), allDay : $('#allDay').is(":checked")};
+    	  $.ajax({
+  	        method:'post',
+  	        url: 'saveMyschedule',
+  	        data: schedule,
+  	        success: function(doc) {
+  	        	console.log(doc);
+  	        }
+  	      });
+    	  
+    	  
+    	  $('#calendar').fullCalendar( 'refetchEvents' );
+    	  $('#writeModal').modal('hide'); // 마지막으로 모달 창 지우기 
     });
+        //수정버튼 클릭이벤트  해말어~~
+     
+        //삭제버튼 클릭 이벤트 
+        $('#deleteBtn').click(function(){
+		if(confirm("Do you really want to Delete?")){// 컨핌 창이 true 일 경우에만 들어옴!
+			var id = $('#id').val();
+			$('#calendar').fullCalendar( 'removeEvents' , $('#id').val());
+	    	  $.ajax({
+	    	        method:'post',
+	    	        url: 'deleteMyschedule',
+	    	        data: {'id':id},
+	    	        success: function(doc) {
+	    	        	console.log(doc);
+	    	        }
+	    	});
+	    	  $('#calendar').fullCalendar( 'refetchEvents' );
+	    	  $('#viewModal').modal('hide');
+		}
+        });
 
   });
+    
 
 </script>
 <style>
@@ -174,15 +140,146 @@ table,th,td{
 
 </style>
 <body>
-
+<input type="hidden" value="${sessionScope.loginId}" name="userid">
 <div id='calendar'></div>
+<!-- Event View Modal -->
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="viewModalLabel">
+        	<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <span id="eventDate"></span><br>
+        	<input type="hidden" id="id"/>
+        </h4>
+      </div>
+      <div class="modal-body" id="viewModalBody">
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-warning" id="deleteBtn">Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Event Write Modal -->
+<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-labelledby="writeModalLabel" style="padding: 0;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">
+        	Add Schedule
+        </h4>
+      </div>
+      <div class="modal-body">
+	    <label class="sr-only" for="title">title</label>
+	    <div class="input-group">
+	      <input type="text" class="form-control" id="title" placeholder="title">
+	    </div>
+	    <br>
+	    <div class="input-group">
+	      <input type="checkbox" id="allDay" value="allDay"><label for="allDay" style="vertical-align: middle">All DAY</label>
+	    </div>
+		<br>
+	    <div class="form-inline">
+		    <label class="sr-only" for="start">start</label>
+		    <div class="input-group">
+		      <input type="text" class="form-control" id="start" placeholder="start">
+		    </div>
+		    <label class="sr-only" for="shour">shour</label>
+		    <div class="input-group">
+		      <select id="shour" class="form-control">
+		      	<option value="00">00
+		      	<option value="01">01
+		      	<option value="02">02
+		      	<option value="03">03
+		      	<option value="04">04
+		      	<option value="05">05
+		      	<option value="06">06
+		      	<option value="07">07
+		      	<option value="08">08
+		      	<option value="09">09
+		      	<option value="10">10
+		      	<option value="11">11
+		      	<option value="12">12
+		      	<option value="13">13
+		      	<option value="14">14
+		      	<option value="15">15
+		      	<option value="16">16
+		      	<option value="17">17
+		      	<option value="18">18
+		      	<option value="19">19
+		      	<option value="20">20
+		      	<option value="21">21
+		      	<option value="22">22
+		      	<option value="23">23
+		      </select>
+		    </div>
+		    <label class="sr-only" for="smin">smin</label>
+		    <div class="input-group">
+		      <select id="smin" class="form-control">
+		      	<option value="00">00
+		      	<option value="15">15
+		      	<option value="30">30
+		      	<option value="45">45
+		      </select>
+		    </div>
+	    </div>
+	    <br>
+	    <div class="form-inline">
+		    <label class="sr-only" for="end">end</label>
+		    <div class="input-group">
+		      <input type="text" class="form-control" id="end" placeholder="end">
+		    </div>
+		    <label class="sr-only" for="ehour">ehour</label>
+	    	<div class="input-group">
+		      <select id="ehour" class="form-control">
+		      	<option value="00">00
+		      	<option value="01">01
+		      	<option value="02">02
+		      	<option value="03">03
+		      	<option value="04">04
+		      	<option value="05">05
+		      	<option value="06">06
+		      	<option value="07">07
+		      	<option value="08">08
+		      	<option value="09">09
+		      	<option value="10">10
+		      	<option value="11">11
+		      	<option value="12">12
+		      	<option value="13">13
+		      	<option value="14">14
+		      	<option value="15">15
+		      	<option value="16">16
+		      	<option value="17">17
+		      	<option value="18">18
+		      	<option value="19">19
+		      	<option value="20">20
+		      	<option value="21">21
+		      	<option value="22">22
+		      	<option value="23">23
+		      </select>
+		    </div>
+		    <label class="sr-only" for="emin">emin</label>
+		    <div class="input-group">
+		      <select id="emin" class="form-control">
+		      	<option value="00">00
+		      	<option value="15">15
+		      	<option value="30">30
+		      	<option value="45">45
+		      </select>
+		    </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-warning" id="saveBtn">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 </body>
-<script type="text/javascript">
-$(function() {
-
-	
-});
-
-</script>
 </html>

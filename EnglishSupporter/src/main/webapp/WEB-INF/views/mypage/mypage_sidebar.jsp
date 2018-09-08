@@ -1,5 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<style type="text/css">
+html,body{
+height: inherit;
+}
+.datecol{
+border: none;
+}
+.container{
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+}
+.side-menu {
+margin-top:0;
+position:absolute;
+float:left;
+  width: 280px;
+  height: 80%;
+  background-color: #f8f8f8;
+  border-right: 1px solid #e7e7e7;
+}
+.side-menu .navbar-nav li {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #e7e7e7;
+}
+.side-body {
+  margin-top: 20px;
+  margin-left: 300px;
+  height: 720px;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus{
+	background-color: #c7c7c7 ;
+}
+</style>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 	<div class="container">
 		<!-- uncomment code for absolute positioning tweek see top comment in css -->
@@ -30,7 +67,7 @@
 
 					<li><a href="#"><span class="glyphicon glyphicon-book"></span>
 							My Words</a></li>
-					<li><a href="myScheduler"><span class="glyphicon glyphicon-list-alt"></span>
+					<li><a href="goMyschedule"><span class="glyphicon glyphicon-list-alt"></span>
 							Scheduler</a></li>
 					<li><a href="goInfoUpdate"><span class="glyphicon glyphicon-wrench"></span>
 							Info Update</a></li>
@@ -44,4 +81,4 @@
 			<!-- /.navbar-collapse --> </nav>
 
 		</div>
-
+</div>

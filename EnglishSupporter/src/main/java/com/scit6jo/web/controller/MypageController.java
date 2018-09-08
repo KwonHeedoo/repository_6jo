@@ -22,30 +22,38 @@ public class MypageController {
 	MypageRepository repository;
 	
 	/* 스케쥴 관련  메소드 시작 */
+	//스케쥴러 페이지로 가기 
 	@RequestMapping(value = "/goMyschedule", method = RequestMethod.GET)
 	public String goMyschedule() {
 		System.out.println("going to PwdChange...");
 		
-		return "mypage/mySchedule";
+		return "mypage/scheduler";
 	}
 	
-	@RequestMapping(value = "/makeMyschedule", method = RequestMethod.GET)
-	public String makeMyschedule(String date, Model model) {
-		
-		model.addAttribute("date", date);
-		return "mypage/writeSchedule";
+	//새 스케쥴 생성창 
+	@RequestMapping(value = "/saveMyschedule", method = RequestMethod.POST)
+	public @ResponseBody String makeMyschedule(Schedule vo) {
+		System.out.println(vo);
+		int cnt = repository.saveSchedule(vo);
+		if(cnt>0) {
+			return "schedule saved";
+		}
+		return "schedule saving failed";
 	}
-	
-	@RequestMapping(value = "/reviseMyschedule", method = RequestMethod.GET)
-	public String reviseMyschedule(String date, Model model) {
-
-		model.addAttribute("date", date);
-		return "mypage/writeSchedule";
+	//스케쥴 상세보기창 
+	@RequestMapping(value = "/deleteMyschedule", method = RequestMethod.POST)
+	public @ResponseBody String deleteMyschedule(String id) {
+		System.out.println(id);
+		int cnt = repository.deleteSchedule(id);
+		if(cnt>0) {
+			return "schedule deleted";
+		}
+		return "schedule delete failed";
 	}
 	
 	@RequestMapping(value = "/getschedule", method = RequestMethod.POST)
-	public @ResponseBody List<Schedule> getSchedule() {
-		List<Schedule> result = repository.selectAllSchedule();
+	public @ResponseBody List<Schedule> getSchedule(String userid) {
+		List<Schedule> result = repository.selectAllSchedule(userid);
 		return result;
 	}
 	
