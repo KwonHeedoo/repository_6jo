@@ -70,6 +70,23 @@ public class WordController {
 		else			return 0;
 	}
 	
+	// 내단어장 삭제 요청 
+	@RequestMapping(value = "mywordDelete", method = RequestMethod.POST)
+	public @ResponseBody boolean mywordDelete(String myword_no, HttpSession session) {
+		System.out.println("mywordDelete...");
+		System.out.println(myword_no);
+		
+		String userid = (String) session.getAttribute("loginId");
+		Word word = new Word();
+		word.setUserid(userid);
+		word.setMyword_no(myword_no);
+		
+		
+		boolean result = repository.deleteMyWord(word);
+		
+		return result;
+	}
+	
 	@RequestMapping(value = "/getMyWords", method = RequestMethod.POST)
 	public @ResponseBody List<Word> getMyWords(@RequestParam(value="wordlevel", defaultValue="1")String wordlevel, HttpSession session) {
 		List<Word> wList=null;

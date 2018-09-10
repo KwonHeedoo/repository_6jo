@@ -51,7 +51,7 @@ float:left;
 						<th>Word</th>
 						<th>Meaning</th>
 						<th>Update</th>
-						<th>Remove</th>
+						<th>Delete</th>
 					</tr>
 					<c:forEach var="w" items="${wordlist}" varStatus="status">
 					<tr>
@@ -60,7 +60,7 @@ float:left;
 						<td><input type="text" name="word" value="${w.word}" readonly="true"></td>
 						<td><input type="text" name="mean" value="${w.meaningK}" readonly="true"></td>
 						<td><input id="update" type="button" value="UPDATE"></td>
-						<td><input id="remove" type="button" value="REMOVE"></td>
+						<td><input id="delete" type="button" value="DELETE"></td>
 					</tr>
 					</c:forEach>
 				</table>
@@ -71,16 +71,18 @@ float:left;
 <script type="text/javascript">
 $(function() {
 	
-	// UPDATE 버튼 누르면 SAVE 버튼으로 바뀌고 해당 word + meaning 이 수정가능한 상태로 바뀜
 	$('input[value="UPDATE"]').on('click',function(){
 		var type= $(this).val();
-		console.log(type);
+		
+		// UPDATE 버튼 누르면 SAVE 버튼으로 바뀌고 해당 word + meaning 이 수정가능한 상태로 바뀜
 		if(type=='UPDATE'){
 			console.log('in update');
 			$(this).val('SAVE');
 			var tr = $(this).parent().parent();
 			var ch = tr.children().children('input[type="text"]').attr('readonly',false);
 		}
+		
+		// SAVE 버튼 누르면 다시 UPDATE 버튼으로 바뀌고 해당 word + meaning 이 수정가능한 상태로 바뀜
 		if(type=='SAVE'){
 			console.log('in save');
 			$(this).val('UPDATE');
@@ -110,36 +112,29 @@ $(function() {
 			});
 		}
 		
-		//console.log(tr);
-		//console.log(ch);
 	});
 	
-	// SAVE 버튼 누르면 수정된 word + meaning 으로 업데이트 처리
-	$('input[value="SAVE"]').on('click',function(){
-		console.log('in save');
-		$(this).val('UPDATE');
+	// DELETE 버튼 누르면 해당 단어 삭제
+	$('#delete').on('click',function(){
+		console.log('in delete');
 		var tr = $(this).parent().parent();
 		var myword_no = tr.children().children('input[type="hidden"]').val();
-		var word = tr.children().children('input[name="word"]').val();
-		var mean = tr.children().children('input[name="mean"]').val();
-		var sendData = {"myword_no" : myword_no, "word" : word, "meaningK" : mean};
-		
+		console.log(myword_no);
 		$.ajax({
-			url : 'mywordUpdate'
+			url : 'mywordDelete'
 			, type : 'post'
-			, data : JSON.stringify(sendData)
-			, contentType : 'application/json;charset=UTF-8'
+			, data : {"myword_no" : myword_no}
 			, success : function(resp){
-				if(resp == 1){
-					alert("Update Completed.");
+				if(resp == true){
+					alert("Delete Completed.");
 					location.href = "${pageContext.request.contextPath}/goMyWords";
-				}else if(resp == 0){
-					alert("Update Failed.");
+				}else if(resp == false){
+					alert("Delete Failed.");
 					location.href = "${pageContext.request.contextPath}/goMyWords";
 				}
 			}
 			, error: function(resp){
-				alert("Update Error!");
+				alert("Delete Error!");
 			}
 		});
 	});

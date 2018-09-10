@@ -47,8 +47,8 @@
 	</update>
 	
 	<delete id="deleteMyWord" parameterType="Word">
-		delete from myword where word=#{word} and userid=#{userid}
-	
+		delete from myword 
+		where userid = #{userid} and myword_no = #{myword_no}
 	</delete>
 	
 	<!-- 예외 단어 리스트 요청 -->
