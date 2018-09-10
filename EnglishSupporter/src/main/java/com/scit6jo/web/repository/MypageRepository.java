@@ -41,11 +41,11 @@ public class MypageRepository {
 		return cnt;
 	}
 
-	public int deleteSchedule(String id) {
+	public int deleteSchedule(Schedule ss) {
 		MypageMapper mapper = session.getMapper(MypageMapper.class);
 		int cnt=0;
 		try {
-			cnt = mapper.removeSchedule(id);
+			cnt = mapper.removeSchedule(ss);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

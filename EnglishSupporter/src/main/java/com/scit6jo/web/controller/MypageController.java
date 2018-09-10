@@ -20,11 +20,16 @@ public class MypageController {
 	@Autowired
 	MypageRepository repository;
 	
+	@RequestMapping(value = "/goMypage", method = RequestMethod.GET)
+	public String goMypage() {
+		
+		return "mypage/myInfo";
+	}
+	
 	/* 스케쥴 관련  메소드 시작 */
 	//스케쥴러 페이지로 가기 
 	@RequestMapping(value = "/goMyschedule", method = RequestMethod.GET)
 	public String goMyschedule() {
-		System.out.println("going to PwdChange...");
 		
 		return "mypage/scheduler";
 	}
@@ -42,8 +47,11 @@ public class MypageController {
 	//스케쥴 상세보기창 
 	@RequestMapping(value = "/deleteMyschedule", method = RequestMethod.POST)
 	public @ResponseBody String deleteMyschedule(String id) {
+		System.out.println("delete schedule");
 		System.out.println(id);
-		int cnt = repository.deleteSchedule(id);
+		 Schedule ss= new Schedule();
+			ss.setS_id(id);
+		int cnt = repository.deleteSchedule(ss);
 		if(cnt>0) {
 			return "schedule deleted";
 		}
@@ -53,6 +61,8 @@ public class MypageController {
 	@RequestMapping(value = "/getschedule", method = RequestMethod.POST)
 	public @ResponseBody List<Schedule> getSchedule(String userid) {
 		List<Schedule> result = repository.selectAllSchedule(userid);
+		//System.out.println(result.size());
+		//System.out.println(result.get(0));
 		return result;
 	}
 	

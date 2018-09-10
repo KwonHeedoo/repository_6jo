@@ -7,7 +7,7 @@
 var today = new Date(); //오늘날짜 생성 
 	today = today.toISOString();
 	today = today.substring(0,10);
-var userid = $('input[name="userid"]').val();  
+var userid = '${sessionScope.loginId}';
 
 $(document).ready(function() {
 
@@ -35,11 +35,11 @@ $(document).ready(function() {
  			// 자식창에서 값 받아서 캘린더 재시작하기 
       	  },
       	  eventClick: function(event, element) { // 일정 클릭 이벤트
-      		$('#viewModalBody').text(calEvent.title);
-        	$('#id').val(calEvent.id);
-        	$('#eventDate').text(calEvent.start.format('YYYY년 MM월 DD일 HH:mm'));
-        	if( calEvent.end != null && (calEvent.start.format('YYYY년 MM월 DD일 HH:mm') != calEvent.end.format('YYYY년 MM월 DD일 HH:mm')) ){
-        		$('#eventDate').text($('#eventDate').text() + ' ~ ' + calEvent.end.format('YYYY년 MM월 DD일 HH:mm'));
+      		$('#viewModalBody').text(event.title);
+        	$('#id').val(event.id);
+        	$('#eventDate').text(event.start.format('YYYY년 MM월 DD일 HH:mm'));
+        	if( event.end != null && (event.start.format('YYYY년 MM월 DD일 HH:mm') != event.end.format('YYYY년 MM월 DD일 HH:mm')) ){
+        		$('#eventDate').text($('#eventDate').text() + ' ~ ' + event.end.format('YYYY년 MM월 DD일 HH:mm'));
         	}
         	$('#viewModal').modal('show')
       	  	// 수정창에서 DB 수정/삭제시  캘린더 재시작하기 
@@ -52,17 +52,25 @@ $(document).ready(function() {
         	        url: 'getschedule',
         	        data:{'userid':userid},
         	        success: function(doc) {
-        	        	console.log(doc);
+        	        	//console.log(doc);
         	          var events = [];
         	          $.each(doc,function() {
-        	            events.push({
-        	              allDay: (($(this).attr('allDay')==true) ? false: true),
-        	              title: $(this).attr('title'),
-        	              start: $(this).attr('startDate'), // will be parsed
-        	              end:$(this).attr('endDate'),  // if end 날짜가  null이면 어캄?...?...
-        	              id : [$(this).attr('s_id')]      
-        	            });
+        	        	var obj = {
+               	             title: $(this).attr('title'),
+            	             start: $(this).attr('startDate'), // will be parsed
+            	             end:$(this).attr('endDate'),  // if end 날짜가  null이면 어캄?...?...
+            	             id : $(this).attr('s_id')      
+            	            };
+        	        	console.log($(this).attr('allDay'));
+        	            if(($(this).attr('allDay'))=='true'){
+        	            	console.log('true일때드러옴..');
+	        	         	obj.allDay= true;
+        	            }
+        	            console.log('obj');
+        	            console.log(obj);
+        	        	events.push(obj);
         	          });        
+        	          console.log(events);
         	          callback(events);      
         	        }
         	      });
@@ -72,7 +80,18 @@ $(document).ready(function() {
     $('#saveBtn').click(function(){
     	var start = $('#start').val()
 		var end = $('#end').val();
-    	var schedule = {startDate: start, endDate: (end == start) ? null : end, title: $('#title').val(), allDay : $('#allDay').is(":checked")};
+    	var title = $('#title').val();
+    	if(title==""){
+    		alert('일정의 제목이 입력되지 않았습니다.');
+    		return;
+    	}
+		if(!$('#allDay').is(":checked")){
+			start += " " + $('#shour').val() + ":" + $('#smin').val();
+			end += " " + $('#ehour').val() + ":" + $('#emin').val();
+		}else{
+			end = moment($('#end').val()).add(1,'days').format('YYYY-MM-DD');
+		}
+    	var schedule = {'userid':userid,'startDate': start, 'endDate': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")};
     	  $.ajax({
   	        method:'post',
   	        url: 'saveMyschedule',
@@ -81,9 +100,8 @@ $(document).ready(function() {
   	        	console.log(doc);
   	        }
   	      });
-    	  
-    	  
     	  $('#calendar').fullCalendar( 'refetchEvents' );
+    	  $('#calendar').fullCalendar( '‘renderEvent’',schedule, true);
     	  $('#writeModal').modal('hide'); // 마지막으로 모달 창 지우기 
     });
         //수정버튼 클릭이벤트  해말어~~
@@ -101,7 +119,7 @@ $(document).ready(function() {
 	    	        	console.log(doc);
 	    	        }
 	    	});
-	    	  $('#calendar').fullCalendar( 'refetchEvents' );
+	    	 // $('#calendar').fullCalendar( 'refetchEvents' );
 	    	  $('#viewModal').modal('hide');
 		}
         });
@@ -140,7 +158,6 @@ table,th,td{
 
 </style>
 <body>
-<input type="hidden" value="${sessionScope.loginId}" name="userid">
 <div id='calendar'></div>
 <!-- Event View Modal -->
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel">

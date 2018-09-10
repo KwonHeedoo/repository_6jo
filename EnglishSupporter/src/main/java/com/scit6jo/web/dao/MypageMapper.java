@@ -10,5 +10,5 @@ public interface MypageMapper {
 	
 	public List<Schedule> getSchedule(String userid);
 	
-	public int removeSchedule(String id);
+	public int removeSchedule(Schedule vo);
 }

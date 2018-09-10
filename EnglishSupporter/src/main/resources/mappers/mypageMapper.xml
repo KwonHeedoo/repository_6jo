@@ -32,14 +32,19 @@
 	</insert>
 	
 	<select id="getSchedule" parameterType="String" resultType="Schedule">
-	SELECT title, allday, startdate, enddate, s_id
+	SELECT title, allday as allDay, startdate as startDate, enddate as endDate, s_id
 	from schedule
 	where userid = #{userid}
 	</select>
 	
-	<delete id="removeSchedule" parameterType="String">
+	<delete id="removeSchedule" parameterType="Schedule">
 	DELETE FROM schedule
-	where s_id =#{id}
+	<if test="s_id!=null">
+	where s_id =#{s_id}
+	</if>
+	<if test="title!=null AND userid!=null">
+	where title =#{title} and userid =#{userid}
+	</if>
 	</delete>
 	
 </mapper>

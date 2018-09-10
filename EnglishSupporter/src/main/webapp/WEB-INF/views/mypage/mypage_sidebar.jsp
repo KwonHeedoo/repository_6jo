@@ -58,14 +58,13 @@ float:left;
 						<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span> ${sessionScope.loginNick}'s My page </a>
 					</div>
 				</div>
-
 			</div>
 
 			<!-- Main Menu -->
 			<div class="side-menu-container">
 				<ul class="nav navbar-nav">
 
-					<li><a href="#"><span class="glyphicon glyphicon-book"></span>
+					<li><a href="goMyWords"><span class="glyphicon glyphicon-book"></span>
 							My Words</a></li>
 					<li><a href="goMyschedule"><span class="glyphicon glyphicon-list-alt"></span>
 							Scheduler</a></li>

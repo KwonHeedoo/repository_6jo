@@ -12,6 +12,14 @@ public class Schedule {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Schedule(String userid, String title, String allDay, String startDate) {
+		super();
+		this.userid = userid;
+		this.title = title;
+		this.allDay = allDay;
+		this.startDate = startDate;
+	}
 
 	public String getUserid() {
 		return userid;
