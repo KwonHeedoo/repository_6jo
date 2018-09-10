@@ -25,20 +25,21 @@ function output(resp){
 	var result = '';
 	
 	result += '<div id="container">';
-	result += '<table border="1" style="table-layout:fixed">';
+	result += '<table width="900">';
 	// 리스트 제목 부분
 	result += '<tr>';
-	result += '<th>Sender</th>';
-	result += '<th>Message</th>';
-	result += '<th>Regdate</th>';
-	result += '<th>Read</th>';
+	result += '<th style="width:15%;">SENDER</th>';
+	result += '<th style="width:60%;">MESSAGE</th>';
+	result += '<th style="width:15%;">REGDATE</th>';
+	result += '<th style="width:10%;">CHECK</th>';
 	result += '</tr>';
-	
+	var ss
+	$('#dd')
 	// 리스트 내용 부분
 	$.each(messageList, function(index, item){
 		result += '<tr>';
 		result += '<td>' + item.nickname + '</td>';
-		result += '<td><a href="#">' + item.message + '</a></td>';
+		result += '<td><a onclick="read(' + item.messageNum + ', \'' + item.nickname + '\', \'' + item.message + '\')">' + item.message + '</a></td>';
 		result += '<td>' + item.regdate + '</td>';
 		if(item.status === 0){
 			result += '<td>unread</td>';
@@ -52,7 +53,63 @@ function output(resp){
 	
 	$('#messageList').html(result);
 }
+
+function read(messageNum, nickname, message){
+	
+	var form = document.createElement('form');
+	form.setAttribute('method', 'post');
+	form.setAttribute('action', 'goReceiveMsgBox');
+	form.setAttribute('target', 'ReceiveMsgBox');
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'messageNum';
+	input.value = messageNum;
+	form.appendChild(input);
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'nickname';
+	input.value = nickname;
+	form.appendChild(input);
+
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'message';
+	input.value = message;
+	form.appendChild(input);
+	
+	document.body.appendChild(form);
+	
+	window.open('', 'ReceiveMsgBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	
+	form.submit();
+	
+	document.body.removeChild(form);
+}
 </script>
+<style type="text/css">
+table, td, th{
+border: 1px solid #bcbcbc;
+font-size: 20px;
+}
+td{
+text-overflow:ellipsis; 
+overflow:hidden;
+white-space:nowrap;
+}
+th{
+color: #FFFFFF;
+background-color: #373737;
+text-align: center;
+}
+table{
+text-align:center;
+table-layout: fixed;
+width: 1000px;
+height: 200px;
+}
+</style>
 <title>Message List</title>
 </head>
 <body>
