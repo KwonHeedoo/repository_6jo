@@ -1,6 +1,8 @@
 package com.scit6jo.web.admin.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,43 +24,46 @@ public class MessageController {
 	
 	// 관리자 페이지 요청
 	@RequestMapping(value = "/goAdminPage", method = RequestMethod.GET)
-	public String goAdminPage(HttpSession session){
+	public String goAdminPage(){
 		System.out.println("Going to Administrator Page...");
-		String userid = (String)session.getAttribute("loginId");
-		
-		// 읽지 않은 쪽지 요청
-		ArrayList<Message> messageList = repository.unReadMsg(userid);
-		session.setAttribute("messageList", messageList);
-		session.setAttribute("msgCount", messageList.size());
 		
 		return "redirect:/goDashboard";
 	}
 	
 	// 유저 페이지 요청
 	@RequestMapping(value = "/goUserPage", method = RequestMethod.GET)
-	public String goUserPage(HttpSession session){
+	public String goUserPage(){
 		System.out.println("Going to User Page...");
-		
-		// 세션에 담긴 메세지 리스트 삭제
-		session.removeAttribute("messageList");
-		session.removeAttribute("msgCount");
 		
 		return "redirect:/";
 	}
 	
+	// 읽지 않은 쪽지 요청
+	@RequestMapping(value = "/msgList", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> msgList(String userid){
+		Map<String, Object> map = new HashMap<>();
+		ArrayList<Message> messageList = repository.unReadMsg(userid);
+		map.put("messageList", messageList);
+		map.put("msgCount", messageList.size());
+		
+		return map;
+	}
+	
 	// 쪽지 창 열기(보내기)
 	@RequestMapping(value = "/goSendMsgBox", method = RequestMethod.GET)
-	public String goMessageBox(){
+	public String goMessageBox(Model model, String receiveId){
+		model.addAttribute("receiveId", receiveId);
 		System.out.println("Open the Send Message Box...");
 		return "admin/sendMsgBox";
 	}
 	
 	// 쪽지 창 열기(읽기)
 	@RequestMapping(value = "/goReceiveMsgBox", method = RequestMethod.POST)
-	public String goReceiveMsgBox(Model model, int messageNum, String nickname, String message){
+	public String goReceiveMsgBox(Model model, int messageNum, String userid, String nickname, String message){
 		int result = repository.readMsg(messageNum);
 		
 		if(result == 1) {
+			model.addAttribute("receiveId", userid);
 			model.addAttribute("nickname", nickname);
 			model.addAttribute("message", message);
 			

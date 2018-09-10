@@ -136,7 +136,6 @@ function output(resp){
 			}
 			commentResult += '</button>';
 		}
-		
 		if(item.parentId == null && item.nickname != '*****'){
 			commentResult += '<span style="float:right"><button id ="report' + item.commentNum + '" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
 			$(function(){

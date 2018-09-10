@@ -173,11 +173,6 @@ function panel(countList){
 		resultDiv += '</div>';// row
 		resultDiv += '</div>';// panel-heading
 		resultDiv += '<a href="#">';
-		/* resultDiv += '<div class="panel-footer">';
-		resultDiv += '<span class="pull-left">View Details</span>';
-		resultDiv += '<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>';
-		resultDiv += '<div class="clearfix"></div>';
-		resultDiv += '</div>'; */// panel-footer
 		resultDiv += '</a>';
 		resultDiv += '</div>';// panel panel-primary
 		resultDiv += '</div>';// col-lg-3 col-md-6

@@ -48,6 +48,8 @@
 			<include refid="basicCols"/>
 		from
 			report	
+		order by
+			reportnum desc
 	</select>
 	
 	<!-- 신고 수리 처리 -->

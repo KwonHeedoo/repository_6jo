@@ -36,25 +36,35 @@ function output(resp){
 	var ss
 	$('#dd')
 	// 리스트 내용 부분
-	$.each(messageList, function(index, item){
-		result += '<tr>';
-		result += '<td>' + item.nickname + '</td>';
-		result += '<td><a onclick="read(' + item.messageNum + ', \'' + item.nickname + '\', \'' + item.message + '\')">' + item.message + '</a></td>';
-		result += '<td>' + item.regdate + '</td>';
-		if(item.status === 0){
-			result += '<td>unread</td>';
-		}else{
-			result += '<td>read</td>';
-		}
-		result += '</tr>';
-	});
+	if(messageList){
+		$.each(messageList, function(index, item){
+			result += '<tr>';
+			result += '<td>' + item.nickname + '</td>';
+			result += '<td><a id="msg' + item.messageNum + '" ><b>' + item.message + '</b></a></td>';
+			result += '<td>' + item.regdate + '</td>';
+			if(item.status === 0){
+				result += '<td>unread</td>';
+			}else{
+				result += '<td>read</td>';
+			}
+			result += '</tr>';
+		});
+	}
 	result += '</table>';
 	result += '</div>';
 	
 	$('#messageList').html(result);
+	
+	if(messageList){
+		$.each(messageList, function(index, item){
+			$('#msg' + item.messageNum).on('click', function(){
+				read(item.messageNum, item.userid, item.nickname, item.message);
+			});
+		});
+	}
 }
 
-function read(messageNum, nickname, message){
+function read(messageNum, userid, nickname, message){
 	
 	var form = document.createElement('form');
 	form.setAttribute('method', 'post');
@@ -65,6 +75,12 @@ function read(messageNum, nickname, message){
 	input.type = 'hidden';
 	input.name = 'messageNum';
 	input.value = messageNum;
+	form.appendChild(input);
+
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'userid';
+	input.value = userid;
 	form.appendChild(input);
 	
 	input = document.createElement('input');
@@ -86,6 +102,8 @@ function read(messageNum, nickname, message){
 	form.submit();
 	
 	document.body.removeChild(form);
+	
+	messageList();
 }
 </script>
 <style type="text/css">

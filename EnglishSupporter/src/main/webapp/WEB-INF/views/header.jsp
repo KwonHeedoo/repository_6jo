@@ -11,7 +11,7 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 function message(){
-	window.open('./goSendMsgBox', 'SendMsgBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	window.open('./goSendMsgBox?receiveId=admin', 'SendMsgBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 }
 </script>
 </head>

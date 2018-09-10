@@ -53,7 +53,12 @@ function output(resp){
 			result += '<td>' + item.reporter + '</td>';
 			result += '<td>' + item.reportee + '</td>';
 			result += '<td>' + item.regdate + '</td>';
-			result += '<td><button onclick="reportBox(\'' + item.report + '\', \'' + item.reason + '\', \'' + item.reportURL + '\')">Check</button></td>';
+			result += '<td><button id="report' + item.reportNum + '">Check</button></td>';
+			$(function(){
+				$('#report' + item.reportNum).on('click',function(){
+					reportBox(item.report, item.reason, item.reportURL);
+				});
+			});
 			if(item.status == 0){
 				result += '<td><button class="accept" onclick="accept(' + item.reportNum + ', \'' + item.reportee + '\')">Accept</button></td>';
 			}else{
