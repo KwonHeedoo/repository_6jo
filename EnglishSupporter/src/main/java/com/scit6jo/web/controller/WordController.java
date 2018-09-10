@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.scit6jo.web.repository.WordRepository;
 import com.scit6jo.web.vo.Word;
 
+import com.scit6jo.web.util.PageNavigator;
+
+
 @Controller
 public class WordController {
 	
 	@Autowired
 	WordRepository repository;
 	
-	/*@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		
-		return "home";
-	}*/
+	final int countPerPage=20;
+	final int pagePerGroup=5;
 	
 	@RequestMapping(value = "/goWordtest", method = RequestMethod.GET)
 	public String goWordtest() {
@@ -40,7 +41,31 @@ public class WordController {
 		return "word/insertNewWord";
 	}
 	
-	// 내단어장 화면 요청 
+	// 관리자페이지 wordManager 화면 요청
+	@RequestMapping(value = "/goWordManager", method = RequestMethod.GET)
+	public String goWordManager(Model model, @RequestParam(value="page", defaultValue="1")int page, 
+			@RequestParam(value="wordlevel", defaultValue="1")String wordlevel) {
+		
+		System.out.println("going to WordManager...");
+		
+		int total = repository.getTotal();
+		
+		// 페이지 계산을 위한 객체 생성
+		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total);
+		
+		// 검색어와 시작 위치, 페이지당 글 수를 전달하여 목록
+		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
+		
+		// 모든 단어 불러오기
+		List<Word> wordlist = repository.selectAll(rb, wordlevel);
+		
+		model.addAttribute("wordlist", wordlist);
+		model.addAttribute("navi", navi);
+		
+		return "admin/wordManager";
+	}
+	
+	// 마이페이지 myWords 화면 요청 
 	@RequestMapping(value = "/goMyWords", method = RequestMethod.GET)
 	public String goMyWords(HttpSession session, Model model) {
 		System.out.println("going to MyWords...");
@@ -54,7 +79,7 @@ public class WordController {
 		return "mypage/myWords";
 	}
 
-	// 내단어장 업데이트 요청 
+	// 마이페이지 myWords 업데이트 요청 
 	@RequestMapping(value = "mywordUpdate", method = RequestMethod.POST)
 	public @ResponseBody Integer mywordUpdate(@RequestBody Word word, HttpSession session) {
 		System.out.println("mywordUpdate...");
@@ -70,7 +95,7 @@ public class WordController {
 		else			return 0;
 	}
 	
-	// 내단어장 삭제 요청 
+	// 마이페이지 myWords 삭제 요청 
 	@RequestMapping(value = "mywordDelete", method = RequestMethod.POST)
 	public @ResponseBody boolean mywordDelete(String myword_no, HttpSession session) {
 		System.out.println("mywordDelete...");
@@ -127,8 +152,5 @@ public class WordController {
 		}
 		return result;
 	}
-	
-	
-	
 	
 }

@@ -5,6 +5,19 @@
 
 <mapper namespace="com.scit6jo.web.dao.WordMapper">
 	
+	<!-- 전체 단어 개수 -->
+	<select id="getTotal" resultType="int">
+		select count(*) from word
+	</select>
+	
+	<!-- 전체 단어 불러오기 -->
+	<select id="selectAll" resultType="Word" parameterType="String">
+		select word, wordnum, meaningk, wordlevel
+		from word
+		where wordlevel=#{wordlevel}
+		order by wordnum
+	</select>
+	
 	<select id="selectAllWord" resultType="Word" parameterType="map">
 		select w.word, w.wordnum, w.meaningk, w.meaningj, w.wordlevel, m.wordtype 
 		from word w 
