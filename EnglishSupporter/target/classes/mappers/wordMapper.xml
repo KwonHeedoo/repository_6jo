@@ -31,12 +31,14 @@
 			,meaningK
 			,meaningJ
 			,wordtype
+			,myword_no
 		)values(
 			#{userid}
 			,#{word}
 			,#{meaningK}
 			,#{meaningJ}
 			,#{wordtype}
+			,myword_seq.NEXTVAL
 		)
 	</insert>
 	

@@ -19,7 +19,9 @@ $(document).ready(function() {
             right: 'month,agendaWeek,agendaDay,listMonth'
           },
           defaultDate: today,
+          height: 680,
           weekNumbers: true,
+          weekNumberTitle : 'weeks',
           navLinks: true, // can click day/week names to navigate views
           editable: true,
           eventLimit: true, // allow "more" link when too many events          
@@ -151,13 +153,15 @@ table,th,td{
   .clear { clear: both }
 
   #calendar {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 40px auto;
     padding: 0 10px;
+    height: 90%;
   }
 
 </style>
 <body>
+<!-- 캘린더가 들어갈 div -->
 <div id='calendar'></div>
 <!-- Event View Modal -->
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel">

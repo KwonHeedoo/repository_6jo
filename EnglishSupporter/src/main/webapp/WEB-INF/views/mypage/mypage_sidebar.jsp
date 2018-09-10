@@ -30,8 +30,9 @@ float:left;
 .side-body {
   margin-top: 20px;
   margin-left: 300px;
-  height: 720px;
-}
+  margin-bottom: 50px;
+  height: 750px;
+ }
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus{
 	background-color: #c7c7c7 ;
@@ -72,7 +73,7 @@ float:left;
 							Info Update</a></li>
 					<li><a href="goPwdChange"><span class="glyphicon glyphicon-lock"></span>
 							Password Change</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-remove"></span>
+					<li><a href="goUnregister"><span class="glyphicon glyphicon-remove"></span>
 							Withdrawal</a></li>
 
 				</ul>

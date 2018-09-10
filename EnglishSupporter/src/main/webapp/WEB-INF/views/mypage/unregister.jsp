@@ -64,6 +64,7 @@ height: 40%;
 <script src="resources/jquery-3.3.1.min.js"></script>
 <script>
 $(function(){
+	
 	$('#unregister').on('click', function(){
 		
 		var userid = $('#userid').val();
