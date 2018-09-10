@@ -46,7 +46,7 @@
 	<table border="1">
 		<!-- 게시판 제목부분 -->
 		<tr>	
-			<th colspan="6" class="name this">${user.username}</th>
+			<th colspan="6" class="name this">${resume.username}</th>
 		</tr>
 		<tr>
 		<td class="textcenter">

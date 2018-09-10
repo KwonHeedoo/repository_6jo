@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 .container{
-	height: 60%;
+	height: 740px;
 	background-image: url('./resources/images/bible-book-christian-250609.jpg');
 	background-size: 100%;
 	background-repeat: no-repeat;

@@ -105,6 +105,13 @@ color: white;
 <body>
 
 <%@ include file="/WEB-INF/views/header.jsp"%>
+<<<<<<< HEAD
+<div id = "local-videos-container">
+</div>
+<div id = "remote-videos-container">
+</div>
+<p> 123 </p>
+=======
 <div class="container">
 	<div class="raw">
 		<div class="col-md-12">
@@ -129,6 +136,7 @@ color: white;
 	</div>
 </div>
 
+>>>>>>> 41f7f62b044dca81d05a19f60b11fd7d5e607eaa
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
    </body>
 </html>

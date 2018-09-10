@@ -21,6 +21,7 @@
 		<typeAlias type="com.scit6jo.web.vo.resume.CoverLetter" alias="CoverLetter"/>
 		<typeAlias type="com.scit6jo.web.vo.Board" alias="Board" />
 		<typeAlias type="com.scit6jo.web.vo.Comment" alias="Comment" />
+		<typeAlias type="com.scit6jo.web.vo.Schedule" alias="Schedule" />
 		<typeAlias type="com.scit6jo.web.admin.vo.Report" alias="Report" />
 		<typeAlias type="com.scit6jo.web.admin.vo.GraphData" alias="GraphData" />
 		<typeAlias type="com.scit6jo.web.admin.vo.Message" alias="Message" />

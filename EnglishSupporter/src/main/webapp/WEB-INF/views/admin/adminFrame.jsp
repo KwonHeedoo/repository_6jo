@@ -19,7 +19,40 @@
 <meta charset="UTF-8">
 
 <script type="text/javascript">
-window.onload=function(){if(window.jQuery){$(document).ready(function(){$(".sidebarNavigation .navbar-collapse").hide().clone().appendTo("body").removeAttr("class").addClass("sideMenu").show();$("body").append("<div class='overlay'></div>");$(".navbar-toggle, .navbar-toggler").on("click",function(){$(".sideMenu").addClass($(".sidebarNavigation").attr("data-sidebarClass"));$(".sideMenu, .overlay").toggleClass("open");$(".overlay").on("click",function(){$(this).removeClass("open");$(".sideMenu").removeClass("open")})});$("body").on("click",".sideMenu.open .nav-item",function(){if(!$(this).hasClass("dropdown")){$(".sideMenu, .overlay").toggleClass("open")}});$(window).resize(function(){if($(".navbar-toggler").is(":hidden")){$(".sideMenu, .overlay").hide()}else{$(".sideMenu, .overlay").show()}})})}else{console.log("sidebarNavigation Requires jQuery")}}
+window.onload=function(){if(window.jQuery){$(document).ready(function(){$(".sidebarNavigation .navbar-collapse").hide().clone().appendTo("body").removeAttr("class").addClass("sideMenu").show();$("body").append("<div class='overlay'></div>");$(".navbar-toggle, .navbar-toggler").on("click",function(){$(".sideMenu").addClass($(".sidebarNavigation").attr("data-sidebarClass"));$(".sideMenu, .overlay").toggleClass("open");$(".overlay").on("click",function(){$(this).removeClass("open");$(".sideMenu").removeClass("open")})});$("body").on("click",".sideMenu.open .nav-item",function(){if(!$(this).hasClass("dropdown")){$(".sideMenu, .overlay").toggleClass("open")}});$(window).resize(function(){if($(".navbar-toggler").is(":hidden")){$(".sideMenu, .overlay").hide()}else{$(".sideMenu, .overlay").show()}})})}else{console.log("sidebarNavigation Requires jQuery")}};
+
+function read(messageNum, nickname, message){
+	var form = document.createElement('form');
+	form.setAttribute('method', 'post');
+	form.setAttribute('action', 'goReceiveMsgBox');
+	form.setAttribute('target', 'ReceiveMsgBox');
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'messageNum';
+	input.value = messageNum;
+	form.appendChild(input);
+	
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'nickname';
+	input.value = nickname;
+	form.appendChild(input);
+
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'message';
+	input.value = message;
+	form.appendChild(input);
+	
+	document.body.appendChild(form);
+	
+	window.open('', 'ReceiveMsgBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	
+	form.submit();
+	
+	document.body.removeChild(form);
+}
 </script>
 
 <style>
@@ -40,19 +73,28 @@ nav {height:50px;}
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <input id="msgList" type="hidden" value="${messageList}">
             <ul class="nav navbar-nav nav-flex-icons ml-auto" style="padding-left:88%;">
-                
                 <li class="nav-item dropdown" style="padding-right:8px;">
-                    <a class="nav-link dropdown-toggle alarm" href="./goMessageList" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+                    <a class="nav-link dropdown-toggle alarm" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false" style="position:relative;"><i class="fa fa-comments fa-lg"><c:if test="${msgCount != 0}"><span class="nav-counter">${msgCount}</span></c:if></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
                     <c:if test="${not empty messageList}">
 	                    <c:forEach var="message" items="${messageList}">
-	                    	<div class="dropdown-item" style="width:280px;">
+	                    	<input id="message${message.messageNum}" type="hidden" value="${message.message}">
+	                    	<div class="dropdown-item" id="msg${message.messageNum}" style="width:280px;">
 	                    		<div style="float:left; width:50%;"><b>${message.userid}</b></div>
-	                    		<div style="float:right; width:50%">${message.regdate}</div><br/>
+	                    		<div style="float:right; width:50%;">${message.regdate}</div><br/>
 	                    		<div class="msg">${message.message}</div>
 	                    	</div>
+	                    	<script type="text/javascript">
+	                    		var messageNum = '${message.messageNum}';
+								$('#msg'+messageNum).on('click',function(){
+									var nickname = '${message.nickname}';
+									var message = $('#message' + messageNum).val();
+									read(messageNum, nickname, message);
+								});
+							</script>
 	                    	<div class="divider"></div>
 	                    </c:forEach>
 	                    	<a class="dropdown-item" href="./goMessageList" style="width:280px;"><nobr><b>Read All Message ></b></nobr></a>

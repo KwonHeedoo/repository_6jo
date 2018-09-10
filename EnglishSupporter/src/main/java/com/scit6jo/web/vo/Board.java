@@ -11,6 +11,8 @@ public class Board {
 	private String matchingId;
 	private String appointedTime;
 	private String roomNum;
+	private int datanum;
+	
 	private String originalfile;
 	private String savedfile;
 	
@@ -45,7 +47,7 @@ public class Board {
 	}
 
 	public Board(int boardNum, String userid, String title, String contents, int hitcount, String regdate, int status,
-			String originalfile, String savedfile) {
+			int datanum) {
 		super();
 		this.boardNum = boardNum;
 		this.userid = userid;
@@ -54,8 +56,7 @@ public class Board {
 		this.hitcount = hitcount;
 		this.regdate = regdate;
 		this.status = status;
-		this.originalfile = originalfile;
-		this.savedfile = savedfile;
+		this.datanum = datanum;
 	}
 
 	public int getBoardNum() {
@@ -122,6 +123,13 @@ public class Board {
 		this.matchingId = matchingId;
 	}
 
+	
+	public int getDatanum() {
+		return datanum;
+	}
+	public void setDatanum(int datanum) {
+		this.datanum = datanum;
+	}
 	public String getAppointedTime() {
 		return appointedTime;
 	}
@@ -138,28 +146,14 @@ public class Board {
 		this.roomNum = roomNum;
 	}
 
-	public String getOriginalfile() {
-		return originalfile;
-	}
-
-	public void setOriginalfile(String originalfile) {
-		this.originalfile = originalfile;
-	}
-
-	public String getSavedfile() {
-		return savedfile;
-	}
-
-	public void setSavedfile(String savedfile) {
-		this.savedfile = savedfile;
-	}
-
 	@Override
 	public String toString() {
 		return "Board [boardNum=" + boardNum + ", userid=" + userid + ", title=" + title + ", contents=" + contents
 				+ ", hitcount=" + hitcount + ", regdate=" + regdate + ", status=" + status + ", matchingId="
-				+ matchingId + ", appointedTime=" + appointedTime + ", roomNum=" + roomNum + ", originalfile="
-				+ originalfile + ", savedfile=" + savedfile + "]";
+				+ matchingId + ", appointedTime=" + appointedTime + ", roomNum=" + roomNum + ", datanum=" + datanum
+				+ ", originalfile=" + originalfile + ", savedfile=" + savedfile + "]";
 	}
+
+	
 
 }

@@ -11,7 +11,7 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 function message(){
-	window.open('./goMessageBox', 'MessageBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	window.open('./goSendMsgBox', 'SendMsgBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 }
 </script>
 </head>
@@ -75,7 +75,8 @@ function message(){
         <li id="interview"><a class="drop" href="#">Interview</a>
           <ul>
             <li><a href="./goInterview">Mock Interview</a></li>
-            <li><a href="./goMatching">Interview Appraise</a></li>
+            <!-- <li><a href="./goBoardList?boardType=appraise">Interview Appraise</a></li> -->
+            <li><a href="./goBoardList?boardType=appraise">Interview Appraise</a></li>
             <li><a href="./goBoardList?boardType=matching">1:1 Video Chat</a></li>
           </ul>
         </li>
