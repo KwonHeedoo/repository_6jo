@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,11 +46,25 @@ public class MessageController {
 		return "redirect:/";
 	}
 	
-	// 쪽지 창 열기
-	@RequestMapping(value = "/goMessageBox", method = RequestMethod.GET)
+	// 쪽지 창 열기(보내기)
+	@RequestMapping(value = "/goSendMsgBox", method = RequestMethod.GET)
 	public String goMessageBox(){
-		System.out.println("Open the Message Box...");
-		return "admin/messageBox";
+		System.out.println("Open the Send Message Box...");
+		return "admin/sendMsgBox";
+	}
+	
+	// 쪽지 창 열기(읽기)
+	@RequestMapping(value = "/goReceiveMsgBox", method = RequestMethod.POST)
+	public String goReceiveMsgBox(Model model, int messageNum, String nickname, String message){
+		int result = repository.readMsg(messageNum);
+		
+		if(result == 1) {
+			model.addAttribute("nickname", nickname);
+			model.addAttribute("message", message);
+			
+			System.out.println("Open the Receive Message Box...");
+		}
+		return "admin/receiveMsgBox";
 	}
 	
 	// 쪽지 보내기

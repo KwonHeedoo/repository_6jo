@@ -99,6 +99,9 @@ public class CommentController {
 	// 1:1 화상 채팅 매칭 처리
 	@RequestMapping(value = "/matching", method = RequestMethod.POST)
 	public @ResponseBody int matching(Board board, String boardType, Comment comment){
+		// 스케줄 처리
+		
+		// 매칭 처리
 		Map<String, Object> map = new HashMap<>();
 		map.put("board", board);
 		map.put("boardType", boardType);
@@ -115,6 +118,11 @@ public class CommentController {
 	// 1:1 화상 채팅 매칭 취소
 	@RequestMapping(value = "/unmatching", method = RequestMethod.POST)
 	public @ResponseBody int unmatching(Board board, String boardType, Comment comment){
+		// 스케줄 처리
+		
+		//매칭 취소 처리
+		board.setMatchingId(null);
+		comment.setMatchingId(null);
 		Map<String, Object> map = new HashMap<>();
 		map.put("board", board);
 		map.put("boardType", boardType);
