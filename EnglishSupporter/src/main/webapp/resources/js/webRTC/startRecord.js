@@ -141,13 +141,8 @@ function stopRecording() {
 }
 
 function uploadVideo(){
-<<<<<<< HEAD
-	const blob = new Blob(recordedBlobs, {type: 'video/webm;codecs=vp9'});
-	  var file = new File([blob], "test.webm", { type: "video/webm;codecs=vp9", lastModified: Date.now()});
-=======
 	const blob = new Blob(recordedBlobs, {type: 'video/webm; codecs="vp9"'});
 	  var file = new File([blob], "test.webm", { type: 'video/webm; codecs="vp9"', lastModified: Date.now()});
->>>>>>> 41f7f62b044dca81d05a19f60b11fd7d5e607eaa
 	  var data;
 	  data = new FormData();
 	  data.append('file', file);

@@ -56,6 +56,8 @@ public class InterviewController {
 	@RequestMapping(value = "/goInterview", method = RequestMethod.GET)
 	public String interview(HttpSession session, Model model) {
 		session.setAttribute("loginId", "aaa");
+		session.setAttribute("loginNick", "aaa");
+		session.setAttribute("loginType", "user");
 		return "interview/interviewPractice";
 	}
 	

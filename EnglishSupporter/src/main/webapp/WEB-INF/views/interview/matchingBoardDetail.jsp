@@ -81,6 +81,7 @@ function output(resp){
 	var parentGroup = 0;
 	var matchingCount = 0;
 	
+	
 	$.each(commentList, function(index, item){
 		if(item.matchingId != null){
 			matchingCount++;

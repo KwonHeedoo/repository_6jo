@@ -43,3 +43,18 @@ insert into interview_question(questionnum, question) values(inter_question_seq.
 insert into interview_question(questionnum, question) values(inter_question_seq.nextval,'Do you have any questions?');
 
 commit;
+
+create table appraise_comment(
+commentnum number primary key	
+, userid varchar2(20) not null 
+, nickname varchar2(50) not null	
+, boardnum number not null	
+, comments varchar2(500) not null	
+, regdate date default sysdate	
+, parentid varchar2(20)		
+, parentnick varchar2(50)	
+, groupnum number not null	
+, pronunciation number default 0
+, posture number default 0
+, content number default 0
+);
