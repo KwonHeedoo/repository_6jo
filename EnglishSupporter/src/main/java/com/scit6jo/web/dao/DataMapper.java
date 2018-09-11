@@ -13,6 +13,6 @@ public interface DataMapper {
 	public int updateConfidence(IData iData);
 	public ArrayList<IQuestion> selectAllQuestion();
 	public IData selectOneIData(int dataNum);
-	public ArrayList<IData> selectAlIData(String userid);
+	public ArrayList<IData> selectAllIData(String userid);
 }
 

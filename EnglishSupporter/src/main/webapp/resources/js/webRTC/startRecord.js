@@ -56,7 +56,7 @@ playButton.addEventListener('click', () => {
 	}
 */	const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
 	recordedVideo.src = window.URL.createObjectURL(superBuffer);
-	recordedVido.load();
+	recordedVideo.load();
   // workaround for non-seekable video taken from
   // https://bugs.chromium.org/p/chromium/issues/detail?id=642012#c23
   recordedVideo.addEventListener('loadedmetadata', () => {
@@ -157,6 +157,8 @@ function uploadVideo(){
 	      type: 'POST',
 	      enctype: 'multipart/form-data',
 	      success: function (data) {
+	    	  document.getElementById("datanum").value = data;
+	    	  console.log(document.getElementById("datanum").value);
 	    	  download.href = "getdata?dataNum="+data;
 	      },
 	  		error: function(){

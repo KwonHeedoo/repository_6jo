@@ -9,6 +9,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="resources/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+function mRoomList(){
+	var form = document.createElement('form');
+	form.setAttribute('method', 'get');
+	form.setAttribute('action', 'goMRoomList');
+	form.setAttribute('target', 'mRoom');
+	
+	document.body.appendChild(form);
+	
+	window.open('', 'mRoom', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	
+	form.submit();
+	
+	document.body.removeChild(form);
+
+}
+function goMatching(roomid){
+	location.href = "./goMatching?roomid=" + roomid;
+}
+</script>
 </head>
 <div class="wrapper row0">
   <div id="topbar" class="hoc clear"> 
@@ -72,6 +92,7 @@
             <!-- <li><a href="./goBoardList?boardType=appraise">Interview Appraise</a></li> -->
             <li><a href="./goBoardList?boardType=appraise">Interview Appraise</a></li>
             <li><a href="./goBoardList?boardType=matching">1:1 Video Chat</a></li>
+            <li><a href="javascript:void(0);" onclick="mRoomList();">1:1 RoomList</a></li>
           </ul>
         </li>
 <!--         <li><a class="drop" href="#">MyPage</a>

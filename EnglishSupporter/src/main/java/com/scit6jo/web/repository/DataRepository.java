@@ -85,12 +85,12 @@ public class DataRepository {
 		}
 		return result;
 	}
-	public ArrayList<IData> selectAlIData(String userid) {
+	public ArrayList<IData> selectAllIData(String userid) {
 		DataMapper mapper = session.getMapper(DataMapper.class);
 
 		ArrayList<IData> result = null;
 		try {
-			result = mapper.selectAlIData(userid);
+			result = mapper.selectAllIData(userid);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

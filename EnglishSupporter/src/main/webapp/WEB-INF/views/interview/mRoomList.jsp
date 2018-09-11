@@ -16,54 +16,39 @@ body {
     font-weight: normal;
     line-height: 20px;
 }
-.todo-list { border-top: 1px solid #e6ebed }
 
-.todo-list:before {
-    content: '';
-    width: 3px;
-    z-index: 2;
-    border: 1px solid #f2e3df;
-    border-width: 0 1px;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 35px;
-}
-
-.todo-list li {
-    position: relative;
-    padding: 7px 15px 7px 50px;
-    line-height: 21px;
-    font-size: 12px;
-    color: #8b8f97;
-    border-bottom: 1px solid #e6ebed;
-}
 
 </style>
 </head>
 <body>
-<div class="container">
-	<div align="center"><h3>Question List</h3></div>
- <ul class="todo-list">
- </ul>
+	<div align="center"><h3>Room List</h3></div>
+ <table class="todo-list">
 
-</div>
+  </table>
 </body>
 <script type="text/javascript">
+function callPfunction(roomid){
+	window.opener.goMatching(roomid);
+}
+
 $(function() {
 	// 문제목록 가져오기 
 	$.ajax({
 		method:'post',
-		url:'getQuestion',
+		url:'getMRoomList',
 		dateType : 'json',
 		success :function(data){
 			var text="";
-			console.log(data[0].question);
+			text += '<table>';
+			
 			for (var i = 0; i < data.length; i++) {
-				//console.log(item[index]);
-				 text += '<li class="done"><input type="checkbox"/>'+data[i].question+'</li>'; 
+				 text += "<tr>";
+				 text += '<td><a href="javascript:void(0);" onclick="callPfunction('+ data[i].roomnum + ' );">' + data[i].roomnum +'</a></td>';
+				 text += '<td>'+ data[i].appointedTime + '</td>'
+				 text += "</tr>";
 			}
-			$('ul.todo-list').append(text);
+			text += '</table>';
+			$('table.todo-list').append(text);
 		},
 		error:function(resp){
 			console.log('에러'+resp);

@@ -65,7 +65,7 @@
 			dataNum = #{value}
 	</select>
 	
-	<select id="selectAlIData" resultType="iData" parameterType="string">
+	<select id="selectAllIData" resultType="iData" parameterType="string">
 		select
 			dataNum,
 			userid,

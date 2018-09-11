@@ -250,7 +250,9 @@
 		from
 			matching_board
 		where
-		 (userid = #{value} || matchingid = #{value}) 
+		 (userid = #{value} OR matchingid = #{value})  AND appointedtime > sysdate
+		order by 
+			appointedtime asc
 	</select>
 	
 	

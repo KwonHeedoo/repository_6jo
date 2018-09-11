@@ -50,13 +50,16 @@
 			$("#start_part").hide();
 			$("#question_part").hide();
 			$("#download_part").show();
-
+			getSTT();
+			getPronAppraisal();
 		});
 		$("#record").on('click', function() {
 			//$('#recorded').attr('src','');
 			$("#start_part").hide();
 			$("#question_part").show();
 			$("#download_part").hide();
+			
+			$("#datanum").val("");
 			setQuestion();
 		});
 	});
@@ -81,12 +84,39 @@
 		}
 	}
 	//[AJAX] STT 한 택스트 가져오기
-	function getSTT(){
+	/* if($("#datanum").val != ""){
 		
+	} */
+	
+	function getSTT(){
+		console.log("STT");
+		var num = $("#datanum").attr("value");	
+		console.log(num);
+		$.ajax({
+			method : 'post',
+			url : 'getResultIData',
+			data : {"dataNum" : num},
+			dateType : 'json',
+			success : function(data) {
+				console.log("STT success");
+				//data.answer;
+			}
+		});
 	}
 	//[AJAX] 발음 평가된 값  가져오기
 	function getPronAppraisal(){
-		
+		console.log("appr ");
+		var num = $("#datanum").val;
+		$.ajax({
+			method : 'post',
+			url : 'getResultIData',
+			data : {"dataNum" : num},
+			dateType : 'json',
+			success : function(data) {
+				console.log("appr success");
+				//data.answer;
+			}
+		});
 	}
 </script>
 <style type="text/css">
@@ -154,7 +184,7 @@ button {
 			</div>
 		</div>
 	</div>
-
+	<input type ="hidden" id = "datanum">
 	<!-- include adapter for srcObject shim -->
 
 	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>

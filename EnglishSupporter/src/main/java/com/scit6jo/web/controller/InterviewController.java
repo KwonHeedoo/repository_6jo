@@ -35,9 +35,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.scit6jo.web.util.AudioConverter;
+import com.scit6jo.web.repository.BoardRepository;
 import com.scit6jo.web.repository.DataRepository;
 import com.scit6jo.web.util.FileService;
 import com.scit6jo.web.util.SpeechToText;
+import com.scit6jo.web.vo.Board;
 import com.scit6jo.web.vo.IData;
 import com.scit6jo.web.vo.IQuestion;
 
@@ -46,6 +48,8 @@ public class InterviewController {
 
 	@Autowired
 	DataRepository repository;
+	@Autowired
+	BoardRepository boardRepository;
 
 	final String video_uploadPath = "c://ES_uploadPath//video";
 	final String image_uploadPath = "c://ES_uploadPath//images";
@@ -68,7 +72,7 @@ public class InterviewController {
 		return "interview/interviewQlist";
 	}
 
-	@RequestMapping(value = "/viewMRoomList", method = RequestMethod.GET)
+	@RequestMapping(value = "/goMRoomList", method = RequestMethod.GET)
 	public String goMRoomList(Model model) {
 
 		return "interview/mRoomList";
@@ -81,8 +85,8 @@ public class InterviewController {
 
 	// 1:1 매칭 페이지로 이동?
 	@RequestMapping(value = "/goMatching", method = RequestMethod.GET)
-	public String matchingPractice(HttpSession session, Model model) {
-		model.addAttribute("roomid", "abc");
+	public String matchingPractice(HttpSession session, Model model, String roomid) {
+		model.addAttribute("roomid", roomid);
 		return "interview/matchingPractice";
 	}
 
@@ -93,19 +97,27 @@ public class InterviewController {
 		Collections.shuffle(result);
 		return result;
 	}
+	
+	@RequestMapping(value = "/getResultIData", method = RequestMethod.POST)
+	public @ResponseBody IData getResultIData(String dataNum) {
+		IData result = repository.selectOneIData(Integer.parseInt(dataNum));
+		return result;
+	}
+	
 
 	// [AJAX] DB로 부터 Room List를 가져옴
 	@RequestMapping(value = "/getMRoomList", method = RequestMethod.POST)
-	public @ResponseBody ArrayList<IQuestion> getMRoomList() {
-		ArrayList<IQuestion> result = repository.selectAllQuestion();
-		Collections.shuffle(result);
+	public @ResponseBody ArrayList<Board> getMRoomList(HttpSession session) {
+		String userid = (String) session.getAttribute("loginId");
+		ArrayList<Board> result = boardRepository.roomNumList(userid);
+		System.out.println(result);
 		return result;
 	}
 
 	@RequestMapping(value = "/goInterviewData", method = RequestMethod.POST)
 	public String getInterviewData(String userid, Model model) {
 		System.out.println("????");
-		ArrayList<IData> result = repository.selectAlIData(userid);
+		ArrayList<IData> result = repository.selectAllIData(userid);
 		model.addAttribute("dataList", result);
 		return "interview/interviewDataList";
 	}
@@ -127,7 +139,7 @@ public class InterviewController {
 			data.setSaveFile(saveFile);
 			data.setUserid(userid);
 			repository.insertIData(data);
-			ArrayList<IData> result = repository.selectAlIData(userid);
+			ArrayList<IData> result = repository.selectAllIData(userid);
 			int dataNum = result.get(0).getDataNum();
 			Thread fcThread = new AudioControlThread(dataNum, saveFile, userid);
 			fcThread.start();
