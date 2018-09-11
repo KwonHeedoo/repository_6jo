@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.scit6jo.web.dao.CommentMapper;
+import com.scit6jo.web.vo.Board;
 import com.scit6jo.web.vo.Comment;
 
 @Repository
@@ -99,5 +100,15 @@ public class CommentRepository {
 		return result;
 	}
 	
+	public Comment selectRatingAvg(Board board) {
+		CommentMapper mapper = session.getMapper(CommentMapper.class);
+		Comment result = null;
+		try {
+			result = mapper.selectRatingAvg(board);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 }

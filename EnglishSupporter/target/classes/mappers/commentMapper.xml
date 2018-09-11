@@ -157,4 +157,17 @@
 			commentnum = #{comment.commentNum}
 	</update>
 	
+	<select id="selectRatingAvg" parameterType="Board" resultType="Comment">
+		select
+    		Round(avg(pronunciation),1) as pronunciation
+    		, Round(avg(posture),1) as posture
+    		, Round(avg(contents),1) as contents
+		from
+    		appraise_comment
+		where
+    		userid != #{userid} AND parentid is null AND boardNum = #{boardNum}
+	</select>
+	
+	
+	
 </mapper>

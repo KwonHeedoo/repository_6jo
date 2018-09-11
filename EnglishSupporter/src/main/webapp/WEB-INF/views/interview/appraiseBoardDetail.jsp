@@ -58,7 +58,6 @@ var appraises = ["pronunciation","posture","contents"];
 var ratings = {};
 
 $(function(){
-	console.log(${board.datanum});
 	init();
 });
 
@@ -69,6 +68,7 @@ function init() {
 	ratings["posture"] = 0;
 	ratings["contents"] = 0;
 	var boardNum = $('#boardNum').val();
+	getRatingAvg();
 	
 	$.ajax({
 		url  : 'commentList'
@@ -330,58 +330,7 @@ function rating(column, ratenum){
 	for(var i = ratenum+1 ; i<=5 ; i++){
 		$('#'+column + i).attr('src','./resources/images/icons/silver.png');
 	}
-	
-	
-	/* var userid = $('#userid').val();
-	var loginId = $('#loginId').val();
-	var boardNum = $('#boardNum').val();
-	var check = $('#match' + commentNum).attr('src');
-	
-	if(userid === loginId && appraiseCount <= 1){
-		// 이미 매칭이 되어있는 경우 매칭 취소
-		if(check.includes('golden') && appraiseCount === 1){
-			//확인
-			if (confirm("Are you Sure??") == true){
-				$.ajax({
-					url : 'unappraise'
-					, type : 'post'
-					, data : {'boardNum' : boardNum, 'appraiseId' : null
-							 , 'boardType' : 'appraise', 'commentNum' : commentNum}
-					, success : function(resp){
-						if(resp == 1){
-							$('#match' + commentNum).attr('src', './resources/images/icons/silver.png');
-							init();
-						}
-					}
-					, error : function(){alert('Error!');}
-				});
-			//취소
-			}else{
-			    return;
-			}
-		}else if(appraiseCount === 0 && appraiseId !== loginId){
-			//확인
-			if (confirm("Are you Sure??") == true){
-				// 매칭
-				$.ajax({
-					url : 'appraise'
-					, type : 'post'
-					, data : {'boardNum' : boardNum, 'appraiseId' : appraiseId
-							 , 'boardType' : 'appraise', 'commentNum' : commentNum}
-					, success : function(resp){
-						if(resp == 1){
-							$('#match' + commentNum).attr('src', './resources/images/icons/golden.png');
-							init();
-						}
-					}
-					, error : function(){alert('Error!');}
-				});
-			//취소
-			}else{
-			    return;
-			}
-		}
-	} */
+
 }
 
 // 게시물 삭제 확인
@@ -464,6 +413,26 @@ function report(reportee, report){
 	
 	document.body.removeChild(form);
 }
+
+function getRatingAvg(){
+	$.ajax({
+		url  : 'getRatingAvg'
+		, type : 'post'
+		, data : {'userid' : '${board.userid}', 'boardNum': '${board.boardNum}'}
+		, success : function(data){
+			console.log(data.pronunciation);
+			console.log(data.posture);
+			console.log(data.contents);
+			var rating ="";
+				rating += "<br><p>";
+				rating += "pro : " + data.pronunciation + "<br>";
+				rating += "pos : " + data.posture + "<br>";
+				rating += "con : " + data.contents + "</p><br>";
+				$("#ratingAvg").html(rating);
+		}
+		, error : function(){alert("Error!");}
+	});
+}
 </script>
 </head>
 <body>
@@ -483,6 +452,7 @@ function report(reportee, report){
 		<h4>${board.title}<button onclick="report('${board.userid}', '${board.contents}')" style="font-size:x-small; border:none; background-color:white;color:red;">신고</button></h4>
 		<div>
 			<pre>${board.contents}</pre>
+			<div id ="ratingAvg"></div>
 			<video controls width="480" height = "320" src = 'getdata?dataNum=${board.datanum}'></video>
 		</div>
 		<div align="right">

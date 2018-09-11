@@ -241,4 +241,17 @@
 		where
 			boardnum = #{boardNum}
 	</update>
+	
+	<!-- 매칭된 리스트 가져오기 -->
+	<select id="roomNumList" parameterType="string" resultType="Board">
+		select
+			roomnum,
+			appointedtime
+		from
+			matching_board
+		where
+		 (userid = #{value} || matchingid = #{value}) 
+	</select>
+	
+	
 </mapper>

@@ -30,5 +30,7 @@ public interface BoardMapper {
 	public int unmatching(Board board);
 	// 공지글 리스트 요청
 	public ArrayList<Board> noticeList(Map<String, String> map);
+	// Room 넘버 리스트 요청
+	public ArrayList<Board> roomNumList(String userid);
 
 }

@@ -167,5 +167,18 @@ public class BoardRepository {
 		}
 		return noticeList;
 	}
+	// Room 넘버 리스트 요청
+	public ArrayList<Board> roomNumList(String userid) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		ArrayList<Board> roomNumList = null;
+		
+		try {
+			roomNumList = mapper.roomNumList(userid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return roomNumList;
+	}
+	
 	
 }

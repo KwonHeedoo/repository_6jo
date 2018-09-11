@@ -23,11 +23,21 @@
 		)
 	
 	</insert>
-	<update id="updateIData" parameterType="iData">
+	<update id="updateAnswer" parameterType="iData">
 		UPDATE 
 			INTERVIEW_DATA
 		SET 
-			answer = #{answer}
+				answer = #{answer}
+		WHERE
+			dataNum = #{dataNum}
+	
+	</update>
+	
+	<update id="updateConfidence" parameterType="iData">
+		UPDATE 
+			INTERVIEW_DATA
+		SET 
+				confidence = #{confidence}
 		WHERE
 			dataNum = #{dataNum}
 	
