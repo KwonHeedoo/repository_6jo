@@ -28,6 +28,7 @@
 		<choose>
 			<when test="boardType == 'matching'">matching_comment</when>
 			<when test="boardType == 'notice'">notice_comment</when>
+			<when test="boardType == 'appraise'">appraise_comment</when>
 		</choose>
 		where
 			boardnum = #{boardNum}
@@ -42,6 +43,7 @@
 		<choose>
 			<when test="boardType == 'matching'">matching_comment</when>
 			<when test="boardType == 'notice'">notice_comment</when>
+			<when test="boardType == 'appraise'">appraise_comment</when>
 		</choose>
 			( commentnum
 			, userid
@@ -58,6 +60,7 @@
 			<choose>
 				<when test="boardType == 'matching'">mc_commentnum_seq.nextVal</when>
 				<when test="boardType == 'notice'">nc_commentnum_seq.nextVal</when>
+				<when test="boardType == 'appraise'">ac_commentnum_seq.nextVal</when>
 			</choose>
 			, #{comment.userid}
 			, #{comment.nickname}
@@ -69,6 +72,7 @@
 			<choose>
 				<when test="boardType == 'matching'">, mc_groupnum_seq.nextVal</when>
 				<when test="boardType == 'notice'">, nc_groupnum_seq.nextVal</when>
+				<when test="boardType == 'appraise'">, ac_groupnum_seq.nextVal</when>
 			</choose>
 			</if>
 			<if test="comment.parentId != null">, #{comment.groupNum}</if>
@@ -84,6 +88,7 @@
 		<choose>
 			<when test="boardType == 'matching'">matching_comment</when>
 			<when test="boardType == 'notice'">notice_comment</when>
+			<when test="boardType == 'appraise'">appraise_comment</when>
 		</choose>
 		set
 			comments = #{comment.comments}
@@ -107,6 +112,7 @@
 		<choose>
 			<when test="boardType == 'matching'">matching_comment</when>
 			<when test="boardType == 'notice'">notice_comment</when>
+			<when test="boardType == 'appraise'">appraise_comment</when>
 		</choose>
 		where
 			commentnum = #{commentNum}
@@ -124,6 +130,7 @@
 		<choose>
 			<when test="boardType == 'matching'">matching_comment</when>
 			<when test="boardType == 'notice'">notice_comment</when>
+			<when test="boardType == 'appraise'">appraise_comment</when>
 		</choose>
 		where
 		<if test="check == true">
@@ -149,5 +156,18 @@
 		where
 			commentnum = #{comment.commentNum}
 	</update>
+	
+	<select id="selectRatingAvg" parameterType="Board" resultType="Comment">
+		select
+    		Round(avg(pronunciation),1) as pronunciation
+    		, Round(avg(posture),1) as posture
+    		, Round(avg(contents),1) as contents
+		from
+    		appraise_comment
+		where
+    		userid != #{userid} AND parentid is null AND boardNum = #{boardNum}
+	</select>
+	
+	
 	
 </mapper>

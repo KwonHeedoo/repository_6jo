@@ -31,68 +31,73 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
-		var questions;
-		var count = 0;
-		var max;
-		
-		$(function(){
-			$("#start_part").show();
-			$("#question_part").hide();
+	var questions;
+	var count = 0;
+	var max;
+
+	$(function() {
+		$("#start_part").show();
+		$("#question_part").hide();
+		$("#download_part").hide();
+		init();
+
+		$("#start").on('click', function() {
+			$("#start_part").hide();
+			$("#question_part").show();
 			$("#download_part").hide();
-			init();
-			
-			$("#start").on('click',function(){
-				$("#start_part").hide();
-				$("#question_part").show();
-				$("#download_part").hide();
-			});
-			$("#end").on('click',function(){ //대답완료시 
-				$("#start_part").hide();
-				$("#question_part").hide();
-				$("#download_part").show();
-				
-			});
-			$("#record").on('click',function(){
-				//$('#recorded').attr('src','');
-				$("#start_part").hide();
-				$("#question_part").show();
-				$("#download_part").hide();
-				setQuestion();
-			});
 		});
-		function init(){
-			$.ajax({
-				method:'post',
-				url:'getQuestion',
-				dateType : 'json',
-				success :function(data){
-					questions = data;
-					max = questions.length;
-					setQuestion();
-				}
-			});
-		}
-		
-		function setQuestion(){
-			if(count < max){
-				$("#question").text(questions[count++].question);
+		$("#end").on('click', function() { //대답완료시 
+			$("#start_part").hide();
+			$("#question_part").hide();
+			$("#download_part").show();
+
+		});
+		$("#record").on('click', function() {
+			//$('#recorded').attr('src','');
+			$("#start_part").hide();
+			$("#question_part").show();
+			$("#download_part").hide();
+			setQuestion();
+		});
+	});
+	function init() {
+		$.ajax({
+			method : 'post',
+			url : 'getQuestion',
+			dateType : 'json',
+			success : function(data) {
+				questions = data;
+				max = questions.length;
+				setQuestion();
 			}
-			else{
-				alert("모든 문제 소비");
-			}
+		});
+	}
+
+	function setQuestion() {
+		if (count < max) {
+			$("#question").text(questions[count++].question);
+		} else {
+			alert("모든 문제 소비");
 		}
+	}
+	//[AJAX] STT 한 택스트 가져오기
+	function getSTT(){
 		
+	}
+	//[AJAX] 발음 평가된 값  가져오기
+	function getPronAppraisal(){
 		
-	</script>
-	<style type="text/css">
+	}
+</script>
+<style type="text/css">
 .container {
 	text-align: center;
 	height: 600px;
 }
 
-.jumbotron{
-height: 70%;
-margin-top: 30px;
+.jumbotron {
+	height: 70%;
+	margin-top: 30px;
 }
 
 button {
@@ -101,58 +106,60 @@ button {
 	font-size: 30pt;
 	text-align: center;
 	margin-top: 50px;
-	margin-bottom: 10px;	
+	margin-bottom: 10px;
 }
-.stopb{
+
+.stopb {
 	float: right;
-    position: relative;
-    left: -45%;
+	position: relative;
+	left: -45%;
 }
-.startb{
+
+.startb {
 	float: left;
-    position: relative;
-    left: 45%;
+	position: relative;
+	left: 45%;
 }
 
-button{
-margin: 0;
+button {
+	margin: 0;
 }
-
 </style>
 
 </head>
 
 <body>
-<%@ include file="/WEB-INF/views/header.jsp"%>
+	<%@ include file="/WEB-INF/views/header.jsp"%>
 
 	<div class="jumbotron jumbotron-fluid">
-	<div id="container">
+		<div id="container">
 
-		<div id="start_part" style="text-align:center">
-		 <h4>면접 연습을 위한 동영상 녹화를 시작하시려면 start 버튼을 눌러주세요!</h4>
-		
-			<button id="start" class="btn">Start</button>
-		</div>
-		<div id="question_part" style="display: none;text-align:center">
-			<h1 id="question"> Q: </h1>
-			<video id="gum" playsinline autoplay muted></video>
-			<br>
-			<button id="end" class="btn">대답 완료</button>
-		</div>
-		<div id="download_part" style="text-align:center">
-			<video id="recorded" controls height="480" width="680"></video>
-			<br><br><br>
-			<a id="download" href="#" class="btn">영상 download</a>
-			<button id="record" class="btn">다음 질문</button>
+			<div id="start_part" style="text-align: center">
+				<h4>면접 연습을 위한 동영상 녹화를 시작하시려면 start 버튼을 눌러주세요!</h4>
+
+				<button id="start" class="btn">Start</button>
+			</div>
+			<div id="question_part" style="display: none; text-align: center">
+				<h1 id="question">Q:</h1>
+				<video id="gum" playsinline autoplay muted></video>
+				<br>
+				<button id="end" class="btn">대답 완료</button>
+			</div>
+			<div id="download_part" style="text-align: center">
+				<video id="recorded" controls height="480" width="680"></video>
+				<br>
+				<br>
+				<br> <a id="download" href="#" class="btn">영상 download</a>
+				<button id="record" class="btn">다음 질문</button>
+			</div>
 		</div>
 	</div>
-</div>
 
 	<!-- include adapter for srcObject shim -->
 
 	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 	<script src="./resources/js/webRTC/startRecord.js" async></script>
 	<script src="./resources//js/lib/ga.js"></script>
-<%@ include file="/WEB-INF/views/Footer.jsp"%>
+	<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

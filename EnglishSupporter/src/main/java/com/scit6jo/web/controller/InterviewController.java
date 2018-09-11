@@ -49,23 +49,31 @@ public class InterviewController {
 
 	final String video_uploadPath = "c://ES_uploadPath//video";
 	final String image_uploadPath = "c://ES_uploadPath//images";
-	
+
 	final String uploadPath = "c://ES_uploadPath";
 
 	// 인터뷰 페이지로 이동
 	@RequestMapping(value = "/goInterview", method = RequestMethod.GET)
 	public String interview(HttpSession session, Model model) {
 		session.setAttribute("loginId", "aaa");
+		session.setAttribute("loginNick", "aaa");
+		session.setAttribute("loginType", "user");
 		return "interview/interviewPractice";
 	}
-	
+
 	// 면접질문 list 페이지 이동
 	@RequestMapping(value = "/viewQuestions", method = RequestMethod.GET)
 	public String goQuestions(Model model) {
-		
+
 		return "interview/interviewQlist";
 	}
-	
+
+	@RequestMapping(value = "/viewMRoomList", method = RequestMethod.GET)
+	public String goMRoomList(Model model) {
+
+		return "interview/mRoomList";
+	}
+
 	/*
 	 * public String interview(Model model) { ArrayList<IQuestion> result =
 	 * repository.selectAllQuestion(); return "interview/interviewPractice"; }
@@ -74,7 +82,7 @@ public class InterviewController {
 	// 1:1 매칭 페이지로 이동?
 	@RequestMapping(value = "/goMatching", method = RequestMethod.GET)
 	public String matchingPractice(HttpSession session, Model model) {
-		model.addAttribute("roomid","abc");
+		model.addAttribute("roomid", "abc");
 		return "interview/matchingPractice";
 	}
 
@@ -85,16 +93,22 @@ public class InterviewController {
 		Collections.shuffle(result);
 		return result;
 	}
-	
+
+	// [AJAX] DB로 부터 Room List를 가져옴
+	@RequestMapping(value = "/getMRoomList", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<IQuestion> getMRoomList() {
+		ArrayList<IQuestion> result = repository.selectAllQuestion();
+		Collections.shuffle(result);
+		return result;
+	}
+
 	@RequestMapping(value = "/goInterviewData", method = RequestMethod.POST)
-	public String getInterviewData(String userid,Model model) {
+	public String getInterviewData(String userid, Model model) {
 		System.out.println("????");
 		ArrayList<IData> result = repository.selectAlIData(userid);
 		model.addAttribute("dataList", result);
 		return "interview/interviewDataList";
 	}
-	
-	
 
 	// [AJAX] 인터뷰 질문이 끝나면 동영상 파일 서버로 전송
 	@RequestMapping(value = "/savedata", method = RequestMethod.POST)
@@ -115,9 +129,9 @@ public class InterviewController {
 			repository.insertIData(data);
 			ArrayList<IData> result = repository.selectAlIData(userid);
 			int dataNum = result.get(0).getDataNum();
-			Thread fcThread = new AudioControlThread(dataNum,saveFile,userid);
+			Thread fcThread = new AudioControlThread(dataNum, saveFile, userid);
 			fcThread.start();
-			return dataNum+"";
+			return dataNum + "";
 		}
 		return "#";
 	}
@@ -176,13 +190,87 @@ public class InterviewController {
 		return audioPathFile;
 	}
 
+	public class AudioControlThread extends Thread {
+		private String saveFile;
+		private String userid;
+		private int dataNum;
+
+		public AudioControlThread(int dataNum, String saveFile, String userid) {
+			this.dataNum = dataNum;
+			this.saveFile = saveFile;
+			this.userid = userid;
+		}
+
+		private void test() {
+			System.out.println("File is exist");
+
+			//audioPathFile 변환한 audio의 full path
+			String audioPathFile = videoToAudio(saveFile, userid);
+			Thread pcThread = new PronConfidenceThread(dataNum,audioPathFile);
+			pcThread.start();
+			
+			SpeechToText qss = new SpeechToText();
+			String answerToText = "no answer";
+			try {
+				answerToText = qss.ChangeSTT(audioPathFile);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			System.out.println("answer : " + answerToText);
+			if (answerToText == "") {
+				answerToText = null;
+			}
+			IData data = new IData();
+			data.setDataNum(dataNum);
+			data.setAnswer(answerToText);
+			System.out.println(data.getConfidence());
+			repository.updateAnswer(data);
+		}
+
+		@Override
+		public void run() {
+			test();
+		}
+	}
+
+	public class PronConfidenceThread extends Thread {
+		private String fullPath;
+		private int dataNum;
+
+		public PronConfidenceThread(int dataNum, String fullPath) {
+			this.dataNum = dataNum;
+			this.fullPath = fullPath;
+		}
+
+		private void test() {
+			String result = apidata(fullPath).get("result");
+			int index = result.lastIndexOf("score");
+			String temp = result.substring(index+7,result.length()-2);
+			System.out.println(temp);
+			int a = 1;
+			
+			IData data = new IData();
+			data.setConfidence(Float.parseFloat(temp));
+			data.setAnswer(null);
+			data.setDataNum(dataNum);
+			repository.updateConfidence(data);
+		}
+
+		@Override
+		public void run() {
+			test();
+		}
+	}
+
 	// 발음 평가 API
-	public Map<String, Integer> apidata() {
+	public Map<String, String> apidata(String fullPath) {
 		String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation";
 		String accessKey = "cd04e541-c278-4c71-b639-e6513ba4e239"; // �߱޹��� Access Key
 		String languageCode = "english"; // ��� �ڵ�
 		// String script = "welcome to the new york city bus tour center";
-		String audioFilePath = "C:\\ES_uploadPath\\audio\\aaa\\aaa_20180822084223.wav"; // ������ ���� ���� ���
+		String audioFilePath = fullPath; // ������ ���� ���� ���
 		String audioContents = null;
 
 		Gson gson = new Gson();
@@ -235,52 +323,9 @@ public class InterviewController {
 			e.printStackTrace();
 		}
 
-		Map<String, Integer> resultmap = new HashMap<>();
-		resultmap.put(responBody, responseCode);
+		Map<String, String> resultmap = new HashMap<>();
+		resultmap.put("result", responBody);
 		return resultmap;
 	}
-	
-	public class AudioControlThread extends Thread {
-		private String saveFile;
-		private String userid;
-		private int dataNum;
-		
-		public AudioControlThread(int dataNum,String saveFile, String userid) {
-			this.dataNum = dataNum;
-			this.saveFile = saveFile;
-			this.userid = userid;
-		}
-
-		private void test() {
-			System.out.println("File is exist");
-			
-			// String saveFile = FileService.saveFile(file,
-			// video_uploadPath,session.get(userid));
-			String audioPathFile = videoToAudio(saveFile, userid);
-			SpeechToText qss = new SpeechToText();
-			String answerToText = "no answer";
-			try {
-				answerToText = qss.ChangeSTT(audioPathFile);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("answer : " + answerToText);
-			if (answerToText == "") {
-				answerToText = "no answer";
-			}
-			IData data = new IData();
-			data.setDataNum(dataNum);
-			data.setAnswer(answerToText);
-			repository.updateIData(data);
-		}
-		@Override
-		public void run() {
-			test();
-		}
-	}
-	
-	
-	
 
 }

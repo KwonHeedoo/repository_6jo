@@ -3,6 +3,7 @@ package com.scit6jo.web.dao;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.scit6jo.web.vo.Board;
 import com.scit6jo.web.vo.Comment;
 
 public interface CommentMapper {
@@ -18,5 +19,7 @@ public interface CommentMapper {
 	public Comment selectOne(Map<String, Object> map);
 	// 매칭 여부 처리
 	public int matching(Map<String, Object> map);
+	
+	public Comment selectRatingAvg(Board board);
 
 }

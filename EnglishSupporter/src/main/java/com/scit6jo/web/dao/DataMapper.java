@@ -9,7 +9,8 @@ import com.scit6jo.web.vo.IQuestion;
 public interface DataMapper {
 	// 회원가입
 	public int insertIData(IData iData);
-	public int updateIData(IData iData);
+	public int updateAnswer(IData iData);
+	public int updateConfidence(IData iData);
 	public ArrayList<IQuestion> selectAllQuestion();
 	public IData selectOneIData(int dataNum);
 	public ArrayList<IData> selectAlIData(String userid);

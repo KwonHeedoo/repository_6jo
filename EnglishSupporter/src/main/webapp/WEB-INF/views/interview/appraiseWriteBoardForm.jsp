@@ -37,7 +37,6 @@ function a(value){
 	
 }
 
-
 	function board(page) {
 		location.href = "./goBoardList?page=" + page + "&boardType=appraise";
 	};
@@ -45,9 +44,15 @@ function a(value){
 	function formCheck(){
 		var title = document.getElementById("title").value;
 		var contents = document.getElementById("contents").value;
+		var appointedTime = document.getElementById("appointedTime").value;
 		
 		if(title.length == 0 || contents.length == 0){
 			alert("Please Write Title or Content");
+			return false;
+		}
+		
+		if(appointedTime.length == 0){
+			alert("Please Select Date And Time");
 			return false;
 		}
 		
@@ -70,7 +75,9 @@ function a(value){
 		document.body.removeChild(form);
 	}
 	function setFile(datanum,fileName){
-		$("#dataNum").value = datanum;
+		$("#dataNum").val(datanum);
+		var a = $("#dataNum").val();
+		console.log(a);
 		$("#fileName").text(fileName);
 	}
 </script>
@@ -83,7 +90,7 @@ function a(value){
 	<form action="writeBoard" method="post" onsubmit="return formCheck()">
 		<div>
 			<input type="hidden" name="boardType" value="appraise">
-			<input id="dataNum" type="hidden" name="dataNum" value="">
+			<input id="dataNum" type="hidden" name="datanum" value="">
 			<input id="title" type="text" name="title" placeholder="TITLE" autocomplete="off">
 			<c:if test="${sessionScope.loginType eq 'admin'}">
 				<input id="notice" type="checkbox" name="status" value="1">공지글
@@ -92,9 +99,8 @@ function a(value){
 		<h3 id="introduce">Content</h3>
 		<div>
 			<textarea id="contents" rows="15" cols="60" name="contents"></textarea>
-			<p  id = "fileName"> </p>
+			<p id = "fileName"> </p>
 		</div>
-		
 		<div>
 			<div class="col-md-6">
 				<input type="submit" value="Write">
@@ -102,9 +108,8 @@ function a(value){
 			<div class="col-md-6">
 				<input type="button" value="Cancel" onclick="board(${page})">
 			</div>
+			
 		</div>
-		
-		
 	</form>
 	<button onclick="dataList()">select video</button>
 	</div>
