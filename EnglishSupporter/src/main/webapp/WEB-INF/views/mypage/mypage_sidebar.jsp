@@ -18,7 +18,7 @@ margin-top:0;
 position:absolute;
 float:left;
   width: 280px;
-  height: 80%;
+  height: 100%;
   background-color: #f8f8f8;
   border-right: 1px solid #e7e7e7;
 }

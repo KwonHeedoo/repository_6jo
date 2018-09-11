@@ -207,7 +207,7 @@ nav {height:50px;}
                   <a href="#"><i class="fa fa-book fa-lg"></i> Learning Services<span class="arrow"></span></a>
                 </li>
 	                <ul class="sub-menu collapse" id="products">
-	                    <li><a href="#">Word Training</a></li>
+	                    <li><a href="./goWordManager">Word Training</a></li>
 	                    <li><a href="#">Mock Interview</a></li>
 	                </ul>
 
