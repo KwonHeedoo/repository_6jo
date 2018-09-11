@@ -14,7 +14,6 @@
 background-color: gray;
 }
 .userinfo_low{
-background-color: maroon;
 }
 </style>
 </head>
@@ -36,10 +35,10 @@ background-color: maroon;
       	 		style="width:300px; height:300px;">
 					</div>
 					<div class="userinfo_low">
-				 	registration date : ${info.regdate} 
-				 	Last Login date : ${info.lastdate}
-				 	Number of attendance : ${info.attendnum}
-				 	Number of writing : ${info.writeCount}
+				 	registration date : ${info.regdate} <br>
+				 	Last Login date : ${info.lastdate} <br>
+				 	Number of attendance : ${info.attendNum} <br>
+				 	Number of writing : ${info.writeCount} <br>
 					</div>
 					</div><!-- center -->
 				</div><!-- row -->
