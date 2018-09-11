@@ -18,6 +18,19 @@
 		order by wordnum
 	</select>
 	
+	<!-- 관리자페이지 단어 업데이트 -->
+	<update id="updateWord" parameterType="Word">
+		update word
+		set word = #{word}, meaningK = #{meaningK}
+		where wordnum = #{wordNum}		
+	</update>
+	
+	<!-- 관리자페이지 단어 삭제 -->
+	<delete id="deleteWord" parameterType="Word">
+		delete from word 
+		where wordnum = #{wordNum}
+	</delete>
+	
 	<select id="selectAllWord" resultType="Word" parameterType="map">
 		select w.word, w.wordnum, w.meaningk, w.meaningj, w.wordlevel, m.wordtype 
 		from word w 
@@ -55,12 +68,14 @@
 		)
 	</insert>
 	
+	<!-- 마이페이지 내단어장 업데이트 -->
 	<update id="updateMyWord" parameterType="Word">
 		update myword
 		set word = #{word}, meaningK = #{meaningK}
 		where userid = #{userid} and myword_no = #{myword_no}		
 	</update>
 	
+	<!-- 마이페이지 내단어장 삭제 -->
 	<delete id="deleteMyWord" parameterType="Word">
 		delete from myword 
 		where userid = #{userid} and myword_no = #{myword_no}

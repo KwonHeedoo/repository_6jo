@@ -61,8 +61,36 @@ public class WordController {
 		
 		model.addAttribute("wordlist", wordlist);
 		model.addAttribute("navi", navi);
+		model.addAttribute("wordlevel",	wordlevel);
 		
 		return "admin/wordManager";
+	}
+	
+	// 관리자페이지 wordManager 업데이트 요청 
+	@RequestMapping(value = "wordUpdate", method = RequestMethod.POST)
+	public @ResponseBody Integer wordUpdate(@RequestBody Word word) {
+		System.out.println("wordUpdate...");
+		
+		System.out.println(word);
+		
+		int result = repository.updateWord(word);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
+	
+	// 마이페이지 myWords 삭제 요청 
+	@RequestMapping(value = "wordDelete", method = RequestMethod.POST)
+	public @ResponseBody int wordDelete(int wordNum) {
+		System.out.println("wordDelete...");
+		System.out.println(wordNum);
+		
+		Word word = new Word();
+		word.setWordNum(wordNum);
+		
+		int result = repository.deleteWord(word);
+		
+		return result;
 	}
 	
 	// 마이페이지 myWords 화면 요청 
@@ -105,7 +133,6 @@ public class WordController {
 		Word word = new Word();
 		word.setUserid(userid);
 		word.setMyword_no(myword_no);
-		
 		
 		boolean result = repository.deleteMyWord(word);
 		

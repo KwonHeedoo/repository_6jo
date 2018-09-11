@@ -43,6 +43,24 @@ public class WordRepository {
 		return wordlist;
 	}
 	
+	// 관리자페이지 wordManager 업데이트 처리
+	public int updateWord(Word word) {
+		WordMapper mapper = session.getMapper(WordMapper.class);
+		int result = mapper.updateWord(word);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
+	
+	// 관리자페이지 wordManager 삭제 처리
+	public int deleteWord(Word word) {
+		WordMapper mapper = session.getMapper(WordMapper.class);
+		int result = mapper.deleteWord(word);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
+
 	public List<Word> getWordList(String wordlevel, String userid){
 		WordMapper mapper= session.getMapper(WordMapper.class);
 		List<Word>wordlist = mapper.selectAllWord(wordlevel, userid);
@@ -58,11 +76,8 @@ public class WordRepository {
 		WordMapper mapper= session.getMapper(WordMapper.class);
 		List<Word>wordlist = mapper.getMyWords(userid);
 		
-		
 		return wordlist;
 	}
-	
-
 
 	public List<String> exceptionWord() {
 		WordMapper mapper = session.getMapper(WordMapper.class);
@@ -92,7 +107,6 @@ public class WordRepository {
 		
 		if(result == 1) return 1;
 		else			return 0;
-		
 	}
 
 	public boolean deleteMyWord(Word word) {
@@ -104,6 +118,5 @@ public class WordRepository {
 		}
 			return false;
 	}
-
 
 }

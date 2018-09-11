@@ -62,16 +62,16 @@ $(function() {
 			console.log('in update');
 			$(this).val('SAVE');
 			var tr = $(this).parent().parent();
-			tr.children().children('input[type="text"]').addClass('borderless');
-			tr.children().children('input[type="text"]').attr('readonly',false);
+			tr.children().children('input[type="text"]').addClass('borderless'); // 텍스트 박스 border 활성화
+			tr.children().children('input[type="text"]').attr('readonly',false); // 텍스트 편집 가능
 		}
 		
-		// SAVE 버튼 누르면 다시 UPDATE 버튼으로 바뀌고 해당 word + meaning 이 수정가능한 상태로 바뀜
+		// SAVE 버튼 누르면 다시 UPDATE 버튼으로 바뀌고 완료/실패 알림창 뜸
 		if(type=='SAVE'){
 			console.log('in save');
 			$(this).val('UPDATE');
 			var tr = $(this).parent().parent();
-			tr.children().children('input[type="text"]').removeClass('borderless');
+			tr.children().children('input[type="text"]').removeClass('borderless'); // 텍스트 박스 border 비활성화
 			var myword_no = tr.children().children('input[type="hidden"]').val();
 			var word = tr.children().children('input[name="word"]').val();
 			var mean = tr.children().children('input[name="mean"]').val();

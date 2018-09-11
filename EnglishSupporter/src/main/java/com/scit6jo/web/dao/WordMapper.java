@@ -15,6 +15,12 @@ public interface WordMapper {
 	// 관리자페이지 wordManager에 띄울 모든 단어리스트 불러오기
 	public List<Word> selectAll(RowBounds rb, String wordlevel);
 	
+	// 관리자페이지 wordManager 업데이트 처리
+	public int updateWord(Word word);
+	
+	// 관리자페이지 wordManager 삭제 처리
+	public int deleteWord(Word word);
+	
 	/**
 	 * 수준별 상 중 하 단어 레벨을 가져옴
 	 * @param wordlevel
