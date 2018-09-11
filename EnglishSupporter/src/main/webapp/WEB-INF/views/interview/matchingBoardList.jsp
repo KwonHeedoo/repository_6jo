@@ -63,7 +63,7 @@ function output(resp){
 	boardResult += '<th style="width:15%;">TIME</th>';
 	boardResult += '<th class="boardTitle" style="width:45%;">TITLE</th>';
 	boardResult += '<th style="width:10%;">USER</th>';
-	boardResult += '<th style="width:10%;">REGDATE</th>';
+	boardResult += '<th style="width:15%;">REGDATE</th>';
 	boardResult += '<th style="width:5%;">HITS</th>';
 	boardResult += '<th style="width:10%;"><button id="unmatched" onclick="constraint(' + matchingCount + ')">MATCHING</button></th>'; 
 	boardResult += '</tr>';
@@ -133,7 +133,7 @@ function output(resp){
 		boardResult += '<div class="container">';
 		boardResult += '<form id="searchBox" action="boardList" method="get">';
 		boardResult += '<input type="hidden" name="boardType" value="matching">';
-		boardResult += '<div class="col-md-1">';
+		//boardResult += '<div class="col-md-3">';
 		boardResult += '<select id="selectItemBox" name="searchItem">';
 		if(map.searchItem === 'title'){
 			boardResult += '<option value="title" selected="selected">Title</option>';
@@ -149,18 +149,18 @@ function output(resp){
 			boardResult += '<option value="contents" selected="selected">Contents</option>';
 		}
 		boardResult += '</select>';
-		boardResult += '</div>';//col-md-1
-		boardResult += '<div class="col-md-3">';
+		//boardResult += '</div>';//col-md-1
+		//boardResult += '<div class="col-md-3">';
 		boardResult += '<input id="searchTextBox" type="text" name="searchText" value="' + map.searchText + '">';
-		boardResult += '</div>';//col-md-3
-		boardResult += '<div class="col-md-1">';
+		//boardResult += '</div>';//col-md-3
+		//boardResult += '<div class="col-md-3">';
 		boardResult += '<input id="search" type="button" value="Search">';
-		boardResult += '</div>';//col-md-1
+		//boardResult += '</div>';//col-md-1
 		boardResult += '</form>';
 	}
-	boardResult += '</div>';//page
+	boardResult += '</div><br>';//page
 	boardResult += '<a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=matching"><button class="btn">Write Board</button></a>';
-	boardResult += '</div>';//container
+	boardResult += '</div><br><br>';//container
 	
 	$('#boardResult').html(boardResult);
 	$('#search').click(search);
@@ -222,11 +222,19 @@ margin-left: 10px;
 .raw{
 display: inline-block;
 }
+.container{
+margin-top: 20px;
+padding: 0 auto;
+
+}
 td, th{
 text-align:center;
 }
 td.boardTitle{
 text-align:left;
+}
+#boardResult{
+margin-bottom: 20px;
 }
 </style>
 

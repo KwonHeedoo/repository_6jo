@@ -7,6 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <title>appraise Board</title>
 <script type="text/javascript">
 $(function(){
@@ -114,7 +120,7 @@ function output(resp){
 		// 게시판 검색 기능
 		boardResult += '<form id="searchBox" action="boardList" method="get">';
 		boardResult += '<input type="hidden" name="boardType" value="appraise">';
-		boardResult += '<div class="col-md-4">';
+		boardResult += '<div>';
 		boardResult += '<select id="selectItemBox" name="searchItem">';
 		if(map.searchItem === 'title'){
 			boardResult += '<option value="title" selected="selected">Title</option>';
@@ -131,10 +137,10 @@ function output(resp){
 		}
 		boardResult += '</select>';
 		boardResult += '</div>';
-		boardResult += '<div class="col-md-4">';
+		boardResult += '<div>';
 		boardResult += '<input id="searchTextBox" type="text" name="searchText" value="' + map.searchText + '">';
 		boardResult += '</div>';
-		boardResult += '<div class="col-md-4">';
+		boardResult += '<div>';
 		boardResult += '<input id="search" type="button" value="Search">';
 		boardResult += '</div>';
 		boardResult += '</form>';
@@ -196,15 +202,25 @@ function constraint(appraiseCount){
 	}
 }
 </script>
+<style type="text/css">
+#container {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
+<div id="container">
 	<h1>appraise Board</h1>
 	<input id="boardType" type="hidden" value="${boardType}">
 	<input id="page" type="hidden" value="${page}">
 	<input id="searchItem" type="hidden" value="${searchItem}">
 	<input id="searchText" type="hidden" value="${searchText}">
 	<div id="boardResult"></div>
+</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>
