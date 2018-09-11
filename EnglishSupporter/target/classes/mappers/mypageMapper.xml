@@ -38,13 +38,15 @@
 	</select>
 	
 	<delete id="removeSchedule" parameterType="Schedule">
-	DELETE FROM schedule
-	<if test="s_id!=null">
-	where s_id =#{s_id}
-	</if>
-	<if test="title!=null AND userid!=null">
-	where title =#{title} and userid =#{userid}
-	</if>
+		DELETE FROM schedule
+		<choose>
+		<when test="s_id!=null">
+		where s_id =#{s_id}
+		</when>
+		<when test="title!=null and userid!=null">
+		where title =#{title} and userid =#{userid}
+		</when>
+		</choose>
 	</delete>
 	
 </mapper>

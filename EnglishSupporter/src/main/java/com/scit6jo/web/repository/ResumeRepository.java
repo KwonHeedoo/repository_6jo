@@ -213,6 +213,7 @@ public class ResumeRepository {
 		Schedule resume = new Schedule(vo.getUserid(), title, "true", vo.getDeadline());
 		int result = 0;
 		try {
+			System.out.println(resume);
 			result = mapper.saveSchedule(resume);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -228,6 +229,7 @@ public class ResumeRepository {
 			title = title +"Resume Deadline";
 			ss.setUserid(userid);
 			ss.setTitle(title);
+			System.out.println(ss);
 			result = mapper.removeSchedule(ss);
 		} catch (Exception e) {
 			e.printStackTrace();

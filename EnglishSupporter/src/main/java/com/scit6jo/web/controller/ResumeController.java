@@ -160,7 +160,7 @@ public class ResumeController {
 	public @ResponseBody String newResume(@RequestBody Resume resume) {
 		System.out.println("saving a new Resume...");
 		String text=null;
-
+		//이력서 스케쥴 저장하기 
 		System.out.println(resume);
 		if(resume.getDeadline()!=null) {
 			int rcnt=repository.insertResumeScedule(resume);
@@ -233,9 +233,11 @@ public class ResumeController {
 		int cntR =0;
 		int cntC =0;
 		if(type.equals("resume")) {
+			Resume findR = repository.getResume(resume_no); // 이력서 번호로 이력서값 읽어오기
 			cntR = repository.removeResumes(resume_no);
-			//스케줄 삭제 
-			repository.removeRschedule(title,userid);
+			
+			//이력서 데드라인 스케줄 삭제 
+			repository.removeRschedule(findR.getTitle(),findR.getUserid());
 			
 		}else{ // 커버레터
 			CoverLetter vo = new CoverLetter(title, userid);

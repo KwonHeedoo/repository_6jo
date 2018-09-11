@@ -60,7 +60,6 @@ $(document).ready(function() {
         	        	var obj = {
                	             title: $(this).attr('title'),
             	             start: $(this).attr('startDate'), // will be parsed
-            	             end:$(this).attr('endDate'),  // if end 날짜가  null이면 어캄?...?...
             	             id : $(this).attr('s_id')      
             	            };
         	        	console.log($(this).attr('allDay'));
@@ -68,6 +67,9 @@ $(document).ready(function() {
         	            	console.log('true일때드러옴..');
 	        	         	obj.allDay= true;
         	            }
+            	        if($(this).attr('endDate')!=null){
+            	        	obj.end = $(this).attr('endDate');
+            	        }  // if end 날짜가  null이면 어캄?...?...
         	            console.log('obj');
         	            console.log(obj);
         	        	events.push(obj);
@@ -103,7 +105,7 @@ $(document).ready(function() {
   	        }
   	      });
     	  $('#calendar').fullCalendar( 'refetchEvents' );
-    	  $('#calendar').fullCalendar( '‘renderEvent’',schedule, true);
+    	  $('#calendar').fullCalendar('renderEvent',schedule, true);
     	  $('#writeModal').modal('hide'); // 마지막으로 모달 창 지우기 
     });
         //수정버튼 클릭이벤트  해말어~~

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit6jo.web.repository.BoardRepository;
 import com.scit6jo.web.repository.CommentRepository;
+import com.scit6jo.web.repository.MypageRepository;
 import com.scit6jo.web.vo.Board;
 import com.scit6jo.web.vo.Comment;
+import com.scit6jo.web.vo.Schedule;
 
 @Controller
 public class CommentController {
@@ -23,6 +25,8 @@ public class CommentController {
 	CommentRepository repository;
 	@Autowired
 	BoardRepository boardRepository;
+	@Autowired
+	MypageRepository mypageRepository;
 	
 	// 코멘트 리스트 요청
 	@RequestMapping(value = "/commentList", method = RequestMethod.GET)
@@ -100,6 +104,16 @@ public class CommentController {
 	@RequestMapping(value = "/matching", method = RequestMethod.POST)
 	public @ResponseBody int matching(Board board, String boardType, Comment comment){
 		// 스케줄 처리
+		System.out.println(board.getAppointedTime());
+		String userid = board.getUserid();
+		String matchingId = board.getMatchingId();
+		
+		String title = "1:1 Practice Appointment"+userid+"/"+matchingId;
+		Schedule meetings = new Schedule(userid, title, "false", board.getAppointedTime());
+		Schedule meetings2 = new Schedule(matchingId, title, "false", board.getAppointedTime());
+		// 아이디별로 각각 저장 
+		mypageRepository.saveSchedule(meetings);
+		mypageRepository.saveSchedule(meetings2);
 		
 		// 매칭 처리
 		Map<String, Object> map = new HashMap<>();
@@ -118,7 +132,16 @@ public class CommentController {
 	// 1:1 화상 채팅 매칭 취소
 	@RequestMapping(value = "/unmatching", method = RequestMethod.POST)
 	public @ResponseBody int unmatching(Board board, String boardType, Comment comment){
-		// 스케줄 처리
+		// 스케줄 처리 
+		System.out.println(board);
+		String userid = board.getUserid();
+		String matchingId = board.getMatchingId();
+		String title = "1:1 Practice Appointment"+userid+"/"+matchingId;
+		Schedule s1 = new Schedule(userid, title);
+		Schedule s2 = new Schedule(matchingId, title);
+		
+		mypageRepository.deleteSchedule(s1);
+		mypageRepository.deleteSchedule(s2);
 		
 		//매칭 취소 처리
 		board.setMatchingId(null);

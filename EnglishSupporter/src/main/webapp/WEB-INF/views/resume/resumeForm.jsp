@@ -32,7 +32,7 @@ margin-left: 0;
 }
 
 .box{
-height: 55px;
+height: 60px;
 }
 h5{
 font-weight: bold;
