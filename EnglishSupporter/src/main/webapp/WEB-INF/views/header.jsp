@@ -101,6 +101,19 @@ function outputMsg(resp){
     </div>
     <div class="fl_right">
       <ul>
+      	<c:if test="${sessionScope.loginId != null}">
+      	 <li>
+      	 	<img alt="Profile" <c:if test="${sessionScope.img != null}">
+      	 	src="./getProfileImg"
+      	 	<%-- src="./resources/profile/${session.img}" --%>
+      	 	</c:if>
+      	 	<c:if test="${sessionScope.img == null}">
+      	 	src="./resources/images/icons/user-avatar-placeholder.png"
+      	 	</c:if>
+      	 	style="width:40px; height:40px;">
+      	 </li>
+      	</c:if>
+      	
         <c:if test="${sessionScope.loginId != null}">
          <li>${sessionScope.loginNick} 님  환영합니다.</li>
         </c:if>

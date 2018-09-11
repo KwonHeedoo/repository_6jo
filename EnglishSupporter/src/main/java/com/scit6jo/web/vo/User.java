@@ -14,6 +14,7 @@ public class User {
 	private int attendNum;
 	private int reportCount;
 	private int sanctionCount;
+	private String imgFilePath;
 	
 	
 	public User() {
@@ -22,7 +23,7 @@ public class User {
 	}
 
 	public User(String userid, String userpwd, String nickname, String email, String birthdate, String username,
-			String usertype, String regdate, String lastdate, int attendNum) {
+			String usertype, String regdate, String lastdate, int attendNum, String imgFilePath) {
 		super();
 		this.userid = userid;
 		this.userpwd = userpwd;
@@ -34,6 +35,7 @@ public class User {
 		this.regdate = regdate;
 		this.lastdate = lastdate;
 		this.attendNum = attendNum;
+		this.imgFilePath = imgFilePath;
 	}
 	
 	public User(String userid, String nickname, String email, String regdate, String lastdate, int attendNum,
@@ -159,13 +161,22 @@ public class User {
 	public void setSanctionCount(int sanctionCount) {
 		this.sanctionCount = sanctionCount;
 	}
+	
+
+	public String getImgFilePath() {
+		return imgFilePath;
+	}
+
+	public void setImgFilePath(String imgFilePath) {
+		this.imgFilePath = imgFilePath;
+	}
 
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", userpwd=" + userpwd + ", nickname=" + nickname + ", email=" + email
 				+ ", birthdate=" + birthdate + ", username=" + username + ", usertype=" + usertype + ", regdate="
 				+ regdate + ", lastdate=" + lastdate + ", attendNum=" + attendNum + ", reportCount=" + reportCount
-				+ ", sanctionCount=" + sanctionCount + "]";
+				+ ", sanctionCount=" + sanctionCount + ", imgFilePath" + imgFilePath + "]";
 	}
 
 }
