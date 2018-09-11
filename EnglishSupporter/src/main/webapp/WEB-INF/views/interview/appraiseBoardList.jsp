@@ -12,7 +12,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
+select {
+height: 30.98px;
+margin-left: 10px;
+}
 
+</style>
 <title>appraise Board</title>
 <script type="text/javascript">
 $(function(){
@@ -102,7 +108,7 @@ function output(resp){
 	boardResult += '</table>';
 	boardResult += '</div>';// boardTable
 	// 페이징
-	boardResult += '<div id="page">';
+	boardResult += '<div id="page" align="center">';
 	if(map.boardList.length){
 		var i = 1;
 		boardResult += '<a onclick="selectPage('+ 1 + ', \'' + map.searchItem + '\', \'' + map.searchText + '\')">◀◀</a>&emsp;'; 
@@ -120,7 +126,6 @@ function output(resp){
 		// 게시판 검색 기능
 		boardResult += '<form id="searchBox" action="boardList" method="get">';
 		boardResult += '<input type="hidden" name="boardType" value="appraise">';
-		boardResult += '<div>';
 		boardResult += '<select id="selectItemBox" name="searchItem">';
 		if(map.searchItem === 'title'){
 			boardResult += '<option value="title" selected="selected">Title</option>';
@@ -136,17 +141,12 @@ function output(resp){
 			boardResult += '<option value="contents" selected="selected">Contents</option>';
 		}
 		boardResult += '</select>';
-		boardResult += '</div>';
-		boardResult += '<div>';
 		boardResult += '<input id="searchTextBox" type="text" name="searchText" value="' + map.searchText + '">';
-		boardResult += '</div>';
-		boardResult += '<div>';
 		boardResult += '<input id="search" type="button" value="Search">';
-		boardResult += '</div>';
 		boardResult += '</form>';
 	}
+	boardResult += '<br><a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=appraise"><button class="btn">Write Board</button></a>';
 	boardResult += '</div>';
-	boardResult += '<a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=appraise"><button class="btn">Write Board</button></a>';
 	
 	//$('#selectBox option[value='+map.searchItem+']').attr('selected', 'selected');
 	//$('#selectBox').val(map.searchItem);
