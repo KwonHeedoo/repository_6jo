@@ -96,28 +96,40 @@ function setSttData(sendData){
 }
 
 </script>
+<style type="text/css">
+.tts{
+margin-bottom: 20px;
+}
+.container{
+margin-top: 20px;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
+<div class="container" align="center">
 	<h1>Composition</h1>
 	<form id="compositionCheck" action="goConfirmed" method="post">
-		<textarea id="composition" rows="20" cols="50" name="composition"></textarea><br/>
+		<textarea id="composition" rows="20" cols="100" name="composition"></textarea><br/>
 		<div id="checkList" style="width:30%;">
 			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="grammer">Grammer</div>
-			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="emotion">Emotion</div>
+			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="emotion"><br>Emotion</div>
 			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="repetition">Repetition</div>
 		</div>
-		<div id="btn">
-			<div class="col-md-6"><button id="stt" type="button">STT</button></div>
-			<div class="col-md-6"><button id="check" type="button">Check</button></div>
+		<br><br>
+		<div id="btn" class="raw">
+			<button id="stt" type="button">STT</button>
+			<button id="check" type="button">Check</button>
 		</div>
 	</form>
 	<br/>
 	<!-- 텍스트 음성 제공 버튼(TTS Button) -->
-	<div id="tts">
+	<div id="tts" class="raw tts">
+		text to speech 
 		<button id="ttsBtn"><img alt="speaker" src="./resources/images/icons/speaker.png" style="width:20px;height:20px;"></button>
 		<audio src="" class="audio" hidden></audio>
 	</div>
+</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

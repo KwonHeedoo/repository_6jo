@@ -29,6 +29,10 @@ input {
    padding: 8px 15px;
 }
 
+#imgInp{
+   border: none;
+}
+
 .btn {
    width: 40%;
    height: 35px;
@@ -275,8 +279,8 @@ $(function(){  //닉네임 중복검사
                   <img id="blah" src="./resources/images/icons/user-avatar-placeholder.png" alt="Upload Image!!"
                      style="width: 200px; height: 200px;" />
                </div>
-               <br> <br> <br> <input type="file" class="btn"
-                  id="imgInp" name="imgInp" style="display: inline;" />
+               <br> <br> <br> <input type="file"
+                  id="imgInp" name="imgInp"/>
 
 
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit6jo.web.repository.MypageRepository;
 import com.scit6jo.web.vo.Schedule;
+import com.scit6jo.web.vo.User;
 
 
 @Controller
@@ -21,7 +22,11 @@ public class MypageController {
 	MypageRepository repository;
 	
 	@RequestMapping(value = "/goMypage", method = RequestMethod.GET)
-	public String goMypage() {
+	public String goMypage(HttpSession session, Model model) {
+		String userid = (String) session.getAttribute("loginId");
+		
+		User user = repository.getUserInfo(userid);
+		model.addAttribute("info", user);
 		
 		return "mypage/myInfo";
 	}

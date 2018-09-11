@@ -41,11 +41,11 @@
           </address>
         </li>
         <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+        <li><i class="fa fa-envelope-o"></i> info@englishSupporter.com</li>
       </ul>
     </div>
     <div class="one_third">
-      <h6 class="heading">Aliquam sit condimentum</h6>
+      <h6 class="heading">Welcome to English Supporter</h6>
     </div>
   </footer>
 </div> 

@@ -110,7 +110,7 @@ function outputMsg(resp){
       	 	<c:if test="${sessionScope.img == null}">
       	 	src="./resources/images/icons/user-avatar-placeholder.png"
       	 	</c:if>
-      	 	style="width:40px; height:40px;">
+      	 	style="width:35px; height:35px;">
       	 </li>
       	</c:if>
       	

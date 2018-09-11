@@ -64,7 +64,7 @@
 			,#{meaningK}
 			,#{meaningJ}
 			,#{wordtype}
-			,myword_seq.NEXTVAL
+			,MYWORD_SEQ.NEXTVAL
 		)
 	</insert>
 	
@@ -78,7 +78,14 @@
 	<!-- 마이페이지 내단어장 삭제 -->
 	<delete id="deleteMyWord" parameterType="Word">
 		delete from myword 
-		where userid = #{userid} and myword_no = #{myword_no}
+		<choose>
+			<when test="myword_no==null">
+			where userid = #{userid} and word=#{word}
+			</when>
+			<when test="myword_no!=null">
+			where userid =#{userid} and myword_no = #{myword_no}
+			</when>
+		</choose>
 	</delete>
 	
 	<!-- 예외 단어 리스트 요청 -->

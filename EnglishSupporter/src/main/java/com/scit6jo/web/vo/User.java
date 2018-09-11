@@ -15,6 +15,7 @@ public class User {
 	private int reportCount;
 	private int sanctionCount;
 	private String imgFilePath;
+	private int writeCount;
 	
 	
 	public User() {
@@ -171,12 +172,23 @@ public class User {
 		this.imgFilePath = imgFilePath;
 	}
 
+	public int getWriteCount() {
+		return writeCount;
+	}
+
+	public void setWriteCount(int writeCount) {
+		this.writeCount = writeCount;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", userpwd=" + userpwd + ", nickname=" + nickname + ", email=" + email
 				+ ", birthdate=" + birthdate + ", username=" + username + ", usertype=" + usertype + ", regdate="
 				+ regdate + ", lastdate=" + lastdate + ", attendNum=" + attendNum + ", reportCount=" + reportCount
-				+ ", sanctionCount=" + sanctionCount + ", imgFilePath" + imgFilePath + "]";
+				+ ", sanctionCount=" + sanctionCount + ", imgFilePath=" + imgFilePath + ", writeCount=" + writeCount
+				+ "]";
 	}
+	
+	
 
 }

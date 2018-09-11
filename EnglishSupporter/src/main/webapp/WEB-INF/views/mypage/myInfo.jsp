@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,7 +9,14 @@
 <title>MY PAGE</title>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
+<style type="text/css">
+.userimg{
+background-color: gray;
+}
+.userinfo_low{
+background-color: maroon;
+}
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
@@ -17,8 +25,22 @@
 		<div class="container-fluid">
 			<div class="side-body">
 				<div class="row">
-					<div class="center">
-				 유저 정보 집어넣을 예정 
+					<div>
+					<div class="userimg">
+					<img alt="Profile" <c:if test="${sessionScope.img != null}">
+      	 		src="./getProfileImg"
+      	 		</c:if>
+      	 		<c:if test="${sessionScope.img == null}">
+      	 		src="./resources/images/icons/user-avatar-placeholder.png"
+      	 		</c:if>
+      	 		style="width:300px; height:300px;">
+					</div>
+					<div class="userinfo_low">
+				 	registration date : ${info.regdate} 
+				 	Last Login date : ${info.lastdate}
+				 	Number of attendance : ${info.attendnum}
+				 	Number of writing : ${info.writeCount}
+					</div>
 					</div><!-- center -->
 				</div><!-- row -->
 			</div><!-- side-body -->

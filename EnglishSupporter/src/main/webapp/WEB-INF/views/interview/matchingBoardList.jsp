@@ -53,8 +53,8 @@ function output(resp){
 		}
 	});
 	boardResult += '<div class="container">';
-	boardResult += '<div class="row justify-content-end">';
 	boardResult += '<h1>Matching Board</h1>';
+	boardResult += '<div class="row justify-content-end">';
 	boardResult += '<div id="boardTable">';
 	boardResult += '<table border="1">';
 	// 게시판 제목부분
@@ -245,7 +245,9 @@ margin-bottom: 20px;
 	<input id="page" type="hidden" value="${page}">
 	<input id="searchItem" type="hidden" value="${searchItem}">
 	<input id="searchText" type="hidden" value="${searchText}">
-	<div id="boardResult"></div>
+
+	<div id="boardResult">
+	</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

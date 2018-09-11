@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.scit6jo.web.dao.MypageMapper;
+import com.scit6jo.web.dao.UserMapper;
 import com.scit6jo.web.vo.Schedule;
+import com.scit6jo.web.vo.User;
 
 @Repository
 public class MypageRepository {
@@ -50,6 +52,17 @@ public class MypageRepository {
 			e.printStackTrace();
 		}
 		return cnt;
+	}
+	// 가입일, 출석일수 등을 띄우는 메소드 
+	public User getUserInfo(String userid) {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		User u = null;
+		try {
+			u = mapper.userInfoPage(userid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return u;
 	}
 	
 }

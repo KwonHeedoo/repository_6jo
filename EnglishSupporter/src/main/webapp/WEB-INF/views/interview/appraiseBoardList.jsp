@@ -224,7 +224,9 @@ function constraint(appraiseCount){
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 30px;
+    height: 60%;
 }
+
 </style>
 </head>
 <body>

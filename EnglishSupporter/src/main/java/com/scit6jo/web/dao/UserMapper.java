@@ -36,6 +36,8 @@ public interface UserMapper {
 	public int cancelSanction(int sanctionNum);
 	// 유저 계정이 정지 중인지 체크
 	public User checkSanction(String userid);
+	//마이페이지 유저정보 띄우기 
+	public User userInfoPage(String userid);
 	
 }
 

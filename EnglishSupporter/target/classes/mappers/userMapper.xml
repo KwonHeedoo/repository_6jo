@@ -35,7 +35,7 @@
 		set 
 			attendnum = case 
 		when 
-			trunc(lastdate,'d') <![CDATA[<]]> trunc(sysdate,'d')
+			trunc(lastdate,'dd') <![CDATA[<]]> trunc(sysdate,'dd')
 		then 
 			attendnum+1
 		else 
@@ -248,6 +248,14 @@
 			userpwd = #{userpwd}
 		</if>		
 	</delete> 
+	
+	<select id="userInfoPage" resultType="User" parameterType="String">
+	select u.regdate, u.lastdate, u.attendnum , b.writecount as writeCount
+	from userlist u
+	join (select userid, count(*) as writecount from matching_board group by userid having userid = #{userid}) b
+	on u.userid = b.userid
+	where u.userid =#{userid}
+	</select>
 	
 	
 </mapper>

@@ -143,8 +143,8 @@ public class WordController {
 	public @ResponseBody List<Word> getMyWords(@RequestParam(value="wordlevel", defaultValue="1")String wordlevel, HttpSession session) {
 		List<Word> wList=null;
 		//System.out.println(wordlevel);
-		String userid = "aaa";
-		//String userid = (String) session.getAttribute("userid");
+		//String userid = "aaa";
+		String userid = (String) session.getAttribute("loginId");
 		//로그인과 합쳐져야 해서 세션의 로그인 
 		if(wordlevel.equals("0")) {
 			wList = repository.getMyWords(userid);
@@ -162,12 +162,15 @@ public class WordController {
 		boolean result =false;
 		
 		//본래 세션의 아이디를 가져와서 사용
-		word.setUserid("aaa");
-		
+//		word.setUserid("aaa");
+		String userid = (String) session.getAttribute("loginId");
+		word.setUserid(userid);
 /*		System.out.println(word);
 		System.out.println(command);
 		System.out.println("wordtype"+word.getWordtype());
 */		
+		System.out.println(word);
+		
 		if(command.equals("insert")) {
 			if(word.getWordtype().equals("")) {
 				word.setWordtype("star");
@@ -175,6 +178,8 @@ public class WordController {
 			}
 			result =repository.insertMyWord(word);
 		}else {
+			System.out.println("삭제");
+			word.setMyword_no(null);
 			result =repository.deleteMyWord(word);
 		}
 		return result;

@@ -3,6 +3,16 @@
 <html>
 <head>
 <meta charset="utf-8">
+<style type="text/css">
+table, th, td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #7F7F7F;
+}
+.fc-today{
+background-color: #d9edf7;
+}
+</style>
 <script>
 var today = new Date(); //오늘날짜 생성 
 	today = today.toISOString();
@@ -20,8 +30,8 @@ $(document).ready(function() {
           },
           defaultDate: today,
           height: 680,
-          weekNumbers: true,
-          weekNumberTitle : 'weeks',
+          //weekNumbers: true,
+          //weekNumberTitle : 'weeks',
           navLinks: true, // can click day/week names to navigate views
           editable: true,
           eventLimit: true, // allow "more" link when too many events          
@@ -96,7 +106,8 @@ $(document).ready(function() {
 			end = moment($('#end').val()).add(1,'days').format('YYYY-MM-DD');
 		}
     	var schedule = {'userid':userid,'startDate': start, 'endDate': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")};
-    	  $.ajax({
+    	var scheduleview = {'start': start, 'end': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")}  
+    	$.ajax({
   	        method:'post',
   	        url: 'saveMyschedule',
   	        data: schedule,
@@ -104,8 +115,8 @@ $(document).ready(function() {
   	        	console.log(doc);
   	        }
   	      });
-    	  $('#calendar').fullCalendar( 'refetchEvents' );
-    	  $('#calendar').fullCalendar('renderEvent',schedule, true);
+    	  //$('#calendar').fullCalendar( 'refetchEvents' );
+    	  $('#calendar').fullCalendar('renderEvent',scheduleview, true);
     	  $('#writeModal').modal('hide'); // 마지막으로 모달 창 지우기 
     });
         //수정버튼 클릭이벤트  해말어~~

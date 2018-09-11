@@ -250,11 +250,11 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 
 /* Tables
 --------------------------------------------------------------------------------------------------------------- */
-table:not(.t-exception), th:not(.t-exception), td:not(.t-exception){border:1px solid; border-collapse:collapse; vertical-align:top;}
+table:not(.t-exception), th:not(.t-exception), td{border:1px solid; border-collapse:collapse; vertical-align:top;}
 table:not(.t-exception), th:not(.t-exception){table-layout:auto;}
 table:not(.t-exception){width:100%; margin-bottom:15px;}
-th:not(.t-exception), td:not(.t-exception){padding:5px 8px;}
-td:not(.t-exception){border-width:0 1px;}
+th:not(.t-exception), td{padding:5px 8px;}
+td{border-width:0 1px;}
 
 #unmatched{
 	color:#FFFFFF;
