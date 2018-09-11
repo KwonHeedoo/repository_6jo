@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,11 +42,19 @@ $(function() {
 </script>
 </head>
 <body>
-	<h1>Message to Administrator</h1>
+	<h1>Message to 
+		<c:if test="${empty receiveId}">Administrator</c:if>
+		<c:if test="${not empty receiveId}">${receiveId}</c:if>
+	</h1>
 	<form id="messageCheck">
 		<input type="hidden" value="${sessionScope.loginId}" name="userid">
 		<input type="hidden" value="${sessionScope.loginNick}" name="nickname">
-		<input type="hidden" value="admin" name="receiveId">
+		<c:if test="${empty receiveId}">
+			<input type="hidden" value="admin" name="receiveId">
+		</c:if>
+		<c:if test="${not empty receiveId}">
+			<input type="hidden" value="${receiveId}" name="receiveId">
+		</c:if>
 		<textarea id="message" rows="20" cols="50" name="message"></textarea>
 	</form>
 	<button id="sendMsg">Send</button>

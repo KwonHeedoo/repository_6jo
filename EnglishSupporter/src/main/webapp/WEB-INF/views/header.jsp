@@ -13,7 +13,82 @@
 function message(){
 	window.open('./goSendMsgBox', 'SendMsgBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 }
+
+$(function(){
+	msgList();
+});
+
+// 읽지 않은 쪽지 요청
+function msgList(){
+	var userid = '${sessionScope.loginId}';
+	
+	$.ajax({
+		url : 'msgList'
+		, type : 'post'
+		, data : {'userid' : userid}
+		, success : function(resp){outputMsg(resp);}
+		, error : function(){alert('Error!');}
+	});
+}
+
+// 새 쪽지 유무 출력
+function outputMsg(resp){
+	var map = resp;
+	var result = '';
+	
+	result += '<a href="./goMessageList" class="alarm" style="position:relative;">';
+	result += '<i class="fa fa-comments fa-lg">';
+	if(map.msgCount != 0){
+		result += '<span class="nav-counter">New</span>';
+	}
+	result += '</i>';
+	result += '</a>';
+	
+	$('#msgItem').html(result);
+}
 </script>
+<style type="text/css">
+.nav-counter {
+ position:absolute;
+ top: -8px;
+ right: -7px;
+ min-width: 8px;
+ height: 15px;
+ line-height: 14px;
+ margin-top: 5px;
+ padding: 0 6px;
+ font-weight: normal;
+ font-size: xx-small;
+ color: white;
+ text-align: center;
+ text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+ background: #e23442;
+ border: 1px solid #911f28;
+ border-radius: 11px;
+ background-image: -webkit-linear-gradient(top, #e8616c, #dd202f);
+ background-image: -moz-linear-gradient(top, #e8616c, #dd202f);
+ background-image: -o-linear-gradient(top, #e8616c, #dd202f);
+ background-image: linear-gradient(to bottom, #e8616c, #dd202f);
+ -webkit-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px rgba(0, 0, 0, 0.12);
+ box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px rgba(0, 0, 0, 0.12);
+}
+ 
+.alarm {
+ display: inline-block;
+ vertical-align: middle;
+ border: none;
+ height: 13px;
+ line-height: 13px;
+ padding: 0px 25.6px;
+ font-weight: 300;
+ font-size: 12px;
+ font-family: "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
+ text-shadow: 0 1px 1px white;
+ margin: 0;
+ text-decoration: none;
+ text-align: center;
+}
+</style>
 </head>
 <div class="wrapper row0">
   <div id="topbar" class="hoc clear"> 
@@ -30,6 +105,9 @@ function message(){
          <li>${sessionScope.loginNick} 님  환영합니다.</li>
         </c:if>
         <li><a href="./"><i class="fa fa-lg fa-home"></i></a></li>
+        <c:if test="${sessionScope.loginType eq 'user'}">
+         <li id="msgItem"></li>
+        </c:if>
        	<!-- 로그인 하지 않은 경우 --> 
        	<c:if test="${sessionScope.loginId == null}">
         <li><a href="goLoginForm">Login</a></li>

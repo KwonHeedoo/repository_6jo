@@ -11,7 +11,8 @@
 <script type="text/javascript">
 $(function() {
 	$('#answer').on('click', function() {
-		
+		var receiveId = '${receiveId}';
+		location.href = './goSendMsgBox?receiveId=' + receiveId;
 	});
 });
 </script>

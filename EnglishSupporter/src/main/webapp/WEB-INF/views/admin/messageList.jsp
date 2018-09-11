@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,28 +34,43 @@ function output(resp){
 	result += '<th style="width:15%;">REGDATE</th>';
 	result += '<th style="width:10%;">CHECK</th>';
 	result += '</tr>';
-	var ss
-	$('#dd')
-	// 리스트 내용 부분
-	$.each(messageList, function(index, item){
+	
+	if(!messageList.length){
 		result += '<tr>';
-		result += '<td>' + item.nickname + '</td>';
-		result += '<td><a onclick="read(' + item.messageNum + ', \'' + item.nickname + '\', \'' + item.message + '\')">' + item.message + '</a></td>';
-		result += '<td>' + item.regdate + '</td>';
-		if(item.status === 0){
-			result += '<td>unread</td>';
-		}else{
-			result += '<td>read</td>';
-		}
+		result += '<td colspan="4">There is no Message</td>';
 		result += '</tr>';
-	});
+	}
+	
+	// 리스트 내용 부분
+	if(messageList.length){
+		$.each(messageList, function(index, item){
+			result += '<tr>';
+			result += '<td>' + item.nickname + '</td>';
+			result += '<td><a id="msg' + item.messageNum + '" ><b>' + item.message + '</b></a></td>';
+			result += '<td>' + item.regdate + '</td>';
+			if(item.status === 0){
+				result += '<td>unread</td>';
+			}else{
+				result += '<td>read</td>';
+			}
+			result += '</tr>';
+		});
+	}
 	result += '</table>';
 	result += '</div>';
 	
 	$('#messageList').html(result);
+	
+	if(messageList){
+		$.each(messageList, function(index, item){
+			$('#msg' + item.messageNum).on('click', function(){
+				read(item.messageNum, item.userid, item.nickname, item.message);
+			});
+		});
+	}
 }
 
-function read(messageNum, nickname, message){
+function read(messageNum, userid, nickname, message){
 	
 	var form = document.createElement('form');
 	form.setAttribute('method', 'post');
@@ -65,6 +81,12 @@ function read(messageNum, nickname, message){
 	input.type = 'hidden';
 	input.name = 'messageNum';
 	input.value = messageNum;
+	form.appendChild(input);
+
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = 'userid';
+	input.value = userid;
 	form.appendChild(input);
 	
 	input = document.createElement('input');
@@ -86,6 +108,8 @@ function read(messageNum, nickname, message){
 	form.submit();
 	
 	document.body.removeChild(form);
+	
+	messageList();
 }
 </script>
 <style type="text/css">
@@ -107,17 +131,32 @@ table{
 text-align:center;
 table-layout: fixed;
 width: 1000px;
-height: 200px;
+/* height: 200px; */
 }
 </style>
 <title>Message List</title>
 </head>
 <body>
+<c:if test="${sessionScope.loginType eq 'admin'}">
 <%@ include file="/WEB-INF/views/admin/adminFrame.jsp"%>
-<div id="container" style="margin-left:350px;">
+</c:if>
+<c:if test="${sessionScope.loginType eq 'user'}">
+<%@ include file="/WEB-INF/views/header.jsp"%>
+</c:if>
+<c:if test="${sessionScope.loginType eq 'admin'}">
+<div id="container" style="margin-left:350px;">`
 	<h1>Message List</h1>
 	<br/><br/>
 	<div id="messageList"></div>
 </div>
+</c:if>
+<c:if test="${sessionScope.loginType eq 'user'}">
+	<h1>Message List</h1>
+	<br/><br/>
+	<div id="messageList"></div>
+</c:if>
+<c:if test="${sessionScope.loginType eq 'user'}">
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
+</c:if>
 </body>
 </html>
