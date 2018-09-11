@@ -161,8 +161,8 @@ ul.tabs li.active {
 			<a href="./goMyDocs?cpage=${num}&selectedTab=coverletter" >
 			<span <c:if test="${c_navi.currentPage == num}"> style="font-size:12pt; font-weight:bold;" </c:if>>${num}&emsp;</span></a>
 		</c:forEach>
-		<a href="./goMyDocs?cpage=${navi.currentPage + 1}&selectedTab=coverletter">Next</a>&emsp; 
-		<a href="./goMyDocs?cpage=${navi.totalPageCount}&selectedTab=coverletter">▶▶</a>
+		<a href="./goMyDocs?cpage=${c_navi.currentPage + 1}&selectedTab=coverletter">Next</a>&emsp; 
+		<a href="./goMyDocs?cpage=${c_navi.totalPageCount}&selectedTab=coverletter">▶▶</a>
 		</div>
 	
 	  

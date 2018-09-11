@@ -67,7 +67,6 @@ function output(resp){
 	});
 	boardResult += '<div class="container">';
 	boardResult += '<div class="row justify-content-end">';
-	boardResult += '<h1>appraise Board</h1>';
 	boardResult += '<div id="boardTable">';
 	boardResult += '<table border="1">';
 	// 게시판 제목부분
@@ -161,7 +160,6 @@ function output(resp){
 			boardResult += '<option value="contents" selected="selected">Contents</option>';
 		}
 		boardResult += '</select>';
-<<<<<<< HEAD
 		boardResult += '<input id="searchTextBox" type="text" name="searchText" value="' + map.searchText + '">';
 		boardResult += '<input id="search" type="button" value="Search">';
 		boardResult += '</form>';

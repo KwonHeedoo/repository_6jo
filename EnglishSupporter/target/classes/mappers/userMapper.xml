@@ -17,6 +17,7 @@
 			, to_char(regdate, 'YYYY-MM-DD') as regdate
 			, to_char(lastdate, 'yyyy-mm-dd hh24:mi:ss') as lastdate
 			, attendnum
+			, imgFilePath
 		from 
 			userlist
 		where 
@@ -175,7 +176,8 @@
 			, birthdate
 			, username
 			, regdate
-			, attendNum)
+			, attendNum
+			, imgfilepath)
 		values(
 			#{userid}
 			, #{userpwd}
@@ -184,7 +186,8 @@
 			, #{birthdate}
 			, #{username}
 			, sysdate
-			, data_seq.nextVal)	  
+			, data_seq.nextVal
+			, #{imgFilePath})	  
 	</insert>
 	
 	<!-- ID 중복체크 -->
