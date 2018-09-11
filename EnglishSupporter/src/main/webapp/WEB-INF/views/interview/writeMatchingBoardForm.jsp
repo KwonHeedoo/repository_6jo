@@ -5,29 +5,35 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- google CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Writing Matching Board</title>
 <script>
-	function board(page) {
-		location.href = "./goBoardList?page=" + page + "&boardType=matching";
-	};
+$(function(){
+	$('#interview').addClass('active');
+});
+
+function board(page) {
+	location.href = "./goBoardList?page=" + page + "&boardType=matching";
+};
+
+function formCheck(){
+	var title = document.getElementById("title").value;
+	var contents = document.getElementById("contents").value;
+	var appointedTime = document.getElementById("appointedTime").value;
 	
-	function formCheck(){
-		var title = document.getElementById("title").value;
-		var contents = document.getElementById("contents").value;
-		var appointedTime = document.getElementById("appointedTime").value;
-		
-		if(title.length == 0 || contents.length == 0){
-			alert("Please Write Title or Content");
-			return false;
-		}
-		
-		if(appointedTime.length == 0){
-			alert("Please Select Date And Time");
-			return false;
-		}
-		
-		return true;
-	};
+	if(title.length == 0 || contents.length == 0){
+		alert("Please Write Title or Content");
+		return false;
+	}
+	
+	if(appointedTime.length == 0){
+		alert("Please Select Date And Time");
+		return false;
+	}
+	
+	return true;
+};
 </script>
 </head>
 <body>

@@ -5,8 +5,38 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title>Writing appraise Board</title>
-<script>
+<style type="text/css">
+.container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+input[type="text"]{
+width: 100%;
+}
+textarea {
+width: 100%;
+}
+
+</style>
+<script> 
+function test(func){
+	
+}
+
+function a(value){
+	test(
+			function (){
+				var sum = value * 10;
+	});
+	
+}
+
 	function board(page) {
 		location.href = "./goBoardList?page=" + page + "&boardType=appraise";
 	};
@@ -54,6 +84,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
+	<div class="container" align="center">
 	<h1>Writing appraise Board</h1>
 	<div>
 	<form action="writeBoard" method="post" onsubmit="return formCheck()">
@@ -80,7 +111,8 @@
 			
 		</div>
 	</form>
-	<button onclick="dataList()">button</button>
+	<button onclick="dataList()">select video</button>
+	</div>
 	</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>

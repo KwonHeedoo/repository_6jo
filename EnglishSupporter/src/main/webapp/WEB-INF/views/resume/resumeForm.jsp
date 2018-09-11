@@ -32,7 +32,7 @@ margin-left: 0;
 }
 
 .box{
-height: 55px;
+height: 60px;
 }
 h5{
 font-weight: bold;
@@ -169,7 +169,7 @@ margin-bottom: 20px;
 					<br>
 					<div class="box">
 					<div class="col-md-2">
-						<input type="date" name="additional_info[0][info_date]" placeholder="END DATE" />date of acquisition
+						<input type="date" name="additional_info[0][info_date]" placeholder="END DATE" />
 					</div>
 					<div class="col-md-2">
 						<input type="text" name="additional_info[0][info_title]" placeholder="TITLE" />
@@ -277,7 +277,7 @@ $(function(){
 		var text = '<div class="box">';
 		var boxes = $('#info >.box');
 		indexinfo = boxes.length;
-		text += '<div class="col-md-2"><input type="date" name="additional_info['+indexinfo+'][info_date]" />date of acquisition</div>';
+		text += '<div class="col-md-2"><input type="date" name="additional_info['+indexinfo+'][info_date]" /></div>';
 		text += '<div class="col-md-2"><input type="text" name="additional_info['+indexinfo+'][info_title]" placeholder="TITLE" /></div>';
 		text += '<div class="col-md-4"><input type="text" name="additional_info['+indexinfo+'][detail]" placeholder="DETAIL" /></div>';
 		text += '<div class="col-md-4"><input type="text" name="additional_info['+indexinfo+'][remarks]" placeholder="REMARK" /></div></div>';
@@ -373,7 +373,9 @@ $(function(){
 		if(!checkblank(job))return false;
 		//공란 체크 추가정보
 		var info_title= $('input[name*="[info_title]"]');
-		if(!checkblank(info_title))return false;		
+		if(!checkblank(info_title))return false;
+		
+		return true;
 	}
 
 	function formToObject() {
@@ -395,7 +397,12 @@ $(function(){
 	
 	
 	$('#CVsend').on('click',function(){
-		if(!validation()){return;}
+		console.log('들어옵니까?');
+		if(!validation()){
+			return;
+			console.log('너무어렵다구 ㅠㅠ');
+		}
+		console.log('여기 찍나요?ㅜ?')
 		//폼 오브젝트화 
 		var resume = formToObject();
 		$.ajax({

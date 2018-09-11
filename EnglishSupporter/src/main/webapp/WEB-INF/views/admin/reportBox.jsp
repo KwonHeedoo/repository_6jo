@@ -19,9 +19,11 @@ $(function() {
 			return;
 		}
 		
+		// form의 값들 JSON화
 		$.fn.serializeObject = FormSerializer.serializeObject;
 		var report = $('#reportCheck').serializeObject();
 		
+		// 신고 접수
 		$.ajax({
 			url : 'report'
 			, type : 'post'

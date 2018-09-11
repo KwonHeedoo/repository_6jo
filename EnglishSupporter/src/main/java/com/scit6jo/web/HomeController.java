@@ -31,10 +31,6 @@ public class HomeController {
 		return "home";
 	}
 
-	@RequestMapping(value = "/goMypage", method = RequestMethod.GET)
-	public String goMypage() {
-		
-		return "mypage/myInfo";
-	}
+
 
 }

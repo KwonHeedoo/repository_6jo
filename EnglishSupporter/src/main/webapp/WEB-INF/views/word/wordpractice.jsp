@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -306,13 +306,18 @@ function encodingBase64(blob) {
 			data : {'wordlevel' : level},
 			success: function(reps){
 				wordlist = reps;
-				
 				listsize =wordlist.length;
 				
 				//console.log(wordlist);
-				//console.log(listsize);
+				console.log(listsize);
+				if(listsize>1){
 				initword(wordlist);
 				viewNum();
+				}else{
+					$('#meaning').text("");
+					$('input[name="text"]').val("There are no words in MyWords");
+					$('span.word').text("0 / 0");
+				}
 			},
 			
 		});
@@ -329,6 +334,7 @@ function encodingBase64(blob) {
 			$('#checkmyword').attr('src','./resources/images/icons/silver.png');
 			// 나의 단어장에서 해당 단어 삭제처리하기 			
 			word.command = 'delete';
+			console.log('삭제처리');
 		}else{
 			$('#checkmyword').attr('src','./resources/images/icons/golden.png');
 			//나의 단어장에 해당단어 추가하기 
@@ -342,6 +348,7 @@ function encodingBase64(blob) {
 				data : word,
 				success: function(reps){
 					var result = reps;
+					console.log(result);
 					callwordlist(level);
 				}
 			});
@@ -350,7 +357,7 @@ function encodingBase64(blob) {
 	
 	$(function() {
 		$('a.writeword').on('click',function(){
-			window.open("insertword","newidwindow","top=150,left=150,width=500,height=400");
+			window.open("insertword","newidwindow","top=150,left=150,width=500,height=300");
 		});
 	});
 	

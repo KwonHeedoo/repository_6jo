@@ -21,6 +21,8 @@
 
 <script type="text/javascript">
 $(function(){
+	$('#nBoard').addClass('active');
+	
 	init();
 });
 
@@ -54,8 +56,8 @@ function output(resp){
 	boardResult += '<tr id="boardMenu">';
 	boardResult += '<th style="width:5%;">No</th>';
 	boardResult += '<th class="boardTitle" style="width:65%;">TITLE</th>';
-	boardResult += '<th style="width:15%;">NICKNAME</th>';
-	boardResult += '<th style="width:10%;">REGDATE</th>';
+	boardResult += '<th style="width:15%;">USER</th>';
+	boardResult += '<th style="width:15%;">REGDATE</th>';
 	boardResult += '<th style="width:5%;">HITS</th>';
 	boardResult += '</tr>';
 	// 게시판 내용부분 :: 데이터가 없을 경우
@@ -102,7 +104,6 @@ function output(resp){
 		boardResult += '<div class="container">';
 		boardResult += '<form id="searchBox" action="boardList" method="get">';
 		boardResult += '<input type="hidden" name="boardType" value="notice">';
-		boardResult += '<div class="col-md-1">';
 		boardResult += '<select id="selectItemBox" name="searchItem">';
 		if(map.searchItem === 'title'){
 			boardResult += '<option value="title" selected="selected">Title</option>';
@@ -118,13 +119,8 @@ function output(resp){
 			boardResult += '<option value="contents" selected="selected">Contents</option>';
 		}
 		boardResult += '</select>';
-		boardResult += '</div>';//col-md-1
-		boardResult += '<div class="col-md-3">';
 		boardResult += '<input id="searchTextBox" type="text" name="searchText" value="' + map.searchText + '">';
-		boardResult += '</div>';//col-md-3
-		boardResult += '<div class="col-md-1">';
 		boardResult += '<input id="search" type="button" value="Search">';
-		boardResult += '</div>';//col-md-1
 		boardResult += '</form>';
 	}
 	boardResult += '</div>';//page
@@ -175,6 +171,11 @@ text-align:center;
 }
 td.boardTitle{
 text-align:left;
+}
+#boardResult{
+margin-bottom: 20px;
+margin-top: 20px;
+height: 60%;
 }
 </style>
 

@@ -15,6 +15,9 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
+html,body{
+height: 100%;
+}
 
 input[type='text'], input[type='date'] {
 margin:0 auto;
@@ -137,15 +140,13 @@ ul.tabs li.active {
 					<td class="coverletterTitle">
 					<a class="cltitle${status.count}" href="">${coverletter.title}</a>
 					</td>
-					<td class ="regdate"></td>
+					<td class ="regdate${status.count}"></td>
 					<td>
 					<a href="#" onclick="updateCL('${coverletter.userid}','${coverletter.title}');">UPDATE</a> / <a href="#" onclick="deleteCL('${coverletter.userid}','${coverletter.title}');">DELETE</a>
 					</td>
 				</tr>
 				<script>
-					var regdate = "${coverletter.regdate}";
-						regdate = regdate.substring(0,16);
-						$('td.regdate').text(regdate);
+						$('td.regdate${status.count}').text("${coverletter.regdate}".substring(0,16));
 					var link = "./viewMyCoverletter?userid=${coverletter.userid}&title="+encodeURI('${coverletter.title}');
 						$('a.cltitle${status.count}').attr('href',link);
 				</script>
@@ -160,8 +161,8 @@ ul.tabs li.active {
 			<a href="./goMyDocs?cpage=${num}&selectedTab=coverletter" >
 			<span <c:if test="${c_navi.currentPage == num}"> style="font-size:12pt; font-weight:bold;" </c:if>>${num}&emsp;</span></a>
 		</c:forEach>
-		<a href="./goMyDocs?cpage=${navi.currentPage + 1}&selectedTab=coverletter">Next</a>&emsp; 
-		<a href="./goMyDocs?cpage=${navi.totalPageCount}&selectedTab=coverletter">▶▶</a>
+		<a href="./goMyDocs?cpage=${c_navi.currentPage + 1}&selectedTab=coverletter">Next</a>&emsp; 
+		<a href="./goMyDocs?cpage=${c_navi.totalPageCount}&selectedTab=coverletter">▶▶</a>
 		</div>
 	
 	  
@@ -191,19 +192,17 @@ ul.tabs li.active {
 					<td>${status.count}</td>
 					<td class="resumeTitle"><a href="./viewMyResume?resume_no=${resume.resume_no}"
 						>${resume.title}</a></td>
-					<td class="deadline">${resume.deadline}</td>
-					<td class="regdate2">${resume.regdate}</td>
+					<td class="deadline${status.count}">${resume.deadline}</td>
+					<td class="regdate2${status.count}">${resume.regdate}</td>
 					<td>
 					<a href="#" onclick="updatedocs('${resume.resume_no}');">UPDATE</a> / <a href="#" onclick="deletedocs('${resume.resume_no}');">DELETE</a>
 					</td>
 				</tr>
 				<script>
-					var regdate2 = "${resume.regdate}";
-					var deadline = "${resume.deadline}";
-						regdate2 = regdate.substring(0,16);
-						deadline = deadline.substring(0,16);
-						$('td.regdate2').text(regdate);
-						$('td.deadline').text(deadline);
+					//var regdate2 = ;
+					//var deadline = ;
+						$('td.regdate2${status.count}').text("${resume.regdate}".substring(0,16));
+						$('td.deadline${status.count}').text("${resume.deadline}".substring(0,16));
 				</script>
 			</c:forEach>
 		</c:if>

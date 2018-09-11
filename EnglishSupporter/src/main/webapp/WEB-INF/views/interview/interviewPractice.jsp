@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false"%>
 <html>
 <head>
@@ -154,6 +154,11 @@ button {
 button {
 	margin: 0;
 }
+
+#gum{
+border-radius: 5px;
+}
+
 </style>
 
 </head>
@@ -165,7 +170,7 @@ button {
 		<div id="container">
 
 			<div id="start_part" style="text-align: center">
-				<h4>면접 연습을 위한 동영상 녹화를 시작하시려면 start 버튼을 눌러주세요!</h4>
+				<h3>Press START button to start recording videos for interview practice!</h3>
 
 				<button id="start" class="btn">Start</button>
 			</div>

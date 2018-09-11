@@ -54,6 +54,8 @@ padding: 4px;
 </style>
 <script>
 $(function(){
+	$('#nBoard').addClass('active');
+	
 	init();
 });
 
@@ -118,9 +120,19 @@ function output(resp){
 			commentResult += '<i class="fa fa-user"></i>' + item.parentNick;
 		}
 		if(item.parentId == null && item.nickname != '*****'){
-			commentResult += '<span style="float:right"><button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
+			commentResult += '<span style="float:right"><button id ="report' + item.commentNum + '" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
+			$(function(){
+				$('#report' + item.commentNum).on('click',function(){
+					 report(item.userid, item.comments);
+				});
+			});
 		}else if(item.parentId != null && item.nickname != '*****'){
-			commentResult += '<span style="float:right"><button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
+			commentResult += '<span style="float:right"><button id ="report' + item.commentNum + '" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
+			$(function(){
+				$('#report' + item.commentNum).on('click',function(){
+					 report(item.userid, item.comments);
+				});
+			});
 		}
 		commentResult += '</div>';//comment-user
 		commentResult += '<time class="comment-date" datetime="' + item.regdate + '">';//
@@ -354,13 +366,21 @@ function report(reportee, report){
 	<div>
 		<input id="boardNum" type="hidden" value="${board.boardNum}">
 		<input id="userid" type="hidden" value="${board.userid}">
+		<input id="boardcontents" type="hidden" value="${board.contents}">
 		<input id="page" type="hidden" value="${page}">
 		<input id="searchItem" type="hidden" value="${searchItem}">
 		<input id="searchText" type="hidden" value="${searchText}">
 		<input id="loginId" type="hidden" value="${sessionScope.loginId}">
 		<input id="loginNick" type="hidden" value="${sessionScope.loginNick}">
 		<input id="loginType" type="hidden" value="${sessionScope.loginType}">
-		<h4>${board.title}<button onclick="report('${board.userid}', '${board.contents}')" style="font-size:x-small; border:none; background-color:white;color:red;">신고</button></h4>
+		<h4>${board.title}<button id ="reportboard" style="font-size:x-small; border:none; background-color:white;color:red;">신고</button></h4>
+		<script type="text/javascript">
+			$('#reportboard').on('click',function(){
+				var userid = '${board.userid}';
+				var contents = $('#boardcontents').val();
+				report(userid,contents);
+			});
+		</script>
 		<div>
 			<pre>${board.contents}</pre>
 		</div>

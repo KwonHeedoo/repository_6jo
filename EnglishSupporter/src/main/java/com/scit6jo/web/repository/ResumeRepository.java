@@ -7,7 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.scit6jo.web.dao.MypageMapper;
 import com.scit6jo.web.dao.ResumeMapper;
+import com.scit6jo.web.vo.Schedule;
 import com.scit6jo.web.vo.resume.Additional_info;
 import com.scit6jo.web.vo.resume.CoverLetter;
 import com.scit6jo.web.vo.resume.Education;
@@ -202,5 +204,41 @@ public class ResumeRepository {
 		}
 		return result;
 	}
+	
+	//이력서 데드라인 일정에 표시해 주기 
+	public int insertResumeScedule(Resume vo) {
+		MypageMapper mapper = session.getMapper(MypageMapper.class);
+		String title = vo.getTitle() +"Resume Deadline";
+
+		Schedule resume = new Schedule(vo.getUserid(), title, "true", vo.getDeadline());
+		int result = 0;
+		try {
+			System.out.println(resume);
+			result = mapper.saveSchedule(resume);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int removeRschedule(String title, String userid) {
+		MypageMapper mapper = session.getMapper(MypageMapper.class);
+		int result = 0;
+		try {
+			Schedule ss = new Schedule();
+			title = title +"Resume Deadline";
+			ss.setUserid(userid);
+			ss.setTitle(title);
+			System.out.println(ss);
+			result = mapper.removeSchedule(ss);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	//이력서 삭제시 일정표에서도 삭제하기 
+	//public 
+	
 	
 }

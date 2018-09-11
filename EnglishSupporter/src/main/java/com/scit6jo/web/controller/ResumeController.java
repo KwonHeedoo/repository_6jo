@@ -97,6 +97,7 @@ public class ResumeController {
 		return "resume/myDocs";
 	}
 	
+	//커버레터 저장하기 
 	@RequestMapping(value = "/sendCoverletter", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public @ResponseBody String saveCoverletter(@RequestBody CoverLetter coverletter) {
 		System.out.println("saving a new CoverLetter...");
@@ -110,6 +111,7 @@ public class ResumeController {
 		return text;
 	}
 	
+	//이력서 수정 페이지로 이동
 	@RequestMapping(value = "/goUpdateResume", method = RequestMethod.GET)
 	public String goUpdateResume(Model model, String resume_no) {
 		Resume myResume = repository.getResume(resume_no);
@@ -118,7 +120,7 @@ public class ResumeController {
 		return "resume/resumeForm";
 	}
 	
-
+	//커버레터 수정
 	@RequestMapping(value = "/updateCoverletter", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public @ResponseBody String updateCoverletter(@RequestBody CoverLetter coverletter) {
 		System.out.println("saving a new CoverLetter...");
@@ -131,6 +133,7 @@ public class ResumeController {
 		}
 		return text;
 	}
+	//이력서 수정하기 
 	@RequestMapping(value = "/updateResumeForm", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public @ResponseBody String updateResumeForm(@RequestBody Resume resume) {
 		String text=null;
@@ -151,13 +154,19 @@ public class ResumeController {
 		
 		return text;
 	}
-
+	
+	//이력서 저장하기 
 	@RequestMapping(value = "/sendresumeForm", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public @ResponseBody String newResume(@RequestBody Resume resume) {
 		System.out.println("saving a new Resume...");
 		String text=null;
-
+		//이력서 스케쥴 저장하기 
 		System.out.println(resume);
+		if(resume.getDeadline()!=null) {
+			int rcnt=repository.insertResumeScedule(resume);
+			System.out.println("스케줄 저장:"+rcnt);
+		}
+		
 		int insertResume = repository.insertResume(resume);
 		String resume_no = repository.getResumeNo(resume);
 		System.out.println(insertResume+"/이력서드감/"+resume_no);
@@ -214,7 +223,6 @@ public class ResumeController {
 		return "resume/coverletterForm";
 	}
 	
-	
 	//이력서 및 커버레터 삭제 
 	@RequestMapping(value = "/deleteDocs", method = {RequestMethod.POST,RequestMethod.GET}, produces = "application/text; charset=utf8")
 	public @ResponseBody String deleteDocs(String title, String userid, String type, String resume_no) {
@@ -225,7 +233,12 @@ public class ResumeController {
 		int cntR =0;
 		int cntC =0;
 		if(type.equals("resume")) {
+			Resume findR = repository.getResume(resume_no); // 이력서 번호로 이력서값 읽어오기
 			cntR = repository.removeResumes(resume_no);
+			
+			//이력서 데드라인 스케줄 삭제 
+			repository.removeRschedule(findR.getTitle(),findR.getUserid());
+			
 		}else{ // 커버레터
 			CoverLetter vo = new CoverLetter(title, userid);
 			cntC = repository.removeCoverLetter(vo);

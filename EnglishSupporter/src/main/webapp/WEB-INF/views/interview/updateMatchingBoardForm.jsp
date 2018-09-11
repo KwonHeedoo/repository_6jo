@@ -4,10 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- google CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Updating Matching Board</title>
 <script>
+$(function(){
+	$('#interview').addClass('active');
+});
+
 function cancell(boardNum, page, searchItem, searchText) {
-	location.href = "detailBoard?boardNum="+boardNum+"&&boardType=matching&page="+page+"&back=true&searchItem="+searchItem+"&searchText="+searchText;
+	location.href = "./detailBoard?boardNum="+boardNum+"&&boardType=matching&page="+page+"&back=true&searchItem="+searchItem+"&searchText="+searchText;
 };
 
 function board(page) {

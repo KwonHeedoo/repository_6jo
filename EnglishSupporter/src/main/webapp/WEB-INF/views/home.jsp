@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 .container{
-	height: 60%;
+	height: 740px;
 	background-image: url('./resources/images/bible-book-christian-250609.jpg');
 	background-size: 100%;
 	background-repeat: no-repeat;
@@ -38,7 +38,7 @@ $(function(){
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
 <div class="container">
-	<a href="./goDashboard">goDashboard</a>
+
 </div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 <c:remove var="msg1" scope="session" />
