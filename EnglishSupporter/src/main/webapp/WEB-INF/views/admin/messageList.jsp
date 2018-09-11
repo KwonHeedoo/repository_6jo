@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,10 +34,15 @@ function output(resp){
 	result += '<th style="width:15%;">REGDATE</th>';
 	result += '<th style="width:10%;">CHECK</th>';
 	result += '</tr>';
-	var ss
-	$('#dd')
+	
+	if(!messageList.length){
+		result += '<tr>';
+		result += '<td colspan="4">There is no Message</td>';
+		result += '</tr>';
+	}
+	
 	// 리스트 내용 부분
-	if(messageList){
+	if(messageList.length){
 		$.each(messageList, function(index, item){
 			result += '<tr>';
 			result += '<td>' + item.nickname + '</td>';
@@ -125,17 +131,32 @@ table{
 text-align:center;
 table-layout: fixed;
 width: 1000px;
-height: 200px;
+/* height: 200px; */
 }
 </style>
 <title>Message List</title>
 </head>
 <body>
+<c:if test="${sessionScope.loginType eq 'admin'}">
 <%@ include file="/WEB-INF/views/admin/adminFrame.jsp"%>
-<div id="container" style="margin-left:350px;">
+</c:if>
+<c:if test="${sessionScope.loginType eq 'user'}">
+<%@ include file="/WEB-INF/views/header.jsp"%>
+</c:if>
+<c:if test="${sessionScope.loginType eq 'admin'}">
+<div id="container" style="margin-left:350px;">`
 	<h1>Message List</h1>
 	<br/><br/>
 	<div id="messageList"></div>
 </div>
+</c:if>
+<c:if test="${sessionScope.loginType eq 'user'}">
+	<h1>Message List</h1>
+	<br/><br/>
+	<div id="messageList"></div>
+</c:if>
+<c:if test="${sessionScope.loginType eq 'user'}">
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
+</c:if>
 </body>
 </html>

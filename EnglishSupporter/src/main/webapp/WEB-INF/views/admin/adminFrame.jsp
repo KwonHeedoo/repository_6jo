@@ -51,7 +51,7 @@ function outputMsg(resp){
 	result += '</a>';
 	result += '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">';
 	
-	if(map.messageList){
+	if(map.messageList.length){
 		$.each(map.messageList, function(index, item){
 			result += '<div class="dropdown-item" id="msg' + item.messageNum + '" style="width:280px;">';
 			result += '<div style="float:left; width:50%;"><b>' + item.userid + '</b></div>';
@@ -67,7 +67,7 @@ function outputMsg(resp){
 	result += '</div>';
 	
 	$('#msgItem').html(result);
-	if(map.messageList){
+	if(map.messageList.length){
 		$.each(map.messageList, function(index, item){
 			$('#msg' + item.messageNum).on('click', function(){
 				read(item.messageNum, item.userid, item.nickname, item.message);
