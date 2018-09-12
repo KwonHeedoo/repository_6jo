@@ -62,20 +62,6 @@
 			</tr>
 		</c:if>
 		<!-- 게시판 내용부분 :: 데이터가 있을 경우 -->
-		<c:if test="${not empty resume.experience}">
-			<tr><th colspan="6" class="this">Experience</th></tr>
-			<c:forEach var="exp" items="${resume.experience}" varStatus="status">
-				<tr>
-				<td colspan="6">
-					[${exp.company_name}]
-					<ul>
-					<li>${exp.start_date} -- ${exp.end_date}</li>
-					<li>${exp.job_description}</li>
-					</ul>
-				</td>
-				</tr>
-			</c:forEach>
-		</c:if>
 		<c:if test="${not empty resume.education}">
 			<tr><th colspan="6" class="this">Education</th>
 			<c:forEach var="edu" items="${resume.education}" varStatus="status">
@@ -91,6 +77,20 @@
 			</c:forEach>
 		</c:if>
 
+		<c:if test="${not empty resume.experience}">
+			<tr><th colspan="6" class="this">Experience</th></tr>
+			<c:forEach var="exp" items="${resume.experience}" varStatus="status">
+				<tr>
+				<td colspan="6">
+					[${exp.company_name}]
+					<ul>
+					<li>${exp.start_date} -- ${exp.end_date}</li>
+					<li>${exp.job_description}</li>
+					</ul>
+				</td>
+				</tr>
+			</c:forEach>
+		</c:if>
 		<c:if test="${not empty resume.additional_info}">
 			<tr><th colspan="6" class="this">additional Information</th>
 			<c:forEach var="info" items="${resume.additional_info}" varStatus="status">
