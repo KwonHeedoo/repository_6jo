@@ -55,9 +55,6 @@ public class InterviewController {
 	// 인터뷰 페이지로 이동
 	@RequestMapping(value = "/goInterview", method = RequestMethod.GET)
 	public String interview(HttpSession session, Model model) {
-		session.setAttribute("loginId", "aaa");
-		session.setAttribute("loginNick", "aaa");
-		session.setAttribute("loginType", "user");
 		return "interview/interviewPractice";
 	}
 
@@ -82,7 +79,7 @@ public class InterviewController {
 	// 1:1 매칭 페이지로 이동?
 	@RequestMapping(value = "/goMatching", method = RequestMethod.GET)
 	public String matchingPractice(HttpSession session, Model model) {
-		model.addAttribute("roomid", "abc");
+		model.addAttribute("roomid", "undifi");
 		return "interview/matchingPractice";
 	}
 
