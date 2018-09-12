@@ -39,7 +39,7 @@ color:red;
 <body>
 <%@ include file="/WEB-INF/views/admin/adminFrame.jsp"%>
 	<div id="container" style="margin-left:350px;">
-	<h1>Word Training Management</h1>
+	<h2>Word Training Management</h2>
 	<br>
 	 
 	<div align="left">
@@ -48,6 +48,10 @@ color:red;
 			<option value="2" ${wordlevel=='2' ? 'selected' : ''}>Level 2</option>
 			<option value="3" ${wordlevel=='3' ? 'selected' : ''}>Level 3</option>
 		</select>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<input type="text" name="word" placeholder="WORD">
+		<input type="text" name="meaningK" placeholder="MEANING">
+		<input type="button" value="ADD" id="addWord">
 	</div>
 	<br>
 		<table border="1" style="text-align:center;">
@@ -81,18 +85,21 @@ color:red;
 			
 			<a href="goWordManager?page=${navi.currentPage+1}&wordlevel=${wordlevel}">▶▶</a>
 		</div>
+		<br><br>
 	</div>
 </body>
 <script type="text/javascript">
 
 $(function() {
-	//var wordlevel="${wordlevel}";
 	
 	// 레벨에 따라 단어 출력
 	$('#level').change(function() {
-		//wordllevel = $(this).val();
-		//console.log();
 		location.href = "${pageContext.request.contextPath}/goWordManager?page=1&wordlevel="+$(this).val();
+	});
+	
+	// 새로운 단어 추가
+	$('#addWord').on('click',function(){
+		
 	});
 	
 	$('input[value="UPDATE"]').on('click',function(){
@@ -129,7 +136,7 @@ $(function() {
 						location.href = "${pageContext.request.contextPath}/goWordManager?wordlevel=${wordlevel}";
 					}else if(resp == 0){
 						alert("Update Failed.");
-						location.href = "${pageContext.request.contextPath}/goWordManager";
+						location.href = "${pageContext.request.contextPath}/goWordManager?wordlevel=${wordlevel}";
 					}
 				}
 				, error: function(resp){
@@ -153,10 +160,10 @@ $(function() {
 			, success : function(resp){
 				if(resp == 1){
 					alert("Delete Completed.");
-					location.href = "${pageContext.request.contextPath}/goWordManager";
+					location.href = "${pageContext.request.contextPath}/goWordManager?wordlevel=${wordlevel}";
 				}else if(resp == 0){
 					alert("Delete Failed.");
-					location.href = "${pageContext.request.contextPath}/goWordManager";
+					location.href = "${pageContext.request.contextPath}/goWordManager?wordlevel=${wordlevel}";
 				}
 			}
 			, error: function(resp){
