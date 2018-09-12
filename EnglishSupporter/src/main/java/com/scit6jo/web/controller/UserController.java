@@ -118,6 +118,7 @@ public class UserController {
 			try {
 				FileOutputStream fos = new FileOutputStream(new File(imgFilePath));
 				fos.write(imgInp.getBytes());
+				System.out.println("fileName : " + fileName);
 				user.setImgFilePath(fileName);
 			} catch (Exception e) {
 				e.printStackTrace();
