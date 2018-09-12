@@ -13,6 +13,20 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
+.result{
+border: 1px solid gray;
+margin: 10px auto;
+padding: 30px;
+border-radius: 10px;
+}
+.container{
+margin-top: 30px;
+margin-bottom: 30px;
+width: 90%;
+}
+
+</style>
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#comp').addClass('active');
@@ -72,7 +86,7 @@ function emotionCheck(composition, confirm, grammer){
             url: "https://eastasia.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment"
             , beforeSend: function(xhrObj){
                 xhrObj.setRequestHeader("Content-Type","application/json");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","148b9c6ad1724028ae05302a71ab45ee");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","46718904eead4d05a1fb9a064e5c77f4");
             }
             , type: "POST"
             , data: JSON.stringify(data)
@@ -118,6 +132,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 	
 	// 문법 체크를 한 경우
 	if(grammer != null){
+		$('#grammer').addClass('result');
 		var jsonStrGrammer = JSON.stringify(grammer);
 		var gra = JSON.parse(jsonStrGrammer);
 		if(gra.result == true){
@@ -160,6 +175,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 	
 	// 중복 단어가 있는 경우
 	if(wordList != null){
+		$('#overlap').addClass('result');
 	if(wordList.length != 0){
 		// 중복 단어에 하이라이트
 		$.each(wordList, function(index, item){
@@ -202,7 +218,9 @@ function result(composition, confirm, grammer, emotion, repetition){
 		else if(emoScore.toFixed(2) >= 80 && emoScore.toFixed(2) <= 100)
 			emoResult += '[<span style="color:blue;">Positive</span>]';
 		emoResult += '</p>';
+		$('#emotion').addClass('result');
 	}
+	
 	
 	// 결과 값 출력
 	$("#resultComp").html(resultComp);
@@ -214,17 +232,23 @@ function result(composition, confirm, grammer, emotion, repetition){
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
+<div class="container">
 	<h1>Confirmed Page</h1>
 	<input id="composition" type="hidden" value="${composition}">
 	<input id="confirm" type="hidden" value="${confirm}">
 	<!-- 작성한 문장 -->
-	<div id="resultComp"></div>
+	<div class ="result" >
+	<div id="resultComp"></div></div>
 	<!-- 문법 체크로 수정 된 단어 -->
-	<div id="graResult"></div>
+	<div id="grammer">
+	<div id="graResult"></div></div>
 	<!-- 중복 단어 및 유의어 -->
-	<div id="repResult"></div>
+	<div id="overlap">
+	<div id="repResult"></div></div>
 	<!-- 텍스트 감정 분석 결과 -->
-	<div id="emoResult"></div>
+	<div id="emotion">
+	<div id="emoResult"></div></div>
+</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>
