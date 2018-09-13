@@ -66,6 +66,19 @@ public class WordController {
 		return "admin/wordManager";
 	}
 	
+	// 관리자페이지 wordManager 단어추가 요청 
+	@RequestMapping(value = "wordAdd", method = RequestMethod.POST)
+	public @ResponseBody Integer wordAdd(@RequestBody Word word) {
+		System.out.println("wordAdd...");
+		
+		System.out.println(word);
+		
+		int result = repository.addWord(word);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
+	
 	// 관리자페이지 wordManager 업데이트 요청 
 	@RequestMapping(value = "wordUpdate", method = RequestMethod.POST)
 	public @ResponseBody Integer wordUpdate(@RequestBody Word word) {

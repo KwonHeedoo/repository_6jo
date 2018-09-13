@@ -15,6 +15,9 @@ public interface WordMapper {
 	// 관리자페이지 wordManager에 띄울 모든 단어리스트 불러오기
 	public List<Word> selectAll(RowBounds rb, String wordlevel);
 	
+	// 관리자페이지 wordManager 단어추가 처리
+	public int addWord(Word word);
+	
 	// 관리자페이지 wordManager 업데이트 처리
 	public int updateWord(Word word);
 	
