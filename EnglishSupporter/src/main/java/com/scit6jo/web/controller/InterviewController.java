@@ -112,8 +112,9 @@ public class InterviewController {
 	}
 
 	@RequestMapping(value = "/goInterviewData", method = RequestMethod.POST)
-	public String getInterviewData(String userid, Model model) {
-		System.out.println("????");
+	public String getInterviewData(Model model, HttpSession session) {
+		String userid = (String)session.getAttribute("loginId");
+		System.out.println(userid);
 		ArrayList<IData> result = repository.selectAllIData(userid);
 		model.addAttribute("dataList", result);
 		return "interview/interviewDataList";

@@ -60,11 +60,6 @@ function a(value){
 		form.setAttribute('method', 'post');
 		form.setAttribute('action', 'goInterviewData');
 		form.setAttribute('target', 'data');
-		input = document.createElement('input');
-		input.type = 'hidden';
-		input.name = 'userid';
-		input.value = "aaa";
-		form.appendChild(input);
 		
 		document.body.appendChild(form);
 		window.open('', 'data', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=yes, resizable=no');
