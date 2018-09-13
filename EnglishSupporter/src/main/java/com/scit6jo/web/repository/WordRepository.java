@@ -43,6 +43,15 @@ public class WordRepository {
 		return wordlist;
 	}
 	
+	// 관리자페이지 wordManager 단어추가 처리
+	public int addWord(Word word) {
+		WordMapper mapper = session.getMapper(WordMapper.class);
+		int result = mapper.addWord(word);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
+	
 	// 관리자페이지 wordManager 업데이트 처리
 	public int updateWord(Word word) {
 		WordMapper mapper = session.getMapper(WordMapper.class);
