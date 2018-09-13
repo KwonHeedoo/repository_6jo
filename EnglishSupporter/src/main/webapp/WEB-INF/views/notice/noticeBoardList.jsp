@@ -158,6 +158,9 @@ function search(){
 }
 </script>
 <style type="text/css">
+a {
+cursor: pointer;
+}
 
 select {
 height: 30.98px;

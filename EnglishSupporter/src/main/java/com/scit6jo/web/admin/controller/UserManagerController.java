@@ -1,6 +1,8 @@
 package com.scit6jo.web.admin.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +44,8 @@ public class UserManagerController {
 	
 	// 유저 계정 사용 일시 정지
 	@RequestMapping(value = "/sanctionUser", method = RequestMethod.GET)
-	public @ResponseBody int sanctionUser(String userid){
+	public @ResponseBody Map<String, Integer> sanctionUser(String userid){
+		Map<String, Integer> map = new HashMap<>();
 		int result = 0;
 		// 유저 계정이 정지 중인지 체크
 		User check = repository.checkSanction(userid);
@@ -51,6 +54,21 @@ public class UserManagerController {
 		if(check == null) {
 			result = repository.sanctionUser(userid);
 		}
+		
+		// 해당 계정이 정지 중이면 정지 번호를 map에 추가
+		if(check != null) {
+			map.put("sanctionNum", check.getAttendNum());
+		}
+		// 정지 결과 map에 추가
+		map.put("result", result);
+		
+		return map;
+	}
+	
+	// 유저 계정 사용 일시 정지 해제
+	@RequestMapping(value = "/cancelSanction", method = RequestMethod.GET)
+	public @ResponseBody int cancelSanction(int sanctionNum){
+		int result = repository.cancelSanction(sanctionNum);
 		
 		return result;
 	}
