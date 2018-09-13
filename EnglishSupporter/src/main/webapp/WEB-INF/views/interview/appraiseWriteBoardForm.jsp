@@ -13,11 +13,11 @@
 <title>Writing appraise Board</title>
 <style type="text/css">
 .container {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 30px;
 }
 input[type="text"]{
-width: 100%;
+width: 90%;
 }
 textarea {
 width: 100%;
@@ -26,7 +26,6 @@ width: 100%;
 </style>
 <script> 
 function test(func){
-	
 }
 
 function a(value){
@@ -34,9 +33,7 @@ function a(value){
 			function (){
 				var sum = value * 10;
 	});
-	
 }
-
 	function board(page) {
 		location.href = "./goBoardList?page=" + page + "&boardType=appraise";
 	};
@@ -84,34 +81,33 @@ function a(value){
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<div class="container" align="center">
-	<h1>Writing appraise Board</h1>
+	<div class="container">
+	<h2>Writing appraise Board</h2>
+	<hr>
 	<div>
 	<form action="writeBoard" method="post" onsubmit="return formCheck()">
 		<div>
 			<input type="hidden" name="boardType" value="appraise">
 			<input id="dataNum" type="hidden" name="datanum" value="">
-			<input id="title" type="text" name="title" placeholder="TITLE" autocomplete="off">
+			<label id="title">TITLE : </label>
+			<input id="title" type="text" name="title" autocomplete="off">
 			<c:if test="${sessionScope.loginType eq 'admin'}">
 				<input id="notice" type="checkbox" name="status" value="1">공지글
 			</c:if>
 		</div>
-		<h3 id="introduce">Content</h3>
+		<hr>
 		<div>
+			<label id="contents">Content</label>
 			<textarea id="contents" rows="15" cols="60" name="contents"></textarea>
 			<p id = "fileName"> </p>
 		</div>
-		<div>
-			<div class="col-md-6">
-				<input type="submit" value="Write">
-			</div>
-			<div class="col-md-6">
-				<input type="button" value="Cancel" onclick="board(${page})">
-			</div>
-			
+		<hr>
+		<div align="center">
+				<input type="submit" value="Write" class="btn">&ensp;&ensp;&ensp;
+				<input type="button" value="Back" onclick="board(${page})" class="btn">&ensp;&ensp;&ensp;
+				<input type="button" onclick="dataList()" value="select video" class="btn"/>
 		</div>
 	</form>
-	<button onclick="dataList()">select video</button>
 	</div>
 	</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
