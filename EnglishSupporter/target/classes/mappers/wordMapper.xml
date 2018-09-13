@@ -18,6 +18,21 @@
 		order by wordnum
 	</select>
 	
+	<!-- 관리자페이지 단어 추가 -->
+	<insert id="addWord" parameterType="Word">
+		insert into word(
+			word,
+			wordnum,
+			meaningk,
+			wordlevel
+		)values(
+			#{word},
+			wordnum_seq.nextval,
+			#{meaningK},
+			#{wordlevel}
+		)
+	</insert>
+	
 	<!-- 관리자페이지 단어 업데이트 -->
 	<update id="updateWord" parameterType="Word">
 		update word

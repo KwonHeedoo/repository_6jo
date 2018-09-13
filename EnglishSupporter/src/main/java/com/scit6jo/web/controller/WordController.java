@@ -66,6 +66,19 @@ public class WordController {
 		return "admin/wordManager";
 	}
 	
+	// 관리자페이지 wordManager 단어추가 요청 
+	@RequestMapping(value = "wordAdd", method = RequestMethod.POST)
+	public @ResponseBody Integer wordAdd(@RequestBody Word word) {
+		System.out.println("wordAdd...");
+		
+		System.out.println(word);
+		
+		int result = repository.addWord(word);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
+	
 	// 관리자페이지 wordManager 업데이트 요청 
 	@RequestMapping(value = "wordUpdate", method = RequestMethod.POST)
 	public @ResponseBody Integer wordUpdate(@RequestBody Word word) {
@@ -107,6 +120,22 @@ public class WordController {
 		return "mypage/myWords";
 	}
 
+	// 마이페이지 myWords 단어추가 요청 
+	@RequestMapping(value = "mywordAdd", method = RequestMethod.POST)
+	public @ResponseBody boolean mywordAdd(@RequestBody Word word, HttpSession session) {
+		System.out.println("mywordAdd...");
+		
+		String userid = (String) session.getAttribute("loginId");
+		word.setUserid(userid);
+		word.setWordtype("user");
+		
+		System.out.println(word);
+		
+		boolean result = repository.insertMyWord(word);
+		
+		return result;
+	}
+		
 	// 마이페이지 myWords 업데이트 요청 
 	@RequestMapping(value = "mywordUpdate", method = RequestMethod.POST)
 	public @ResponseBody Integer mywordUpdate(@RequestBody Word word, HttpSession session) {

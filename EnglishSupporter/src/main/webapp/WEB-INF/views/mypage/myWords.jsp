@@ -28,6 +28,13 @@ background-color: white;
 		<div class="container-fluid">
 			<div class="side-body">
 				<h2>[ My Words ]</h2>
+				
+				<br>
+				<input type="text" id="newWord" placeholder="WORD">
+				<input type="text" id="newMeaning" placeholder="MEANING">
+				<input type="button" value="ADD" id="addWord">
+				<br><br>
+				
 				<table>
 					<tr>
 						<th>No</th>
@@ -53,6 +60,33 @@ background-color: white;
 </body>
 <script type="text/javascript">
 $(function() {
+	
+	// 새로운 단어 추가
+	$('#addWord').on('click',function(){
+		var word = $('#newWord').val();
+		var mean = $('#newMeaning').val();
+		var sendData = {"word" : word, "meaningK" : mean};
+		console.log(sendData);
+		
+		$.ajax({
+			url : 'mywordAdd'
+			, type : 'post'
+			, data : JSON.stringify(sendData)
+			, contentType : 'application/json;charset=UTF-8'
+			, success : function(resp){
+				if(resp == 1){
+					alert("Add Completed.");
+					location.href = "${pageContext.request.contextPath}/goMyWords";
+				}else if(resp == 0){
+					alert("Add Failed.");
+					location.href = "${pageContext.request.contextPath}/goMyWords";
+				}
+			}
+			, error: function(resp){
+				alert("Add Error!");
+			}
+		});
+	});
 	
 	$('input[value="UPDATE"]').on('click',function(){
 		var type= $(this).val();
@@ -100,7 +134,7 @@ $(function() {
 	});
 	
 	// DELETE 버튼 누르면 해당 단어 삭제
-	$('#delete').on('click',function(){
+	$('input[value="DELETE"]').on('click',function(){
 		console.log('in delete');
 		var tr = $(this).parent().parent();
 		var myword_no = tr.children().children('input[type="hidden"]').val();
