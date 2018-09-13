@@ -7,6 +7,7 @@
 	<sql id="basicCols">
 		boardnum
 		, userid
+		, nickname
 		, title
 		, contents
 		, hitcount
@@ -110,17 +111,14 @@
 		</choose>
 			( boardnum
 			, userid
+			, nickname
 			, title
 			, contents
 			, status
 			<choose>
 				<when test="boardType == 'matching'">, matchingid, appointedTime</when>
 				<when test="boardType == 'appraise'">, datanum</when>
-			</choose>
-			<!-- <if test="originalfile != null and savedfile != null">
-			, originalfile
-			, savedfile
-			</if>-->) 
+			</choose>) 
 		values(
 			<choose>
 				<when test="boardType == 'matching'">matching_board_seq.nextVal</when>
@@ -128,6 +126,7 @@
 				<when test="boardType == 'appraise'">appraise_board_seq.nextVal</when>
 			</choose>
 			, #{board.userid}
+			, #{board.nickname}
 			, #{board.title}
 			, #{board.contents}
 			, #{board.status}
@@ -136,11 +135,7 @@
 				, #{board.matchingId}
 				, to_timestamp(#{board.appointedTime}, 'YYYY-MM-DD"T"HH24:MI')</when>
 				<when test="boardType == 'appraise'">, #{board.datanum}</when>
-			</choose>
-			<!-- <if test="originalfile != null and savedfile != null">
-			, #{board.originalfile}
-			, #{board.savedfile}
-			</if> -->)
+			</choose>)
 	</insert>
 	
 	<!-- 게시글 하나 가져오기 -->
@@ -203,24 +198,9 @@
 			title = #{board.title}
 			, contents = #{board.contents}
 			, regdate = sysdate
-			<!-- <if test="board.originalfile != null and board.savedfile != null">
-			, originalfile = #{board.originalfile}
-			, savedfile = #{board.savedfile}
-			</if> -->
 		where
 			boardnum = #{board.boardNum}
 	</update>
-	
-	<!-- 게시글 파일 삭제 -->
-	<!-- <update id="deleteFile" parameterType="int">
-		update
-			board2
-		set
-			originalfile = null
-			, savedfile = null
-		where
-			boardnum = #{boardNum}
-	</update> -->
 	
 	<!-- 게시판에 매칭 여부 추가 -->
 	<update id="matching" parameterType="Board">
@@ -254,6 +234,5 @@
 		order by 
 			appointedtime asc
 	</select>
-	
 	
 </mapper>

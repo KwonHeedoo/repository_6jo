@@ -381,6 +381,7 @@ function report(reportee, report){
 				report(userid,contents);
 			});
 		</script>
+		<h5>[Writer] ${board.nickname}</h5>
 		<div>
 			<pre>${board.contents}</pre>
 		</div>
