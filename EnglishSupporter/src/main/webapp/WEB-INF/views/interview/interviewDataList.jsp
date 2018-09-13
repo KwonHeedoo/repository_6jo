@@ -13,6 +13,8 @@
 <title>Report</title>
 <script type="text/javascript">
 $(function() {
+	$('#interview').addClass('active');
+	
 	$('#finish_button').on('click', function() {
 			opener.setFile(sendData);
 			window.close();

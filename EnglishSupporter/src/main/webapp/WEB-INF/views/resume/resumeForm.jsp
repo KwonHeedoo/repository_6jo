@@ -228,6 +228,8 @@ var indexexp=0;
 var indexinfo=0;
 
 $(function(){
+	$('#resume').addClass('active');
+	
 	//edu 행추가
 	$('#addedu').on('click',function(){
 		var text = '<div class="box">';

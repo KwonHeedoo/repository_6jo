@@ -36,6 +36,8 @@ text-align:left;
 
 <script type="text/javascript">
 $(function(){
+	$('#interview').addClass('active');
+	
 	init();
 });
 

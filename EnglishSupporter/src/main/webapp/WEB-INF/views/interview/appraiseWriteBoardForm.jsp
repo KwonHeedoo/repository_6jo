@@ -25,6 +25,10 @@ width: 100%;
 
 </style>
 <script> 
+$(function(){
+	$('#interview').addClass('active');
+});
+
 function test(func){
 }
 

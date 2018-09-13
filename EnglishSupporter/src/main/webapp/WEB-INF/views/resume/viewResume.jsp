@@ -112,5 +112,10 @@
 
 	<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
+<script type="text/javascript">
+$(function(){
+	$('#resume').addClass('active');
+});
+</script>
 </html>
 

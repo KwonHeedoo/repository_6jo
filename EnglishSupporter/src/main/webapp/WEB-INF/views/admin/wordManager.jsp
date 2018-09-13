@@ -48,7 +48,7 @@ color:red;
 			<option value="2" ${wordlevel=='2' ? 'selected' : ''}>Level 2</option>
 			<option value="3" ${wordlevel=='3' ? 'selected' : ''}>Level 3</option>
 		</select>
-		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
 		<input type="text" id="newWord" placeholder="WORD">
 		<input type="text" id="newMeaning" placeholder="MEANING">
 		<input type="button" value="ADD" id="addWord">
@@ -91,6 +91,7 @@ color:red;
 <script type="text/javascript">
 
 $(function() {
+	$('#addQuestion').addClass('active');
 	
 	// 레벨에 따라 단어 출력
 	$('#level').change(function() {
