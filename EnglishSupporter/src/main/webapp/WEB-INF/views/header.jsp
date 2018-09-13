@@ -36,6 +36,10 @@ function message(){
 
 $(function(){
 	msgList();
+	
+	$('#message').on('click', function(){
+		message();
+	});
 });
 
 // 읽지 않은 쪽지 요청
@@ -116,7 +120,7 @@ function outputMsg(resp){
       <ul>
         <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
         <!-- <li><i class="fa fa-envelope-o"></i> info@domain.com</li> -->
-        <li><i class="fa fa-envelope-o"></i> <a onclick="message()">Ask to English Supporter</a></li>
+        <li><i class="fa fa-envelope-o"></i> <a id="message" style="cursor:pointer;">Ask to English Supporter</a></li>
       </ul>
     </div>
     <div class="fl_right">

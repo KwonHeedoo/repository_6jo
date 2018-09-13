@@ -219,6 +219,10 @@ function constraint(appraiseCount){
 }
 </script>
 <style type="text/css">
+a {
+cursor: pointer;
+}
+
 #container {
     width: 80%;
     margin: 0 auto;
