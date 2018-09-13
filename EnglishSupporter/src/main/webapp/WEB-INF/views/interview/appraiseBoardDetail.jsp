@@ -155,6 +155,7 @@ function output(resp){
 			commentResult += '<br>';
 			for(var i = 0 ; i < appraises.length ; i++){
 				var column = appraises[i];
+				commentResult += '<div id ="'+column+'" '+ 'data-rno="' + item[column] + '">';
 				commentResult += column + ' : ';
 				console.log(" item[column] : "+ item[column]);
 				//var appraises = ["pronunciation","posture","contents"];
@@ -164,7 +165,7 @@ function output(resp){
 				for(var j = 5 ; j>item[column] ; j--){
 					commentResult +='<img id="' + appraises[i] + j+ '"' + ' alt="match" src="./resources/images/icons/silver.png">';
 				}
-				commentResult += ' ( ' + item[column] + ' )<br>';
+				commentResult += ' ( ' + item[column] + ' )</div><br>';
 			}
 			commentResult += '<span style="float:right"><button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
 		}else if(item.parentId != null && item.nickname != '*****'){
@@ -230,6 +231,12 @@ function modifyComment(commentNum) {
 	$('#cmt' + commentNum).attr('disabled', false);
 	$('#cmt' + commentNum).css('border', '1px solid');
 	$('#cmt' + commentNum).css('width', '100%');
+	ratings["pronunciation"] = $("#pronunciation").attr("data-rno");
+	ratings["posture"] = $("#posture").attr("data-rno");
+	ratings["contents"] = $("#contents").attr("data-rno");
+	console.log("pronunciation : " + ratings["pronunciation"]);
+	console.log("posture : " + ratings["posture"]);
+	console.log("contents : " + ratings["contents"]);
 	document.getElementById('cmt' + commentNum).focus();
 	
 	$('#update' + commentNum).on('click', update);

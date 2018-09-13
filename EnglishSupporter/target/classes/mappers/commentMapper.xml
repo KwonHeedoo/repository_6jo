@@ -98,10 +98,6 @@
 			, userid = #{comment.userid}
 			, nickname = #{comment.nickname}
 			</if>
-			<if test="boardType == 'appraise'">, pronunciation = #{comment.pronunciation}
-			 								   , contents = #{comment.contents}
-											   , posture = #{comment.posture}
-			</if>
 		where
 			commentnum = #{comment.commentNum}
 	</update>
