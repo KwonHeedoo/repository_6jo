@@ -1,0 +1,9 @@
+diff a/.gitignore b/.gitignore	(rejected hunks)
+@@ -9,6 +9,7 @@
+ EnglishSupporter/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+ 
+ /.metadata/
++<<<<<<< HEAD
+ EnglishSupporter/target/m2e-wtp/web-resources/META-INF/maven/global.sesoc/test/pom.properties
+ =======
+ >>>>>>> a11d3de86c7d2d6f12d555848a0cc2fd9994a46e

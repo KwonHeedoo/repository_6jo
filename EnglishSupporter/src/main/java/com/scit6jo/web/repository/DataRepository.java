@@ -34,6 +34,32 @@ public class DataRepository {
 		}
 		return result;
 	}
+	
+	public int updateAnswer(IData iData) {
+		DataMapper mapper = session.getMapper(DataMapper.class);
+
+		int result = 0;
+		try {
+			result = mapper.updateAnswer(iData);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public int updateConfidence(IData iData) {
+		DataMapper mapper = session.getMapper(DataMapper.class);
+
+		int result = 0;
+		try {
+			result = mapper.updateConfidence(iData);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public ArrayList<IQuestion> selectAllQuestion() {
 		DataMapper mapper = session.getMapper(DataMapper.class);
 
@@ -47,17 +73,31 @@ public class DataRepository {
 		return result;
 	}
 
-	public IData selectOneIdata(int dataNum) {
+	public IData selectOneIData(int dataNum) {
 		DataMapper mapper = session.getMapper(DataMapper.class);
 
 		IData result = null;
 		try {
-			result = mapper.selectOneIdata(dataNum);
+			result = mapper.selectOneIData(dataNum);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
+	public ArrayList<IData> selectAllIData(String userid) {
+		DataMapper mapper = session.getMapper(DataMapper.class);
+
+		ArrayList<IData> result = null;
+		try {
+			result = mapper.selectAllIData(userid);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
 }
 

@@ -7,6 +7,7 @@
 	<sql id="basicCols">
 		boardnum
 		, userid
+		, nickname
 		, title
 		, contents
 		, hitcount
@@ -22,6 +23,7 @@
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
 			<when test="boardType == 'notice'">notice_board</when>
+			<when test="boardType == 'appraise'">appraise_board</when>
 		</choose>
 		<if test="searchItem != null || searchText != null">
 		where
@@ -30,7 +32,7 @@
 		like
 			'%' || #{searchText} || '%'
 		and
-			status = 1
+			status = 0
 		</if>
 		<if test="constraint != null">
 		and
@@ -43,15 +45,21 @@
 		select
 			<include refid="basicCols"/>
 			<choose>
-				<when test="boardType == 'matching'">, matchingid</when>
+				<when test="boardType == 'matching'">
+				, matchingid
+				, to_char(appointedtime,'YYYY-MM-DD HH24:MI') as appointedTime
+				, roomNum
+				</when>
+				<when test="boardType == 'appraise'">, datanum</when>
 			</choose>
 		from
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
 			<when test="boardType == 'notice'">notice_board</when>
+			<when test="boardType == 'appraise'">appraise_board</when>
 		</choose>
 		where
-			status = 1
+			status = 0
 		<if test="constraint != null">
 		and
 			matchingid is null
@@ -72,15 +80,25 @@
 		select
 			<include refid="basicCols"/>
 			<choose>
-				<when test="boardType == 'matching'">, matchingid</when>
+				<when test="boardType == 'matching'">
+				, matchingid
+				, to_char(appointedtime,'YYYY-MM-DD HH24:MI') as appointedTime
+				, roomNum
+				</when>
+				<when test="boardType == 'appraise'">, datanum</when>
 			</choose>
 		from
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
 			<when test="boardType == 'notice'">notice_board</when>
+			<when test="boardType == 'appraise'">appraise_board</when>
 		</choose>
 		where
-			status = 0
+			status = 1
+		and
+			<![CDATA[rownum <= 3]]>
+		order by
+			boardnum desc
 	</select>
 	
 	<!-- 게시글 작성 -->
@@ -89,33 +107,35 @@
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
 			<when test="boardType == 'notice'">notice_board</when>
+			<when test="boardType == 'appraise'">appraise_board</when>
 		</choose>
 			( boardnum
 			, userid
+			, nickname
 			, title
 			, contents
+			, status
 			<choose>
-				<when test="boardType == 'matching'">, matchingid</when>
-			</choose>
-			<if test="originalfile != null and savedfile != null">
-			, originalfile
-			, savedfile
-			</if>)
+				<when test="boardType == 'matching'">, matchingid, appointedTime</when>
+				<when test="boardType == 'appraise'">, datanum</when>
+			</choose>) 
 		values(
 			<choose>
 				<when test="boardType == 'matching'">matching_board_seq.nextVal</when>
 				<when test="boardType == 'notice'">notice_board_seq.nextVal</when>
+				<when test="boardType == 'appraise'">appraise_board_seq.nextVal</when>
 			</choose>
 			, #{board.userid}
+			, #{board.nickname}
 			, #{board.title}
 			, #{board.contents}
+			, #{board.status}
 			<choose>
-				<when test="boardType == 'matching'">, #{board.matchingId}</when>
-			</choose>
-			<if test="originalfile != null and savedfile != null">
-			, #{board.originalfile}
-			, #{board.savedfile}
-			</if>)
+				<when test="boardType == 'matching'">
+				, #{board.matchingId}
+				, to_timestamp(#{board.appointedTime}, 'YYYY-MM-DD"T"HH24:MI')</when>
+				<when test="boardType == 'appraise'">, #{board.datanum}</when>
+			</choose>)
 	</insert>
 	
 	<!-- 게시글 하나 가져오기 -->
@@ -123,12 +143,18 @@
 		select
 			<include refid="basicCols"/>
 			<choose>
-				<when test="boardType == 'matching'">, matchingid</when>
+				<when test="boardType == 'matching'">
+				, matchingid
+				, to_char(appointedtime,'YYYY-MM-DD HH24:MI') as appointedTime
+				, roomNum
+				</when>
+				<when test="boardType == 'appraise'">, datanum</when>
 			</choose>
 		from
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
 			<when test="boardType == 'notice'">notice_board</when>
+			<when test="boardType == 'appraise'">appraise_board</when>
 		</choose>
 		where
 			boardnum = #{boardNum}
@@ -140,6 +166,7 @@
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
 			<when test="boardType == 'notice'">notice_board</when>
+			<when test="boardType == 'appraise'">appraise_board</when>
 		</choose>
 		set
 			hitcount = hitcount + 1
@@ -153,6 +180,7 @@
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
 			<when test="boardType == 'notice'">notice_board</when>
+			<when test="boardType == 'appraise'">appraise_board</when>
 		</choose>
 		where
 			boardnum = #{boardNum}
@@ -164,28 +192,14 @@
 		<choose>
 			<when test="boardType == 'matching'">matching_board</when>
 			<when test="boardType == 'notice'">notice_board</when>
+			<when test="boardType == 'appraise'">appraise_board</when>
 		</choose>
 		set
 			title = #{board.title}
 			, contents = #{board.contents}
 			, regdate = sysdate
-			<if test="board.originalfile != null and board.savedfile != null">
-			, originalfile = #{board.originalfile}
-			, savedfile = #{board.savedfile}
-			</if>
 		where
 			boardnum = #{board.boardNum}
-	</update>
-	
-	<!-- 게시글 파일 삭제 -->
-	<update id="deleteFile" parameterType="int">
-		update
-			board2
-		set
-			originalfile = null
-			, savedfile = null
-		where
-			boardnum = #{boardNum}
 	</update>
 	
 	<!-- 게시판에 매칭 여부 추가 -->
@@ -207,4 +221,18 @@
 		where
 			boardnum = #{boardNum}
 	</update>
+	
+	<!-- 매칭된 리스트 가져오기 -->
+	<select id="roomNumList" parameterType="string" resultType="Board">
+		select
+			roomnum,
+			appointedtime
+		from
+			matching_board
+		where
+		 (userid = #{value} OR matchingid = #{value})  AND appointedtime > sysdate
+		order by 
+			appointedtime asc
+	</select>
+	
 </mapper>

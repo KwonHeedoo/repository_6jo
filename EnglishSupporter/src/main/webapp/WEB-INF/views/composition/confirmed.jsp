@@ -6,15 +6,31 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Confirmed</title>
 <!-- google CDN -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
+.result{
+border: 1px solid gray;
+margin: 10px auto;
+padding: 30px;
+border-radius: 10px;
+}
+.container{
+margin-top: 30px;
+margin-bottom: 30px;
+width: 90%;
+}
+
+</style>
 <script type="text/javascript">
 $(document).ready(function() {
+	$('#comp').addClass('active');
+	
 	var composition = $("#composition").val();
 	var confirm = $("#confirm").val();
 	
@@ -70,7 +86,7 @@ function emotionCheck(composition, confirm, grammer){
             url: "https://eastasia.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment"
             , beforeSend: function(xhrObj){
                 xhrObj.setRequestHeader("Content-Type","application/json");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","148b9c6ad1724028ae05302a71ab45ee");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","46718904eead4d05a1fb9a064e5c77f4");
             }
             , type: "POST"
             , data: JSON.stringify(data)
@@ -98,6 +114,7 @@ function repetitionCheck(composition, confirm, grammer, emotion){
 			, dataType : "json"
 			, data : {"composition" : composition, "confirm" : confirm}
 			, success : function(repetition){
+				if(repetition.length === 0){repetition = null;}
 				result(composition, confirm, grammer, emotion, repetition);	
 			}
 			, error : function(repetition){ alert("Repetition Error!");}
@@ -116,10 +133,13 @@ function result(composition, confirm, grammer, emotion, repetition){
 	
 	// 문법 체크를 한 경우
 	if(grammer != null){
+		$('#grammer').addClass('result');
 		var jsonStrGrammer = JSON.stringify(grammer);
 		var gra = JSON.parse(jsonStrGrammer);
 		if(gra.result == true){
 			graResult += '<h3>[Grammer Check]</h3>';
+			graResult += '<div class="container">';
+			graResult += '<div class="row justify-content-end">';
 			graResult += '<table>';
 			var strIndex = 0;
 			// 틀린 단어 & 개선 단어
@@ -139,6 +159,8 @@ function result(composition, confirm, grammer, emotion, repetition){
 			});
 			resultComp += composition.substring(strIndex);
 			graResult += '</table>';
+			graResult += '</div>';
+			graResult += '</div>';
 		}
 	// 문법 체크를 하지 않은 경우
 	}else{
@@ -153,7 +175,8 @@ function result(composition, confirm, grammer, emotion, repetition){
 	}
 	
 	// 중복 단어가 있는 경우
-	if(wordList.length != 0){
+	if(wordList != null){
+		$('#overlap').addClass('result');
 		// 중복 단어에 하이라이트
 		$.each(wordList, function(index, item){
 			resultComp = resultComp.replaceAll(item.word, '<span style="background-color:yellow;">' + item.word + '</span>');
@@ -167,12 +190,16 @@ function result(composition, confirm, grammer, emotion, repetition){
 				repResult += '<b>' + item.word + '</b>';
 				repResult += '<br/>';
 				repResult += item.meaningK;
+			}else{
+				repResult += 'There is no Synonym Word.';
 			}
 			repResult += '</p>';
 		});
-	}else{
-		resultComp += '<br/><br/>';
-	}
+	}/* else{
+		repResult += 'There is no synonym';
+		//resultComp += '<br/><br/>';
+		//repResult += '<h3>[Synonym Word]</h3>';
+	} */
 	
 	// 텍스트 감정 분석이 된 경우
 	if(emotion != null){
@@ -195,6 +222,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 		else if(emoScore.toFixed(2) >= 80 && emoScore.toFixed(2) <= 100)
 			emoResult += '[<span style="color:blue;">Positive</span>]';
 		emoResult += '</p>';
+		$('#emotion').addClass('result');
 	}
 	
 	// 결과 값 출력
@@ -207,17 +235,23 @@ function result(composition, confirm, grammer, emotion, repetition){
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
+<div class="container">
 	<h1>Confirmed Page</h1>
 	<input id="composition" type="hidden" value="${composition}">
 	<input id="confirm" type="hidden" value="${confirm}">
 	<!-- 작성한 문장 -->
-	<div id="resultComp"></div>
+	<div class ="result" >
+	<div id="resultComp"></div></div>
 	<!-- 문법 체크로 수정 된 단어 -->
-	<div id="graResult"></div>
+	<div id="grammer">
+	<div id="graResult"></div></div>
 	<!-- 중복 단어 및 유의어 -->
-	<div id="repResult"></div>
+	<div id="overlap">
+	<div id="repResult"></div></div>
 	<!-- 텍스트 감정 분석 결과 -->
-	<div id="emoResult"></div>
+	<div id="emotion">
+	<div id="emoResult"></div></div>
+</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

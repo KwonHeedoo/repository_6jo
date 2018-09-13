@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.scit6jo.web.dao.ReportMapper">
+<mapper namespace="com.scit6jo.web.admin.dao.ReportMapper">
 	<sql id="basicCols">
 		reportnum
 		, reporter
@@ -12,9 +12,10 @@
 		, reason
 		, to_char(regdate, 'YYYY-MM-DD HH24:MI') as regdate
 		, reporturl
+		, status
 	</sql>
 	
-	<!-- 신고 처리 -->
+	<!-- 신고 접수 -->
 	<insert id="insertReport" parameterType="Report">
 		insert into 
 			report(
@@ -33,12 +34,41 @@
 			, #{reportURL})
 	</insert>
 	
+	<!-- 신고 전체 개수 조회 -->
+	<select id="getTotal" resultType="int">
+		select
+			count(*)
+		from
+			report
+	</select>
+	
 	<!-- 신고 리스트 요청 -->
 	<select id="selectAll" resultType="Report">
 		select
 			<include refid="basicCols"/>
 		from
 			report	
+		order by
+			reportnum desc
 	</select>
 	
+	<!-- 신고 수리 처리 -->
+	<update id="reportAccept" parameterType="int">
+		update
+			report
+		set
+			status = 1
+		where
+			reportNum = #{value}
+	</update>
+	
+	<!-- 신고 수리 취소 처리 -->
+	<update id="acceptCancel" parameterType="int">
+		update
+			report
+		set
+			status = 0
+		where
+			reportNum = #{value}
+	</update>
 </mapper>

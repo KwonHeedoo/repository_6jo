@@ -1,12 +1,14 @@
 package com.scit6jo.web.dao;
 
-import com.scit6jo.web.vo.User;
+import java.util.List;
+
+import com.scit6jo.web.vo.Schedule;
 
 public interface MypageMapper {
 	
-	//닉네임 중복 검사
-	public User nicknameCheck(User user);
+	public int saveSchedule(Schedule vo);
 	
-	//개인 정보 수정 
-	public int infoUpdate(User user);
+	public List<Schedule> getSchedule(String userid);
+	
+	public int removeSchedule(Schedule vo);
 }

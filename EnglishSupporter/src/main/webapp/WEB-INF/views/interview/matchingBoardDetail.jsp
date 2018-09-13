@@ -16,8 +16,47 @@
 <link href="./resources/css/comment.css" rel="stylesheet">
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style type="text/css">
+.btn2{
+display:inline-block;
+padding:6px 12px;
+margin-bottom:0;
+font-size:14px;
+font-weight:400;
+line-height:1.42857143;
+text-align:center;
+white-space:nowrap;
+vertical-align:middle;
+cursor:pointer;
+-webkit-user-select:none;
+-moz-user-select:none;-ms-user-select:none;user-select:none;
+background-image:none;
+border:1px solid transparent;
+border-color: #ccc;
+border-radius:4px}
+
+#comment{
+width: 90%;
+}
+#replybox{
+width:80%; 
+}
+
+div.reples{
+margin-right: 40px;
+}
+.parentNick{
+border-style: solid; 
+border-color: #e7e7e7;
+border-radius: 5px;
+padding: 4px;
+}
+
+</style>
 <script>
 $(function(){
+	$('#interview').addClass('active');
+	
 	init();
 });
 
@@ -38,10 +77,12 @@ function init() {
 // 가져온 전체 comment를 html에 뿌리기
 function output(resp){
 	var loginId = $('#loginId').val();
+	var loginType = $('#loginType').val();
 	var commentList = resp;
 	var commentResult = '';
 	var parentGroup = 0;
 	var matchingCount = 0;
+	
 	
 	$.each(commentList, function(index, item){
 		if(item.matchingId != null){
@@ -50,12 +91,12 @@ function output(resp){
 	});
 	
 	commentResult += '<div class="container">';
-	commentResult += '<div class="row">';
-	commentResult += '<div class="col-md-8">';
+	commentResult += '<div class="row reples">';
+	commentResult += '<div>';
 	commentResult += '<h2 class="page-header">Comments</h2>';
 	commentResult += '<div class="writeComment">';
-	commentResult += '<div class=".col-xs-6"><input id="comment" class="comments" type="text" placeholder="댓글 내용" /></div>';
-	commentResult += '<div class=".col-xs-6"><input id="insertComment" type="button" value="댓글 추가" /></div>';
+	commentResult += '<div><input id="comment" class="comments" type="text" placeholder="댓글 내용" />';
+	commentResult += '&ensp;<input id="insertComment" type="button" value="댓글 추가" /></div><br>';
 	commentResult += '</div>';// writeComment
 	commentResult += '<section class="comment-list">';
 	$.each(commentList, function(index, item){
@@ -84,10 +125,8 @@ function output(resp){
 		commentResult += '<div class="comment-user">';
 		if(item.parentId == null && item.nickname != '*****'){
 			commentResult += '<i class="fa fa-user"></i>Comment'
-			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white;">신고</button>';
 		}else if(item.parentId != null && item.nickname != '*****'){
 			commentResult += '<i class="fa fa-user"></i>' + item.parentNick;
-			commentResult += '<button onclick="report(\'' + item.userid + '\', \'' + item.comments + '\')" style="font-size:x-small; border:none; background-color:white;">신고</button>';
 		}
 		if(item.nickname != '*****'){
 			commentResult += '<button class="text-right" onclick="matching(\'' + item.userid + '\', ' + matchingCount + ', ' + item.commentNum + ')" style="border:none; background-color:white;">';
@@ -97,6 +136,21 @@ function output(resp){
 				commentResult += '<img id="match' + item.commentNum + '" alt="match" src="./resources/images/icons/golden.png">';
 			}
 			commentResult += '</button>';
+		}
+		if(item.parentId == null && item.nickname != '*****'){
+			commentResult += '<span style="float:right"><button id ="report' + item.commentNum + '" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
+			$(function(){
+				$('#report' + item.commentNum).on('click',function(){
+					 report(item.userid, item.comments);
+				});
+			});
+		}else if(item.parentId != null && item.nickname != '*****'){
+			commentResult += '<span style="float:right"><button id ="report' + item.commentNum + '" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
+			$(function(){
+				$('#report' + item.commentNum).on('click',function(){
+					 report(item.userid, item.comments);
+				});
+			});
 		}
 		commentResult += '</div>';//comment-user
 		commentResult += '<time class="comment-date" datetime="' + item.regdate + '">';//
@@ -108,13 +162,15 @@ function output(resp){
 		commentResult += '</div>';//comment-post
 		commentResult += '<p class="text-right">';
 		if(loginId === item.userid){
-			commentResult += '<button class="btn btn-default btn-sm" id="update' + item.commentNum + '" onclick="modifyComment(' + item.commentNum + ')">Modify</button>';
-			commentResult += '<button class="btn btn-default btn-sm" onclick="deleteComment('+ item.commentNum + ', ' + item.groupNum +')">Delete</button>';
+			commentResult += '<button class="btn2 btn-sm btn-default" id="update' + item.commentNum + '" onclick="modifyComment(' + item.commentNum + ')">Modify</button>';
+		}
+		if(loginId === item.userid || loginType === 'admin'){
+			commentResult += '<button class="btn2 btn-sm btn-default" onclick="deleteComment('+ item.commentNum + ', ' + item.groupNum +')">Delete</button>';
 		}
 		if(item.parentId == null && item.nickname != '*****'){
-			commentResult += '<button class="btn btn-default btn-sm" onclick="reply(\'' + item.userid + '\', \'' + item.nickname + '\', ' + item.groupNum + ', ' + item.commentNum + ', this)"><i class="fa fa-reply"></i> Reply</button>';
+			commentResult += '<button class="btn2 btn-sm btn-default" onclick="reply(\'' + item.userid + '\', \'' + item.nickname + '\', ' + item.groupNum + ', ' + item.commentNum + ', this)"><i class="fa fa-reply"></i> Reply</button>';
 		}else if(item.parentId != null && item.nickname != '*****'){
-			commentResult += '<button class="btn btn-default btn-sm" onclick="reply(\'' + item.userid + '\', \'' + item.nickname + '\', ' + parentGroup + ', ' + item.commentNum + ', this)"><i class="fa fa-reply"></i> Reply</button>';
+			commentResult += '<button class="btn2 btn-sm btn-default" onclick="reply(\'' + item.userid + '\', \'' + item.nickname + '\', ' + parentGroup + ', ' + item.commentNum + ', this)"><i class="fa fa-reply"></i> Reply</button>';
 		}else{
 			commentResult += '<br /><br />';
 		}
@@ -123,7 +179,7 @@ function output(resp){
 		commentResult += '</div>';//panel panel-default arrow left
 		commentResult += '</div>';//col-md-10 col-sm-10 | col-md-9 col-sm-9
 		commentResult += '</article>';//row
-		commentResult += '<div id="reply' + item.commentNum + '"></div>';
+		commentResult += '<br><div id="reply' + item.commentNum + '"></div><br>';
 	});
 	commentResult += '</section>';//comment-list
 	commentResult += '</div>';//col-md-8
@@ -137,13 +193,19 @@ function output(resp){
 
 // 댓글 삭제
 function deleteComment(commentNum, groupNum) {
-	$.ajax({
-		url  : 'deleteComment'
-		, type : 'get'
-		, data : {'commentNum' : commentNum, 'groupNum' : groupNum, 'boardType' : 'matching'}
-		, success : init
-		, error : function(){alert("Error!");}
-	});
+	//확인
+	if (confirm("Are you Sure??") == true){
+		$.ajax({
+			url  : 'deleteComment'
+			, type : 'get'
+			, data : {'commentNum' : commentNum, 'groupNum' : groupNum, 'boardType' : 'matching'}
+			, success : init
+			, error : function(){alert("Error!");}
+		});
+	//취소
+	}else{
+	    return;
+	}
 }
 
 // 댓글수정
@@ -199,10 +261,9 @@ function insertComment() {
 //reply 달기
 function reply(parentId, parentNick, groupNum, commentNum, btn){
 	var reply = '';
-	reply += 'To.' + parentNick;
-	reply += '<input id="replybox" type="text" />';
-	reply += '<button id="sendReply">Send</button>';
-	
+	reply += '<span class="parentNick">To.' + parentNick+'</span>';
+	reply += '&emsp;<input id="replybox" type="text" />&emsp;';
+	reply += '<button id="sendReply">Send</button><br>';
 	$('#reply' + commentNum).append(reply);
 	$(this).html('Cancel');
 	
@@ -240,40 +301,64 @@ function matching(matchingId, matchingCount, commentNum){
 	var userid = $('#userid').val();
 	var loginId = $('#loginId').val();
 	var boardNum = $('#boardNum').val();
+	var appointedTime = $('#appointedTime').val();
 	var check = $('#match' + commentNum).attr('src');
 	
 	if(userid === loginId && matchingCount <= 1){
 		// 이미 매칭이 되어있는 경우 매칭 취소
 		if(check.includes('golden') && matchingCount === 1){
-			$.ajax({
-				url : 'unmatching'
-				, type : 'post'
-				, data : {'boardNum' : boardNum, 'matchingId' : null
-						 , 'boardType' : 'matching', 'commentNum' : commentNum}
-				, success : function(resp){
-					if(resp == 1){
-						$('#match' + commentNum).attr('src', './resources/images/icons/silver.png');
-						init();
+			//확인
+			if (confirm("Are you Sure??") == true){
+				$.ajax({
+					url : 'unmatching'
+					, type : 'post'
+					, data : {'boardNum' : boardNum, 'userid' : userid, 'matchingId' : matchingId
+							 , 'appointedTime' : appointedTime, 'boardType' : 'matching', 'commentNum' : commentNum}
+					, success : function(resp){
+						if(resp == 1){
+							$('#match' + commentNum).attr('src', './resources/images/icons/silver.png');
+							init();
+						}
 					}
-				}
-				, error : function(){alert('Error!');}
-			});
+					, error : function(){alert('Error!');}
+				});
+			//취소
+			}else{
+			    return;
+			}
 		}else if(matchingCount === 0 && matchingId !== loginId){
-			// 매칭
-			$.ajax({
-				url : 'matching'
-				, type : 'post'
-				, data : {'boardNum' : boardNum, 'matchingId' : matchingId
-						 , 'boardType' : 'matching', 'commentNum' : commentNum}
-				, success : function(resp){
-					if(resp == 1){
-						$('#match' + commentNum).attr('src', './resources/images/icons/golden.png');
-						init();
+			//확인
+			if (confirm("Are you Sure??") == true){
+				// 매칭
+				$.ajax({
+					url : 'matching'
+					, type : 'post'
+					, data : {'boardNum' : boardNum, 'userid' : userid, 'matchingId' : matchingId
+							 , 'appointedTime' : appointedTime, 'boardType' : 'matching', 'commentNum' : commentNum}
+					, success : function(resp){
+						if(resp == 1){
+							$('#match' + commentNum).attr('src', './resources/images/icons/golden.png');
+							init();
+						}
 					}
-				}
-				, error : function(){alert('Error!');}
-			});
+					, error : function(){alert('Error!');}
+				});
+			//취소
+			}else{
+			    return;
+			}
 		}
+	}
+}
+
+// 게시물 삭제 확인
+function checkDel(){
+	//확인
+	if (confirm("Are you Sure??") == true){
+		return true;
+	//취소
+	}else{
+	    return false;
 	}
 }
 
@@ -344,34 +429,53 @@ function report(reportee, report){
 	
 	form.submit();
 	
-	document.body.removeChild(form);
+	document.body.removeChild(form); // 만든 폼을 삭제한다. 
 }
 </script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
+<div class="container">
+	<br>
 	<h1>Matching Board</h1>
 	<div>
-		<h4>${board.title}<button onclick="report('${board.userid}', '${board.contents}')" style="font-size:x-small; border:none; background-color:white;">신고</button></h4>
 		<input id="boardNum" type="hidden" value="${board.boardNum}">
 		<input id="userid" type="hidden" value="${board.userid}">
+		<input id="boardcontents" type="hidden" value="${board.contents}">
+		<input id="appointedTime" type="hidden" value="${board.appointedTime}">
 		<input id="page" type="hidden" value="${page}">
 		<input id="searchItem" type="hidden" value="${searchItem}">
 		<input id="searchText" type="hidden" value="${searchText}">
 		<input id="loginId" type="hidden" value="${sessionScope.loginId}">
 		<input id="loginNick" type="hidden" value="${sessionScope.loginNick}">
+		<input id="loginType" type="hidden" value="${sessionScope.loginType}">
+		<h4>${board.title}<button id ="reportboard" style="font-size:x-small; border:none; background-color:white;color:red;">신고</button></h4>
+		<script type="text/javascript">
+			$('#reportboard').on('click',function(){
+				var userid = '${board.userid}';
+				var contents = $('#boardcontents').val();
+				report(userid,contents);
+			});
+		</script>
+		<h5>[Writer] ${board.nickname}</h5>
+		<c:if test="${board.status != 1}">
+			<h5 style="color:blue;">Appointed Time [ ${board.appointedTime} ]</h5>
+		</c:if>
 		<div>
 			<pre>${board.contents}</pre>
 		</div>
-		<div>
+		<div align="right">
 			<a href="./goBoardList?page=${page}&boardType=matching&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Back</button></a>
 			<c:if test="${board.userid eq sessionScope.loginId}">
 			<a href="./updateBoardForm?boardNum=${board.boardNum}&boardType=matching&page=${page}&searchItem=${searchItem}&searchText=${searchText}"><button class="btn">Update</button></a>
-			<a href="./deleteBoard?boardNum=${board.boardNum}&boardType=matching"><button class="btn">Delete</button></a>
+			</c:if>
+			<c:if test="${board.userid eq sessionScope.loginId || sessionScope.loginType eq 'admin'}">
+			<a href="./deleteBoard?boardNum=${board.boardNum}&boardType=matching" onclick="return checkDel()"><button class="btn">Delete</button></a>
 			</c:if>
 		</div>
 		<div id="commentResult"></div>
 	</div>
+</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

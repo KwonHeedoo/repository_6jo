@@ -7,11 +7,15 @@ public class IData {
 	private String answer;
 	private String regdate;
 	private String saveFile;
+	private float confidence;
 	public IData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public IData(int dataNum, String userid, int questionNum, String answer, String regdate, String saveFile) {
+	
+	
+	public IData(int dataNum, String userid, int questionNum, String answer, String regdate, String saveFile,
+			float confidence) {
 		super();
 		this.dataNum = dataNum;
 		this.userid = userid;
@@ -19,7 +23,10 @@ public class IData {
 		this.answer = answer;
 		this.regdate = regdate;
 		this.saveFile = saveFile;
+		this.confidence = confidence;
 	}
+
+
 	public int getDataNum() {
 		return dataNum;
 	}
@@ -56,11 +63,19 @@ public class IData {
 	public void setSaveFile(String saveFile) {
 		this.saveFile = saveFile;
 	}
+
+	public float getConfidence() {
+		return confidence;
+	}
+	public void setConfidence(float confidence) {
+		this.confidence = confidence;
+	}
 	@Override
 	public String toString() {
-		return "InterviewData [dataNum=" + dataNum + ", userid=" + userid + ", questionNum=" + questionNum + ", answer="
-				+ answer + ", regdate=" + regdate + ", saveFile=" + saveFile + "]";
+		return "IData [dataNum=" + dataNum + ", userid=" + userid + ", questionNum=" + questionNum + ", answer="
+				+ answer + ", regdate=" + regdate + ", saveFile=" + saveFile + ", confidence=" + confidence + "]";
 	}
+	
 	
 	
 	

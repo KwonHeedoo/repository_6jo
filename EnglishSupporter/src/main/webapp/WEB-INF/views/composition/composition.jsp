@@ -16,6 +16,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	$('#comp').addClass('active');
+	
 	// 문자 체크
 	$('#composition').on('keyup', function(){
 		langCheck($("#composition").val()); 
@@ -94,28 +96,52 @@ function setSttData(sendData){
 }
 
 </script>
+<style type="text/css">
+.tts{
+margin-bottom: 20px;
+}
+.container{
+margin-top: 20px;
+}
+input[type="checkbox"]{
+height: 20px;
+width: 20px;
+}
+table{
+width: 1300px;
+}
+
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<h1>Composition</h1>
+<div class="container" align="center">
+	<h2>Composition</h2>
+	<hr>
 	<form id="compositionCheck" action="goConfirmed" method="post">
-		<textarea id="composition" rows="20" cols="50" name="composition"></textarea><br/>
+		<textarea id="composition" rows="20" cols="100" name="composition"></textarea><br/>
+
 		<div id="checkList" style="width:30%;">
-			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="grammer">Grammer</div>
-			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="emotion">Emotion</div>
-			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="repetition">Repetition</div>
+				<br>
+			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="grammer"><br>Grammer</div>
+			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="emotion"><br>Emotion</div>
+			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="repetition"><br>Repetition</div>
 		</div>
-		<div id="btn">
-			<div class="col-md-6"><button id="stt" type="button">STT</button></div>
-			<div class="col-md-6"><button id="check" type="button">Check</button></div>
+		<br><br>
+		<hr>
+		<div id="btn" class="raw">
+			<button id="stt" type="button">STT</button>
+			<button id="check" type="button">Check</button>
 		</div>
 	</form>
 	<br/>
 	<!-- 텍스트 음성 제공 버튼(TTS Button) -->
-	<div id="tts">
+	<div id="tts" class="raw tts">
+		text to speech 
 		<button id="ttsBtn"><img alt="speaker" src="./resources/images/icons/speaker.png" style="width:20px;height:20px;"></button>
 		<audio src="" class="audio" hidden></audio>
 	</div>
+</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

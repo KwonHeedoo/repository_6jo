@@ -60,12 +60,13 @@ public class FileService {
 		//HDD에 저장할 파일명. 같은 이름의 파일이 있는 경우의 처리
 		while (true) {
 			serverFile = new File(uploadPath + "/" + userid  + "/" + savedFilename);
+			
 			//같은 이름의 파일이 없으면 나감.
 			if ( !serverFile.isFile()) break;	
 			//같은 이름의 파일이 있으면 이름 뒤에 long 타입의 시간정보를 덧붙임.
 			savedFilename = savedFilename + new Date().getTime();
 		}		
-		
+		System.out.println("serverFile : " + serverFile);
 		//파일 저장
 		try {
 			upload.transferTo(serverFile);  // 지정된 이름으로 지정된 위치에 파일 저장 
@@ -73,8 +74,12 @@ public class FileService {
 			savedFilename = null;
 			e.printStackTrace();
 		}
+		/*System.out.println("savedFilename in fileservice :"+savedFilename);
+		System.out.println("absolute : " + serverFile.getAbsolutePath());
+		System.out.println("getPath : " + serverFile.getPath());
+		System.out.println("getName : " + serverFile.getName());*/
 		
-		return savedFilename;
+		return serverFile.getName();
 	}
 	
 	/**

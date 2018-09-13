@@ -3,6 +3,7 @@ package com.scit6jo.web.vo.resume;
 import java.util.List;
 
 public class Resume {
+	private String username;
 	private String resume_no;
 	private String userid;
 	private String title;
@@ -10,6 +11,7 @@ public class Resume {
 	private String deadline;
 	private String phone;
 	private String address;
+	private String email;
 	private List<Education> education;
 	private List<Experience> experience;
 	private List<Additional_info> additional_info;
@@ -85,14 +87,30 @@ public class Resume {
 	public void setAdditional_info(List<Additional_info> additional_info) {
 		this.additional_info = additional_info;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	@Override
 	public String toString() {
-		return "Resume [resume_no=" + resume_no + ", userid=" + userid + ", title=" + title + ", regdate=" + regdate
-				+ ", deadline=" + deadline + ", phone=" + phone + ", address=" + address + ", education=" + education
-				+ ", experience=" + experience + ", additional_info=" + additional_info + "]";
+		return "Resume [username=" + username + ", resume_no=" + resume_no + ", userid=" + userid + ", title=" + title
+				+ ", regdate=" + regdate + ", deadline=" + deadline + ", phone=" + phone + ", address=" + address
+				+ ", email=" + email + ", education=" + education + ", experience=" + experience + ", additional_info="
+				+ additional_info + "]";
 	}
-	
-	
 
+	
 	
 }

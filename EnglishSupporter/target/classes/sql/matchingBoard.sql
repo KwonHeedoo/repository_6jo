@@ -9,12 +9,15 @@ drop sequence mc_groupnum_seq;
 create table matching_board(
 boardnum number primary key	-- 게시물 번호
 , userid varchar2(20) not null		-- 게시물 작성자
-, title varchar2(30) not null		-- 제목
+, nickname varchar2(50) not null	-- 게시물 작성자 닉네임
+, title varchar2(100) not null		-- 제목
 , contents varchar2(2000) not null	-- 내용
 , hitcount number default 0		-- 조회수
 , regdate date default sysdate	-- 최종 수정일
-, status number default 1 not null constraint mb_status_ck check(status in(0, 1))	-- 공지 여부(0이면 공지/1이면 일반게시물)
+, status number default 0 not null constraint mb_status_ck check(status in(0, 1))	-- 공지 여부(1이면 공지 / 0이면 일반게시물)
 , matchingid varchar2(20)		-- 매칭 ID
+, appointedtime timestamp not null	-- 매칭 시간
+, roomnum varchar2(20) unique	-- 채팅룸 번호
 );
 
 -- 1:1 화상 채팅 매칭 게시물 번호 Sequence

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -149,12 +149,12 @@ function stopRecordingCallback() {
     audio.play();
     recorder.microphone.stop();
    
-    //인코딩을 했으나 정확한 형식으로 되는 것 같지 않음  
-    data = encodingBase64(blob);
-    evaluation();
+  //인코딩을 했으나 정확한 형식으로 되는 것 같지 않음  
+ //   data = encodingBase64(blob);
+ //  evaluation();
 }
-
-// 작동하지 않음 
+/*
+ 작동하지 않음 
 function evaluation() {
 	
 	var url = 'http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation';
@@ -184,13 +184,7 @@ function evaluation() {
 		}
 	});
 }
-
-
-
-
-
-
-
+*/
 var recorder; // globally accessible
 
 document.getElementById('btn-start-recording').onclick = function() {
@@ -218,9 +212,8 @@ document.getElementById('btn-stop-recording').onclick = function() {
    // this.disabled = true;
     recorder.stopRecording(stopRecordingCallback);
 };
-
+/*
 //encoding Base64 data return 
-
 function encodingBase64(blob) {
 	var reader = new FileReader();
  	reader.readAsDataURL(blob); 
@@ -230,7 +223,7 @@ function encodingBase64(blob) {
      return base64data;
 	 }
 }
-
+*/
 
 </script>					
 	<script type="text/javascript">
@@ -306,19 +299,24 @@ function encodingBase64(blob) {
 		
 	function callwordlist(level) {
 		$.ajax({
-			
 			method: "post",
 			url: "getMyWords",
 			data : {'wordlevel' : level},
 			success: function(reps){
 				wordlist = reps;
-				
 				listsize =wordlist.length;
 				
-				//console.log(wordlist);
-				//console.log(listsize);
+				console.log(reps);
+				console.log(listsize);
+				if(listsize>0){
 				initword(wordlist);
 				viewNum();
+				}else{
+					$('#meaning').text("");
+					$('input[name="text"]').val("There are no words in MyWords");
+					$('span.word').text("0 / 0");
+					//$('#mywordstar').unbind('click', false); //클릭 이벤트 봉쇄 
+				}
 			},
 			
 		});
@@ -326,6 +324,7 @@ function encodingBase64(blob) {
 	
 	// 별 클릭후 다시 디비에서 단어들을 불러와야 함...
 	$('#mywordstar').on('click',function(){
+	if(listsize>0){
 		var src = $('#checkmyword').attr('src');
 		console.log(src);
 		var word= $('input[name="text"]').val();
@@ -335,6 +334,7 @@ function encodingBase64(blob) {
 			$('#checkmyword').attr('src','./resources/images/icons/silver.png');
 			// 나의 단어장에서 해당 단어 삭제처리하기 			
 			word.command = 'delete';
+			console.log('삭제처리');
 		}else{
 			$('#checkmyword').attr('src','./resources/images/icons/golden.png');
 			//나의 단어장에 해당단어 추가하기 
@@ -348,15 +348,16 @@ function encodingBase64(blob) {
 				data : word,
 				success: function(reps){
 					var result = reps;
+					console.log(result);
 					callwordlist(level);
 				}
 			});
-		
+		}
 	});
 	
 	$(function() {
 		$('a.writeword').on('click',function(){
-			window.open("insertword","newidwindow","top=150,left=150,width=500,height=400");
+			window.open("insertword","newidwindow","top=150,left=150,width=500,height=300");
 		});
 	});
 	

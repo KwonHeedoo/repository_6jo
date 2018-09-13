@@ -3,23 +3,26 @@ package com.scit6jo.web.vo;
 public class Board {
 	private int boardNum;
 	private String userid;
+	private String nickname;
 	private String title;
 	private String contents;
 	private int hitcount;
 	private String regdate;
 	private int status;
 	private String matchingId;
-	private String originalfile;
-	private String savedfile;
+	private String appointedTime;
+	private String roomNum;
+	private int datanum;
 	
 	public Board() {
 		super();
 	}
 
-	public Board(int boardNum, String userid, String title, String contents, int hitcount, String regdate, int status) {
+	public Board(int boardNum, String userid, String nickname, String title, String contents, int hitcount, String regdate, int status) {
 		super();
 		this.boardNum = boardNum;
 		this.userid = userid;
+		this.nickname = nickname;
 		this.title = title;
 		this.contents = contents;
 		this.hitcount = hitcount;
@@ -27,31 +30,34 @@ public class Board {
 		this.status = status;
 	}
 
-	public Board(int boardNum, String userid, String title, String contents, int hitcount, String regdate, int status,
-			String matchingId) {
+	public Board(int boardNum, String userid, String nickname, String title, String contents, int hitcount, String regdate, int status,
+			String matchingId, String appointedTime, String roomNum) {
 		super();
 		this.boardNum = boardNum;
 		this.userid = userid;
+		this.nickname = nickname;
 		this.title = title;
 		this.contents = contents;
 		this.hitcount = hitcount;
 		this.regdate = regdate;
 		this.status = status;
 		this.matchingId = matchingId;
+		this.appointedTime = appointedTime;
+		this.roomNum = roomNum;
 	}
 
-	public Board(int boardNum, String userid, String title, String contents, int hitcount, String regdate, int status,
-			String originalfile, String savedfile) {
+	public Board(int boardNum, String userid, String nickname, String title, String contents, int hitcount, String regdate, int status,
+			int datanum) {
 		super();
 		this.boardNum = boardNum;
 		this.userid = userid;
+		this.nickname = nickname;
 		this.title = title;
 		this.contents = contents;
 		this.hitcount = hitcount;
 		this.regdate = regdate;
 		this.status = status;
-		this.originalfile = originalfile;
-		this.savedfile = savedfile;
+		this.datanum = datanum;
 	}
 
 	public int getBoardNum() {
@@ -68,6 +74,14 @@ public class Board {
 
 	public void setUserid(String userid) {
 		this.userid = userid;
+	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getTitle() {
@@ -117,28 +131,35 @@ public class Board {
 	public void setMatchingId(String matchingId) {
 		this.matchingId = matchingId;
 	}
-
-	public String getOriginalfile() {
-		return originalfile;
+	
+	public int getDatanum() {
+		return datanum;
+	}
+	public void setDatanum(int datanum) {
+		this.datanum = datanum;
+	}
+	public String getAppointedTime() {
+		return appointedTime;
 	}
 
-	public void setOriginalfile(String originalfile) {
-		this.originalfile = originalfile;
+	public void setAppointedTime(String appointedTime) {
+		this.appointedTime = appointedTime;
 	}
 
-	public String getSavedfile() {
-		return savedfile;
+	public String getRoomNum() {
+		return roomNum;
 	}
 
-	public void setSavedfile(String savedfile) {
-		this.savedfile = savedfile;
-	}
-
-	@Override
-	public String toString() {
-		return "Board [boardNum=" + boardNum + ", userid=" + userid + ", title=" + title + ", contents=" + contents
-				+ ", hitcount=" + hitcount + ", regdate=" + regdate + ", status=" + status + ", matchingId=" + matchingId
-				+ ", originalfile=" + originalfile + ", savedfile=" + savedfile + "]";
+	public void setRoomNum(String roomNum) {
+		this.roomNum = roomNum;
 	}
 	
+	@Override
+	public String toString() {
+		return "Board [boardNum=" + boardNum + ", userid=" + userid + ", nickname=" + nickname + ", title=" + title
+				+ ", contents=" + contents + ", hitcount=" + hitcount + ", regdate=" + regdate + ", status=" + status
+				+ ", matchingId=" + matchingId + ", appointedTime=" + appointedTime + ", roomNum=" + roomNum
+				+ ", datanum=" + datanum + "]";
+	}
+
 }

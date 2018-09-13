@@ -1,7 +1,9 @@
 package com.scit6jo.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,76 +12,63 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit6jo.web.repository.MypageRepository;
-import com.scit6jo.web.repository.UserRepository;
+import com.scit6jo.web.vo.Schedule;
 import com.scit6jo.web.vo.User;
 
 
 @Controller
 public class MypageController {
-
 	@Autowired
 	MypageRepository repository;
 	
-	@Autowired
-	UserRepository urepository;
-	
-	@RequestMapping(value = "/goInfoUpdate", method = RequestMethod.GET)
-	public String goInfoUpdate(HttpSession session, Model model) {
-		System.out.println("going to InfoUpdate...");
-		
-		// 세션의 loginId로 개인정보 가져오기  
+	@RequestMapping(value = "/goMypage", method = RequestMethod.GET)
+	public String goMypage(HttpSession session, Model model) {
 		String userid = (String) session.getAttribute("loginId");
-		User u = new User();
-		u.setUserid(userid);
-		User user = urepository.selectOne(u);
 		
-		user.setUserpwd("0000");	// 비밀번호 노출 방지 
-		System.out.println(user);
+		User user = repository.getUserInfo(userid);
+		model.addAttribute("info", user);
 		
-		model.addAttribute("u", user);	// 기존 개인정보 띄워주는 용도
-		
-		return "mypage/infoUpdate";
+		return "mypage/myInfo";
 	}
 	
-	@RequestMapping(value = "nicknameCheck", method = RequestMethod.POST)
-	public @ResponseBody Integer nicknameCheck(User user) {
+	/* 스케쥴 관련  메소드 시작 */
+	//스케쥴러 페이지로 가기 
+	@RequestMapping(value = "/goMyschedule", method = RequestMethod.GET)
+	public String goMyschedule() {
 		
-		User u = repository.nicknameCheck(user);
-		
-		if(u != null) return 1;		// 사용 불가능한 닉네임
-		else		  return 0;		// 사용 가능한 닉네임
+		return "mypage/scheduler";
 	}
 	
-	@RequestMapping(value = "/infoUpdate", method = RequestMethod.POST)
-	public String infoUpdate(String userid, String userpwd, String username, String nickname, String email, String birthdate, User u, Model model) {
-		
-		// 받아온 아이디와 패스워드로 해당 회원의 정보 가져오기  
-		u.setUserid(userid);
-		u.setUserpwd(userpwd);
-		User user = urepository.selectOne(u);
-		
-		// 새로 입력받은 정보로 업데이트 
-		user.setUsername(username);
-		user.setNickname(nickname);
-		user.setEmail(email);
-		user.setBirthdate(birthdate);
-				
-		System.out.println(user);
-		
-		int result = repository.infoUpdate(user);
-		
-		// 업데이트 성공 여부에 따라 메시지 출력 
-		String message = null;
-		
-		if(result == 1) {
-			message = "Information Update Completed";
-		}else {
-			message = "Information Update Failed";
+	//새 스케쥴 생성창 
+	@RequestMapping(value = "/saveMyschedule", method = RequestMethod.POST)
+	public @ResponseBody String makeMyschedule(Schedule vo) {
+		System.out.println(vo);
+		int cnt = repository.saveSchedule(vo);
+		if(cnt>0) {
+			return "schedule saved";
 		}
-		
-		model.addAttribute("msg", message);
-		
-		return "mypage/infoUpdate";
+		return "schedule saving failed";
+	}
+	//스케쥴 상세보기창 
+	@RequestMapping(value = "/deleteMyschedule", method = RequestMethod.POST)
+	public @ResponseBody String deleteMyschedule(String id) {
+		System.out.println("delete schedule");
+		System.out.println(id);
+		 Schedule ss= new Schedule();
+			ss.setS_id(id);
+		int cnt = repository.deleteSchedule(ss);
+		if(cnt>0) {
+			return "schedule deleted";
+		}
+		return "schedule delete failed";
+	}
+	
+	@RequestMapping(value = "/getschedule", method = RequestMethod.POST)
+	public @ResponseBody List<Schedule> getSchedule(String userid) {
+		List<Schedule> result = repository.selectAllSchedule(userid);
+		//System.out.println(result.size());
+		//System.out.println(result.get(0));
+		return result;
 	}
 	
 }
