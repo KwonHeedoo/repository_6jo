@@ -141,10 +141,10 @@ public class BoardController {
 		
 		if(boardType.equals("matching")) {
 			System.out.println("going to WriteMatchingBoardForm...");
-			return "interview/writeMatchingBoardForm";
+			return "interview/matchingWriteBoardForm";
 		}else if(boardType.equals("notice")){
 			System.out.println("going to WriteNoticeBoardForm...");
-			return "notice/writeNoticeBoardForm";
+			return "notice/noticeWriteBoardForm";
 		}else if(boardType.equals("appraise")){
 			System.out.println("going to WriteAppraiseBoardForm...");
 			return "interview/appraiseWriteBoardForm";
@@ -157,7 +157,9 @@ public class BoardController {
 	@RequestMapping(value="/writeBoard", method=RequestMethod.POST)
 	public String writeBoard(HttpSession session, Model model, Board board, String boardType) {
 		String userid = (String)session.getAttribute("loginId");
+		String nickname = (String)session.getAttribute("loginNick");
 		board.setUserid(userid);
+		board.setNickname(nickname);
 
 		System.out.println(board);
 		Map<String, Object> map = new HashMap<>();
@@ -256,10 +258,10 @@ public class BoardController {
 		
 		if(boardType.equals("matching")) {
 			System.out.println("Going to UpdateMatchingBoardForm...");
-			return "interview/updateMatchingBoardForm";
+			return "interview/matchingUpdateBoardForm";
 		}else if(boardType.equals("notice")){
 			System.out.println("going to UpdateNoticeBoardForm...");
-			return "notice/updateNoticeBoardForm";
+			return "notice/noticeUpdateBoardForm";
 		}else {
 			return "home";
 		}

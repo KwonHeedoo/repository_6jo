@@ -3,6 +3,7 @@ package com.scit6jo.web.vo;
 public class Board {
 	private int boardNum;
 	private String userid;
+	private String nickname;
 	private String title;
 	private String contents;
 	private int hitcount;
@@ -13,17 +14,15 @@ public class Board {
 	private String roomNum;
 	private int datanum;
 	
-	private String originalfile;
-	private String savedfile;
-	
 	public Board() {
 		super();
 	}
 
-	public Board(int boardNum, String userid, String title, String contents, int hitcount, String regdate, int status) {
+	public Board(int boardNum, String userid, String nickname, String title, String contents, int hitcount, String regdate, int status) {
 		super();
 		this.boardNum = boardNum;
 		this.userid = userid;
+		this.nickname = nickname;
 		this.title = title;
 		this.contents = contents;
 		this.hitcount = hitcount;
@@ -31,11 +30,12 @@ public class Board {
 		this.status = status;
 	}
 
-	public Board(int boardNum, String userid, String title, String contents, int hitcount, String regdate, int status,
+	public Board(int boardNum, String userid, String nickname, String title, String contents, int hitcount, String regdate, int status,
 			String matchingId, String appointedTime, String roomNum) {
 		super();
 		this.boardNum = boardNum;
 		this.userid = userid;
+		this.nickname = nickname;
 		this.title = title;
 		this.contents = contents;
 		this.hitcount = hitcount;
@@ -46,11 +46,12 @@ public class Board {
 		this.roomNum = roomNum;
 	}
 
-	public Board(int boardNum, String userid, String title, String contents, int hitcount, String regdate, int status,
+	public Board(int boardNum, String userid, String nickname, String title, String contents, int hitcount, String regdate, int status,
 			int datanum) {
 		super();
 		this.boardNum = boardNum;
 		this.userid = userid;
+		this.nickname = nickname;
 		this.title = title;
 		this.contents = contents;
 		this.hitcount = hitcount;
@@ -73,6 +74,14 @@ public class Board {
 
 	public void setUserid(String userid) {
 		this.userid = userid;
+	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getTitle() {
@@ -122,7 +131,6 @@ public class Board {
 	public void setMatchingId(String matchingId) {
 		this.matchingId = matchingId;
 	}
-
 	
 	public int getDatanum() {
 		return datanum;
@@ -145,15 +153,13 @@ public class Board {
 	public void setRoomNum(String roomNum) {
 		this.roomNum = roomNum;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Board [boardNum=" + boardNum + ", userid=" + userid + ", title=" + title + ", contents=" + contents
-				+ ", hitcount=" + hitcount + ", regdate=" + regdate + ", status=" + status + ", matchingId="
-				+ matchingId + ", appointedTime=" + appointedTime + ", roomNum=" + roomNum + ", datanum=" + datanum
-				+ ", originalfile=" + originalfile + ", savedfile=" + savedfile + "]";
+		return "Board [boardNum=" + boardNum + ", userid=" + userid + ", nickname=" + nickname + ", title=" + title
+				+ ", contents=" + contents + ", hitcount=" + hitcount + ", regdate=" + regdate + ", status=" + status
+				+ ", matchingId=" + matchingId + ", appointedTime=" + appointedTime + ", roomNum=" + roomNum
+				+ ", datanum=" + datanum + "]";
 	}
-
-	
 
 }
