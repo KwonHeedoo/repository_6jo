@@ -146,10 +146,12 @@ public class WordController {
 		//String userid = "aaa";
 		String userid = (String) session.getAttribute("loginId");
 		//로그인과 합쳐져야 해서 세션의 로그인 
+		System.out.println("userid"+userid);
+		System.out.println(wordlevel);
 		if(wordlevel.equals("0")) {
 			wList = repository.getMyWords(userid);
-			//System.out.println("0인경우 내단어장 불러오기");
-			//System.out.println(wList);
+			System.out.println("0인경우 내단어장 불러오기");
+			System.out.println(wList);
 		}else {
 			wList=repository.getWordList(wordlevel, userid);
 			//System.out.println("내단어장 아닌거 불러오기");

@@ -118,6 +118,7 @@ public class UserController {
 			try {
 				FileOutputStream fos = new FileOutputStream(new File(imgFilePath));
 				fos.write(imgInp.getBytes());
+				System.out.println("fileName : " + fileName);
 				user.setImgFilePath(fileName);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -148,8 +149,8 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(User user, HttpSession session, Model model) {
 		System.out.println("login");
-		
 		User u = repository.selectOne(user);
+		System.out.println(u);
 	    
 		if(u != null) {
 			session.setAttribute("loginId", u.getUserid());
@@ -160,7 +161,6 @@ public class UserController {
 			
 			// 출석일수
 			repository.attendNum(user); 
-			
 			// 방문자 등록
 			repository.visit(u.getUserid());
 		}

@@ -149,12 +149,12 @@ function stopRecordingCallback() {
     audio.play();
     recorder.microphone.stop();
    
-    //인코딩을 했으나 정확한 형식으로 되는 것 같지 않음  
-    data = encodingBase64(blob);
-    evaluation();
+  //인코딩을 했으나 정확한 형식으로 되는 것 같지 않음  
+ //   data = encodingBase64(blob);
+ //  evaluation();
 }
-
-// 작동하지 않음 
+/*
+ 작동하지 않음 
 function evaluation() {
 	
 	var url = 'http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation';
@@ -184,7 +184,7 @@ function evaluation() {
 		}
 	});
 }
-
+*/
 var recorder; // globally accessible
 
 document.getElementById('btn-start-recording').onclick = function() {
@@ -212,9 +212,8 @@ document.getElementById('btn-stop-recording').onclick = function() {
    // this.disabled = true;
     recorder.stopRecording(stopRecordingCallback);
 };
-
+/*
 //encoding Base64 data return 
-
 function encodingBase64(blob) {
 	var reader = new FileReader();
  	reader.readAsDataURL(blob); 
@@ -224,7 +223,7 @@ function encodingBase64(blob) {
      return base64data;
 	 }
 }
-
+*/
 
 </script>					
 	<script type="text/javascript">
@@ -300,7 +299,6 @@ function encodingBase64(blob) {
 		
 	function callwordlist(level) {
 		$.ajax({
-			
 			method: "post",
 			url: "getMyWords",
 			data : {'wordlevel' : level},
@@ -308,15 +306,16 @@ function encodingBase64(blob) {
 				wordlist = reps;
 				listsize =wordlist.length;
 				
-				//console.log(wordlist);
+				console.log(reps);
 				console.log(listsize);
-				if(listsize>1){
+				if(listsize>0){
 				initword(wordlist);
 				viewNum();
 				}else{
 					$('#meaning').text("");
 					$('input[name="text"]').val("There are no words in MyWords");
 					$('span.word').text("0 / 0");
+					//$('#mywordstar').unbind('click', false); //클릭 이벤트 봉쇄 
 				}
 			},
 			
@@ -325,6 +324,7 @@ function encodingBase64(blob) {
 	
 	// 별 클릭후 다시 디비에서 단어들을 불러와야 함...
 	$('#mywordstar').on('click',function(){
+	if(listsize>0){
 		var src = $('#checkmyword').attr('src');
 		console.log(src);
 		var word= $('input[name="text"]').val();
@@ -352,7 +352,7 @@ function encodingBase64(blob) {
 					callwordlist(level);
 				}
 			});
-		
+		}
 	});
 	
 	$(function() {

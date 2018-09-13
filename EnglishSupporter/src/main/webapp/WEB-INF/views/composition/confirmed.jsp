@@ -195,6 +195,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 		});
 	}else{
 		resultComp += '<br/><br/>';
+		//repResult += '<h3>[Synonym Word]</h3>';
 	}
 	}
 	// 텍스트 감정 분석이 된 경우
