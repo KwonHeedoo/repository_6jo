@@ -120,6 +120,22 @@ public class WordController {
 		return "mypage/myWords";
 	}
 
+	// 마이페이지 myWords 단어추가 요청 
+	@RequestMapping(value = "mywordAdd", method = RequestMethod.POST)
+	public @ResponseBody boolean mywordAdd(@RequestBody Word word, HttpSession session) {
+		System.out.println("mywordAdd...");
+		
+		String userid = (String) session.getAttribute("loginId");
+		word.setUserid(userid);
+		word.setWordtype("user");
+		
+		System.out.println(word);
+		
+		boolean result = repository.insertMyWord(word);
+		
+		return result;
+	}
+		
 	// 마이페이지 myWords 업데이트 요청 
 	@RequestMapping(value = "mywordUpdate", method = RequestMethod.POST)
 	public @ResponseBody Integer mywordUpdate(@RequestBody Word word, HttpSession session) {
