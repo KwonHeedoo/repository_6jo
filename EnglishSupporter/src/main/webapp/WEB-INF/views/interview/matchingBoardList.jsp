@@ -80,7 +80,7 @@ function output(resp){
 			boardResult += '<tr>';
 			boardResult += '<td colspan="2"><span style="color:red;">[공지]</span></td>';
 			boardResult += '<td class="boardTitle"><a href="./detailBoard?boardNum=' + item.boardNum + '&boardType=matching&page=' + map.navi.currentPage + '&back=false&searchItem=' + map.searchItem + '&searchText=' + map.searchText + '">' + item.title + '</a></td>';
-			boardResult += '<td>' + item.userid + '</td>';
+			boardResult += '<td>' + item.nickname + '</td>';
 			boardResult += '<td>' + item.regdate + '</td>';
 			boardResult += '<td>' + item.hitcount + '</td>';
 			boardResult += '<td><span style="color:red;">[공지]</span></td>';
@@ -95,7 +95,7 @@ function output(resp){
 			boardResult += '<td>' + (map.navi.totalRecordsCount - map.navi.startRecord - (count - 1)) + '</td>';
 			boardResult += '<td>' + item.appointedTime + '</td>';
 			boardResult += '<td class="boardTitle"><a href="./detailBoard?boardNum=' + item.boardNum + '&boardType=matching&page=' + map.navi.currentPage + '&back=false&searchItem=' + map.searchItem + '&searchText=' + map.searchText + '">' + item.title + '</a></td>';
-			boardResult += '<td>' + item.userid + '</td>';
+			boardResult += '<td>' + item.nickname + '</td>';
 			boardResult += '<td>' + item.regdate + '</td>';
 			boardResult += '<td>' + item.hitcount + '</td>';
 			boardResult += '<td>';

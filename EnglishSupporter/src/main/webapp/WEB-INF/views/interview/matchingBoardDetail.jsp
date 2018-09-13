@@ -457,6 +457,7 @@ function report(reportee, report){
 				report(userid,contents);
 			});
 		</script>
+		<h5>[Writer] ${board.nickname}</h5>
 		<c:if test="${board.status != 1}">
 			<h5 style="color:blue;">Appointed Time [ ${board.appointedTime} ]</h5>
 		</c:if>
