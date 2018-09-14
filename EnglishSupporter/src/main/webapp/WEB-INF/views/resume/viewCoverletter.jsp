@@ -68,6 +68,7 @@ text-align: center;
 			</table>
 		<div class="center">
 		<br>
+		<input type="button" value="Back" onclick="docs()" class="btn">
 		</div>
 	</div>
 </div>
@@ -92,5 +93,9 @@ $(function() { // 유저이름 받아옴
 		}
 	});
 });
+function docs() {
+	location.href = "./goMyDocs?selectedTab=coverletter";
+};
+
 </script>
 </html>

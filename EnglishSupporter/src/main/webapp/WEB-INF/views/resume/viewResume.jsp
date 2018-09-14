@@ -107,10 +107,18 @@
 		</c:if>
 
 	</table>
-	</div>       
+	<div align="center">
+	<input type="button" value="Back" onclick="docs()" class="btn">   
+	</div>
+	</div>    
 </div>
 
 	<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
+<script type="text/javascript">
+function docs() {
+	location.href = "./goMyDocs?selectedTab=resume";
+};
+</script>
 </html>
 

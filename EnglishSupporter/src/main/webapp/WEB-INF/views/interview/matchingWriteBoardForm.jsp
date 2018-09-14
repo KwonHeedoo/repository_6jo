@@ -48,6 +48,10 @@ width: 100%;
 margin-top: 30px;
 margin-bottom: 30px;
 }
+input[type="checkbox"]{
+width: 20px;
+height: 20px;
+}
 </style>
 </head>
 <body>
@@ -64,8 +68,9 @@ margin-bottom: 30px;
 			&ensp;
 			<label for="appointedTime"> Appointment Time : </label>
 			<input id="appointedTime" type="datetime-local" name="appointedTime">
+			&ensp;
 			<c:if test="${sessionScope.loginType eq 'admin'}">
-				<input id="notice" type="checkbox" name="status" value="1">공지글
+				<input id="notice" type="checkbox" name="status" value="1">&ensp;공지글
 			</c:if>
 		</div>
 		<hr>

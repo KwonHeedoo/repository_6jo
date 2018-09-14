@@ -132,10 +132,10 @@ function unregister() {
 						<h3>[ Unregister ]</h3>
 						<br>
 							<p>ID: <input type="text" id="userid" name="userid" value="${sessionScope.loginId}" readonly /></p>
-							<p>PASSWORD: <input id="userpwd" type="password" name="userpwd" placeholder="Enter your Password for Verification" required /></p>
+							<p>PASSWORD: <input id="userpwd" type="password" name="userpwd" placeholder="Verify your Password" required /></p>
 							<span id="pwdCheck"></span>
 							<br>
-							<p><input id="unregister" type="button" value="UNREGISTER" class="btn" /></p>
+							<p><input id="unregister" type="button" value="UNREGISTER  " class="btn" /></p>
 						</div><!-- center -->
 						</form>
 					</div><!-- center -->

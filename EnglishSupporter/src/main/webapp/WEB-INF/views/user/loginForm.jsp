@@ -28,7 +28,6 @@ border:1px solid; border-radius:22px;
 height: 40%;
 }
 </style>
-
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
@@ -36,16 +35,42 @@ height: 40%;
 	<div class="row">
 		<div class="center">
 			<h2>[ LOGIN ]</h2>
-			<form action="login" method="post">
 			<div class="center">
-				<p><input type="text" name="userid" placeholder="ID" /></p>
-				<p><input type="password" name="userpwd" placeholder="PASSWORD" /></p>
-				<p><input type="submit" value="LOGIN" class="btn" /></p>
+				<p><input type="text" id="userid" name="userid" placeholder="ID" /></p>
+				<p><input type="password" id="userpwd" name="userpwd" placeholder="PASSWORD" /></p>
+				<p><input type="button" id="login" class="btn" value="LOGIN"></p>
 			</div>
-			</form>
 		</div>
 	</div><!-- row -->
 </div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
+<script>
+$(function(){
+	$('#login').on('click', function(){
+		var userid = $('#userid').val();
+		var userpwd = $('#userpwd').val();
+		var sendData = {"userid" : userid, "userpwd" : userpwd};
+		
+		$.ajax({
+			type :'post'
+			, url: 'loginCheck'
+			, data : JSON.stringify(sendData)
+			, contentType : 'application/json;charset=UTF-8'
+			, success : function(resp){
+				if(resp == 1){
+					location.href = "${pageContext.request.contextPath}/";
+				}else if(resp == 0){
+					alert("Please Check your ID and Password.");
+					location.href = "${pageContext.request.contextPath}/goLoginForm";
+				}
+			}
+			, error: function(resp){
+				alert("Login Error!");
+			}
+		});
+		
+	});
+});
+</script>
 </html>

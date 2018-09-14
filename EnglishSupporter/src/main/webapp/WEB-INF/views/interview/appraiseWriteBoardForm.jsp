@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -17,10 +18,14 @@
     margin-bottom: 30px;
 }
 input[type="text"]{
-width: 90%;
+width: 93%;
 }
 textarea {
 width: 100%;
+}
+input[type="checkbox"]{
+width: 20px;
+height: 20px;
 }
 
 </style>
@@ -86,10 +91,11 @@ function a(value){
 			<input id="dataNum" type="hidden" name="datanum" value="">
 			<label id="title">TITLE : </label>
 			<input id="title" type="text" name="title" autocomplete="off">
-			<c:if test="${sessionScope.loginType eq 'admin'}">
-				<input id="notice" type="checkbox" name="status" value="1">공지글
-			</c:if>
+			<br>
 		</div>
+			<c:if test="${sessionScope.loginType eq 'admin'}">
+			<input id="notice" type="checkbox" name="status" value="1">공지글
+			</c:if>
 		<hr>
 		<div>
 			<label id="contents">Content</label>
