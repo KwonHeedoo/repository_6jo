@@ -58,6 +58,8 @@ var appraises = ["pronunciation","posture","contents"];
 var ratings = {};
 
 $(function(){
+	$('#interview').addClass('active');
+	
 	init();
 });
 

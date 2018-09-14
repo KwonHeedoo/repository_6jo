@@ -25,7 +25,6 @@ import com.scit6jo.web.vo.resume.Resume;
 public class ResumeController {
 	@Autowired
 	ResumeRepository repository;	
-	
 	@Autowired
 	UserRepository userRepository;
 	
@@ -114,11 +113,22 @@ public class ResumeController {
 	//이력서 수정 페이지로 이동
 	@RequestMapping(value = "/goUpdateResume", method = RequestMethod.GET)
 	public String goUpdateResume(Model model, String resume_no) {
+		//Resume myResume = repository.getResume(resume_no);
+		
+		model.addAttribute("resume_no", resume_no);
+		return "resume/editResume";
+	}
+	
+	@RequestMapping(value = "/getResume", method = RequestMethod.POST)
+	public @ResponseBody Resume getResume(Model model, String resume_no) {
 		Resume myResume = repository.getResume(resume_no);
 		
-		model.addAttribute("resume", myResume);
-		return "resume/resumeForm";
+		return myResume;
 	}
+
+	
+	
+	
 	
 	//커버레터 수정
 	@RequestMapping(value = "/updateCoverletter", method = RequestMethod.POST, produces = "application/text; charset=utf8")

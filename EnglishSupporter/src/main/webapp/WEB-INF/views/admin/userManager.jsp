@@ -90,11 +90,24 @@ function sanction(userid){
 			, type : 'get'
 			, data : {'userid' : userid}
 			, success : function(resp){
-				if(resp === 1){
-					alert('Stop User');
+				var map = resp;
+				if(map.result === 1){
+					alert('Stopped User');
 					blackList('sanction');
 				}else{
-					alert('Already Stoped');
+					var sanctionNum = resp.sanctionNum;
+					
+					if (confirm('This User already Stopped now\nDo you want to cancel?') == true){
+						$.ajax({
+							url : 'cancelSanction'
+							, type : 'get'
+							, data : {'sanctionNum' : sanctionNum}
+							, success : function(resp){blackList('sanction');}
+							, error : function(){alert('Error!');}
+						});
+					}else{
+					    return;
+					}
 				}
 			}
 			, error : function(){alert('Error!');}

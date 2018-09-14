@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -13,20 +14,27 @@
 <title>Writing appraise Board</title>
 <style type="text/css">
 .container {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 30px;
 }
 input[type="text"]{
-width: 100%;
+width: 93%;
 }
 textarea {
 width: 100%;
 }
+input[type="checkbox"]{
+width: 20px;
+height: 20px;
+}
 
 </style>
 <script> 
+$(function(){
+	$('#interview').addClass('active');
+});
+
 function test(func){
-	
 }
 
 function a(value){
@@ -34,9 +42,7 @@ function a(value){
 			function (){
 				var sum = value * 10;
 	});
-	
 }
-
 	function board(page) {
 		location.href = "./goBoardList?page=" + page + "&boardType=appraise";
 	};
@@ -79,34 +85,34 @@ function a(value){
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<div class="container" align="center">
-	<h1>Writing appraise Board</h1>
+	<div class="container">
+	<h2>Writing appraise Board</h2>
+	<hr>
 	<div>
 	<form action="writeBoard" method="post" onsubmit="return formCheck()">
 		<div>
 			<input type="hidden" name="boardType" value="appraise">
 			<input id="dataNum" type="hidden" name="datanum" value="">
-			<input id="title" type="text" name="title" placeholder="TITLE" autocomplete="off">
-			<c:if test="${sessionScope.loginType eq 'admin'}">
-				<input id="notice" type="checkbox" name="status" value="1">공지글
-			</c:if>
+			<label id="title">TITLE : </label>
+			<input id="title" type="text" name="title" autocomplete="off">
+			<br>
 		</div>
-		<h3 id="introduce">Content</h3>
+			<c:if test="${sessionScope.loginType eq 'admin'}">
+			<input id="notice" type="checkbox" name="status" value="1">공지글
+			</c:if>
+		<hr>
 		<div>
+			<label id="contents">Content</label>
 			<textarea id="contents" rows="15" cols="60" name="contents"></textarea>
 			<p id = "fileName"> </p>
 		</div>
-		<div>
-			<div class="col-md-6">
-				<input type="submit" value="Write">
-			</div>
-			<div class="col-md-6">
-				<input type="button" value="Cancel" onclick="board(${page})">
-			</div>
-			
+		<hr>
+		<div align="center">
+				<input type="submit" value="Write" class="btn">&ensp;&ensp;&ensp;
+				<input type="button" value="Back" onclick="board(${page})" class="btn">&ensp;&ensp;&ensp;
+				<input type="button" onclick="dataList()" value="select video" class="btn"/>
 		</div>
 	</form>
-	<button onclick="dataList()">select video</button>
 	</div>
 	</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>

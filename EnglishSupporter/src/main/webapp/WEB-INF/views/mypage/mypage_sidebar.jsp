@@ -74,7 +74,7 @@ float:left;
 					<li><a href="goPwdChange"><span class="glyphicon glyphicon-lock"></span>
 							Password Change</a></li>
 					<li><a href="goUnregister"><span class="glyphicon glyphicon-remove"></span>
-							Withdrawal</a></li>
+							Unregister</a></li>
 
 				</ul>
 			</div>

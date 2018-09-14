@@ -146,11 +146,11 @@ public class UserController {
 	}
 	
 	// 로그인 처리
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(User user, HttpSession session, Model model) {
-		System.out.println("login");
-		
+	@RequestMapping(value = "loginCheck", method = RequestMethod.POST)
+	public @ResponseBody Integer loginCheck(@RequestBody User user, HttpSession session, Model model) {
+		System.out.println("loginCheck...");
 		User u = repository.selectOne(user);
+		System.out.println(u);
 	    
 		if(u != null) {
 			session.setAttribute("loginId", u.getUserid());
@@ -161,12 +161,13 @@ public class UserController {
 			
 			// 출석일수
 			repository.attendNum(user); 
-			
 			// 방문자 등록
 			repository.visit(u.getUserid());
+			
+			return 1;
+		}else {
+			return 0;
 		}
-	
-		return "redirect:/";
 	}
 	
 	// 로그아웃 처리

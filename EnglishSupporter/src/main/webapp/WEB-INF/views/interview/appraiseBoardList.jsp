@@ -36,6 +36,8 @@ text-align:left;
 
 <script type="text/javascript">
 $(function(){
+	$('#interview').addClass('active');
+	
 	init();
 });
 
@@ -219,6 +221,10 @@ function constraint(appraiseCount){
 }
 </script>
 <style type="text/css">
+a {
+cursor: pointer;
+}
+
 #container {
     width: 80%;
     margin: 0 auto;

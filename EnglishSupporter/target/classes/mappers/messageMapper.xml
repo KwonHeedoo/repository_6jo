@@ -14,7 +14,7 @@
 		, status
 	</sql>
 	
-	<!-- 메세지 보내기 -->
+	<!-- 쪽지 보내기 -->
 	<insert id="sendMsg" parameterType="Message">
 		insert into
 			message(
@@ -31,7 +31,7 @@
 			, #{message})
 	</insert>
 	
-	<!-- 읽지 않은 메세지 요청 -->
+	<!-- 읽지 않은 쪽지 요청 -->
 	<select id="unReadMsg" parameterType="string" resultType="Message">
 		select
 			<include refid="basicCols"/>
@@ -45,7 +45,7 @@
 			messagenum desc
 	</select>
 	
-	<!-- 모든 메세지 리스트 요청 -->
+	<!-- 모든 쪽지 리스트 요청 -->
 	<select id="selectAll" parameterType="string" resultType="Message">
 		select
 			<include refid="basicCols"/>
@@ -57,7 +57,7 @@
 			messagenum desc
 	</select>
 	
-	<!-- 메세지 읽음 처리 -->
+	<!-- 쪽지 읽음 처리 -->
 	<update id="readMsg" parameterType="int">
 		update
 			message

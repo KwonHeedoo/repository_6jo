@@ -6,6 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Updating Matching Board</title>
 <script>
+$(function(){
+	$('#interview').addClass('active');
+});
+
 function cancell(boardNum, page, searchItem, searchText) {
 	location.href = "detailBoard?boardNum="+boardNum+"&&boardType=matching&page="+page+"&back=true&searchItem="+searchItem+"&searchText="+searchText;
 };

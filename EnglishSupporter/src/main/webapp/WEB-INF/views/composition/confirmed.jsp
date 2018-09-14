@@ -114,6 +114,7 @@ function repetitionCheck(composition, confirm, grammer, emotion){
 			, dataType : "json"
 			, data : {"composition" : composition, "confirm" : confirm}
 			, success : function(repetition){
+				if(repetition.length === 0){repetition = null;}
 				result(composition, confirm, grammer, emotion, repetition);	
 			}
 			, error : function(repetition){ alert("Repetition Error!");}
@@ -176,7 +177,6 @@ function result(composition, confirm, grammer, emotion, repetition){
 	// 중복 단어가 있는 경우
 	if(wordList != null){
 		$('#overlap').addClass('result');
-	if(wordList.length != 0){
 		// 중복 단어에 하이라이트
 		$.each(wordList, function(index, item){
 			resultComp = resultComp.replaceAll(item.word, '<span style="background-color:yellow;">' + item.word + '</span>');
@@ -190,13 +190,17 @@ function result(composition, confirm, grammer, emotion, repetition){
 				repResult += '<b>' + item.word + '</b>';
 				repResult += '<br/>';
 				repResult += item.meaningK;
+			}else{
+				repResult += 'There is no Synonym Word.';
 			}
 			repResult += '</p>';
 		});
-	}else{
-		resultComp += '<br/><br/>';
-	}
-	}
+	}/* else{
+		repResult += 'There is no synonym';
+		//resultComp += '<br/><br/>';
+		//repResult += '<h3>[Synonym Word]</h3>';
+	} */
+	
 	// 텍스트 감정 분석이 된 경우
 	if(emotion != null){
 		var jsonStrEmotion = JSON.stringify(emotion);
@@ -220,7 +224,6 @@ function result(composition, confirm, grammer, emotion, repetition){
 		emoResult += '</p>';
 		$('#emotion').addClass('result');
 	}
-	
 	
 	// 결과 값 출력
 	$("#resultComp").html(resultComp);

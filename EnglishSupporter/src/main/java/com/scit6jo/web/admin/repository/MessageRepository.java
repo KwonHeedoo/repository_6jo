@@ -14,7 +14,7 @@ public class MessageRepository {
 	@Autowired
 	SqlSession session;
 	
-	// 읽지 않은 메세지 요청
+	// 읽지 않은 쪽지 요청
 	public ArrayList<Message> unReadMsg(String receiveid) {
 		MessageMapper mapper = session.getMapper(MessageMapper.class);
 		ArrayList<Message> messageList = null;
@@ -28,7 +28,7 @@ public class MessageRepository {
 		return messageList;
 	}
 	
-	// 모든 메세지 리스트 요청
+	// 모든 쪽지 리스트 요청
 	public ArrayList<Message> selectAll(String receiveid) {
 		MessageMapper mapper = session.getMapper(MessageMapper.class);
 		ArrayList<Message> messageList = null;
@@ -42,7 +42,7 @@ public class MessageRepository {
 		return messageList;
 	}
 	
-	// 메세지 보내기
+	// 쪽지 보내기
 	public int sendMsg(Message message) {
 		MessageMapper mapper = session.getMapper(MessageMapper.class);
 		int result = 0;
@@ -56,7 +56,7 @@ public class MessageRepository {
 		return result;
 	}
 	
-	// 메세지 읽음 처리
+	// 쪽지 읽음 처리
 	public int readMsg(int messageNum) {
 		MessageMapper mapper = session.getMapper(MessageMapper.class);
 		int result = 0;

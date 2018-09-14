@@ -7,6 +7,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title>Writing Matching Board</title>
 <script>
 $(function(){
@@ -35,34 +40,52 @@ function formCheck(){
 	return true;
 };
 </script>
+<style type="text/css">
+textarea{
+width: 100%;
+}
+.container{
+margin-top: 30px;
+margin-bottom: 30px;
+}
+input[type="checkbox"]{
+width: 20px;
+height: 20px;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<h1>Writing Matching Board</h1>
+<div class="container">
+	<h2>Writing Matching Board</h2>
+	<hr>
 	<div>
 	<form action="writeBoard" method="post" onsubmit="return formCheck()">
 		<div>
 			<input type="hidden" name="boardType" value="matching">
-			<input id="title" type="text" name="title" placeholder="TITLE" autocomplete="off">
-			<c:if test="${sessionScope.loginType eq 'admin'}">
-				<input id="notice" type="checkbox" name="status" value="1">공지글
-			</c:if>
+			<label id="title">TITLE : </label>
+			<input id="title" type="text" name="title" autocomplete="off">
+			&ensp;
+			<label for="appointedTime"> Appointment Time : </label>
 			<input id="appointedTime" type="datetime-local" name="appointedTime">
+			&ensp;
+			<c:if test="${sessionScope.loginType eq 'admin'}">
+				<input id="notice" type="checkbox" name="status" value="1">&ensp;공지글
+			</c:if>
 		</div>
-		<h3 id="introduce">Content</h3>
+		<hr>
 		<div>
+		<label id="contents">Content</label>
 			<textarea id="contents" rows="15" cols="60" name="contents"></textarea>
 		</div>
-		<div>
-			<div class="col-md-6">
-				<input type="submit" value="Write">
-			</div>
-			<div class="col-md-6">
-				<input type="button" value="Cancel" onclick="board(${page})">
-			</div>
+		<hr>
+		<div align="center">
+				<input type="submit" value="Write" class="btn">&ensp;&ensp;&ensp;
+				<input type="button" value="Back" onclick="board(${page})" class="btn">
 		</div>
 	</form>
 	</div>
+</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

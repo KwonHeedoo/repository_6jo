@@ -103,20 +103,32 @@ margin-bottom: 20px;
 .container{
 margin-top: 20px;
 }
+input[type="checkbox"]{
+height: 20px;
+width: 20px;
+}
+table{
+width: 1300px;
+}
+
 </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
 <div class="container" align="center">
-	<h1>Composition</h1>
+	<h2>Composition</h2>
+	<hr>
 	<form id="compositionCheck" action="goConfirmed" method="post">
 		<textarea id="composition" rows="20" cols="100" name="composition"></textarea><br/>
+
 		<div id="checkList" style="width:30%;">
-			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="grammer">Grammer</div>
+				<br>
+			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="grammer"><br>Grammer</div>
 			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="emotion"><br>Emotion</div>
-			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="repetition">Repetition</div>
+			<div class="col-md-4"><input class="confirm" type="checkbox" name="confirm" value="repetition"><br>Repetition</div>
 		</div>
 		<br><br>
+		<hr>
 		<div id="btn" class="raw">
 			<button id="stt" type="button">STT</button>
 			<button id="check" type="button">Check</button>

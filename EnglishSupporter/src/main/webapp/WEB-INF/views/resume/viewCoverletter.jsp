@@ -68,6 +68,7 @@ text-align: center;
 			</table>
 		<div class="center">
 		<br>
+		<input type="button" value="Back" onclick="docs()" class="btn">
 		</div>
 	</div>
 </div>
@@ -76,6 +77,8 @@ text-align: center;
 
 <script type="text/javascript">
 $(function() { // 유저이름 받아옴 
+	$('#resume').addClass('active');
+	
 	var userid = '${myCL.userid}';
 	console.log(userid);
 	$.ajax({
@@ -92,5 +95,9 @@ $(function() { // 유저이름 받아옴
 		}
 	});
 });
+function docs() {
+	location.href = "./goMyDocs?selectedTab=coverletter";
+};
+
 </script>
 </html>

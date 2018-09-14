@@ -51,6 +51,8 @@ body {
 </body>
 <script type="text/javascript">
 $(function() {
+	$('#interview').addClass('active');
+	
 	// 문제목록 가져오기 
 	$.ajax({
 		method:'post',

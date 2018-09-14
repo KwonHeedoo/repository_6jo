@@ -39,7 +39,7 @@ color:red;
 <body>
 <%@ include file="/WEB-INF/views/admin/adminFrame.jsp"%>
 	<div id="container" style="margin-left:350px;">
-	<h1>Word Training Management</h1>
+	<h2>Word Training Management</h2>
 	<br>
 	 
 	<div align="left">
@@ -48,6 +48,10 @@ color:red;
 			<option value="2" ${wordlevel=='2' ? 'selected' : ''}>Level 2</option>
 			<option value="3" ${wordlevel=='3' ? 'selected' : ''}>Level 3</option>
 		</select>
+		<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+		<input type="text" id="newWord" placeholder="WORD">
+		<input type="text" id="newMeaning" placeholder="MEANING">
+		<input type="button" value="ADD" id="addWord">
 	</div>
 	<br>
 		<table border="1" style="text-align:center;">
@@ -81,18 +85,44 @@ color:red;
 			
 			<a href="goWordManager?page=${navi.currentPage+1}&wordlevel=${wordlevel}">▶▶</a>
 		</div>
+		<br><br>
 	</div>
 </body>
 <script type="text/javascript">
 
 $(function() {
-	//var wordlevel="${wordlevel}";
+	$('#addQuestion').addClass('active');
 	
 	// 레벨에 따라 단어 출력
 	$('#level').change(function() {
-		//wordllevel = $(this).val();
-		//console.log();
 		location.href = "${pageContext.request.contextPath}/goWordManager?page=1&wordlevel="+$(this).val();
+	});
+	
+	// 새로운 단어 추가
+	$('#addWord').on('click',function(){
+		var word = $('#newWord').val();
+		var mean = $('#newMeaning').val();
+		var sendData = {"word" : word, "meaningK" : mean, "wordlevel" : "${wordlevel}"};
+		console.log(sendData);
+		
+		$.ajax({
+			url : 'wordAdd'
+			, type : 'post'
+			, data : JSON.stringify(sendData)
+			, contentType : 'application/json;charset=UTF-8'
+			, success : function(resp){
+				if(resp == 1){
+					alert("Add Completed.");
+					location.href = "${pageContext.request.contextPath}/goWordManager?page=${navi.currentPage}&wordlevel=${wordlevel}";
+				}else if(resp == 0){
+					alert("Add Failed.");
+					location.href = "${pageContext.request.contextPath}/goWordManager?page=${navi.currentPage}&wordlevel=${wordlevel}";
+				}
+			}
+			, error: function(resp){
+				alert("Add Error!");
+			}
+		});
 	});
 	
 	$('input[value="UPDATE"]').on('click',function(){
@@ -126,10 +156,10 @@ $(function() {
 				, success : function(resp){
 					if(resp == 1){
 						alert("Update Completed.");
-						location.href = "${pageContext.request.contextPath}/goWordManager?wordlevel=${wordlevel}";
+						location.href = "${pageContext.request.contextPath}/goWordManager?page=${navi.currentPage}&wordlevel=${wordlevel}";
 					}else if(resp == 0){
 						alert("Update Failed.");
-						location.href = "${pageContext.request.contextPath}/goWordManager";
+						location.href = "${pageContext.request.contextPath}/goWordManager?page=${navi.currentPage}&wordlevel=${wordlevel}";
 					}
 				}
 				, error: function(resp){
@@ -141,7 +171,7 @@ $(function() {
 	});
 	
 	// DELETE 버튼 누르면 해당 단어 삭제
-	$('#delete').on('click',function(){
+	$('input[value="DELETE"]').on('click',function(){
 		console.log('in delete');
 		var tr = $(this).parent().parent();
 		var wordNum = tr.children().children('input[type="hidden"]').val();
@@ -153,10 +183,10 @@ $(function() {
 			, success : function(resp){
 				if(resp == 1){
 					alert("Delete Completed.");
-					location.href = "${pageContext.request.contextPath}/goWordManager";
+					location.href = "${pageContext.request.contextPath}/goWordManager?page=${navi.currentPage}&wordlevel=${wordlevel}";
 				}else if(resp == 0){
 					alert("Delete Failed.");
-					location.href = "${pageContext.request.contextPath}/goWordManager";
+					location.href = "${pageContext.request.contextPath}/goWordManager?page=${navi.currentPage}&wordlevel=${wordlevel}";
 				}
 			}
 			, error: function(resp){

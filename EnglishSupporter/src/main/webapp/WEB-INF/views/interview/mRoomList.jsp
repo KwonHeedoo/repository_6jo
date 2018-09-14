@@ -44,7 +44,7 @@ $(function() {
 			for (var i = 0; i < data.length; i++) {
 				 text += "<tr>";
 				 text += '<td><a href="javascript:void(0);" onclick="callPfunction('+ data[i].roomnum + ' );">' + data[i].roomnum +'</a></td>';
-				 text += '<td>'+ data[i].appointedTime + '</td>'
+				 text += '<td> Appointed Time : '+ data[i].appointedTime + '</td>'
 				 text += "</tr>";
 			}
 			text += '</table>';
