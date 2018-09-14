@@ -103,7 +103,13 @@ function output(resp){
 		commentResult += '<figure class="thumbnail">'; 
 		commentResult += '<figcaption class="text-center">' + item.nickname + '</figcaption>'
 		commentResult += '</figure>';//thumbnail
-		commentResult += '<img class="img-responsive" src="./resources/images/icons/user-avatar-placeholder.png" />';
+		if(item.imgFilePath == null){
+			commentResult += '<img class="img-responsive" src="./resources/images/icons/user-avatar-placeholder.png" />';
+		}else if(item.imgFilePath != null && item.nickname == '*****'){
+			commentResult += '<img class="img-responsive" src="./resources/images/icons/user-avatar-placeholder.png" />';
+		}else if(item.imgFilePath != null && item.nickname != '*****'){
+			commentResult += '<img class="img-responsive" src="./getProfileImg?userid=' + item.userid + '" />';
+		}
 		commentResult += '</div>';//col-md-2 col-sm-2 hidden-xs | col-md-2 col-sm-2 col-md-offset-1 col-sm-offset-0 hidden-xs 
 		if(item.parentId == null){
 			commentResult += '<div class="col-md-10 col-sm-10">';

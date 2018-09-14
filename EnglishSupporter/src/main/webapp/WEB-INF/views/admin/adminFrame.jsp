@@ -115,9 +115,6 @@ function read(messageNum, userid, nickname, message){
 	form.submit();
 	
 	document.body.removeChild(form);
-	
-	// msgList() 재실행
-	msgList();
 }
 </script>
 
