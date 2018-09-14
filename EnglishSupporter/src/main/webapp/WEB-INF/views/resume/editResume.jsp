@@ -49,12 +49,7 @@ margin-bottom: 20px;
 		<div class="row justify-content-end">
 			<div class="col-4">
 			<br>
-			<c:if test="${empty resume}">
-			<h4>[ New Resume ]</h4>
-				</c:if>
-				<c:if test="${not empty resume}">
 			<h4>[ Update Resume ]</h4>
-				</c:if>
 			<br>
 			<form id="resume">
 				<input type="hidden" name="userid" value="${sessionScope.loginId}" id="userid">
@@ -63,7 +58,7 @@ margin-bottom: 20px;
 					<p>TITLE: </p><input id="title" type="text" name="title" value ="${resume.title}" placeholder="COMPANY NAME / JOB TITLE" />
 					</div>
 					<div class="col-md-4">
-					<p>DEADLINE: </p><input type="datetime-local" name="deadline" />
+					<p>DEADLINE: </p><input type="datetime-local" name="deadline"  value=""/>
 					</div>
 				</div>
 				<br>
@@ -71,7 +66,7 @@ margin-bottom: 20px;
 					<h5>Personal Information</h5>
 				<div class="row">
 					<div class="col-md-6">
-						<p>NAME: </p><input type="text" name="username" value="" placeholder="First name Last name"/>
+						<p>NAME: </p><input type="text" name="username" value="${resume.username}"/>
 					</div>
 					<div class="col-md-6">
 						<p>EMAIL: </p><input id="email" type="email" name="email" value="${sessionScope.email}" />
@@ -100,23 +95,7 @@ margin-bottom: 20px;
 					</div>					
 					<br>
 					<br>
-					<div class="box">
-					<div class="col-md-2">
-						<input type="date" name="education[0][enter_date]" placeholder="START DATE" />(start date)
-					</div>
-					<div class="col-md-2">
-						<input type="date" name="education[0][graduate_date]" placeholder="END DATE" />(end date)
-					</div>
-					<div class="col-md-3">
-						<input  type="text" name="education[0][school_name]" placeholder="educational institution" />
-					</div>
-					<div class="col-md-2">
-						<input type="text" name="education[0][degree_level]" placeholder="degree" />
-					</div>
-					<div class="col-md-3">
-						<input type="text" name="education[0][major]" placeholder="MAJOR" />
-					</div>
-					</div>
+
 				</div>
 				</form> 
 				<br>
@@ -135,20 +114,7 @@ margin-bottom: 20px;
 					</div>					
 					<br>
 					<br>
-					<div class="box">
-					<div class="col-md-3">
-						<input type="date" name="experience[0][start_date]" placeholder="START DATE" />(start date)
-					</div>
-					<div class="col-md-3">
-						<input type="date" name="experience[0][end_date]" placeholder="END DATE" />(end date)
-					</div>
-					<div class="col-md-6">
-						<input type="text" name="experience[0][company_name]" placeholder="organization/company NAME" />
-					</div>
-					<div class="col-md-12">
-						<input  type="text" name="experience[0][job_description]" placeholder="DESCRIPTION" />
-					</div>
-					</div>
+
 				</div>
 				</form>
 				<br>
@@ -167,45 +133,28 @@ margin-bottom: 20px;
 					</div>
 					<br>
 					<br>
-					<div class="box">
-					<div class="col-md-2">
-						<input type="date" name="additional_info[0][info_date]" placeholder="END DATE" />
-					</div>
-					<div class="col-md-2">
-						<input type="text" name="additional_info[0][info_title]" placeholder="TITLE" />
-					</div>
-					<div class="col-md-4">
-						<input type="text" name="additional_info[0][detail]" placeholder="DETAIL" />
-					</div>
-					<div class="col-md-4">
-						<input type="text" name="additional_info[0][remarks]" placeholder="REMARK" />
-					</div>
-					</div>
 				</div>
 				</form>
 				<br>
 				<br>
-				<div class="right">
-				<c:if test="${empty resume}">
-				<input type="button" class="btn" value="send Form" id="CVsend">
-				</c:if>
-				<c:if test="${not empty resume}">
 				<input type="button" class="btn" value="Update Form" id="CVupdate">
-				</c:if>
-				
 				<br>
 				<br>
 				</div>
 				</div>
 			</div>
-		</div>
-				
 	<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 <script type="text/javascript">
 
 $(function() {
 	$('#resume').addClass('active');
+	
+	var deadline ="${resume.deadline}"
+	deadline = deadline.split(' ');
+	var date = deadline[0]+"T"+deadline[1]+".00";
+	console.log(date);	
+	$('input[name="deadline"]').val(date);
 	
 	var userid = $('input[name="userid"]').val();
 	console.log(userid);
@@ -224,11 +173,9 @@ $(function() {
 	});
 });
 
-
 var indexedu=0;
 var indexexp=0;
 var indexinfo=0;
-
 $(function(){
 	//edu 행추가
 	$('#addedu').on('click',function(){
@@ -383,51 +330,27 @@ $(function(){
 	function formToObject() {
 		var education = $('#education').serializeObject();
 		var resume = $('#resume').serializeObject();
+		console.log($('#resume'));
 		var experience = $('#experience').serializeObject();
 		var additional_info =$('#add_info').serializeObject();
-		
 		/* console.log("education : " + JSON.stringify(education));
 		console.log("resume : "+ JSON.stringify(resume));
 		console.log("experience : "+ JSON.stringify(experience));
 		console.log("additional_info : "+ JSON.stringify(additional_info)); */
 		
+		resume.resume_no = '${resume_no}';
 		$.extend(resume, education, experience, additional_info);
 		console.log("resume_extended : "+JSON.stringify(resume));
-		
+	
 		return resume;
 	}
 	
 	
-	$('#CVsend').on('click',function(){
-		console.log('들어옵니까?');
+	$('#CVupdate').on('click',function(){
+		
 		if(!validation()){
 			return;
-			console.log('너무어렵다구 ㅠㅠ');
 		}
-		console.log('여기 찍나요?ㅜ?')
-		//폼 오브젝트화 
-		var resume = formToObject();
-		$.ajax({
-			method: "post",
-			url: "sendresumeForm",
-			data : JSON.stringify(resume),
-			contentType : 'application/json; charset=UTF-8',
-			success: function(reps){
-				var text="";
-				text =reps;
-				alert(text);
-				if(text.includes("완료")){
-					location.href = "${pageContext.request.contextPath}/goMyDocs?selectedTab=resume";
-					}
-			},
-			error: function(error){
-				console.log("에러"+error);
-			}
-		});
-	});
-
-	$('#CVupdate').on('click',function(){
-		if(!validation()){return;}
 		//폼 오브젝트화 
 		var resume = formToObject();
 		$.ajax({
@@ -440,10 +363,9 @@ $(function(){
 				text =reps;
 				alert(text);
 				if(text.includes("완료")){
-					var title = $('input[name="title"]').val();
-					var userid = $('input[name="userid"]').val();
-					var link = 'viewMyCoverletter?userid='+userid+'&title='+encodeURI(title);
-					location.href = "${pageContext.request.contextPath}/viewMyCoverletter?selectedTab=resume";
+					var resume_no = '${resume_no}'
+					var link = 'viewMyResume?resume_no='+resume_no;
+					location.href = "${pageContext.request.contextPath}/"+link;
 					}
 			},
 			error: function(error){
@@ -451,13 +373,84 @@ $(function(){
 			}
 		});
 	});
-	
-	
 });
 
 </script>
 <script type="text/javascript">
-//이력서 수정을 위한 기본정보 띄우기 
+//이력서 본래 정보 띄우기 
+$(function(){
+	var resume_no = '${resume_no}';
+	//console.log('이력서 따왔슴!!')
+	$.ajax({
+		method: "post",
+		url: "getResume",
+		data : {"resume_no":resume_no},
+		dataType : "JSON",
+		success: function(data){
+			console.log(data);
+			var edu = data.education;
+			var exp = data.experience;
+			var info = data.additional_info;
+			edulist(edu);
+			explist(exp);
+			infolist(info);
+		},
+		error: function(error){
+			alert('fail to load');
+			console.log("에러"+error);
+		}
+	});
+});
+
+function edulist(edu){
+	var indexedu =0;
+	$.each(edu, function(index, item){
+		console.log(item.enter_date);
+		console.log(item.graduate_date);
+		var text = '<div class="box">';
+		text += '<div class="col-md-2"><input type="date" value="'+item.enter_date+'"name="education['+indexedu+'][enter_date]" placeholder="START DATE" />(start date) </div>';
+		text += '<div class="col-md-2"><input type="date" value="'+item.graduate_date+'"name="education['+indexedu+'][graduate_date]" placeholder="END DATE" />(end date)</div>';
+		text += '<div class="col-md-3"><input type="text" value="'+item.school_name+'" name="education['+indexedu+'][school_name]" placeholder="educational institution" /></div>';
+		text += '<div class="col-md-2"><input type="text" value="'+item.degree_level+'" name="education['+indexedu+'][degree_level]" placeholder="degree" /></div>'
+		text += '<div class="col-md-3"><input type="text" value="'+item.major+'"name="education['+indexedu+'][major]" placeholder="MAJOR" /></div></div>';
+			//console.log(text);
+			//console.log($('#edu'));
+			$('#edu').append(text);
+			indexedu++;//인덱스 증가 
+		});
+}
+
+function explist(exp){
+	var indexexp =0;
+	$.each(exp, function(index, item){
+	var text = '<div class="box">';
+	text += '<div class="col-md-3"><input type="date" value="'+item.start_date+'" name="experience['+indexexp+'][start_date]" placeholder="START DATE" />(start date)</div>';
+	text += '<div class="col-md-3"><input type="date" value="'+item.end_date+'" name="experience['+indexexp+'][end_date]" placeholder="END DATE" />(end date)</div>';
+	text += '<div class="col-md-6"><input type="text" value="'+item.company_name+'" name="experience['+indexexp+'][company_name]" placeholder="organization/company NAME" /></div>';
+	text += '<div class="col-md-12"><input type="text" value="'+item.job_description+'" name="experience['+indexexp+'][job_description]" placeholder="DESCRIPTION" /></div></div>';
+		//console.log(text);
+		//console.log($('#edu'));
+		$('#exp').append(text);
+		indexexp++;
+	});
+}
+
+function infolist(info){
+	var indexinfo = 0;
+	$.each(info, function(index, item){
+	var text = '<div class="box">';
+	text += '<div class="col-md-2"><input type="date" value="'+item.info_date+'" name="additional_info['+indexinfo+'][info_date]" /></div>';
+	text += '<div class="col-md-2"><input type="text" value="'+item.info_title+'" name="additional_info['+indexinfo+'][info_title]" placeholder="TITLE" /></div>';
+	text += '<div class="col-md-4"><input type="text" value="'+item.detail+'" name="additional_info['+indexinfo+'][detail]" placeholder="DETAIL" /></div>';
+	text += '<div class="col-md-4"><input type="text" value="'+item.remarks+'" name="additional_info['+indexinfo+'][remarks]" placeholder="REMARK" /></div></div>';
+		//console.log(text);
+		//console.log($('#edu'));
+		$('#info').append(text);
+		indexinfo++;
+	});
+}
+
+	
 
 </script>
 </html>

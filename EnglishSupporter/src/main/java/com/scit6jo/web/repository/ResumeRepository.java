@@ -163,10 +163,10 @@ public class ResumeRepository {
 		 }catch (Exception e) {
 			e.printStackTrace();
 		}
+		 System.out.println("기타테이블 삭제결과"+cnt+"/이력서 본문 수정"+cnt2);
 		 if(cnt>0&&cnt2>0) {
 			 result=1;
 		 }
-		
 		 return result;
 	}
 	

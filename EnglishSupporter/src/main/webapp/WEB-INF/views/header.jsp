@@ -175,7 +175,7 @@ function outputMsg(resp){
         <li id="wordtra"><a href="goWordtest">Word Training</a></li>
         
         <li id="comp"><a href="./goComposition">Text Training</a></li>
-        <li id="resume"><a class="drop" href="#">My Resume</a>
+        <li id="resume_menu"><a class="drop" href="#">My Resume</a>
           <ul>
             <li><a href="goMyDocs">My documents</a>
               </li>

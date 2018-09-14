@@ -186,10 +186,18 @@
 	
 	<select id="getResume" parameterType="String" resultMap="Resume">
 		SELECT 
-		r.RESUME_NO, r.USERNAME, r.TITLE, r.ADDRESS, r.DEADLINE, r.PHONE, r.REGDATE, r.USERID
-		,e.DEGREE_LEVEL, e.ENTER_DATE, e.GRADUATE_DATE, e.MAJOR, e.MAJOR, e.SCHOOL_NAME
-		,p.COMPANY_NAME, p.END_DATE, p.JOB_DESCRIPTION, p.START_DATE
-		, i.INFO_TITLE, i.DETAIL, i.INFO_DATE, i.REMARKS
+		r.RESUME_NO, r.username, r.TITLE, r.ADDRESS, r.DEADLINE, r.PHONE, r.REGDATE, r.USERID,
+		e.DEGREE_LEVEL, 
+		to_char(e.ENTER_DATE, 'YYYY-MM-DD') enter_date, 
+		to_char(e.GRADUATE_DATE, 'YYYY-MM-DD') graduate_date, 
+		e.MAJOR, e.MAJOR, e.SCHOOL_NAME,
+		p.COMPANY_NAME, 
+		to_char(p.END_DATE, 'YYYY-MM-DD') end_date, 
+		p.JOB_DESCRIPTION, 
+		to_char(p.START_DATE, 'YYYY-MM-DD') start_date,
+        i.INFO_TITLE, i.DETAIL, 
+		to_char(i.INFO_DATE, 'YYYY-MM-DD') info_date, 
+		i.REMARKS
 		FROM resume r
 		join education e
 		on r.resume_no = e.resume_no

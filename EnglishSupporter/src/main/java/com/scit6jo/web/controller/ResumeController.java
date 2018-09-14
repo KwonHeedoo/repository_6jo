@@ -113,12 +113,14 @@ public class ResumeController {
 	//이력서 수정 페이지로 이동
 	@RequestMapping(value = "/goUpdateResume", method = RequestMethod.GET)
 	public String goUpdateResume(Model model, String resume_no) {
-		//Resume myResume = repository.getResume(resume_no);
+		Resume myResume = repository.getResume(resume_no);
 		
 		model.addAttribute("resume_no", resume_no);
+		model.addAttribute("resume", myResume);
 		return "resume/editResume";
 	}
 	
+	//이력서 ajax로 받아오기...
 	@RequestMapping(value = "/getResume", method = RequestMethod.POST)
 	public @ResponseBody Resume getResume(Model model, String resume_no) {
 		Resume myResume = repository.getResume(resume_no);
@@ -126,8 +128,6 @@ public class ResumeController {
 		return myResume;
 	}
 
-	
-	
 	
 	
 	//커버레터 수정
@@ -147,7 +147,10 @@ public class ResumeController {
 	@RequestMapping(value = "/updateResumeForm", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public @ResponseBody String updateResumeForm(@RequestBody Resume resume) {
 		String text=null;
+		System.out.println(resume);
 		int check1 = repository.updateResume(resume);
+		System.out.println("이력서 업데 + 학력경력이력삭제 :"+check1);
+		
 		int insertEdu = repository.insertEdu(resume.getResume_no(),resume.getEducation());
 		int insertExp = repository.insertExp(resume.getResume_no(),resume.getExperience());
 		int insertInfo = repository.insertInfo(resume.getResume_no(),resume.getAdditional_info());
@@ -157,11 +160,10 @@ public class ResumeController {
 		System.out.println("정보삽입수"+insertInfo);
 		
 		if(check1>0&&(insertEdu>0||insertExp>0||insertInfo>0)) {
-			text = "이력서 저장 완료";
+			text = "이력서 수정 완료";
 		}else {
-			text = "이력서 저장 실패!";
+			text = "이력서 수정 실패!";
 		}
-		
 		return text;
 	}
 	
@@ -179,8 +181,7 @@ public class ResumeController {
 		
 		int insertResume = repository.insertResume(resume);
 		String resume_no = repository.getResumeNo(resume);
-		System.out.println(insertResume+"/이력서드감/"+resume_no);
-		
+		System.out.println(insertResume+"/이력서드감/"+resume_no);		
 		
 		int insertEdu = repository.insertEdu(resume_no,resume.getEducation());
 		int insertExp = repository.insertExp(resume_no,resume.getExperience());
