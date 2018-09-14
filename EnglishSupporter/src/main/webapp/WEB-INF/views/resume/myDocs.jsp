@@ -303,6 +303,8 @@ function selectTab(tab) {
 }
 
 $(function () {
+	$('#resume').addClass('active');
+	
 	// 페이지에 들어올 때 어떤 탭을 선택해서 들어올것인지 변수 확인하기 
 	var selectedTab = "${selectedTab}";
 	var stab;

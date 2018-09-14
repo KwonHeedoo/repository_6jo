@@ -205,6 +205,8 @@ margin-bottom: 20px;
 <script type="text/javascript">
 
 $(function() {
+	$('#resume').addClass('active');
+	
 	var userid = $('input[name="userid"]').val();
 	console.log(userid);
 	$.ajax({

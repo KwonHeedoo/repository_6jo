@@ -122,6 +122,8 @@ textarea {
 <script type="text/javascript">
 
 $(function() {
+	$('#resume').addClass('active');
+	
 	// username 박아주기...
 	var userid = $('input[name="userid"]').val();
 	console.log(userid);

@@ -142,7 +142,7 @@ nav {height:50px;}
         <input id="msgList" type="hidden" value="${messageList}">
             <ul class="nav navbar-nav nav-flex-icons ml-auto" style="padding-left:88%;">
             	<li class="nav-item dropdown" id="msgItem" style="padding-right:8px;"></li>
-                <%-- <li class="nav-item dropdown" style="padding-right:8px;">
+                <!-- <li class="nav-item dropdown" style="padding-right:8px;">
                     <a class="nav-link dropdown-toggle alarm" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false" style="position:relative;"><i class="fa fa-comments fa-lg"><c:if test="${msgCount != 0}"><span class="nav-counter">${msgCount}</span></c:if></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
@@ -170,7 +170,7 @@ nav {height:50px;}
                     	<a class="dropdown-item" href="./goMessageList" style="width:280px;"><nobr><b>Read All Message ></b></nobr></a>
                     </c:if>
                     </div>
-                </li> --%>
+                </li> -->
                 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
@@ -203,7 +203,7 @@ nav {height:50px;}
                   </a>
                 </li>
 
-                <li  data-toggle="collapse" data-target="#products" class="collapsed">
+                <li id="addQuestion" data-toggle="collapse" data-target="#products" class="collapsed">
                   <a href="#"><i class="fa fa-book fa-lg"></i> Learning Services<span class="arrow"></span></a>
                 </li>
 	                <ul class="sub-menu collapse" id="products">

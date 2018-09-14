@@ -35,6 +35,8 @@
 	var max;
 
 	$(function() {
+		$('#interview').addClass('active');
+		
 		$("#start_part").show();
 		$("#question_part").hide();
 		$("#download_part").hide();

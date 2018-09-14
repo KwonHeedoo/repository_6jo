@@ -30,6 +30,10 @@ height: 20px;
 
 </style>
 <script> 
+$(function(){
+	$('#interview').addClass('active');
+});
+
 function test(func){
 }
 

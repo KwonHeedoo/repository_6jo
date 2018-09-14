@@ -77,6 +77,8 @@ text-align: center;
 
 <script type="text/javascript">
 $(function() { // 유저이름 받아옴 
+	$('#resume').addClass('active');
+	
 	var userid = '${myCL.userid}';
 	console.log(userid);
 	$.ajax({

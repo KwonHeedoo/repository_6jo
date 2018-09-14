@@ -119,6 +119,9 @@
 function docs() {
 	location.href = "./goMyDocs?selectedTab=resume";
 };
+$(function(){
+	$('#resume').addClass('active');
+});
 </script>
 </html>
 
