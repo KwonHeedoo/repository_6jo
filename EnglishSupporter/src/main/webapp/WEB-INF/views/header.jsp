@@ -128,7 +128,7 @@ function outputMsg(resp){
       	<c:if test="${sessionScope.loginId != null}">
       	 <li>
       	 	<img alt="Profile" <c:if test="${sessionScope.img != null}">
-      	 	src="./getProfileImg"
+      	 	src="./getProfileImg?userid=${sessionScope.loginId}"
       	 	<%-- src="./resources/profile/${session.img}" --%>
       	 	</c:if>
       	 	<c:if test="${sessionScope.img == null}">

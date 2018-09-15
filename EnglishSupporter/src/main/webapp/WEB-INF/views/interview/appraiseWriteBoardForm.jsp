@@ -93,7 +93,7 @@ function a(value){
 		<div>
 			<input type="hidden" name="boardType" value="appraise">
 			<input id="dataNum" type="hidden" name="datanum" value="">
-			<label id="title">TITLE : </label>
+			<label>TITLE : </label>
 			<input id="title" type="text" name="title" autocomplete="off">
 			<br>
 		</div>
@@ -102,7 +102,7 @@ function a(value){
 			</c:if>
 		<hr>
 		<div>
-			<label id="contents">Content</label>
+			<label>Content</label>
 			<textarea id="contents" rows="15" cols="60" name="contents"></textarea>
 			<p id = "fileName"> </p>
 		</div>

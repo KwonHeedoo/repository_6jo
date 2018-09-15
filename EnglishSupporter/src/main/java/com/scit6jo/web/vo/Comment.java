@@ -4,6 +4,7 @@ public class Comment {
 	private int commentNum;
 	private String userid;
 	private String nickname;
+	private String imgFilePath;
 	private int boardNum;
 	private String comments;
 	private String regdate;
@@ -19,8 +20,8 @@ public class Comment {
 		super();
 	}
 
-	public Comment(int commentNum, String userid, String nickname, int boardNum, String comments, String regdate,
-			String parentId, String parentNick, int groupNum, String matchingId) {
+	public Comment(int commentNum, String userid, String nickname, String imgFilePath, int boardNum, String comments, 
+			String regdate, String parentId, String parentNick, int groupNum, String matchingId) {
 		super();
 		this.commentNum = commentNum;
 		this.userid = userid;
@@ -34,8 +35,8 @@ public class Comment {
 		this.matchingId = matchingId;
 	}
 
-	public Comment(int commentNum, String userid, String nickname, int boardNum, String comments, String regdate,
-			String parentId, String parentNick, int groupNum, int pronunciation, int contents, int posture) {
+	public Comment(int commentNum, String userid, String nickname, String imgFilePath, int boardNum, String comments,
+			String regdate, String parentId, String parentNick, int groupNum, int pronunciation, int contents, int posture) {
 		super();
 		this.commentNum = commentNum;
 		this.userid = userid;
@@ -73,6 +74,14 @@ public class Comment {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+	
+	public String getImgFilePath() {
+		return imgFilePath;
+	}
+
+	public void setImgFilePath(String imgFilePath) {
+		this.imgFilePath = imgFilePath;
 	}
 
 	public int getBoardNum() {
@@ -157,10 +166,11 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [commentNum=" + commentNum + ", userid=" + userid + ", nickname=" + nickname + ", boardNum="
-				+ boardNum + ", comments=" + comments + ", regdate=" + regdate + ", parentId=" + parentId
-				+ ", parentNick=" + parentNick + ", groupNum=" + groupNum + ", matchingId=" + matchingId
-				+ ", pronunciation=" + pronunciation + ", contents=" + contents + ", posture=" + posture + "]";
+		return "Comment [commentNum=" + commentNum + ", userid=" + userid + ", nickname=" + nickname + ", imgFilePath="
+				+ imgFilePath + ", boardNum=" + boardNum + ", comments=" + comments + ", regdate=" + regdate
+				+ ", parentId=" + parentId + ", parentNick=" + parentNick + ", groupNum=" + groupNum + ", matchingId="
+				+ matchingId + ", pronunciation=" + pronunciation + ", contents=" + contents + ", posture=" + posture
+				+ "]";
 	}
-	
+
 }

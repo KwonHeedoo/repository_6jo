@@ -27,13 +27,23 @@ function formCheck(){
 	var contents = document.getElementById("contents").value;
 	var appointedTime = document.getElementById("appointedTime").value;
 	
+	// 제목 및 내용 유효성
 	if(title.length == 0 || contents.length == 0){
 		alert("Please Write Title or Content");
 		return false;
 	}
 	
+	// 시간 유효성
 	if(appointedTime.length == 0){
 		alert("Please Select Date And Time");
+		return false;
+	}
+	
+	// 시간은 현재시간보다 뒤여야 한다.
+	appointedTime = new Date(appointedTime);
+	var currTime = new Date;
+	if(currTime.getTime() > appointedTime.getTime()){
+		alert("Please Check Time later");
 		return false;
 	}
 	
@@ -63,7 +73,7 @@ height: 20px;
 	<form action="writeBoard" method="post" onsubmit="return formCheck()">
 		<div>
 			<input type="hidden" name="boardType" value="matching">
-			<label id="title">TITLE : </label>
+			<label>TITLE : </label>
 			<input id="title" type="text" name="title" autocomplete="off">
 			&ensp;
 			<label for="appointedTime"> Appointment Time : </label>
@@ -75,7 +85,7 @@ height: 20px;
 		</div>
 		<hr>
 		<div>
-		<label id="contents">Content</label>
+		<label>Content</label>
 			<textarea id="contents" rows="15" cols="60" name="contents"></textarea>
 		</div>
 		<hr>
