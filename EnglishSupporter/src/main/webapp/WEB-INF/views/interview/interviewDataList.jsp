@@ -26,21 +26,47 @@ function sendDataNum(datanum,fileName){
 	window.close();
 }
 </script>
+<style type="text/css">
+body {
+    background: #f8f6f6;
+    color: #404040;
+    font-family: 'Lucida Grande', Verdana, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 20px;
+}
+.no{
+width: 10%;
+}
+.rf{
+width: 40%;
+}
+.rd{
+width: 40%;
+}
+.container{
+text-align: center;
+}
+</style>
 </head>
 <body>
-	<h1>DataList</h1>
+<div class="container">
+	<h1 align="center">Recorded Video List</h1>
+	<hr>
 	<form id="reportCheck">
 		<input id="reporter" type="hidden" value="">
 	</form>
-	<table>
-		<c:forEach var="data" items="${dataList}" varStatus="status">
-			
+	<table class="todo-list">
 			<tr>
-				
+			<th class="no">NO.</th>
+			<th class="rf">Recorded Files</th>
+			<th class="rd">Recorded Date</th>
+			</tr>
+		<c:forEach var="data" items="${dataList}" varStatus="status">
+			<tr>
 				<td>
-					${status.count}
+					${status.count}.
 				</td>
-				
 				<td>
 					<a href='javascript:void(0);' onclick="sendDataNum(${data.dataNum},'${data.saveFile}')"> 
 						${data.saveFile}
@@ -48,8 +74,8 @@ function sendDataNum(datanum,fileName){
 				</td>
 				<td>${data.regdate}</td>
 			</tr>
-			
 		</c:forEach>
 	</table>
+</div>
 </body>
 </html>

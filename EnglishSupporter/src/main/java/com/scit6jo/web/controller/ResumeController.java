@@ -114,6 +114,7 @@ public class ResumeController {
 	@RequestMapping(value = "/goUpdateResume", method = RequestMethod.GET)
 	public String goUpdateResume(Model model, String resume_no) {
 		Resume myResume = repository.getResume(resume_no);
+		System.out.println(myResume);
 		
 		model.addAttribute("resume_no", resume_no);
 		model.addAttribute("resume", myResume);

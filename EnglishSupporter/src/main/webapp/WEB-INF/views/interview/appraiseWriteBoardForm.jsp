@@ -71,7 +71,7 @@ function a(value){
 		form.setAttribute('target', 'data');
 		
 		document.body.appendChild(form);
-		window.open('', 'data', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=yes, resizable=no');
+		window.open('', 'data', 'width=450, height=500, location=no, toolbar=no, menubar=no, scrollbars=yes, resizable=no');
 		form.submit();
 		document.body.removeChild(form);
 	}

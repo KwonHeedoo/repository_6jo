@@ -79,7 +79,7 @@
 
 	function setQuestion() {
 		if (count < max) {
-			$("#question").text(questions[count++].question);
+			$("#question").text('Q:'+questions[count++].question);
 		} else {
 			alert("모든 문제 소비");
 		}
@@ -176,7 +176,8 @@ border-radius: 5px;
 				<button id="start" class="btn">Start</button>
 			</div>
 			<div id="question_part" style="display: none; text-align: center">
-				<h1 id="question">Q:</h1>
+				<h2>[INTERVIEW PRACTICE]</h2>
+				<h3 id="question"></h3>
 				<video id="gum" playsinline autoplay muted></video>
 				<br>
 				<button id="end" class="btn">대답 완료</button>

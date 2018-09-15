@@ -108,7 +108,7 @@ public class CommentController {
 		String userid = board.getUserid();
 		String matchingId = board.getMatchingId();
 		
-		String title = "1:1 Practice Appointment"+userid+"/"+matchingId;
+		String title = "1:1 Practice Appointment-"+userid+"/"+matchingId;
 		Schedule meetings = new Schedule(userid, title, "false", board.getAppointedTime());
 		Schedule meetings2 = new Schedule(matchingId, title, "false", board.getAppointedTime());
 		// 아이디별로 각각 저장 
@@ -140,6 +140,7 @@ public class CommentController {
 		Schedule s1 = new Schedule(userid, title);
 		Schedule s2 = new Schedule(matchingId, title);
 		
+		//아이디별로 삭제해주기 
 		mypageRepository.deleteSchedule(s1);
 		mypageRepository.deleteSchedule(s2);
 		
