@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.scit6jo.web.dao.DataMapper;
+import com.scit6jo.web.dao.WordMapper;
 import com.scit6jo.web.vo.IData;
 import com.scit6jo.web.vo.IQuestion;
 
@@ -60,12 +62,26 @@ public class DataRepository {
 		return result;
 	}
 	
-	public ArrayList<IQuestion> selectAllQuestion() {
+	/*public ArrayList<IQuestion> selectAllQuestion() {
 		DataMapper mapper = session.getMapper(DataMapper.class);
 
 		ArrayList<IQuestion> result = null;
 		try {
 			result = mapper.selectAllQuestion();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}*/
+	
+	// 페이징처리용 
+	public ArrayList<IQuestion> selectAllQuestion(RowBounds rb) {
+		DataMapper mapper = session.getMapper(DataMapper.class);
+
+		ArrayList<IQuestion> result = null;
+		try {
+			result = mapper.selectAllQuestion(rb);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -98,6 +114,45 @@ public class DataRepository {
 		return result;
 	}
 	
-	
+	// 관리자페이지 IQuestionManager에 띄울 모든 단어 개수 (페이징처리)
+	public int getTotal() {
+		DataMapper mapper= session.getMapper(DataMapper.class);
+		int total = 0;
+		
+		try {
+			total = mapper.getTotal();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return total;
+	}
+
+	// 관리자페이지 IQuestionManager 질문추가 요청
+	public int addQuestion(IQuestion iq) {
+		DataMapper mapper= session.getMapper(DataMapper.class);
+		int result = mapper.addQuestion(iq);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
+
+	// 관리자페이지 IQuestionManager 업데이트 요청
+	public int updateQuestion(IQuestion iq) {
+		DataMapper mapper= session.getMapper(DataMapper.class);
+		int result = mapper.updateQuestion(iq);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
+
+	// 관리자페이지 IQuestionManager 삭제 요청
+	public int deleteQuestion(IQuestion iq) {
+		DataMapper mapper= session.getMapper(DataMapper.class);
+		int result = mapper.deleteQuestion(iq);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
 }
 

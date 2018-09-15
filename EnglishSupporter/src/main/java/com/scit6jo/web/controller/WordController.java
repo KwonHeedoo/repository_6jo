@@ -92,7 +92,7 @@ public class WordController {
 		else			return 0;
 	}
 	
-	// 마이페이지 myWords 삭제 요청 
+	// 관리자페이지 wordManager 삭제 요청 
 	@RequestMapping(value = "wordDelete", method = RequestMethod.POST)
 	public @ResponseBody int wordDelete(int wordNum) {
 		System.out.println("wordDelete...");
@@ -108,14 +108,23 @@ public class WordController {
 	
 	// 마이페이지 myWords 화면 요청 
 	@RequestMapping(value = "/goMyWords", method = RequestMethod.GET)
-	public String goMyWords(HttpSession session, Model model) {
+	public String goMyWords(HttpSession session, Model model, @RequestParam(value="page", defaultValue="1")int page) {
 		System.out.println("going to MyWords...");
 		
+		int total = repository.getMyTotal();
+		
+		// 페이지 계산을 위한 객체 생성
+		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total);
+		
+		// 검색어와 시작 위치, 페이지당 글 수를 전달하여 목록
+		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
+				
 		// 세션의 loginId로 내단어장 목록 가져오기  
 		String userid = (String) session.getAttribute("loginId");
-		List<Word> wordlist = repository.getMyWords(userid);
+		List<Word> wordlist = repository.getMyWords(rb, userid);
 		
-		model.addAttribute("wordlist", wordlist);	
+		model.addAttribute("wordlist", wordlist);
+		model.addAttribute("navi", navi);
 		
 		return "mypage/myWords";
 	}
@@ -171,12 +180,13 @@ public class WordController {
 	@RequestMapping(value = "/getMyWords", method = RequestMethod.POST)
 	public @ResponseBody List<Word> getMyWords(@RequestParam(value="wordlevel", defaultValue="1")String wordlevel, HttpSession session) {
 		List<Word> wList=null;
+		RowBounds rb = new RowBounds();
 		//System.out.println(wordlevel);
 		//String userid = "aaa";
 		String userid = (String) session.getAttribute("loginId");
 		//로그인과 합쳐져야 해서 세션의 로그인 
 		if(wordlevel.equals("0")) {
-			wList = repository.getMyWords(userid);
+			wList = repository.getMyWords(rb, userid);
 			//System.out.println("0인경우 내단어장 불러오기");
 			//System.out.println(wList);
 		}else {
