@@ -14,10 +14,12 @@
 /* globals MediaRecorder */
 
 const mediaSource = new MediaSource();
+var userStream;
 mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
 let mediaRecorder;
 let recordedBlobs;
 let sourceBuffer;
+
 
 
 //실행용 비디오 이벤트
@@ -30,13 +32,14 @@ recordedVideo.addEventListener('error', function(ev) {
 //녹화 버튼 클릭시 이벤트
 const recordButton = document.querySelector('button#record');
 recordButton.addEventListener('click', () => {
+	navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
     startRecording();
 });
 
 
 const startButton = document.querySelector('button#start');
 startButton.addEventListener('click', () => {
-    startRecording();
+	 startRecording();
     console.log("record start!");
 });
 
@@ -49,6 +52,7 @@ const playButton = document.querySelector('button#end');
 playButton.addEventListener('click', () => {
 	stopRecording();
 	uploadVideo();	
+	
 	
 	console.log(recordedVideo.src);
 /*	if(recordedVideo.src != ""){
@@ -121,7 +125,7 @@ function startRecording() {
     }
   }
   try {
-    mediaRecorder = new MediaRecorder(window.stream, options);
+    mediaRecorder = new MediaRecorder(userStream, options);
   } catch (e) {
     console.error(`Exception while creating MediaRecorder: ${e}`);
     alert(`Exception while creating MediaRecorder: ${e}. mimeType: ${options.mimeType}`);
@@ -138,6 +142,13 @@ function stopRecording() {
   mediaRecorder.stop();
   console.log('Recorded Blobs: ', recordedBlobs);
   recordedVideo.controls = true;
+}
+function stopStream(){
+	//userStream.getTracks()[0].applyConstraints({ audio: false});
+	//userStream.getTracks()[1].applyConstraints({ video: false});
+	console.log("before");
+	userStream.getTracks()[0].stop();
+	userStream.getTracks()[1].stop();
 }
 
 function uploadVideo(){
@@ -169,9 +180,10 @@ function uploadVideo(){
 function handleSuccess(stream) {
   recordButton.disabled = false;
   console.log('getUserMedia() got stream: ', stream);
-  window.stream = stream;
+  //window.stream = stream;
 
   const gumVideo = document.querySelector('video#gum');
+  userStream = stream;
   gumVideo.srcObject = stream;
 }
 
@@ -179,4 +191,8 @@ function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
 }
 
+
 navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+
+//$(window).bind('beforeunload', stopStream());
+

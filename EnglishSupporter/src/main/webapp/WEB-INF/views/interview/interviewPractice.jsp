@@ -5,20 +5,17 @@
 <html>
 <head>
 
-<meta charset="utf-8">
-<meta name="description" content="WebRTC code samples">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- <meta name="description" content="WebRTC code samples">
 <meta name="viewport"
 	content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
 <meta itemprop="description" content="Client-side WebRTC code samples">
 <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
 <meta itemprop="name" content="WebRTC code samples">
 <meta name="mobile-web-app-capable" content="yes">
-<meta id="theme-color" name="theme-color" content="#ffffff">
-
-<base target="_blank">
+<meta id="theme-color" name="theme-color" content="#ffffff"> -->
 
 <title>Interviewing</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -51,8 +48,8 @@
 			$("#start_part").hide();
 			$("#question_part").hide();
 			$("#download_part").show();
-			getSTT();
-			getPronAppraisal();
+			//getSTT();
+			//getPronAppraisal();
 		});
 		$("#record").on('click', function() {
 			//$('#recorded').attr('src','');
@@ -119,6 +116,11 @@
 			}
 		});
 	}
+	window.onunload = function() {
+	    myfun();
+	    alert('Bye.');
+	}
+	
 </script>
 <style type="text/css">
 .container {
