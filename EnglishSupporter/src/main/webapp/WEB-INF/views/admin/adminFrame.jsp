@@ -115,13 +115,13 @@ function read(messageNum, userid, nickname, message){
 	form.submit();
 	
 	document.body.removeChild(form);
-	
-	// msgList() 재실행
-	msgList();
 }
 </script>
 
 <style>
+a {
+cursor: pointer;
+}
 nav {height:50px;}
 </style>
 
@@ -203,12 +203,12 @@ nav {height:50px;}
                   </a>
                 </li>
 
-                <li id="addQuestion" data-toggle="collapse" data-target="#products" class="collapsed">
+                <li id="questionHandling" data-toggle="collapse" data-target="#products" class="collapsed">
                   <a href="#"><i class="fa fa-book fa-lg"></i> Learning Services<span class="arrow"></span></a>
                 </li>
 	                <ul class="sub-menu collapse" id="products">
 	                    <li><a href="./goWordManager">Word Training</a></li>
-	                    <li><a href="#">Mock Interview</a></li>
+	                    <li><a href="./goIQuestionManager">Mock Interview</a></li>
 	                </ul>
 
                  <li id="reportManager">

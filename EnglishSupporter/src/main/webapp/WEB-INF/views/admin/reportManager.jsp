@@ -93,6 +93,9 @@ function output(resp){
 // 신고 내용 및 이유 보기
 function reportBox(report, reason, reportURL){
 	var box = '';
+	// \n를 <br>태크로 변환
+	reason = reason.replace(/\n/g, '<br/>');
+	report = report.replace(/\n/g, '<br/>');
 	
 	box += '<table border="1">';
 	box += '<tr>';

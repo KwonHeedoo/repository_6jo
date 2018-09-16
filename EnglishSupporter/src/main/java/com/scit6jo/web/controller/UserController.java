@@ -50,8 +50,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/getProfileImg", method = RequestMethod.GET)
-	   public String getProfileImg(HttpServletResponse response,HttpSession session) {
-		String userid = (String)session.getAttribute("loginId");
+	   public String getProfileImg(HttpServletResponse response,HttpSession session, String userid) {
+		//String userid = (String)session.getAttribute("loginId");
 		User user = new User();
 		user.setUserid(userid);
 	      User result = repository.selectOne(user);

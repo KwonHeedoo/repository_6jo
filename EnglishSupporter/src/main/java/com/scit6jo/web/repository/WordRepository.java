@@ -81,9 +81,9 @@ public class WordRepository {
 		return wordlist;
 	}
 
-	public List<Word> getMyWords(String userid) {
+	public List<Word> getMyWords(RowBounds rb, String userid) {
 		WordMapper mapper= session.getMapper(WordMapper.class);
-		List<Word>wordlist = mapper.getMyWords(userid);
+		List<Word>wordlist = mapper.getMyWords(rb, userid);
 		
 		return wordlist;
 	}
@@ -126,6 +126,20 @@ public class WordRepository {
 			return true;
 		}
 			return false;
+	}
+	
+	// 마이페이지 내단어장 모든 단어 개수
+	public int getMyTotal() {
+		WordMapper mapper= session.getMapper(WordMapper.class);
+		int total = 0;
+		
+		try {
+			total = mapper.getMyTotal();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return total;
 	}
 
 }

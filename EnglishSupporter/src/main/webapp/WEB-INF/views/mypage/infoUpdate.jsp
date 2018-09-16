@@ -52,10 +52,10 @@ display:block; width:100%; padding:8px 15px;
 }
 .btn{
 width: 45%;
-height: 35px;
-padding:8px 18px 10px; text-transform:uppercase; font-weight:700; cursor:pointer;
-border:1px solid; border-radius:22px;
+line-height: 45%;
+padding-bottom: 10px;
 }
+
 .container{
 height: 40%;
 }
@@ -112,7 +112,7 @@ $(function(){
 							<input type="hidden" value="${u.birthdate}" id="birthdate">
 							<p>PASSWORD: <input type="password" name="userpwd" placeholder="Verify your Password" required /></p>
 							<br>
-							<p><input type="submit" value="UPDATE" class="btn" /></p>
+							<input type="submit" value="UPDATE" class="btn" />
 						</div><!-- center -->
 						</form>
 					</div><!-- center -->
@@ -129,11 +129,8 @@ $(function(){
 });
 </script>
 </c:if>
-
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
-
 </body>
-
 <script type="text/javascript">
 $(function(){
 	var date = $('#birthdate').val();

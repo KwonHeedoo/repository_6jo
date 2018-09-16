@@ -7,11 +7,11 @@
 <!-- google CDN -->
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="./resources/styles/speakingTest.css" rel="stylesheet">
-<title>Speak to Text</title>
+<title>Speech to Text</title>
 
 </head>
 <body>
-	<h1 class="center" id="headline">Speak to Text</h1>
+	<h1 class="center" id="headline">Speech to Text</h1>
 	<div id="info">
 		<p id="info_start">Click on the microphone icon and begin speaking.</p>
 		<p id="info_speak_now">Speak now.</p>

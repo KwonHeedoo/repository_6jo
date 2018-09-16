@@ -5,15 +5,16 @@
 
 <mapper namespace="com.scit6jo.web.dao.CommentMapper">
 	<sql id="basicCols">
-		commentnum
-		, userid
-		, nickname
-		, boardnum
-		, comments
-		, to_char(regdate, 'YYYY-MM-DD HH24:MI') as regdate
-		, parentid
-		, parentnick
-		, groupnum
+		c.commentnum as commentNum 
+		, c.userid as userid
+		, c.nickname as nickname
+		, u.imgfilepath as imgFilePath
+		, c.boardnum as boardNum
+		, c.comments as comments
+		, to_char(c.regdate, 'YYYY-MM-DD HH24:MI') as regdate
+		, c.parentid as parentId
+		, c.parentnick as parentNick
+		, c.groupnum as groupNum
 	</sql>
 	
 	<!-- 코멘트 리스트 요청 -->
@@ -21,16 +22,20 @@
 		select
 			<include refid="basicCols"/>
 			<choose>
-				<when test="boardType == 'matching'">, matchingid</when>
-				<when test="boardType == 'appraise'">, pronunciation, contents, posture</when>
+				<when test="boardType == 'matching'">, c.matchingid as matchingId</when>
+				<when test="boardType == 'appraise'">, c.pronunciation as pronunciation
+													 , c.contents as contents
+													 , c.posture as posture</when>
 			</choose>
 		from
 		<choose>
-			<when test="boardType == 'matching'">matching_comment</when>
-			<when test="boardType == 'notice'">notice_comment</when>
-			<when test="boardType == 'appraise'">appraise_comment</when>
+			<when test="boardType == 'matching'">matching_comment c, userlist u</when>
+			<when test="boardType == 'notice'">notice_comment c, userlist u</when>
+			<when test="boardType == 'appraise'">appraise_comment c, userlist u</when>
 		</choose>
 		where
+			c.userid = u.userid
+		and
 			boardnum = #{boardNum}
 		order by
 			groupnum
@@ -119,17 +124,21 @@
 		select
 			<include refid="basicCols"/>
 			<choose>
-				<when test="boardType == 'matching'">, matchingid</when>
-				<when test="boardType == 'appraise'">, pronunciation, contents, posture</when>
+				<when test="boardType == 'matching'">, c.matchingid as matchingId</when>
+				<when test="boardType == 'appraise'">, c.pronunciation as pronunciation
+													 , c.contents as contents
+													 , c.posture as posture</when>
 			</choose>
 		from
 		<choose>
-			<when test="boardType == 'matching'">matching_comment</when>
-			<when test="boardType == 'notice'">notice_comment</when>
-			<when test="boardType == 'appraise'">appraise_comment</when>
+			<when test="boardType == 'matching'">matching_comment c, userlist u</when>
+			<when test="boardType == 'notice'">notice_comment, userlist u</when>
+			<when test="boardType == 'appraise'">appraise_comment, userlist u</when>
 		</choose>
 		where
+			c.userid = u.userid
 		<if test="check == true">
+		and
 			groupnum = #{groupNum}
 		and 
 			parentid is not null
@@ -137,6 +146,7 @@
 			rownum = 1
 		</if>
 		<if test="check == false">
+		and
 			groupnum = #{groupNum} 
 		and
 			parentid is null
@@ -161,9 +171,11 @@
 		from
     		appraise_comment
 		where
-    		userid != #{userid} AND parentid is null AND boardNum = #{boardNum}
+    		userid != #{userid} 
+    	and 
+    		parentid is null 
+    	and 
+    		boardNum = #{boardNum}
 	</select>
-	
-	
 	
 </mapper>

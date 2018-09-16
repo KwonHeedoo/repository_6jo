@@ -56,7 +56,6 @@ color:red;
 	<br>
 		<table border="1" style="text-align:center;">
 			<tr>
-				<th>Level</th>
 				<th>No</th>
 				<th>Word</th>
 				<th>Meaning</th>
@@ -65,9 +64,8 @@ color:red;
 			</tr>
 			<c:forEach var="w" items="${wordlist}" varStatus="status">
 			<tr>
-				<td>${w.wordlevel}</td>
 				<td><input type="hidden" value="${w.wordNum}">
-				${status.count}</td>
+				${(navi.currentPage-1)*20+status.count}</td>
 				<td><input type="text" name="word" value="${w.word}" readonly="true"></td>
 				<td><input type="text" name="mean" value="${w.meaningK}" readonly="true"></td>
 				<td><input id="update" type="button" value="UPDATE"></td>
@@ -77,13 +75,17 @@ color:red;
 		</table>
 		<br>
 		<div id="navigator">
-			<a href="goWordManager?page=${navi.currentPage-1}&wordlevel=${wordlevel}">◀◀&nbsp</a>
+			<a href="goWordManager?page=1&wordlevel=${wordlevel}">◀◀</a>&emsp; 
+			<a href="goWordManager?page=${navi.currentPage-1}&wordlevel=${wordlevel}">Prev</a>&emsp;
 			
 			<c:forEach var="num" begin="${navi.startPageGroup}" end="${navi.endPageGroup}">
-				<a href="goWordManager?page=${num}&wordlevel=${wordlevel}">[${num}]&nbsp</a>
+				<a href="goWordManager?page=${num}&wordlevel=${wordlevel}">
+				<span <c:if test="${navi.currentPage == num}"> style="font-weight:bold;" </c:if>>
+				${num}</span></a>&emsp;
 			</c:forEach>
 			
-			<a href="goWordManager?page=${navi.currentPage+1}&wordlevel=${wordlevel}">▶▶</a>
+			<a href="goWordManager?page=${navi.currentPage+1}&wordlevel=${wordlevel}">Next</a>&emsp;
+			<a href="goWordManager?page=${navi.totalPageCount}&wordlevel=${wordlevel}">▶▶</a>
 		</div>
 		<br><br>
 	</div>
@@ -91,7 +93,7 @@ color:red;
 <script type="text/javascript">
 
 $(function() {
-	$('#addQuestion').addClass('active');
+	$('#questionHandling').addClass('active');
 	
 	// 레벨에 따라 단어 출력
 	$('#level').change(function() {

@@ -112,7 +112,13 @@ function output(resp){
 		commentResult += '<figure class="thumbnail">'; 
 		commentResult += '<figcaption class="text-center">' + item.nickname + '</figcaption>'
 		commentResult += '</figure>';//thumbnail
-		commentResult += '<img class="img-responsive" src="./resources/images/icons/user-avatar-placeholder.png" />';
+		if(item.imgFilePath == null){
+			commentResult += '<img class="img-responsive" src="./resources/images/icons/user-avatar-placeholder.png" />';
+		}else if(item.imgFilePath != null && item.nickname == '*****'){
+			commentResult += '<img class="img-responsive" src="./resources/images/icons/user-avatar-placeholder.png" />';
+		}else if(item.imgFilePath != null && item.nickname != '*****'){
+			commentResult += '<img class="img-responsive" src="./getProfileImg?userid=' + item.userid + '" />';
+		}
 		commentResult += '</div>';//col-md-2 col-sm-2 hidden-xs | col-md-2 col-sm-2 col-md-offset-1 col-sm-offset-0 hidden-xs 
 		if(item.parentId == null){
 			commentResult += '<div class="col-md-10 col-sm-10">';
@@ -141,14 +147,14 @@ function output(resp){
 			commentResult += '<span style="float:right"><button id ="report' + item.commentNum + '" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
 			$(function(){
 				$('#report' + item.commentNum).on('click',function(){
-					 report(item.userid, item.comments);
+					report(item.userid, item.comments);
 				});
 			});
 		}else if(item.parentId != null && item.nickname != '*****'){
 			commentResult += '<span style="float:right"><button id ="report' + item.commentNum + '" style="font-size:x-small; border:none; background-color:white; color:red;">신고</button></span>';
 			$(function(){
 				$('#report' + item.commentNum).on('click',function(){
-					 report(item.userid, item.comments);
+					report(item.userid, item.comments);
 				});
 			});
 		}
@@ -454,7 +460,7 @@ function report(reportee, report){
 			$('#reportboard').on('click',function(){
 				var userid = '${board.userid}';
 				var contents = $('#boardcontents').val();
-				report(userid,contents);
+				report(userid, contents);
 			});
 		</script>
 		<h5>[Writer] ${board.nickname}</h5>

@@ -10,6 +10,12 @@
 <script>
 $(function(){
 	$('#interview').addClass('active');
+	
+	var appointedTime = '${board.appointedTime}';
+	appointedTime = appointedTime.split(' ');
+	var date = appointedTime[0] + 'T' + appointedTime[1];
+	console.log(date);	
+	$('input[name="appointedTime"]').val(date);
 });
 
 function cancell(boardNum, page, searchItem, searchText) {
@@ -46,6 +52,7 @@ function formCheck(){
 			<input type="hidden" name="boardType" value="matching">
 			<input id="title" type="text" name="title" value="${board.title}" placeholder="TITLE" autocomplete="off">
 		</div>
+		<input id="appointedTime" type="datetime-local" name="appointedTime">
 		<h1 id="introduce">Content</h1>
 		<div>
 			<textarea id="contents" rows="15" cols="60" name="contents">${board.contents}</textarea><br/>

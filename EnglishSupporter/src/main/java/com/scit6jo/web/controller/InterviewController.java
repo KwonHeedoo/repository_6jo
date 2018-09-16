@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -23,6 +24,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,10 +41,12 @@ import com.scit6jo.web.util.AudioConverter;
 import com.scit6jo.web.repository.BoardRepository;
 import com.scit6jo.web.repository.DataRepository;
 import com.scit6jo.web.util.FileService;
+import com.scit6jo.web.util.PageNavigator;
 import com.scit6jo.web.util.SpeechToText;
 import com.scit6jo.web.vo.Board;
 import com.scit6jo.web.vo.IData;
 import com.scit6jo.web.vo.IQuestion;
+import com.scit6jo.web.vo.Word;
 
 @Controller
 public class InterviewController {
@@ -51,12 +55,80 @@ public class InterviewController {
 	DataRepository repository;
 	@Autowired
 	BoardRepository boardRepository;
+	
+	final int countPerPage=20;
+	final int pagePerGroup=5;
 
 	final String video_uploadPath = "c://ES_uploadPath//video";
 	final String image_uploadPath = "c://ES_uploadPath//images";
 
 	final String uploadPath = "c://ES_uploadPath";
+	
+	// 관리자페이지 IQuestionManager로 이동
+	@RequestMapping(value = "/goIQuestionManager", method = RequestMethod.GET)
+	public String goIQuestionManager(Model model, @RequestParam(value="page", defaultValue="1")int page) {
+		System.out.println("going to IQuestionManager...");
+		
+		int total = repository.getTotal();
+		
+		// 페이지 계산을 위한 객체 생성
+		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total);
+		
+		// 검색어와 시작 위치, 페이지당 글 수를 전달하여 목록
+		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
 
+		// 모든 질문 불러오기
+		ArrayList<IQuestion> iQuestionList = repository.selectAllQuestion(rb);
+		
+		model.addAttribute("navi", navi);
+		model.addAttribute("iQuestionList", iQuestionList);
+		
+		return "admin/IQuestionManager";
+	}
+
+	// 관리자페이지 IQuestionManager 질문추가 요청
+	@RequestMapping(value = "questionAdd", method = RequestMethod.POST)
+	public @ResponseBody Integer questionAdd(String question) {
+		System.out.println("questionAdd...");
+		
+		IQuestion iq = new IQuestion();
+		iq.setQuestion(question);
+		
+		System.out.println(iq);
+		
+		int result = repository.addQuestion(iq);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
+	
+	// 관리자페이지 IQuestionManager 업데이트 요청 
+	@RequestMapping(value = "questionUpdate", method = RequestMethod.POST)
+	public @ResponseBody Integer questionUpdate(@RequestBody IQuestion iq) {
+		System.out.println("questionUpdate...");
+		
+		System.out.println(iq);
+		
+		int result = repository.updateQuestion(iq);
+		
+		if(result == 1) return 1;
+		else			return 0;
+	}
+	
+	// 마이페이지 IQuestionManager 삭제 요청 
+	@RequestMapping(value = "questionDelete", method = RequestMethod.POST)
+	public @ResponseBody int questionDelete(int questionNum) {
+		System.out.println("questionDelete...");
+		System.out.println(questionNum);
+		
+		IQuestion iq = new IQuestion();
+		iq.setQuestionNum(questionNum);
+		
+		int result = repository.deleteQuestion(iq);
+		
+		return result;
+	}
+		
 	// 인터뷰 페이지로 이동
 	@RequestMapping(value = "/goInterview", method = RequestMethod.GET)
 	public String interview(HttpSession session, Model model) {
@@ -92,7 +164,8 @@ public class InterviewController {
 	// [AJAX] DB로 부터 인터뷰 질문을 가져옴
 	@RequestMapping(value = "/getQuestion", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<IQuestion> getQuestion() {
-		ArrayList<IQuestion> result = repository.selectAllQuestion();
+		RowBounds rb = new RowBounds();
+		ArrayList<IQuestion> result = repository.selectAllQuestion(rb);
 		Collections.shuffle(result);
 		return result;
 	}
@@ -102,7 +175,6 @@ public class InterviewController {
 		IData result = repository.selectOneIData(Integer.parseInt(dataNum));
 		return result;
 	}
-	
 
 	// [AJAX] DB로 부터 Room List를 가져옴
 	@RequestMapping(value = "/getMRoomList", method = RequestMethod.POST)

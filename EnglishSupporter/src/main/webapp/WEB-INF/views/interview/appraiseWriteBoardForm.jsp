@@ -71,7 +71,7 @@ function a(value){
 		form.setAttribute('target', 'data');
 		
 		document.body.appendChild(form);
-		window.open('', 'data', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=yes, resizable=no');
+		window.open('', 'data', 'width=450, height=500, location=no, toolbar=no, menubar=no, scrollbars=yes, resizable=no');
 		form.submit();
 		document.body.removeChild(form);
 	}
@@ -93,7 +93,7 @@ function a(value){
 		<div>
 			<input type="hidden" name="boardType" value="appraise">
 			<input id="dataNum" type="hidden" name="datanum" value="">
-			<label id="title">TITLE : </label>
+			<label>TITLE : </label>
 			<input id="title" type="text" name="title" autocomplete="off">
 			<br>
 		</div>
@@ -102,7 +102,7 @@ function a(value){
 			</c:if>
 		<hr>
 		<div>
-			<label id="contents">Content</label>
+			<label>Content</label>
 			<textarea id="contents" rows="15" cols="60" name="contents"></textarea>
 			<p id = "fileName"> </p>
 		</div>

@@ -31,7 +31,7 @@ html, body{margin:0; padding:0; font-size:14px; line-height:1.6em; height: 100%;
 .bgded{background-position:top center; background-repeat:no-repeat; background-size:cover;}
 .circle, .btn, .icon.fa, #backtotop{border-radius:50%; background-clip:padding-box;}
 
-.btn{display:inline-block; padding:8px 5px 10px; text-transform:uppercase; border:1px solid; border-radius:22px;}
+.btn{display:inline-block; padding:8px 10px 10px; text-transform:uppercase; border:1px solid; border-radius:22px;}
 
 .icon.fa{display:inline-block; width:60px; height:60px; line-height:58px; border:1px solid; text-align:center; font-size:24px;}
 
