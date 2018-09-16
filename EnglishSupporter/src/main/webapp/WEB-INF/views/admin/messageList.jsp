@@ -46,7 +46,7 @@ function output(resp){
 		$.each(messageList, function(index, item){
 			result += '<tr>';
 			result += '<td>' + item.nickname + '</td>';
-			result += '<td><a id="msg' + item.messageNum + '" ><b>' + item.message + '</b></a></td>';
+			result += '<td><a id="msgAll' + item.messageNum + '" ><b>' + item.message + '</b></a></td>';
 			result += '<td>' + item.regdate + '</td>';
 			if(item.status === 0){
 				result += '<td>unread</td>';
@@ -63,7 +63,7 @@ function output(resp){
 	
 	if(messageList){
 		$.each(messageList, function(index, item){
-			$('#msg' + item.messageNum).on('click', function(){
+			$('#msgAll' + item.messageNum).on('click', function(){
 				read(item.messageNum, item.userid, item.nickname, item.message);
 			});
 		});
@@ -113,6 +113,9 @@ function read(messageNum, userid, nickname, message){
 }
 </script>
 <style type="text/css">
+a {
+cursor: pointer;
+}
 table, td, th{
 border: 1px solid #bcbcbc;
 font-size: 20px;

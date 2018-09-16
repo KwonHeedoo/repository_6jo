@@ -93,7 +93,7 @@ color:red;
 <script type="text/javascript">
 
 $(function() {
-	$('#addQuestion').addClass('active');
+	$('#questionHandling').addClass('active');
 	
 	// 레벨에 따라 단어 출력
 	$('#level').change(function() {

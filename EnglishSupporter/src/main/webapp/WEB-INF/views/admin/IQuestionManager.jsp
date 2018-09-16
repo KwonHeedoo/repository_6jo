@@ -92,6 +92,7 @@ color:red;
 <script type="text/javascript">
 
 $(function() {
+	$('#questionHandling').addClass('active');
 	
 	// 새로운 질문 추가
 	$('#addQuestion').on('click',function(){
