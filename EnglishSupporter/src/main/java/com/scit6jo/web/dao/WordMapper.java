@@ -9,6 +9,9 @@ import com.scit6jo.web.vo.Word;
 
 public interface WordMapper {
 	
+	// 마이페이지 내단어장 모든 단어 개수 (페이징처리)
+	public int getMyTotal();
+	
 	// 관리자페이지 wordManager에 띄울 모든 단어 개수 (페이징처리)
 	public int getTotal();
 	
@@ -37,7 +40,7 @@ public interface WordMapper {
 	 * @param userid
 	 * @return
 	 */
-	public List<Word> getMyWords(String userid);
+	public List<Word> getMyWords(RowBounds rb, String userid);
 
 	public List<String> exceptionWord();
 	/**
