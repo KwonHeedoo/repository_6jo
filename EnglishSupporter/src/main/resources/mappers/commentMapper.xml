@@ -171,9 +171,11 @@
 		from
     		appraise_comment
 		where
-    		userid != #{userid} AND parentid is null AND boardNum = #{boardNum}
+    		userid != #{userid} 
+    	and 
+    		parentid is null 
+    	and 
+    		boardNum = #{boardNum}
 	</select>
-	
-	
 	
 </mapper>

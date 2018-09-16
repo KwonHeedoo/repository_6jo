@@ -6,48 +6,74 @@
 <mapper namespace="com.scit6jo.web.dao.ResumeMapper">
 	
 	<select id="getCoverletter" parameterType="CoverLetter" resultType="CoverLetter">
-		 SELECT title, maintext, regdate, address, phone, email, userid
-		 FROM coverletter
-		 WHERE userid = #{userid}
-		 and title =#{title}
+		 SELECT 
+		 	title
+		 	, maintext
+		 	, regdate
+		 	, address
+		 	, phone
+		 	, email
+		 	, userid
+		 FROM 
+		 	coverletter
+		 WHERE 
+		 	userid = #{userid}
+		 and 
+		 	title = #{title}
 	</select>
 	
 	<select id="getCoverletterList" resultType="CoverLetter">
-		SELECT title, regdate, userid
-		FROM coverletter
-		WHERE userid = #{userid}
-		ORDER BY regdate
+		SELECT 
+			title
+			, regdate
+			, userid
+		FROM 
+			coverletter
+		WHERE 
+			userid = #{userid}
+		ORDER BY 
+			regdate
 	</select>
 	
 	<insert id="insertCoverLetter" parameterType="CoverLetter">
-		INSERT INTO coverletter(
-			userid
-			,title
-			,maintext
-			,address
-			,phone
-			,email
+		INSERT INTO 
+			coverletter(
+				userid
+				, title
+				, maintext
+				, address
+				, phone
+				, email
 		)VALUES(
 			#{userid}
-			,#{title}
-			,#{maintext}
-			,#{address}
-			,#{phone}
-			,#{email}
-		)
+			, #{title}
+			, #{maintext}
+			, #{address}
+			, #{phone}
+			, #{email})
 	</insert>
+	
 	<update id="updateCoverLetter" parameterType="CoverLetter">
-		UPDATE coverletter 
+		UPDATE 
+			coverletter 
 		SET
-			maintext=#{maintext}
-			,address=#{address}
-			,phone=#{phone}
-			,email=#{email}
-		WHERE userid =#{userid} and title =#{title}
+			maintext = #{maintext}
+			, address = #{address}
+			, phone = #{phone}
+			, email = #{email}
+		WHERE 
+			userid = #{userid} 
+		and 
+			title = #{title}
 	</update>
 	
 	<delete id="deleteCoverletter" parameterType="CoverLetter">
-		delete from coverletter where userid =#{userid} and title =#{title}
+		delete from 
+			coverletter 
+		where 
+			userid = #{userid} 
+		and 
+			title = #{title}
 	</delete>
 	
 	<!-- Resume 관련  -->
@@ -55,20 +81,19 @@
 		<foreach collection="education" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
 		INTO 
 			education(
-			resume_no
-			,school_name
-			,degree_level
-			,enter_date
-			,graduate_date
-			,major
-		)VALUES
-		(	#{resume_no}
-			,NVL(#{item.school_name},'')
-			,NVL(#{item.degree_level},'')
-			,#{item.enter_date}
-			,#{item.graduate_date}
-			,NVL(#{item.major},'')
-		)
+				resume_no
+				, school_name
+				, degree_level
+				, enter_date
+				, graduate_date
+				, major
+		)VALUES(
+			#{resume_no}
+			, NVL(#{item.school_name},'')
+			, NVL(#{item.degree_level},'')
+			, #{item.enter_date}
+			, #{item.graduate_date}
+			, NVL(#{item.major},''))
 		</foreach>
 	</insert>
 	
@@ -76,136 +101,191 @@
 		<foreach collection="experience" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
 		INTO 
 			experience(
-			resume_no
-			,company_name
-			,job_description
-			,start_date
-			,end_date
-		)VALUES
-		(	#{resume_no}
-			,NVL(#{item.company_name},'')
-			,NVL(#{item.job_description},'')
-			,#{item.start_date}
-			,#{item.end_date}
-		)
+				resume_no
+				, company_name
+				, job_description
+				, start_date
+				, end_date
+		)VALUES(
+			#{resume_no}
+			, NVL(#{item.company_name},'')
+			, NVL(#{item.job_description},'')
+			, #{item.start_date}
+			, #{item.end_date})
 		</foreach>
 	</insert>
-	
 	
 	<insert id="insertInfo" parameterType="map">
 		<foreach collection="additional_info" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
 		INTO 
 			additional_info(
-			resume_no
-			,info_title
-			,detail
-			,remarks
-			,info_date
-		)VALUES
-		(	#{resume_no}
-			,NVL(#{item.info_title},'')
-			,NVL(#{item.detail},'')
-			,NVL(#{item.remarks},'')
-			,#{item.info_date}
-		)
+				resume_no
+				, info_title
+				, detail
+				, remarks
+				, info_date
+		)VALUES(
+			#{resume_no}
+			, NVL(#{item.info_title},'')
+			, NVL(#{item.detail},'')
+			, NVL(#{item.remarks},'')
+			, #{item.info_date})
 		</foreach>
 	</insert>
 	
 	<delete id="clearTables" parameterType="String">
 		{call 
 			declare 
-			begin 
-			delete from education where resume_no = #{resume_no}; 
-			delete from additional_info where resume_no = #{resume_no};
-			delete from experience where resume_no = #{resume_no}; 
+		begin 
+			delete from 
+				education 
+			where 
+				resume_no = #{resume_no}; 
+			delete from 
+				additional_info 
+			where 
+				resume_no = #{resume_no};
+			delete from 
+				experience 
+			where 
+				resume_no = #{resume_no}; 
 		end}
 	</delete>
 	
 	<delete id="removeResume" parameterType="String">
 		{call 
 			declare 
-			begin 
-			delete from education where resume_no = #{resume_no}; 
-			delete from additional_info where resume_no = #{resume_no};
-			delete from experience where resume_no = #{resume_no};
-			delete from resume where resume_no = #{resume_no}; 
+		begin 
+			delete from 
+				education 
+			where 
+				resume_no = #{resume_no}; 
+			delete from 
+				additional_info 
+			where 
+				resume_no = #{resume_no};
+			delete from 
+				experience 
+			where 
+				resume_no = #{resume_no};
+			delete from 
+				resume 
+			where 
+				resume_no = #{resume_no}; 
 		end}
 	</delete>
 	
 	<update id="updateResume" parameterType="Resume">
-		UPDATE resume SET
+		UPDATE 
+			resume 
+		SET
 			title = #{title}
-			,username =#{username}
-			,phone =#{phone}
-			,regdate = sysdate
-			,deadline = #{deadline}
-			,address =#{address}
-		WHERE resume_no =(
-			SELECT resume_no 
-			FROM resume 
-			WHERE userid =#{userid} 
-			and title =#{title})
+			, username = #{username}
+			, phone = #{phone}
+			, regdate = sysdate
+			, deadline = #{deadline}
+			, address = #{address}
+		WHERE 
+			resume_no =(SELECT 
+							resume_no 
+						FROM 
+							resume 
+						WHERE 
+							userid = #{userid} 
+						and 
+							title = #{title})
 	</update>
 	
 	<select id="selectResume" parameterType="Resume" resultType="Resume">
-		SELECT resume_no, title, regdate, deadline, userid
-		FROM resume 
-		WHERE userid =#{userid} 
-		and title =#{title} 
+		SELECT 
+			resume_no
+			, title
+			, regdate
+			, deadline
+			, userid
+		FROM 
+			resume 
+		WHERE 
+			userid = #{userid} 
+		and 
+			title = #{title} 
 	</select>
 	
 	<select id="resumeList" parameterType="String" resultType="Resume">
-		SELECT resume_no, title, regdate, deadline, userid
-		FROM resume 
-		WHERE userid =#{userid}
-		ORDER BY resume_no 
+		SELECT 
+			resume_no
+			, title
+			, regdate
+			, deadline
+			, userid
+		FROM 
+			resume 
+		WHERE 
+			userid = #{userid}
+		ORDER BY 
+			resume_no 
 	</select>
 	
 	
 	<insert id="insertResume" parameterType="Resume">
-		INSERT INTO	RESUME(
-			resume_no
-			,username
-			,userid
-			,title
-			,regdate
-			,deadline
-			,phone
-			,address
+		INSERT INTO	
+			RESUME(
+				resume_no
+				, username
+				, userid
+				, title
+				, regdate
+				, deadline
+				, phone
+				, address
 		)VALUES(
 			resume_seq.NEXTVAL
-			,#{username}
-			,#{userid}
-			,#{title}
-			,sysdate
-			,to_timestamp(#{deadline}, 'YYYY-MM-DD"T"HH24:MI')
-			,#{phone}
-			,#{address}
-		)
+			, #{username}
+			, #{userid}
+			, #{title}
+			, sysdate
+			, to_timestamp(#{deadline}, 'YYYY-MM-DD"T"HH24:MI')
+			, #{phone}
+			, #{address})
 	</insert>
 	
 	<select id="getResume" parameterType="String" resultMap="Resume">
 		SELECT 
-		r.RESUME_NO, r.USERNAME, r.TITLE, r.ADDRESS, r.DEADLINE, r.PHONE, r.REGDATE, r.USERID,
-		e.DEGREE_LEVEL, 
-		to_char(e.ENTER_DATE, 'YYYY-MM-DD') enter_date, 
-		to_char(e.GRADUATE_DATE, 'YYYY-MM-DD') graduate_date, 
-		e.MAJOR, e.MAJOR, e.SCHOOL_NAME,
-		p.COMPANY_NAME, 
-		to_char(p.END_DATE, 'YYYY-MM-DD') end_date, 
-		p.JOB_DESCRIPTION, 
-		to_char(p.START_DATE, 'YYYY-MM-DD') start_date,
-        i.INFO_TITLE, i.DETAIL, 
-		to_char(i.INFO_DATE, 'YYYY-MM-DD') info_date, 
-		i.REMARKS
-		FROM resume r
-		join education e
-		on r.resume_no = e.resume_no
-		join experience p 
-		on r.resume_no = p.resume_no
-		join additional_info i
-		on r.resume_no = i.resume_no
-		WHERE r.resume_no = #{resume_no}
+			r.RESUME_NO
+			, r.USERNAME
+			, r.TITLE
+			, r.ADDRESS
+			, r.DEADLINE
+			, r.PHONE
+			, r.REGDATE
+			, r.USERID
+			, e.DEGREE_LEVEL
+			, to_char(e.ENTER_DATE, 'YYYY-MM-DD') enter_date
+			, to_char(e.GRADUATE_DATE, 'YYYY-MM-DD') graduate_date
+			, e.MAJOR, e.MAJOR, e.SCHOOL_NAME
+			, p.COMPANY_NAME
+			, to_char(p.END_DATE, 'YYYY-MM-DD') end_date
+			, p.JOB_DESCRIPTION
+			, to_char(p.START_DATE, 'YYYY-MM-DD') start_date
+			, i.INFO_TITLE, i.DETAIL
+			, to_char(i.INFO_DATE, 'YYYY-MM-DD') info_date
+			, i.REMARKS
+		FROM 
+			resume r
+		join 
+			education e
+		on 
+			r.resume_no = e.resume_no
+		join 
+			experience p 
+		on 
+			r.resume_no = p.resume_no
+		join 
+			additional_info i
+		on 
+			r.resume_no = i.resume_no
+		WHERE 
+			r.resume_no = #{resume_no}
 	</select>
 	
 	<resultMap type="Resume" id="Resume">

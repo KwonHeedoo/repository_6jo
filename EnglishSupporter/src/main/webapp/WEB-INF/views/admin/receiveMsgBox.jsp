@@ -13,9 +13,12 @@ $(function() {
 	// 부모창의 msgList() 재실행
 	opener.msgList();
 	// 부모창의 messageList() 재실행
-	opener.messageList();
+	if(typeof opener.messageList == 'function') {
+		opener.messageList();
+	}
 	
 	$('#answer').on('click', function() {
+		console.log($('#answer'));
 		var receiveId = '${receiveId}';
 		location.href = './goSendMsgBox?receiveId=' + receiveId;
 	});

@@ -43,10 +43,15 @@ background-color: white;
 						<th>Update</th>
 						<th>Delete</th>
 					</tr>
+					<c:if test="${empty wordlist}">
+					<tr>
+						<td colspan="5" align="center" ><b>There is no Word</b></td>
+					</tr>
+					</c:if>
 					<c:forEach var="w" items="${wordlist}" varStatus="status">
 					<tr>
 						<td><input type="hidden" value="${w.myword_no}">
-						${status.count}</td>
+						${(navi.currentPage-1)*20+status.count}</td>
 						<td><input class="trandsinput" type="text" name="word" value="${w.word}" readonly="true"></td>
 						<td><input class="trandsinput" type="text" name="mean" value="${w.meaningK}" readonly="true"></td>
 						<td><input id="update" type="button" value="UPDATE"></td>
@@ -54,18 +59,41 @@ background-color: white;
 					</tr>
 					</c:forEach>
 				</table>
+				<br>
+				<div id="navigator">
+					<a href="goMyWords?page=1">◀◀</a>&emsp; 
+					<a href="goMyWords?page=${navi.currentPage-1}">Prev</a>&emsp;
+					
+					<c:forEach var="num" begin="${navi.startPageGroup}" end="${navi.endPageGroup}">
+						<a href="goMyWords?page=${num}">
+						<span <c:if test="${navi.currentPage == num}"> style="font-weight:bold;" </c:if>>
+						${num}</span></a>&emsp;
+					</c:forEach>
+					
+					<a href="goMyWords?page=${navi.currentPage+1}">Next</a>&emsp;
+					<a href="goMyWords?page=${navi.totalPageCount}">▶▶</a>
+				</div>
 			</div>
 		</div>
 	<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 <style>
+.side-menu{
+margin-top: 0;
+    position: absolute;
+    float: left;
+    width: 280px;
+    height: 130%;
+    background-color: #f8f8f8;
+    border-right: 1px solid #e7e7e7;
+}
 .side-body {
   margin-top: 20px;
   margin-left: 300px;
   margin-bottom: 50px;
-  height: 900px;
+  height: 1000px;
  }
-</style>
+ </style>
 <script type="text/javascript">
 $(function() {
 	

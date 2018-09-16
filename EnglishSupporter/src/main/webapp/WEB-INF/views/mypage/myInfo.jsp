@@ -27,7 +27,7 @@ background-color: gray;
 					<div>
 					<div class="userimg">
 					<img alt="Profile" <c:if test="${sessionScope.img != null}">
-      	 		src="./getProfileImg"
+      	 		src="./getProfileImg?userid=${sessionScope.loginId}"
       	 		</c:if>
       	 		<c:if test="${sessionScope.img == null}">
       	 		src="./resources/images/icons/user-avatar-placeholder.png"
