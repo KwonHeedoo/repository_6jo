@@ -210,7 +210,7 @@ public class ResumeRepository {
 		MypageMapper mapper = session.getMapper(MypageMapper.class);
 		String title = vo.getTitle() +"Resume Deadline";
 
-		Schedule resume = new Schedule(vo.getUserid(), title, "true", vo.getDeadline());
+		Schedule resume = new Schedule(vo.getUserid(), title, "false", vo.getDeadline());
 		int result = 0;
 		try {
 			System.out.println(resume);

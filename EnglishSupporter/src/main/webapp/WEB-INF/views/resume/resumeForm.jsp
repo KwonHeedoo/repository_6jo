@@ -49,12 +49,7 @@ margin-bottom: 20px;
 		<div class="row justify-content-end">
 			<div class="col-4">
 			<br>
-			<c:if test="${empty resume}">
 			<h4>[ New Resume ]</h4>
-				</c:if>
-				<c:if test="${not empty resume}">
-			<h4>[ Update Resume ]</h4>
-				</c:if>
 			<br>
 			<form id="resume">
 				<input type="hidden" name="userid" value="${sessionScope.loginId}" id="userid">
@@ -186,12 +181,7 @@ margin-bottom: 20px;
 				<br>
 				<br>
 				<div class="right">
-				<c:if test="${empty resume}">
 				<input type="button" class="btn" value="send Form" id="CVsend">
-				</c:if>
-				<c:if test="${not empty resume}">
-				<input type="button" class="btn" value="Update Form" id="CVupdate">
-				</c:if>
 				
 				<br>
 				<br>

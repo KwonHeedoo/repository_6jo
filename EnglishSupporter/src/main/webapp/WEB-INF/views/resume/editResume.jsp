@@ -152,7 +152,7 @@ $(function() {
 	
 	var deadline ="${resume.deadline}"
 	deadline = deadline.split(' ');
-	var date = deadline[0]+"T"+deadline[1]+".00";
+	var date = deadline[0]+"T"+deadline[1];
 	console.log(date);	
 	$('input[name="deadline"]').val(date);
 	
@@ -380,7 +380,6 @@ $(function(){
 //이력서 본래 정보 띄우기 
 $(function(){
 	var resume_no = '${resume_no}';
-	//console.log('이력서 따왔슴!!')
 	$.ajax({
 		method: "post",
 		url: "getResume",
@@ -405,16 +404,14 @@ $(function(){
 function edulist(edu){
 	var indexedu =0;
 	$.each(edu, function(index, item){
-		console.log(item.enter_date);
-		console.log(item.graduate_date);
+	//	console.log(item.enter_date);
+	//	console.log(item.graduate_date);
 		var text = '<div class="box">';
 		text += '<div class="col-md-2"><input type="date" value="'+item.enter_date+'"name="education['+indexedu+'][enter_date]" placeholder="START DATE" />(start date) </div>';
 		text += '<div class="col-md-2"><input type="date" value="'+item.graduate_date+'"name="education['+indexedu+'][graduate_date]" placeholder="END DATE" />(end date)</div>';
 		text += '<div class="col-md-3"><input type="text" value="'+item.school_name+'" name="education['+indexedu+'][school_name]" placeholder="educational institution" /></div>';
 		text += '<div class="col-md-2"><input type="text" value="'+item.degree_level+'" name="education['+indexedu+'][degree_level]" placeholder="degree" /></div>'
 		text += '<div class="col-md-3"><input type="text" value="'+item.major+'"name="education['+indexedu+'][major]" placeholder="MAJOR" /></div></div>';
-			//console.log(text);
-			//console.log($('#edu'));
 			$('#edu').append(text);
 			indexedu++;//인덱스 증가 
 		});
@@ -428,8 +425,6 @@ function explist(exp){
 	text += '<div class="col-md-3"><input type="date" value="'+item.end_date+'" name="experience['+indexexp+'][end_date]" placeholder="END DATE" />(end date)</div>';
 	text += '<div class="col-md-6"><input type="text" value="'+item.company_name+'" name="experience['+indexexp+'][company_name]" placeholder="organization/company NAME" /></div>';
 	text += '<div class="col-md-12"><input type="text" value="'+item.job_description+'" name="experience['+indexexp+'][job_description]" placeholder="DESCRIPTION" /></div></div>';
-		//console.log(text);
-		//console.log($('#edu'));
 		$('#exp').append(text);
 		indexexp++;
 	});
@@ -443,8 +438,6 @@ function infolist(info){
 	text += '<div class="col-md-2"><input type="text" value="'+item.info_title+'" name="additional_info['+indexinfo+'][info_title]" placeholder="TITLE" /></div>';
 	text += '<div class="col-md-4"><input type="text" value="'+item.detail+'" name="additional_info['+indexinfo+'][detail]" placeholder="DETAIL" /></div>';
 	text += '<div class="col-md-4"><input type="text" value="'+item.remarks+'" name="additional_info['+indexinfo+'][remarks]" placeholder="REMARK" /></div></div>';
-		//console.log(text);
-		//console.log($('#edu'));
 		$('#info').append(text);
 		indexinfo++;
 	});

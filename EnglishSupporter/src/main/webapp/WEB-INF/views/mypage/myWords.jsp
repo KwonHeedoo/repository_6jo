@@ -58,6 +58,14 @@ background-color: white;
 		</div>
 	<%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
+<style>
+.side-body {
+  margin-top: 20px;
+  margin-left: 300px;
+  margin-bottom: 50px;
+  height: 900px;
+ }
+</style>
 <script type="text/javascript">
 $(function() {
 	
