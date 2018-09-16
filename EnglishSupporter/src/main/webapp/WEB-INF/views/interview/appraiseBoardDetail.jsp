@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -443,13 +443,54 @@ function getRatingAvg(){
 			console.log(data.posture);
 			console.log(data.contents);
 			var rating ="";
-				rating += "<br><p>";
-				rating += "pro : " + data.pronunciation + "<br>";
-				rating += "pos : " + data.posture + "<br>";
-				rating += "con : " + data.contents + "</p><br>";
-				$("#ratingAvg").html(rating);
+			rating += "<br><p>";
+			for(var i = 0 ; i < appraises.length ; i++){
+				var column = appraises[i];
+				var num = data[column];
+				var mod = num % 1;
+				if(!num){
+					num = 0;
+				}
+				
+				rating += column + " : ";
+				for(var j = 1 ; j <= Math.floor(num) ; j++){
+					rating += '<img id=' + ' alt="match" src="./resources/images/icons/golden.png">';
+				}
+				if(num != 0 && num != 5 && mod != 0){
+					if(mod < 0.5){
+						rating += '<img id=' + ' alt="match" src="./resources/images/icons/silver.png">';
+					}
+					else{
+						rating += '<img id=' + ' alt="match" src="./resources/images/icons/golden_half.png">';
+					}
+				}
+					
+				for(var j = 5 ; j>Math.ceil(num) ; j--){
+					rating += '<img id=' + ' alt="match" src="./resources/images/icons/silver.png">';
+				}
+				
+				rating += "( " + num + " )";
+				rating += "<br>";
+			}
+			
+			rating += "</p><br>";
+			$("#ratingAvg").html(rating);
 		}
 		, error : function(){alert("Error!");}
+		/* for(var i = 0 ; i < appraises.length ; i++){
+			var column = appraises[i];
+			commentResult += '<div id ="'+column+'" '+ 'data-rno="' + item[column] + '">';
+			commentResult += column + ' : ';
+			console.log(" item[column] : "+ item[column]);
+			//var appraises = ["pronunciation","posture","contents"];
+			for(var j = 1 ; j<=item[column] ; j++){
+				commentResult +='<img id="' + appraises[i] + j+ '"' + ' alt="match" src="./resources/images/icons/golden.png">';
+			}
+			for(var j = 5 ; j>item[column] ; j--){
+				commentResult +='<img id="' + appraises[i] + j+ '"' + ' alt="match" src="./resources/images/icons/silver.png">';
+			}
+			commentResult += ' ( ' + item[column] + ' )</div><br>';
+		} */
 	});
 }
 </script>

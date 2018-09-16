@@ -20,6 +20,14 @@
    var connection = new RTCMultiConnection();
    var localVideoContainer;
    var remoteVideoContainer;
+   var predefinedRoomId = '${roomid}';
+   console.log(predefinedRoomId);
+   
+   $(function(){
+	   localVideoContainer = document.getElementById("local-videos-container");
+	   remoteVideoContainer = document.getElementById("remote-videos-container");
+	   connection.openOrJoin( predefinedRoomId );
+	});
    // this line is VERY_important
    connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
    //connection.socketURL = 'ws://localhost:8085/video/pong-ws/';
@@ -34,29 +42,25 @@
       OfferToReceiveAudio : true,   
       OfferToReceiveVideo : true   
    };
-   
    connection.onstream = function(event){
-      var video = event.mediaElement;
-      if(event.type === 'local'){
-         console.log("local");
-         localVideoContainer.appendChild(video);
-         $('div#local-videos-container>video').attr('controls',false);
-		console.log(vv1);
-      }
-      if(event.type === 'remote'){
-         console.log("remote");
-         remoteVideoContainer.appendChild(video);
-         $('div#remote-videos-container>video').attr('controls',false);
-      }
+	   var video = event.mediaElement;
+	      console.log(event.type);
+	      
+	      if(event.type === 'local'){
+	         console.log("local");
+	         localVideoContainer.appendChild(video);
+	         $('div#local-videos-container>video').attr('controls',false);
+	      }
+	      if(event.type === 'remote'){
+	         console.log("remote");
+	         remoteVideoContainer.appendChild(video);
+	         $('div#remote-videos-container>video').attr('controls',false);
+	      }
    }
    
-   var predefinedRoomId = '${roomid}';
+   
 
-$(function(){
-   localVideoContainer = document.getElementById("local-videos-container");
-   remoteVideoContainer = document.getElementById("remote-videos-container");
-   connection.openOrJoin( predefinedRoomId );
-});
+
 
 $(function() {
 	$('#qlist').click(function() {

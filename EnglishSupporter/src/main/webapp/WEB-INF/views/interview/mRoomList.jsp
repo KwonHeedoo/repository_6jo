@@ -42,8 +42,14 @@ $(function() {
 			text += '<table>';
 			
 			for (var i = 0; i < data.length; i++) {
+				var roomNum =  data[i].roomNum +"";
+				console.log("roomNum : " + roomNum);
+				console.log(typeof(roomNum));
 				 text += "<tr>";
-				 text += '<td><a href="javascript:void(0);" onclick="callPfunction('+ data[i].roomnum + ' );">' + data[i].roomnum +'</a></td>';
+				 text += '<td><a href="javascript:void(0);" onclick="callPfunction(\'';
+				 text += roomNum;
+				 text += '\');">' + i +'</a></td>';
+				 //text += '<td><a href="javascript:void(0);" onclick="callPfunction('+ 'a12345678' + ' );">' + data[i].roomNum +'</a></td>';
 				 text += '<td> Appointed Time : '+ data[i].appointedTime + '</td>'
 				 text += "</tr>";
 			}

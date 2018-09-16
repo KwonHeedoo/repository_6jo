@@ -207,7 +207,8 @@
 		update
 			matching_board
 		set
-			matchingid = #{matchingId}
+			matchingid = #{matchingId},
+			roomnum = #{roomNum}
 		where
 			boardnum = #{boardNum}
 	</update>
@@ -217,7 +218,8 @@
 		update
 			matching_board
 		set
-			matchingid = #{matchingId}
+			matchingid = #{matchingId},
+			roomnum = #{roomNum}
 		where
 			boardnum = #{boardNum}
 	</update>

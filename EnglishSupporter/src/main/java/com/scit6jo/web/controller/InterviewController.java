@@ -17,6 +17,7 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -83,6 +84,7 @@ public class InterviewController {
 	// 1:1 매칭 페이지로 이동?
 	@RequestMapping(value = "/goMatching", method = RequestMethod.GET)
 	public String matchingPractice(HttpSession session, Model model, String roomid) {
+		System.out.println("roomid : " + roomid);
 		model.addAttribute("roomid", roomid);
 		return "interview/matchingPractice";
 	}
@@ -107,7 +109,9 @@ public class InterviewController {
 	public @ResponseBody ArrayList<Board> getMRoomList(HttpSession session) {
 		String userid = (String) session.getAttribute("loginId");
 		ArrayList<Board> result = boardRepository.roomNumList(userid);
-		System.out.println(result);
+		for(Board a : result) {
+			System.out.println("roomnum : " +  a.getRoomNum());
+		}
 		return result;
 	}
 
@@ -337,5 +341,7 @@ public class InterviewController {
 		resultmap.put("result", responBody);
 		return resultmap;
 	}
+	
+	
 
 }

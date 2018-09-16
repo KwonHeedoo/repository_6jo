@@ -11,9 +11,9 @@ public class Comment {
 	private String parentNick;
 	private int groupNum;
 	private String matchingId;
-	private int pronunciation;
-	private int contents;
-	private int posture;
+	private float pronunciation;
+	private float contents;
+	private float posture;
 	
 	public Comment() {
 		super();
@@ -35,7 +35,7 @@ public class Comment {
 	}
 
 	public Comment(int commentNum, String userid, String nickname, int boardNum, String comments, String regdate,
-			String parentId, String parentNick, int groupNum, int pronunciation, int contents, int posture) {
+			String parentId, String parentNick, int groupNum, float pronunciation, float contents, float posture) {
 		super();
 		this.commentNum = commentNum;
 		this.userid = userid;
@@ -131,29 +131,30 @@ public class Comment {
 		this.matchingId = matchingId;
 	}
 
-	public int getPronunciation() {
+	public float getPronunciation() {
 		return pronunciation;
 	}
 
-	public void setPronunciation(int pronunciation) {
+	public void setPronunciation(float pronunciation) {
 		this.pronunciation = pronunciation;
 	}
 
-	public int getContents() {
+	public float getContents() {
 		return contents;
 	}
 
-	public void setContents(int contents) {
+	public void setContents(float contents) {
 		this.contents = contents;
 	}
 
-	public int getPosture() {
+	public float getPosture() {
 		return posture;
 	}
 
-	public void setPosture(int posture) {
+	public void setPosture(float posture) {
 		this.posture = posture;
 	}
+	
 
 	@Override
 	public String toString() {
