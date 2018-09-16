@@ -130,14 +130,14 @@ width: 1300px;
 		<br><br>
 		<hr>
 		<div id="btn" class="raw">
-			<button id="stt" type="button">STT</button>
+			<button id="stt" type="button">Speech to Text</button>
 			<button id="check" type="button">Check</button>
 		</div>
 	</form>
 	<br/>
 	<!-- 텍스트 음성 제공 버튼(TTS Button) -->
 	<div id="tts" class="raw tts">
-		text to speech 
+		Text to Speech 
 		<button id="ttsBtn"><img alt="speaker" src="./resources/images/icons/speaker.png" style="width:20px;height:20px;"></button>
 		<audio src="" class="audio" hidden></audio>
 	</div>

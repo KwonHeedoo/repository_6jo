@@ -250,12 +250,26 @@
 	</delete> 
 	
 	<select id="userInfoPage" resultType="User" parameterType="String">
-	select u.regdate, u.lastdate, u.attendnum as attendNum , b.writecount as writeCount
-	from userlist u
-	join (select userid, count(*) as writecount from matching_board group by userid having userid = #{userid}) b
-	on u.userid = b.userid
-	where u.userid =#{userid}
+	select 
+		u.regdate
+		, u.lastdate
+		, u.attendnum as attendNum
+		, b.writecount as writeCount
+	from 
+		userlist u
+	join 
+		(select 
+			userid
+			, count(*) as writecount 
+		from 
+			matching_board 
+		group by 
+			userid 
+		having 
+			userid = #{userid}) b
+	on 
+		u.userid = b.userid
+	where 
+		u.userid = #{userid}
 	</select>
-	
-	
 </mapper>

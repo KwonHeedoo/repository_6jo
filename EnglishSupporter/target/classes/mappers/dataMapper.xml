@@ -7,49 +7,57 @@
 
 	<!-- 전체 인터뷰 질문 개수 -->
 	<select id="getTotal" resultType="int">
-		select count(*) from interview_question
+		select 
+			count(*) 
+		from 
+			interview_question
 	</select>
 	
 	<!-- 관리자페이지 단어 추가 -->
 	<insert id="addQuestion" parameterType="IQuestion">
-		insert into interview_question(
-			question,
-			questionnum
+		insert into 
+			interview_question(
+				question
+				, questionnum
 		)values(
-			#{question},
-			inter_question_seq.nextval
-		)
+			#{question}
+			, inter_question_seq.nextval)
 	</insert>
 	
 	<!-- 관리자페이지 단어 업데이트 -->
 	<update id="updateQuestion" parameterType="IQuestion">
-		update interview_question
-		set question = #{question}
-		where questionnum = #{questionNum}		
+		update 
+			interview_question
+		set 
+			question = #{question}
+		where 
+			questionnum = #{questionNum}		
 	</update>
 	
 	<!-- 관리자페이지 단어 삭제 -->
 	<delete id="deleteQuestion" parameterType="IQuestion">
-		delete from interview_question 
-		where questionnum = #{questionNum}
+		delete from 
+			interview_question 
+		where 
+			questionnum = #{questionNum}
 	</delete>
 
 	<insert id="insertIData" parameterType="iData">
-		INSERT INTO INTERVIEW_DATA(
-			dataNum,
-			userid,
-			questionNum,
-			answer,
-			regdate,
-			saveFile
-		)
-		VALUES(
-			data_seq.nextval,
-			#{userid},
-			#{questionNum},
-			#{answer},
-			sysdate,
-			#{saveFile}
+		INSERT INTO 
+			INTERVIEW_DATA(
+				dataNum
+				, userid
+				, questionNum
+				, answer
+				, regdate
+				, saveFile
+		)VALUES(
+			data_seq.nextval
+			, #{userid}
+			, #{questionNum}
+			, #{answer}
+			, sysdate
+			, #{saveFile}
 		)
 	
 	</insert>
@@ -57,7 +65,7 @@
 		UPDATE 
 			INTERVIEW_DATA
 		SET 
-				answer = #{answer}
+			answer = #{answer}
 		WHERE
 			dataNum = #{dataNum}
 	
@@ -67,28 +75,27 @@
 		UPDATE 
 			INTERVIEW_DATA
 		SET 
-				confidence = #{confidence}
+			confidence = #{confidence}
 		WHERE
 			dataNum = #{dataNum}
-	
 	</update>
 	
 	
 	<select id="selectAllQuestion" resultType="iQuestion">
 		select
-			questionNum,
-			question
+			questionNum
+			, question
 		from
 			interview_question
 	</select>
 	<select id="selectOneIData" resultType="iData" parameterType="int">
 		select
-			dataNum,
-			userid,
-			questionNum,
-			answer,
-			regdate,
-			saveFile
+			dataNum
+			, userid
+			, questionNum
+			, answer
+			, regdate
+			, saveFile
 		from
 			INTERVIEW_DATA
 		where
@@ -97,17 +104,17 @@
 	
 	<select id="selectAllIData" resultType="iData" parameterType="string">
 		select
-			dataNum,
-			userid,
-			questionNum,
-			answer,
-			regdate,
-			saveFile
+			dataNum
+			, userid
+			, questionNum
+			, answer
+			, regdate
+			, saveFile
 		from
 			INTERVIEW_DATA
 		where
 			userid = #{value}
-		order by regdate desc
+		order by 
+			regdate desc
 	</select>
-	
 </mapper>

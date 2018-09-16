@@ -257,10 +257,10 @@ public class BoardController {
 		model.addAttribute("searchText", searchText);
 		
 		if(boardType.equals("matching")) {
-			System.out.println("Going to UpdateMatchingBoardForm...");
+			System.out.println("Going to matchingUpdateBoardForm...");
 			return "interview/matchingUpdateBoardForm";
 		}else if(boardType.equals("notice")){
-			System.out.println("going to UpdateNoticeBoardForm...");
+			System.out.println("going to noticeUpdateBoardForm...");
 			return "notice/noticeUpdateBoardForm";
 		}else {
 			return "home";
