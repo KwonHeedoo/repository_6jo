@@ -7,6 +7,10 @@
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="resources/jquery.serialize-object.min.js"></script>
+<link href="resources/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <title>Message</title>
 <script type="text/javascript">
 $(function() {
@@ -26,9 +30,11 @@ $(function() {
 </script>
 </head>
 <body>
+<div class="container">
 	<h1>From ${nickname}</h1>
 	<textarea rows="20" cols="50" disabled="disabled" style="background-color: white;">${message}</textarea>
-	<button id="answer">Answer</button>
-	<button id="close" onclick="window.close()">Close</button>
+	<button id="answer" class="btn">Answer</button>
+	<button id="close" onclick="window.close()" class="btn">Close</button>
+</div>
 </body>
 </html>

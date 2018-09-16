@@ -7,7 +7,22 @@
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="resources/jquery.serialize-object.min.js"></script>
+<link href="resources/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <title>Report</title>
+<style type="text/css">
+body {
+    background: #f8f6f6;
+    color: #404040;
+    font-family: 'Lucida Grande', Verdana, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 20px;
+}
+</style>
 <script type="text/javascript">
 $(function() {
 	$('#sendReport').on('click', function() {
@@ -41,7 +56,9 @@ $(function() {
 </script>
 </head>
 <body>
+<div class="container">
 	<h1>Report to Administrator</h1>
+	<hr>
 	<form id="reportCheck">
 		<input id="reporter" type="hidden" value="${report.reporter}" name="reporter">
 		<input id="reportee" type="hidden" value="${report.reportee}" name="reportee">
@@ -49,7 +66,9 @@ $(function() {
 		<textarea id="reason" rows="20" cols="50" name="reason"></textarea>
 		<input id="reportURL" type="hidden" value="${reportURL}" name="reportURL">
 	</form>
-	<button id="sendReport">Send</button>
-	<button id="calcel" onclick="window.close()">Cancel</button>
+	<br><br>
+	<button id="sendReport" class="btn">Send</button>
+	<button id="calcel" onclick="window.close()" class="btn">Cancel</button>
+</div>
 </body>
 </html>
