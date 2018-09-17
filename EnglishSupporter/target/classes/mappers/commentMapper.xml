@@ -132,8 +132,8 @@
 		from
 		<choose>
 			<when test="boardType == 'matching'">matching_comment c, userlist u</when>
-			<when test="boardType == 'notice'">notice_comment, userlist u</when>
-			<when test="boardType == 'appraise'">appraise_comment, userlist u</when>
+			<when test="boardType == 'notice'">notice_comment c, userlist u</when>
+			<when test="boardType == 'appraise'">appraise_comment c, userlist u</when>
 		</choose>
 		where
 			c.userid = u.userid
