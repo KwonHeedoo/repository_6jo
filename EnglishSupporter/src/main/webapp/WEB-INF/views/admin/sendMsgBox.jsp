@@ -22,6 +22,9 @@ body {
     font-weight: normal;
     line-height: 20px;
 }
+.container{
+text-align: center;
+}
 </style>
 <script type="text/javascript">
 $(function() {

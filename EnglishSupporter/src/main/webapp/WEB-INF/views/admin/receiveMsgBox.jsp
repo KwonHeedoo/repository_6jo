@@ -12,6 +12,24 @@
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <title>Message</title>
+<style type="text/css">
+body {
+    background: #f8f6f6;
+    color: #404040;
+    font-family: 'Lucida Grande', Verdana, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 20px;
+}
+textarea{
+width: 80%;
+}
+.container{
+text-align: center;
+
+}
+
+</style>
 <script type="text/javascript">
 $(function() {
 	// 부모창의 msgList() 재실행
@@ -33,6 +51,7 @@ $(function() {
 <div class="container">
 	<h1>From ${nickname}</h1>
 	<textarea rows="20" cols="50" disabled="disabled" style="background-color: white;">${message}</textarea>
+	<br><br>
 	<button id="answer" class="btn">Answer</button>
 	<button id="close" onclick="window.close()" class="btn">Close</button>
 </div>

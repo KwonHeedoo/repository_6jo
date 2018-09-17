@@ -22,6 +22,13 @@ body {
     font-weight: normal;
     line-height: 20px;
 }
+textarea{
+width: 80%;
+}
+.container{
+text-align: center;
+}
+
 </style>
 <script type="text/javascript">
 $(function() {

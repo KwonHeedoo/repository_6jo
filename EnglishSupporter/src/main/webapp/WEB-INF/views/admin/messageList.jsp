@@ -7,6 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script type="text/javascript">
 $(function(){
 	messageList();
@@ -113,6 +116,11 @@ function read(messageNum, userid, nickname, message){
 }
 </script>
 <style type="text/css">
+.container{
+margin-top: 30px;
+margin-bottom: 30px;
+height: 50%;
+}
 a {
 cursor: pointer;
 }
@@ -150,13 +158,14 @@ width: 1000px;
 <div id="container" style="margin-left:350px;">`
 	<h1>Message List</h1>
 	<br/><br/>
-	<div id="messageList"></div>
+	<div id="messageList" class="container"></div>
 </div>
 </c:if>
 <c:if test="${sessionScope.loginType eq 'user'}">
+	<div class="container">
 	<h1>Message List</h1>
-	<br/><br/>
-	<div id="messageList"></div>
+	<br/>
+	<div id="messageList"></div></div>
 </c:if>
 <c:if test="${sessionScope.loginType eq 'user'}">
 <%@ include file="/WEB-INF/views/Footer.jsp"%>

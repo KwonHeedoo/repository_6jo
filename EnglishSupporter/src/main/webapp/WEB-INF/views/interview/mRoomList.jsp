@@ -16,12 +16,23 @@ body {
     font-weight: normal;
     line-height: 20px;
 }
+.todo-list{
+text-align: center;
+border-bottom: 1px solid #e6ebed;
+width: 100%;
+}
 
-
+.time{
+width: 40%;
+}
+.no{
+width: 30%;
+}
 </style>
 </head>
 <body>
-	<div align="center"><h3>Room List</h3></div>
+	<div align="center"><h2>[ Room List ]</h2></div>
+	<hr>
  <table class="todo-list">
 
   </table>
@@ -33,14 +44,18 @@ function callPfunction(roomid){
 
 $(function() {
 	// 문제목록 가져오기 
+	var loginId = '${sessionScope.loginId}';
+	console.log(loginId);
 	$.ajax({
 		method:'post',
 		url:'getMRoomList',
 		dateType : 'json',
 		success :function(data){
+			console.log(data);
 			var text="";
-			text += '<table>';
-			
+			text += '<tr><th class="no">Room Number</th>';
+			text += '<th class="time">Appointed Time</th>';
+			text += '<th class="no">appointed User</th></tr>';
 			for (var i = 0; i < data.length; i++) {
 				var roomNum =  data[i].roomNum +"";
 				console.log("roomNum : " + roomNum);
@@ -50,11 +65,15 @@ $(function() {
 				 text += roomNum;
 				 text += '\');">' + i +'</a></td>';
 				 //text += '<td><a href="javascript:void(0);" onclick="callPfunction('+ 'a12345678' + ' );">' + data[i].roomNum +'</a></td>';
-				 text += '<td> Appointed Time : '+ data[i].appointedTime + '</td>'
+				 text += '<td>'+ data[i].appointedTime + '</td>';
+				 if(loginId==data[i].userid){
+				 text += '<td>'+ data[i].matchingId + '</td>';
+				 }else{
+				 text += '<td>'+ data[i].userid + '</td>';
+				 }
 				 text += "</tr>";
 			}
-			text += '</table>';
-			$('table.todo-list').append(text);
+			$('table.todo-list').html(text);
 		},
 		error:function(resp){
 			console.log('에러'+resp);
