@@ -167,27 +167,27 @@ public class CommentController {
 	}
 	
 	// 평가 평균 가져오기
-		@RequestMapping(value = "/getRatingAvg", method = RequestMethod.POST)
-		public @ResponseBody Comment getRatingAvg(Board board){
-			System.out.println("avg board : " + board);
-			// 게시판에 매칭 여부 취소
-			// 매칭 취소 처리
-			Comment result = repository.selectRatingAvg(board);
-			System.out.println("avg result : " + result);
-			return result;
-		}
-		
-		private static String getRandomString(int length)
-		{
-		  StringBuffer buffer = new StringBuffer();
-		  Random random = new Random();
-		  String chars[] = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".split(",");
-		    
-		 
-		  for (int i=0 ; i<length ; i++)
-		  {
-		    buffer.append(chars[random.nextInt(chars.length)]);
-		  }
-		  return buffer.toString();
-		}
+	@RequestMapping(value = "/getRatingAvg", method = RequestMethod.POST)
+	public @ResponseBody Comment getRatingAvg(Board board){
+		System.out.println("avg board : " + board);
+		// 게시판에 매칭 여부 취소
+		// 매칭 취소 처리
+		Comment result = repository.selectRatingAvg(board);
+		System.out.println("avg result : " + result);
+		return result;
+	}
+	
+	private static String getRandomString(int length)
+	{
+	  StringBuffer buffer = new StringBuffer();
+	  Random random = new Random();
+	  String chars[] = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".split(",");
+	    
+	 
+	  for (int i=0 ; i<length ; i++)
+	  {
+	    buffer.append(chars[random.nextInt(chars.length)]);
+	  }
+	  return buffer.toString();
+	}
 }

@@ -19,10 +19,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		
 		HttpSession session = request.getSession();
-		
+				
 		String userid = request.getParameter("userid");
 		User stopedUser = respository.checkSanction(userid);
 		
+		// 재제 유저 체크
 		if(stopedUser != null) {
 			String msg1 = "이용에 불편을 드려 죄송하오나, 해당 계정에서 부적절한 행동 또는 언행 등이 감지되었습니다. "
 						+ "English Supporter의 모든 사용자분들이 즐길 수 있는 건전한 환경을 제공해 드리기 위해 "
@@ -37,7 +38,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			session.setAttribute("msg4", msg4);
 			response.sendRedirect(request.getContextPath() + "/");
 			return false;
-		}else{
+		}else {
 			return true;
 		}
 	}

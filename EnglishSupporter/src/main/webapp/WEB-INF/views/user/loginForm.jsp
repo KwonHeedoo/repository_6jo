@@ -31,6 +31,14 @@ height: 40%;
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
+<script type="text/javascript">
+$(function(){
+	var msg = '${msg}';
+	if(msg != ''){
+		alert(msg);
+	}
+});
+</script>
 <div class="container" >
 	<div class="row">
 		<div class="center">
@@ -44,6 +52,7 @@ height: 40%;
 	</div><!-- row -->
 </div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
+<c:remove var="msg" scope="session" />
 </body>
 <script>
 $(function(){
