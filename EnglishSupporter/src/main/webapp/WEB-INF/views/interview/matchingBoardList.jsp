@@ -66,7 +66,7 @@ function output(resp){
 	// 게시판 내용부분 :: 데이터가 없을 경우
 	if(!map.boardList.length){
 		boardResult += '<tr>';
-		boardResult += '<td colspan="6">There is no Board</td>';
+		boardResult += '<td colspan="7">There is no Board</td>';
 		boardResult += '</tr>';
 	}
 	// 게시판 내용부분 :: 데이터가 있을 경우
@@ -133,15 +133,15 @@ function output(resp){
 		boardResult += '<select id="selectItemBox" name="searchItem">';
 		if(map.searchItem === 'title'){
 			boardResult += '<option value="title" selected="selected">Title</option>';
-			boardResult += '<option value="userid">User</option>';
+			boardResult += '<option value="nickname">User</option>';
 			boardResult += '<option value="contents">Contents</option>';
 		}else if(map.searchItem === 'userid'){
 			boardResult += '<option value="title">Title</option>';
-			boardResult += '<option value="userid" selected="selected">User</option>';
+			boardResult += '<option value="nickname" selected="selected">User</option>';
 			boardResult += '<option value="contents">Contents</option>';
 		}else{
 			boardResult += '<option value="title">Title</option>';
-			boardResult += '<option value="userid">User</option>';
+			boardResult += '<option value="nickname">User</option>';
 			boardResult += '<option value="contents" selected="selected">Contents</option>';
 		}
 		boardResult += '</select>';
