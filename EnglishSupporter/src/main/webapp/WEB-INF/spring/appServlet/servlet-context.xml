@@ -30,12 +30,24 @@
 	<!-- 인터셉터 클래스를 빈으로 등록 -->
 	<beans:bean id="LoginInterceptor" class="com.scit6jo.web.interceptor.LoginInterceptor">
 	</beans:bean>
+	<beans:bean id="AdminInterceptor" class="com.scit6jo.web.interceptor.AdminInterceptor">
+	</beans:bean>
 	
 	<!-- 여러 요청 중 인터셉터가 가로채야 하는 요청의 종류 등록 -->
 	<interceptors>
 		<interceptor>
 			<mapping path="/login"/>
 			<beans:ref bean="LoginInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/goAdminPage"/>
+			<mapping path="/goDashboard"/>
+			<mapping path="/goReportManager"/>
+			<mapping path="/goUserManager"/>
+			<mapping path="/goWordManager"/>
+			<mapping path="/goIQuestionManager"/>
+			<beans:ref bean="AdminInterceptor"/>
 		</interceptor>
 	</interceptors>
 	
