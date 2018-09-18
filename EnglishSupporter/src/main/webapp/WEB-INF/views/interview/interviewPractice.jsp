@@ -146,11 +146,10 @@
 <style type="text/css">
 .container {
 	text-align: center;
-	height: 600px;
+	height: 60%;
 }
 
 .jumbotron {
-	height: 70%;
 	margin-top: 30px;
 }
 
@@ -182,6 +181,9 @@ button {
 #gum{
 border-radius: 5px;
 }
+#question_part{
+margin: 20px auto;
+}
 
 </style>
 
@@ -202,17 +204,21 @@ border-radius: 5px;
 				<h2>[INTERVIEW PRACTICE]</h2>
 				<h3 id="question"></h3>
 				<video id="gum" playsinline autoplay muted></video>
-				<br>
+				<br><br>
 				<button id="end" class="btn">대답 완료</button>
 			</div>
 			<div id="download_part" style="text-align: center">
+				<div class ="col-md-6">
 				<video id="recorded" controls height="480" width="680"></video>
+				<a id="download" href="#" class="btn">영상 download</a>
+				<button id="record" class="btn">다음 질문</button>
 				<br>
+				</div>
+				<div class ="col-md-6">
 				<p id = "answer">answer : </p>
 				<p id = "confidence">confidence : </p><br>
+				</div>
 				
-				 <a id="download" href="#" class="btn">영상 download</a>
-				<button id="record" class="btn">다음 질문</button>
 			</div>
 		</div>
 	</div>

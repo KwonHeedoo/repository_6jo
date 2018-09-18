@@ -59,13 +59,13 @@ width: 100%;
 			<label>TITLE : </label>
 			<input id="title" type="text" name="title" placeholder="TITLE" autocomplete="off">
 		</div>
-		<h1 id="introduce">Content</h1>
-		<div>
-		<label>Content</label>
-			<textarea id="contents" name="contents"></textarea><br/>
-		</div>
 		<hr>
 		<div>
+		<label>Content</label>
+			<textarea id="contents" rows="15" cols="60" name="contents"></textarea><br/>
+		</div>
+		<hr>
+		<div align="center">
 				<input type="submit" value="Write" class="btn">
 				<input type="button" value="Cancell" onclick="board(${page})" class="btn">
 		</div>

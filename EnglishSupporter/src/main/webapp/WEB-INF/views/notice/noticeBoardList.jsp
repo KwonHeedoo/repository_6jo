@@ -125,7 +125,7 @@ function output(resp){
 	}
 	boardResult += '</div>';//page
 	if(loginType === 'admin'){
-		boardResult += '<a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=notice"><button class="btn">Write Board</button></a>';
+		boardResult += '<a href="./writeBoardForm?page=' + map.navi.currentPage + '&boardType=notice"><br><button class="btn">Write Board</button></a>';
 	}
 	boardResult += '</div>';//container
 	
