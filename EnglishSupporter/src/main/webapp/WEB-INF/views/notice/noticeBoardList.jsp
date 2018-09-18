@@ -176,6 +176,7 @@ td.boardTitle{
 text-align:left;
 }
 #boardResult{
+text-align: center;
 margin-bottom: 20px;
 margin-top: 20px;
 height: 60%;

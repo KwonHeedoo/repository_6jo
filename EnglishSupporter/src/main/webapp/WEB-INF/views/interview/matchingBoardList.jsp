@@ -63,13 +63,6 @@ function output(resp){
 	boardResult += '<th style="width:5%;">HITS</th>';
 	boardResult += '<th style="width:10%;"><button id="unmatched" onclick="constraint(' + matchingCount + ')">MATCHING</button></th>'; 
 	boardResult += '</tr>';
-	// 게시판 내용부분 :: 데이터가 없을 경우
-	if(!map.boardList.length){
-		boardResult += '<tr>';
-		boardResult += '<td colspan="7">There is no Board</td>';
-		boardResult += '</tr>';
-	}
-	// 게시판 내용부분 :: 데이터가 있을 경우
 	// 공지글
 	if(map.noticeList.length){
 		$.each(map.noticeList, function(index, item){
@@ -84,6 +77,13 @@ function output(resp){
 		});
 	}
 	// 게시글
+	// 게시판 내용부분 :: 데이터가 없을 경우
+	if(!map.boardList.length){
+		boardResult += '<tr>';
+		boardResult += '<td colspan="7">There is no Board</td>';
+		boardResult += '</tr>';
+	}
+	// 게시판 내용부분 :: 데이터가 있을 경우
 	if(map.boardList.length){
 		var count = 1;
 		$.each(map.boardList, function(index, item){
@@ -233,7 +233,10 @@ td.boardTitle{
 text-align:left;
 }
 #boardResult{
+text-align: center;
 margin-bottom: 20px;
+margin-top: 20px;
+height: 60%;
 }
 </style>
 

@@ -26,6 +26,12 @@ text-align:center;
 td.boardTitle{
 text-align:left;
 }
+#boardResult{
+text-align: center;
+margin-bottom: 20px;
+margin-top: 20px;
+height: 60%;
+}
 </style>
 <title>appraise Board</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -87,7 +93,6 @@ function output(resp){
 		boardResult += '<td colspan="5">There is no Board</td>';
 		boardResult += '</tr>';
 	}
-	// 게시판 내용부분 :: 데이터가 있을 경우
 	// 공지글
 	if(map.noticeList.length){
 		$.each(map.noticeList, function(index, item){
@@ -102,6 +107,7 @@ function output(resp){
 		});
 	}
 	// 게시글
+	// 게시판 내용부분 :: 데이터가 있을 경우
 	if(map.boardList.length){
 		var count = 1;
 		$.each(map.boardList, function(index, item){
