@@ -4,7 +4,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title>Updating Matching Board</title>
+<style type="text/css">
+.container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+input[type="text"]{
+width: 93%;
+}
+textarea {
+width: 100%;
+}
+</style>
 <script>
 $(function(){
 	$('#interview').addClass('active');
@@ -33,7 +51,9 @@ function formCheck(){
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
-	<h1>Updating Matching Board</h1>
+	<div class="container">
+	<h2>Updating Matching Board</h2>
+	<hr>
 	<div>
 	<form action="updateBoard" method="post" onsubmit="return formCheck()">
 		<input type="hidden" name="boardNum" value="${board.boardNum}">
@@ -42,22 +62,22 @@ function formCheck(){
 		<input type="hidden" name="searchText" value="${searchText}">
 		<div>
 			<input type="hidden" name="boardType" value="matching">
+			<label>TITLE : </label>
 			<input id="title" type="text" name="title" value="${board.title}" placeholder="TITLE" autocomplete="off">
 		</div>
 		<h1 id="introduce">Content</h1>
 		<div>
+			<label>Content</label>
 			<textarea id="contents" rows="15" cols="60" name="contents">${board.contents}</textarea><br/>
 		</div>
-		<div>
-			<div class="col-md-6">
-				<input type="submit" value="Update">
-			</div>
-			<div class="col-md-6">
-				<input type="button" value="Cancell" onclick="cancell(${board.boardNum}, ${page}, '${searchItem}', '${searchText}')">
-			</div>
+		<hr>
+		<div align="center">
+				<input type="submit" value="Update"  class="btn">&ensp;&ensp;&ensp;
+				<input type="button" class="btn" value="Cancell" onclick="cancell(${board.boardNum}, ${page}, '${searchItem}', '${searchText}')">
 		</div>
 	</form>
 	</div>
+</div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
 </body>
 </html>

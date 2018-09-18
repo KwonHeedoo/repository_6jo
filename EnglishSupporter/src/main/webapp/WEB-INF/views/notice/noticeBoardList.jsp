@@ -179,6 +179,7 @@ text-align:left;
 margin-bottom: 20px;
 margin-top: 20px;
 height: 60%;
+text-align: center;
 }
 </style>
 
