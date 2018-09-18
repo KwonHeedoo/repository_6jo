@@ -217,4 +217,17 @@ public class UserRepository {
 		return result;
 	}
 
+	public int changeAuth(User user) {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.changeAuth(user);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}	
+		return result;
+		
+	}
+
 }

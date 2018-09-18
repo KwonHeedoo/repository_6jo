@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -59,6 +60,9 @@ function output(resp){
 	result += '<th>SanctionCount</th>';
 	result += '<th>Sanction</th>';
 	result += '<th>Release</th>';
+	//관리자 및 일반회원 수정부분
+	result += '<th>BeAdmin</th>';
+	result += '<th>BeUser</th>';
 	result += '</tr>';
 	
 	$.each(blackList, function(index, item){
@@ -73,6 +77,9 @@ function output(resp){
 		result += '<td>' + item.sanctionCount + '</td>';
 		result += '<td><button onclick="sanction(\'' + item.userid + '\')">Sanction</button></td>';
 		result += '<td><button onclick="release(\'' + item.userid + '\')">Release</button></td>';
+		//관리자 및 일반회원 수정부분
+		result += '<td><button onclick="beAdmin(\'' + item.userid + '\')">BeAdmin</button></td>';
+		result += '<td><button onclick="beUser(\'' + item.userid + '\')">BeUser</button></td>';
 		result += '</tr>';
 	});
 	
@@ -132,6 +139,63 @@ function release(userid){
 					blackList('sanction');
 				}else{
 					alert('Sorry, Can not release');
+				}
+			}
+			, error : function(){alert('Error!');}
+		});
+	//취소
+	}else{
+	    return;
+	}
+}
+//유저  관리자 등급조정
+function beAdmin(userid){
+	<c:if test="${sessionScope.usertype == 'admin'}">
+		alert('already be admin');
+		return;
+	</c:if>
+	
+	//확인
+	if (confirm("Are you Sure??") == true){
+		$.ajax({
+			url : 'beAdmin'
+			, type : 'post'
+			, data : {'userid' : userid}
+			, success : function(resp){
+				if(resp === 1){
+					alert('Complete change admin');
+					blackList('sanction');
+				}else{
+					alert('Sorry, Can not change admin');
+				}
+			}
+			, error : function(){alert('Error!');}
+		});
+	//취소
+	}else{
+	    return;
+	}
+}
+
+// 유저 일반회원으로 회원등급 내리기
+function beUser(userid){
+	<c:if test="${sessionScope.usertype == 'user'}">
+		alert('already be user');
+		return;
+	</c:if>
+	
+	//확인
+	if (confirm("Are you Sure??") == true){
+		$.ajax({
+			url : 'beUser'
+			, type : 'post'
+			, data : {'userid' : userid}
+			, success : function(resp){
+				if(resp === 1){
+					alert('Complete change user');
+					blackList('sanction');
+				}else{
+					alert('Sorry, Can not change user');
 				}
 			}
 			, error : function(){alert('Error!');}

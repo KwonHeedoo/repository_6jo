@@ -80,4 +80,25 @@ public class UserManagerController {
 		
 		return result;
 	}
+	
+	/**
+	 * 일반유저를 관리자로 권한상승
+ 	 * @param userid String 타입의 유저의 id
+	 * @return 성공시 1, 실패시 0
+	 */
+		@RequestMapping(value = "/beAdmin", method = RequestMethod.POST)
+		public @ResponseBody int beAdmin(User user) {
+			user.setUsertype("admin");
+			return repository.changeAuth(user);
+		}
+		/**
+		 * 관리자가 일반유저로 권한내리기
+		 * @param user String 타입의 유저의 id
+		 * @return 성공시 1, 실패시 0
+		 */
+		@RequestMapping(value = "/beUser", method = RequestMethod.POST)
+		public @ResponseBody int beUser(User user) {
+			user.setUsertype("user");
+			return repository.changeAuth(user);
+		}
 }

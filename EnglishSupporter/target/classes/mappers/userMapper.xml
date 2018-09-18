@@ -149,6 +149,17 @@
 			sanctionnum = #{value}
 	</delete>
 	
+	<!-- 유저 계정 사용 정지 해제 -->
+	<update id="changeAuth" parameterType="User">
+		update 
+			userlist
+		set 
+			usertype = #{usertype}
+			
+		where 
+			userid = #{userid} 
+	</update>
+	
 	<!-- 유저 계정이 정지 중인지 체크 -->
 	<select id="checkSanction" parameterType="string" resultType="User">
 		select
@@ -219,6 +230,8 @@
 			, nickname = #{nickname}
 			, email = #{email}
 			, birthdate = #{birthdate}
+			, imgFilePath = #{imgFilePath}
+			
 		where 
 			userid = #{userid} 
 		and 
@@ -266,7 +279,7 @@
 		group by 
 			userid 
 		having 
-			userid = #{userid}) b
+			userid = #{userid}) 
 	on 
 		u.userid = b.userid
 	where 

@@ -224,10 +224,30 @@ public class UserController {
 	
 	// 개인정보수정 처리 요청 
 	@RequestMapping(value = "/infoUpdate", method = RequestMethod.POST)
-	public String infoUpdate(User u, HttpSession session, Model model) {
+	public String infoUpdate(User u, HttpSession session, MultipartFile imgInp, Model model) {
 		
-		System.out.println(u);
+		System.out.println(imgInp.getOriginalFilename());
 		
+		if(!imgInp.isEmpty()) {
+			String arr[] = imgInp.getContentType().split("/");
+			// 이미지 파일인지 아닌지 확인
+			if(!arr[0].equals("image")) {
+				model.addAttribute("msg", "JPG 또는 JPEG, PNG등 사진파일만 올려주세요");
+				return "user/registerForm";
+			}
+			Date date = new Date();
+			String fileName = "" + date.getYear() + "-" + date.getMonth() + "_" + date.getDay() + "_"
+							+ date.getHours() + "_" + date.getMinutes() + "_" + date.getSeconds() + imgInp.getOriginalFilename();
+			String imgFilePath = IMG_PATH + "/" + fileName;
+			try {
+				FileOutputStream fos = new FileOutputStream(new File(imgFilePath));
+				fos.write(imgInp.getBytes());
+				System.out.println("fileName : " + fileName);
+				u.setImgFilePath(fileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		int result = repository.infoUpdate(u);
 		
 		// 업데이트 성공 여부에 따라 메시지 출력 
@@ -244,6 +264,8 @@ public class UserController {
 				session.setAttribute("email", uu.getEmail());
 				session.setAttribute("username", uu.getUsername());
 				session.setAttribute("loginType", uu.getUsertype());
+				//이미지 이름도 session에 추가
+				session.setAttribute("img", uu.getImgFilePath());
 			}
 			
 		}else {

@@ -38,6 +38,8 @@ public interface UserMapper {
 	public User checkSanction(String userid);
 	//마이페이지 유저정보 띄우기 
 	public User userInfoPage(String userid);
+	//유저의 권한변경
+	public int changeAuth(User user);
 	
 }
 
