@@ -48,6 +48,56 @@
 			$("#start_part").hide();
 			$("#question_part").hide();
 			$("#download_part").show();
+			var stt = setInterval(getSTT,500);
+			var appr = setInterval(getPronAppraisal,500);
+			function getSTT(){
+				var num = $("#datanum").attr("value");	
+				console.log(num);
+				$.ajax({
+					method : 'post',
+					url : 'getResultIData',
+					data : {"dataNum" : num},
+					dateType : 'json',
+					success : function(data) {
+						if(data.answer == null){
+							console.log("answer waiting");
+						}
+						else if(data.answer == "no answer"){
+							console.log("no answer");
+							clearInterval(stt);
+							$("#answer").text("answer : " +data.answer);
+						}
+						else{
+							console.log("Set Answer");
+							clearInterval(stt);
+							$("#answer").text("answer : " +data.answer);
+						}
+						
+						//data.answer;
+					}
+				});
+			}
+			//[AJAX] 발음 평가된 값  가져오기
+			function getPronAppraisal(){
+				var num = $("#datanum").attr("value");
+				$.ajax({
+					method : 'post',
+					url : 'getResultIData',
+					data : {"dataNum" : num},
+					dateType : 'json',
+					success : function(data) {
+						console.log(data.confidence);
+						if(data.confidence == -1){
+							console.log("appr waiting");
+						}
+						else{
+							console.log("set appr");
+							clearInterval(appr);
+							$("#confidence").text("confidence : " + data.confidence);
+						}
+					}
+				});
+			}
 			//getSTT();
 			//getPronAppraisal();
 		});
@@ -86,40 +136,11 @@
 		
 	} */
 	
-	function getSTT(){
-		console.log("STT");
-		var num = $("#datanum").attr("value");	
-		console.log(num);
-		$.ajax({
-			method : 'post',
-			url : 'getResultIData',
-			data : {"dataNum" : num},
-			dateType : 'json',
-			success : function(data) {
-				console.log("STT success");
-				//data.answer;
-			}
-		});
-	}
-	//[AJAX] 발음 평가된 값  가져오기
-	function getPronAppraisal(){
-		console.log("appr ");
-		var num = $("#datanum").val;
-		$.ajax({
-			method : 'post',
-			url : 'getResultIData',
-			data : {"dataNum" : num},
-			dateType : 'json',
-			success : function(data) {
-				console.log("appr success");
-				//data.answer;
-			}
-		});
-	}
-	window.onunload = function() {
+	
+	/* window.onunload = function() {
 	    myfun();
 	    alert('Bye.');
-	}
+	} */
 	
 </script>
 <style type="text/css">
@@ -187,8 +208,10 @@ border-radius: 5px;
 			<div id="download_part" style="text-align: center">
 				<video id="recorded" controls height="480" width="680"></video>
 				<br>
-				<br>
-				<br> <a id="download" href="#" class="btn">영상 download</a>
+				<p id = "answer">answer : </p>
+				<p id = "confidence">confidence : </p><br>
+				
+				 <a id="download" href="#" class="btn">영상 download</a>
 				<button id="record" class="btn">다음 질문</button>
 			</div>
 		</div>

@@ -43,6 +43,9 @@
 	</delete>
 
 	<insert id="insertIData" parameterType="iData">
+		<selectKey keyProperty="dataNum" resultType="Integer" order="BEFORE"> 
+			SELECT data_seq.nextval FROM dual 
+		</selectKey>
 		INSERT INTO 
 			INTERVIEW_DATA(
 				dataNum
@@ -51,13 +54,15 @@
 				, answer
 				, regdate
 				, saveFile
+				, confidence
 		)VALUES(
-			data_seq.nextval
+			#{dataNum}
 			, #{userid}
 			, #{questionNum}
 			, #{answer}
 			, sysdate
 			, #{saveFile}
+			, #{confidence}
 		)
 	
 	</insert>
@@ -96,6 +101,7 @@
 			, answer
 			, regdate
 			, saveFile
+			, confidence
 		from
 			INTERVIEW_DATA
 		where
@@ -110,6 +116,7 @@
 			, answer
 			, regdate
 			, saveFile
+			, confidence
 		from
 			INTERVIEW_DATA
 		where

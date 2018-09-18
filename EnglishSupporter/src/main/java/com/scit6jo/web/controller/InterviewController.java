@@ -173,6 +173,7 @@ public class InterviewController {
 	@RequestMapping(value = "/getResultIData", method = RequestMethod.POST)
 	public @ResponseBody IData getResultIData(String dataNum) {
 		IData result = repository.selectOneIData(Integer.parseInt(dataNum));
+		System.out.println("getResultIData : " + result);
 		return result;
 	}
 
@@ -212,9 +213,10 @@ public class InterviewController {
 			data.setQuestionNum(questionNum);
 			data.setSaveFile(saveFile);
 			data.setUserid(userid);
+			data.setConfidence(-1);
 			repository.insertIData(data);
-			ArrayList<IData> result = repository.selectAllIData(userid);
-			int dataNum = result.get(0).getDataNum();
+			//ArrayList<IData> result = repository.selectAllIData(userid);
+			int dataNum = data.getDataNum();
 			Thread fcThread = new AudioControlThread(dataNum, saveFile, userid);
 			fcThread.start();
 			return dataNum + "";
@@ -296,7 +298,7 @@ public class InterviewController {
 			pcThread.start();
 			
 			SpeechToText qss = new SpeechToText();
-			String answerToText = "no answer";
+			String answerToText = "";
 			try {
 				answerToText = qss.ChangeSTT(audioPathFile);
 			} catch (Exception e) {
@@ -306,7 +308,7 @@ public class InterviewController {
 			
 			System.out.println("answer : " + answerToText);
 			if (answerToText == "") {
-				answerToText = null;
+				answerToText = "no answer";
 			}
 			IData data = new IData();
 			data.setDataNum(dataNum);
@@ -335,11 +337,9 @@ public class InterviewController {
 			int index = result.lastIndexOf("score");
 			String temp = result.substring(index+7,result.length()-2);
 			System.out.println(temp);
-			int a = 1;
 			
 			IData data = new IData();
 			data.setConfidence(Float.parseFloat(temp));
-			data.setAnswer(null);
 			data.setDataNum(dataNum);
 			repository.updateConfidence(data);
 		}
