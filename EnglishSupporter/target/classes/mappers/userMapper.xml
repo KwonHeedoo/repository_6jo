@@ -280,13 +280,6 @@
 		(select 
 			userid
 			, count(*) as writecount 
-=======
-		select 
-			u.regdate
-			, u.lastdate
-			, u.attendnum as attendNum
-			, b.writecount as writeCount
->>>>>>> dccc78a19e5ebce3e8206ed9ad7d8ca692fa8970
 		from 
 			userlist u
 		join 
