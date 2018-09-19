@@ -99,6 +99,23 @@
 			<if test="orderByType == 'sanction'">nvl(scount, 0) desc</if>
 	</select>
 	
+	<!-- 관리자 리스트 정보 요청 -->
+	<select id="adminList" resultType="User">
+		select
+			userid
+			, nickname
+			, email
+			, to_char(regdate, 'YYYY-MM-DD') as regdate
+			, to_char(lastdate, 'yyyy-mm-dd hh24:mi:ss') as lastdate
+			, attendNum
+		from
+			userlist
+		where
+			usertype = 'admin'
+		order by
+			regdate
+	</select>
+	
 	<!-- 관리자 페이지 회원 검색 -->
 	<select id="searchUser" parameterType="string" resultType="User">
 		select 
@@ -167,27 +184,27 @@
 	</select>
 	  
 	<insert id="insertUser" parameterType="User">
-	insert into
-		userlist(
-			userid
-			, userpwd
-			, nickname
-			, email
-			, birthdate
-			, username
-			, regdate
-			, attendNum
-			, imgfilepath)
-		values(
-			#{userid}
-			, #{userpwd}
-			, #{nickname}
-			, #{email}
-			, #{birthdate}
-			, #{username}
-			, sysdate
-			, data_seq.nextVal
-			, #{imgFilePath})	  
+		insert into
+			userlist(
+				userid
+				, userpwd
+				, nickname
+				, email
+				, birthdate
+				, username
+				, regdate
+				, attendNum
+				, imgfilepath)
+			values(
+				#{userid}
+				, #{userpwd}
+				, #{nickname}
+				, #{email}
+				, #{birthdate}
+				, #{username}
+				, sysdate
+				, data_seq.nextVal
+				, #{imgFilePath})	  
 	</insert>
 	
 	<!-- ID 중복체크 -->
@@ -219,6 +236,7 @@
 			, nickname = #{nickname}
 			, email = #{email}
 			, birthdate = #{birthdate}
+			, imgFilePath = #{imgFilePath}
 		where 
 			userid = #{userid} 
 		and 
@@ -250,26 +268,36 @@
 	</delete> 
 	
 	<select id="userInfoPage" resultType="User" parameterType="String">
-	select 
-		u.regdate
-		, u.lastdate
-		, u.attendnum as attendNum
-		, b.writecount as writeCount
-	from 
-		userlist u
-	join 
-		(select 
-			userid
-			, count(*) as writecount 
+		select 
+			u.regdate
+			, u.lastdate
+			, u.attendnum as attendNum
+			, b.writecount as writeCount
 		from 
-			matching_board 
-		group by 
-			userid 
-		having 
-			userid = #{userid}) b
-	on 
-		u.userid = b.userid
-	where 
-		u.userid = #{userid}
+			userlist u
+		join 
+			(select 
+				userid
+				, count(*) as writecount 
+			from 
+				matching_board 
+			group by 
+				userid 
+			having 
+				userid = #{userid}) b
+		on 
+			u.userid = b.userid
+		where 
+			u.userid = #{userid}
 	</select>
+	
+	<!-- 유저의 권한 변경 -->
+	<update id="changeAuth" parameterType="User">
+		update
+			userlist
+		set
+			usertype = #{usertype}
+		where
+			userid = #{userid}
+	</update>
 </mapper>

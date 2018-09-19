@@ -52,7 +52,8 @@ function grammerCheck(composition, confirm){
 		var data = composition.replace(/(\r\n\t|\r\n|\n|\r\t)/gm, " ");
 		// [TextGears] Grammar check API
 		$.ajax({
-			url : "https://api.textgears.com/check.php?text=" + JSON.stringify(data) + "&key=o6qm0xkLbPcr4Wk0"
+			//url : "https://api.textgears.com/check.php?text=" + JSON.stringify(data) + "&key=o6qm0xkLbPcr4Wk0"
+			url : "https://api.textgears.com/check.php?text=" + data + "&key=o6qm0xkLbPcr4Wk0"
 			, type : "post"
 			, success : function(grammer){
 				// 텍스트 감정 분석 체크를 한 경우
@@ -140,25 +141,31 @@ function result(composition, confirm, grammer, emotion, repetition){
 			graResult += '<h3>[Grammer Check]</h3>';
 			graResult += '<div class="container">';
 			graResult += '<div class="row justify-content-end">';
-			graResult += '<table>';
-			var strIndex = 0;
-			// 틀린 단어 & 개선 단어
-			$.each(gra.errors, function(index, item){
-				if(index != 0){
-					graResult += '<tr>';
-					graResult += '<td style="color:red;">' + item.bad + '</td>';
-					graResult += '<td><b> → </b></td>';
-					graResult += '<td style="color:green;">' + item.better + '</td>';
-					graResult += '</tr>';
-					
-					// 틀린 단어에 빨간 밑줄
-					resultComp += composition.substring(strIndex, item.offset-2);
-					resultComp += ' <span style="text-decoration: underline dotted red;">' + composition.substring(item.offset-1, (item.offset-1) + item.length) + '</span> ';
-					strIndex = item.offset + item.length;
-				}
-			});
-			resultComp += composition.substring(strIndex);
-			graResult += '</table>';
+			if(gra.errors.length === 0){
+				resultComp += composition;
+				graResult += '<b>Congratulations! You don\'t have any wrong!</b>';
+			}else{
+				graResult += '<table>';
+				var strIndex = 0;
+				// 틀린 단어 & 개선 단어
+				$.each(gra.errors, function(index, item){
+					/* if(index != 0){ */
+						graResult += '<tr>';
+						graResult += '<td style="color:red;">' + item.bad + '</td>';
+						graResult += '<td><b> → </b></td>';
+						graResult += '<td style="color:green;">' + item.better + '</td>';
+						graResult += '</tr>';
+						
+						// 틀린 단어에 빨간 밑줄
+						resultComp += composition.substring(strIndex, item.offset-2);
+						//resultComp += ' <span style="text-decoration: underline dotted red;">' + composition.substring(item.offset-1, (item.offset-1) + item.length) + '</span> ';
+						resultComp += ' <span style="text-decoration: underline dotted red;">' + composition.substring(item.offset-1, item.offset + item.length) + '</span> ';
+						strIndex = item.offset + item.length;
+					/* } */
+				});
+				resultComp += composition.substring(strIndex);
+				graResult += '</table>';
+			}
 			graResult += '</div>';
 			graResult += '</div>';
 		}
@@ -191,6 +198,8 @@ function result(composition, confirm, grammer, emotion, repetition){
 				repResult += '<br/>';
 				repResult += item.meaningK;
 			}else{
+				repResult += '<b>' + item.word + '</b>';
+				repResult += '<br/>';
 				repResult += 'There is no Synonym Word.';
 			}
 			repResult += '</p>';
