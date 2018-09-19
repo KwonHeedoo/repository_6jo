@@ -17,7 +17,7 @@ border-color: #D7D7D7;
 background-color: white;
 }
 table{
-	width: 80%; 
+	width: 50%; 
 }
 th {
     color: #FFFFFF;
@@ -62,12 +62,17 @@ color:red;
 				<th>Update</th>
 				<th>Delete</th>
 			</tr>
+			<c:if test="${empty wordlist}">
+				<tr>
+					<td colspan="5" align="center" ><b>There is no Item</b></td>
+				</tr>
+			</c:if>
 			<c:forEach var="w" items="${wordlist}" varStatus="status">
 			<tr>
 				<td><input type="hidden" value="${w.wordNum}">
 				${(navi.currentPage-1)*20+status.count}</td>
-				<td><input type="text" name="word" value="${w.word}" readonly="true"></td>
-				<td><input type="text" name="mean" value="${w.meaningK}" readonly="true"></td>
+				<td><input class="trandsinput" type="text" name="word" value="${w.word}" readonly="true"></td>
+				<td><input class="trandsinput" type="text" name="mean" value="${w.meaningK}" readonly="true"></td>
 				<td><input id="update" type="button" value="UPDATE"></td>
 				<td><input id="delete" type="button" value="DELETE"></td>
 			</tr>

@@ -150,7 +150,7 @@ function outputMsg(resp){
         <c:if test="${sessionScope.loginId != null}">
 		<li><a href="logout">Logout</a></li>
 		<c:if test="${sessionScope.loginType == 'user'}">
-		<li><a href="goMypage">My Page</a></li>
+		<li><a href="goMyschedule">My Page</a></li>
 		</c:if>
 		<c:if test="${sessionScope.loginType == 'admin'}">
 		<li><a href="./goAdminPage">Admin Page</a></li>

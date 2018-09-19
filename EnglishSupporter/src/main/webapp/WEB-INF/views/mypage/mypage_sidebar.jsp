@@ -75,7 +75,10 @@ float:left;
 							Password Change</a></li>
 					<li><a href="goUnregister"><span class="glyphicon glyphicon-remove"></span>
 							Unregister</a></li>
-
+					registration date : ${info.regdate} <br>
+				 	Last Login date : ${info.lastdate} <br>
+				 	Number of attendance : ${info.attendNum} <br>
+				 	Number of writing : ${info.writeCount} <br>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse --> </nav>

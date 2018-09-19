@@ -97,9 +97,9 @@ $(function(){
 						<br>
 						<h3>[ Password Change ]</h3>
 						<br>
-							<p><input id="currpwd" type="password" name="currpwd" placeholder="CURRENT PASSWORD"/></p>
-							<p><input id="newpwd" type="password" name="newpwd" placeholder="NEW PASSWORD"/></p>
-							<p><input id="checkpwd" type="password" name="checkpwd" placeholder="CONFIRM NEW PASSWORD"/></p>
+							<p><input id="currpwd" type="password" name="currpwd" placeholder="Current Password"/></p>
+							<p><input id="newpwd" type="password" name="newpwd" placeholder="New Password"/></p>
+							<p><input id="checkpwd" type="password" name="checkpwd" placeholder="Confirm New Password"/></p>
 							<br>
 							<p><input id="change" type="submit" value="CHANGE" class="btn" /></p>
 						</div><!-- center -->
