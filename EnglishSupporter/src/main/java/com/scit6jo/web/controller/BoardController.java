@@ -262,6 +262,9 @@ public class BoardController {
 		}else if(boardType.equals("notice")){
 			System.out.println("going to noticeUpdateBoardForm...");
 			return "notice/noticeUpdateBoardForm";
+		}else if(boardType.equals("appraise")){
+			System.out.println("going to appraiseUpdateBoardForm...");
+			return "interview/appraiseUpateBoardForm";
 		}else {
 			return "home";
 		}
