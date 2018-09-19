@@ -9,7 +9,7 @@
 <div class="wrapper row4">
   <footer id="footer" class="hoc clear"> 
     <div class="one_third first">
-      <h6 class="heading">Exative</h6>
+      <h6 class="heading">English Supporter</h6>
       <nav>
         <ul class="nospace">
           <li><a href="${pageContext.request.contextPath}/"><i class="fa fa-lg fa-home"></i></a></li>
@@ -33,11 +33,11 @@
       </ul>
     </div>
     <div class="one_third">
-      <h6 class="heading">Aenean molestie velit</h6>
+      <h6 class="heading">Soft Engineer Society</h6>
       <ul class="nospace linklist contact">
         <li><i class="fa fa-map-marker"></i>
           <address>
-          Street Name &amp; Number, Town, Postcode/Zip
+          6164 ソウル市江南区永東大路５１３（三成洞COEX4階412号） 
           </address>
         </li>
         <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
@@ -46,6 +46,7 @@
     </div>
     <div class="one_third">
       <h6 class="heading">Welcome to English Supporter</h6>
+      Copyrightⓒ 2018 （TEAM) 24K. All right reserved.
     </div>
   </footer>
 </div> 
