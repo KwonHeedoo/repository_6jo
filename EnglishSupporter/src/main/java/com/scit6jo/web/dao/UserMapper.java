@@ -28,6 +28,8 @@ public interface UserMapper {
 	public int visit(String visitor);
 	// 블랙리스트 정보 요청
 	public ArrayList<User> blackList(@Param(value="orderByType")String orderByType);
+	// 관리자 리스트 정보 요청
+	public ArrayList<User> adminList();
 	// 관리자 페이지 회원 검색
 	public ArrayList<User> searchUser(String userid);
 	// 유저 계정 사용 일시 정지
@@ -36,8 +38,10 @@ public interface UserMapper {
 	public int cancelSanction(int sanctionNum);
 	// 유저 계정이 정지 중인지 체크
 	public User checkSanction(String userid);
-	//마이페이지 유저정보 띄우기 
+	// 마이페이지 유저정보 띄우기 
 	public User userInfoPage(String userid);
+	// 유저의 권한 변경
+	public int changeAuth(User user);
 	
 }
 

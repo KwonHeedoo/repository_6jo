@@ -99,6 +99,19 @@ public class UserRepository {
 		}
 		return blackList;
 	}
+
+	// 관리자 리스트 정보 요청
+	public ArrayList<User> adminList() {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		ArrayList<User> adminList = null;
+				
+		try {
+			adminList = mapper.adminList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return adminList;
+	}
 	
 	// 관리자 페이지 회원 검색
 	public ArrayList<User> searchUser(String userid) {
@@ -210,6 +223,20 @@ public class UserRepository {
 		
 		try {
 			result = mapper.unregister(user);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	// 유저의 권한 변경
+	public int changeAuth(User user) {
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.changeAuth(user);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -50,15 +50,12 @@ function a(value){
 	function formCheck(){
 		var title = document.getElementById("title").value;
 		var contents = document.getElementById("contents").value;
-		var appointedTime = document.getElementById("appointedTime").value;
 		
 		if(title.length == 0 || contents.length == 0){
 			alert("Please Write Title or Content");
 			return false;
-		}
-		
-		if(appointedTime.length == 0){
-			alert("Please Select Date And Time");
+		}else if(title.length > 50 || contents.length > 1000){
+			alert("Please write shortly");
 			return false;
 		}
 		

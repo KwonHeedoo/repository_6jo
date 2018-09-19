@@ -31,6 +31,9 @@ function formCheck(){
 	if(title.length == 0 || contents.length == 0){
 		alert("Please Write Title or Content");
 		return false;
+	}else if(title.length > 50 || contents.length > 1000){
+		alert("Please write shortly");
+		return false;
 	}
 	
 	// 시간 유효성

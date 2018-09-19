@@ -34,6 +34,22 @@ public class UserManagerController {
 		return blackList;
 	}
 	
+	// Admin Management 페이지 요청
+	@RequestMapping(value = "/goAdminManager", method = RequestMethod.GET)
+	public String goAdminManager(){
+		System.out.println("Going to AdminManagement...");
+		
+		return "admin/adminManager";
+	}
+	
+	// 관리자 리스트 정보 요청
+	@RequestMapping(value = "/adminList", method = RequestMethod.GET)
+	public @ResponseBody ArrayList<User> adminList(){
+		ArrayList<User> adminList = repository.adminList();
+		
+		return adminList;
+	}
+	
 	// 관리자 페이지 회원 검색
 	@RequestMapping(value = "/searchUser", method = RequestMethod.GET)
 	public @ResponseBody ArrayList<User> searchUser(String userid){
@@ -77,6 +93,30 @@ public class UserManagerController {
 	@RequestMapping(value = "/releaseUser", method = RequestMethod.GET)
 	public @ResponseBody int releaseUser(User user){
 		int result = repository.unregister(user);
+		
+		return result;
+	}
+	
+	/* 일반유저를 관리자로 권한 상승
+	 * @param userid String 타입의 유저 id
+	 * @return 성공시 1, 실패시 0
+	*/
+	@RequestMapping(value = "/beAdmin", method = RequestMethod.POST)
+	public @ResponseBody int beAdmin(User user){
+		user.setUsertype("admin");
+		int result = repository.changeAuth(user);
+		
+		return result;
+	}
+	
+	/* 관리자를 일반유저로 권한 내리기
+	 * @param userid String 타입의 유저 id
+	 * @return 성공시 1, 실패시 0
+	*/
+	@RequestMapping(value = "/beUser", method = RequestMethod.POST)
+	public @ResponseBody int beUser(User user){
+		user.setUsertype("user");
+		int result = repository.changeAuth(user);
 		
 		return result;
 	}
