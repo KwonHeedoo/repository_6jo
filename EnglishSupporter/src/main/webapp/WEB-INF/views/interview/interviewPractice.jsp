@@ -1,22 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false"%>
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- <meta name="description" content="WebRTC code samples">
-<meta name="viewport"
-	content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
-<meta itemprop="description" content="Client-side WebRTC code samples">
-<meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
-<meta itemprop="name" content="WebRTC code samples">
-<meta name="mobile-web-app-capable" content="yes">
-<meta id="theme-color" name="theme-color" content="#ffffff"> -->
-
 <title>Interviewing</title>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -206,6 +194,8 @@ margin: 20px auto;
 				<video id="gum" playsinline autoplay muted></video>
 				<br><br>
 				<button id="end" class="btn">대답 완료</button>
+				
+				
 			</div>
 			<div id="download_part" style="text-align: center">
 				<div class ="col-md-6">
