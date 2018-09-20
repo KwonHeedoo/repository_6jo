@@ -280,17 +280,11 @@
 			userid
 			, count(*) as writecount 
 		from 
-			userlist u
-		join 
-			(select 
-				userid
-				, count(*) as writecount 
-			from 
-				matching_board 
-			group by 
-				userid 
-			having 
-				userid = #{userid}) b
+			matching_board 
+		group by 
+			userid 
+		having 
+			userid = #{userid}) b
 		on 
 			u.userid = b.userid
 		where 
