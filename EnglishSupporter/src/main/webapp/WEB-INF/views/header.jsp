@@ -157,6 +157,7 @@ function outputMsg(resp){
 		<li><a href="goMyschedule">My Page</a></li>
 		</c:if>
 		<c:if test="${sessionScope.loginType == 'admin'}">
+		<li><a href="goMyschedule">My Page</a></li>
 		<li><a href="./goAdminPage">Admin Page</a></li>
 		</c:if> 
 		</c:if>
