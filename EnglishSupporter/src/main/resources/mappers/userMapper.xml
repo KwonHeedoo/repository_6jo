@@ -272,10 +272,10 @@
 		to_char(u.regdate, 'YYYY-MM-DD') regdate
 		, to_char(u.lastdate, 'YYYY-MM-DD') lastdate
 		, u.attendnum as attendNum
-		, b.writecount as writeCount
+		, NVL(b.writecount,0)as writeCount
 	from 
 		userlist u
-	join 
+	left outer join 
 		(select 
 			userid
 			, count(*) as writecount 

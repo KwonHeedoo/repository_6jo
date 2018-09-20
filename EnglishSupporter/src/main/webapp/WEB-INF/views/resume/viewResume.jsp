@@ -52,7 +52,7 @@
 		<td class="textcenter">
 		Address : ${resume.address}<br>
 		Phone : ${resume.phone}<br>
-		E-mail :${resume.email}
+		E-mail : ${resume.email}
 		</td>
 		</tr>
 		<!-- 게시판 내용부분 :: 데이터가 없을 경우 -->
