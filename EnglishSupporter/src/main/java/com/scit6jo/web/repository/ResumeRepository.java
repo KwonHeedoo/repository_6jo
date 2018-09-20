@@ -208,7 +208,7 @@ public class ResumeRepository {
 	//이력서 데드라인 일정에 표시해 주기 
 	public int insertResumeScedule(Resume vo) {
 		MypageMapper mapper = session.getMapper(MypageMapper.class);
-		String title = vo.getTitle() +"Resume Deadline";
+		String title = vo.getTitle() +"(Resume Deadline)";
 
 		Schedule resume = new Schedule(vo.getUserid(), title, "false", vo.getDeadline());
 		int result = 0;

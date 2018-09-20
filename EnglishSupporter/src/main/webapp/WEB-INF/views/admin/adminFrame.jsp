@@ -176,7 +176,7 @@ nav {height:50px;}
                     <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false"><i class="fa fa-user-circle-o fa-lg" ></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#"><i class="fa fa-id-badge"></i>&nbsp Admins Management</a>
+                        <a class="dropdown-item" href="./goAdminManager"><i class="fa fa-id-badge"></i>&nbsp Admins Management</a>
                         <a class="dropdown-item" href="./logout"><i class="fa fa-sign-out"></i> Logout</a>
                     </div>
                 </li>

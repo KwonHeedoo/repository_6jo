@@ -37,8 +37,28 @@ float:left;
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus{
 	background-color: #c7c7c7 ;
 }
+.sidebarInfo{
+padding-left:20px;
+}
+
 </style>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<script type="text/javascript">
+$(function(){
+	$.ajax({
+		method : 'post',
+		url : 'getDateInfo',
+		dateType : 'json',
+		success : function(data) {
+			var user = data;
+			console.log(user);
+			$('#rd').text("registration date: "+user.regdate);
+			$('#lld').text("Last Login date: "+user.lastdate);
+			$('#noa').text("Number of attendance: "+user.attendNum);
+			$('#now').text("Number of writing: "+user.writeCount);
+		}
+	});
+});
+</script>
 	<div class="container">
 		<!-- uncomment code for absolute positioning tweek see top comment in css -->
 		<!-- <div class="absolute-wrapper"> </div> -->
@@ -57,6 +77,13 @@ float:left;
 					<!-- Brand -->
 					<div class="brand-name-wrapper">
 						<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span> ${sessionScope.loginNick}'s My page </a>
+					<div class="sidebarInfo">
+					<span id="rd"></span><br>
+				 	<span id="lld"></span><br>
+				 	<span id="noa"></span><br>
+				 	<span id="now"></span>
+				 	<br>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -64,21 +91,19 @@ float:left;
 			<!-- Main Menu -->
 			<div class="side-menu-container">
 				<ul class="nav navbar-nav">
-
+					<li style="border-top: 1px solid #e7e7e7;"><a href="goMyschedule"><span class="glyphicon glyphicon-list-alt"></span>
+							Scheduler</a></li>
 					<li><a href="goMyWords"><span class="glyphicon glyphicon-book"></span>
 							My Words</a></li>
-					<li><a href="goMyschedule"><span class="glyphicon glyphicon-list-alt"></span>
-							Scheduler</a></li>
 					<li><a href="goInfoUpdate"><span class="glyphicon glyphicon-wrench"></span>
 							Info Update</a></li>
 					<li><a href="goPwdChange"><span class="glyphicon glyphicon-lock"></span>
 							Password Change</a></li>
 					<li><a href="goUnregister"><span class="glyphicon glyphicon-remove"></span>
 							Unregister</a></li>
-
 				</ul>
 			</div>
 			<!-- /.navbar-collapse --> </nav>
-
 		</div>
 </div>
+

@@ -1,22 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false"%>
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- <meta name="description" content="WebRTC code samples">
-<meta name="viewport"
-	content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
-<meta itemprop="description" content="Client-side WebRTC code samples">
-<meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
-<meta itemprop="name" content="WebRTC code samples">
-<meta name="mobile-web-app-capable" content="yes">
-<meta id="theme-color" name="theme-color" content="#ffffff"> -->
-
 <title>Interviewing</title>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -65,12 +53,16 @@
 						else if(data.answer == "no answer"){
 							console.log("no answer");
 							clearInterval(stt);
-							$("#answer").text("answer : " +data.answer);
+							console.log(questions[count]);
+							$('#Q2').text("Q. "+questions[count-1].question);
+							$("#answer").text("Answer : " +data.answer);
 						}
 						else{
 							console.log("Set Answer");
 							clearInterval(stt);
-							$("#answer").text("answer : " +data.answer);
+							console.log(questions[count]);
+							$('#Q2').text("Q. "+questions[count-1].question);
+							$("#answer").text("Answer : " +data.answer);
 						}
 						
 						//data.answer;
@@ -93,7 +85,7 @@
 						else{
 							console.log("set appr");
 							clearInterval(appr);
-							$("#confidence").text("confidence : " + data.confidence);
+							$("#confidence").text("Confidence : " + data.confidence);
 						}
 					}
 				});
@@ -107,6 +99,10 @@
 			$("#question_part").show();
 			$("#download_part").hide();
 			
+			$('#Q2').text("");
+			$("#answer").text("");
+			$("#confidence").text("");
+					
 			$("#datanum").val("");
 			setQuestion();
 		});
@@ -144,15 +140,16 @@
 	
 </script>
 <style type="text/css">
-.container {
+.container{
 	text-align: center;
-	height: 60%;
+	height: 700px;
 }
 
 .jumbotron {
 	margin-top: 30px;
+	height: 750px;
+	text-align: center;
 }
-
 button {
 	border: none;
 	background: transparent;
@@ -182,41 +179,62 @@ button {
 border-radius: 5px;
 }
 #question_part{
-margin: 20px auto;
+margin: 5px auto;
 }
+#download_part{
+padding-left: 30px;
+padding-right: 30px;
 
+}
+.col-md-6{
+height: 600px;
+}
+span{
+width: 100%;
+height: 100%;
+border-radius: 10px;
+font-size: 20pt;
+padding: 5px;
+}
+.name{
+background-color: gray;
+color: white;
+text-align: center;
+}
 </style>
-
 </head>
-
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
-
-	<div class="jumbotron jumbotron-fluid">
 		<div id="container">
-
+	<div class="jumbotron jumbotron-fluid">
+			<h3 class="name">[INTERVIEW PRACTICE]</h3><br>
 			<div id="start_part" style="text-align: center">
 				<h3>Press START button to start recording videos for interview practice!</h3>
 
 				<button id="start" class="btn">Start</button>
 			</div>
 			<div id="question_part" style="display: none; text-align: center">
-				<h2>[INTERVIEW PRACTICE]</h2>
 				<h3 id="question"></h3>
 				<video id="gum" playsinline autoplay muted></video>
 				<br><br>
 				<button id="end" class="btn">대답 완료</button>
+				
+				
 			</div>
-			<div id="download_part" style="text-align: center">
+			<div  id="download_part" style="text-align: center">
 				<div class ="col-md-6">
 				<video id="recorded" controls height="480" width="680"></video>
+				<br>
 				<a id="download" href="#" class="btn">영상 download</a>
 				<button id="record" class="btn">다음 질문</button>
 				<br>
 				</div>
 				<div class ="col-md-6">
-				<p id = "answer">answer : </p>
-				<p id = "confidence">confidence : </p><br>
+				<span id = "Q2"></span><br><br>
+				<span id = "answer"></span>
+				</div>
+				<div class ="col-md-12">
+				<span id = "confidence">Confidence :<br></span>
 				</div>
 				
 			</div>

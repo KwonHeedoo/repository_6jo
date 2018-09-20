@@ -17,7 +17,7 @@ border-color: #D7D7D7;
 background-color: white;
 }
 table{
-	width: 80%; 
+	width: 63%; 
 }
 th {
     color: #FFFFFF;
@@ -61,12 +61,12 @@ color:red;
 				<tr>
 					<td colspan="4" align="center" ><b>There is no Item</b></td>
 				</tr>
-				</c:if>
+			</c:if>
 			<c:forEach var="i" items="${iQuestionList}" varStatus="status">
 			<tr>
 				<td><input type="hidden" value="${i.questionNum}">
 				${(navi.currentPage-1)*20+status.count}</td>
-				<td><input type="text" name="question" value="${i.question}" readonly="true"></td>
+				<td><input class="trandsinput" type="text" name="question" value="${i.question}" readonly="true"></td>
 				<td><input id="update" type="button" value="UPDATE"></td>
 				<td><input id="delete" type="button" value="DELETE"></td>
 			</tr>

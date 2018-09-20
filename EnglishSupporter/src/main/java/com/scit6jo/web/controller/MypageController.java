@@ -21,14 +21,12 @@ public class MypageController {
 	@Autowired
 	MypageRepository repository;
 	
-	@RequestMapping(value = "/goMypage", method = RequestMethod.GET)
-	public String goMypage(HttpSession session, Model model) {
+	@RequestMapping(value = "/getDateInfo", method = RequestMethod.POST)
+	public @ResponseBody User goMypage(HttpSession session) {
 		String userid = (String) session.getAttribute("loginId");
-		
 		User user = repository.getUserInfo(userid);
-		model.addAttribute("info", user);
 		
-		return "mypage/myInfo";
+		return user;
 	}
 	
 	/* 스케쥴 관련  메소드 시작 */
