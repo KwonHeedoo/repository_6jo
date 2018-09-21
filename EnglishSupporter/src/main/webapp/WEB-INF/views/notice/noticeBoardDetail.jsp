@@ -51,6 +51,11 @@ border-color: #e7e7e7;
 border-radius: 5px;
 padding: 4px;
 }
+
+.img-responsive {
+width: 128px;
+height: 128px;
+}
 </style>
 <script>
 $(function(){

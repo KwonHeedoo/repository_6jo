@@ -56,6 +56,10 @@ input[type="text"]{
 width: 100%;
 }
 
+.img-responsive {
+width: 128px;
+height: 128px;
+}
 </style>
 <script>
 $(function(){

@@ -277,11 +277,11 @@ $(function(){
 						</p>
 
 						<p>
-							<input value="JOIN" type="button" class="btn" id="registbtn" />
+							<input value="회원가입" type="button" class="btn" id="registbtn" />
 						</p>
 
 						<p>
-							<input type="reset" class="btn" value="RESET">
+							<input type="reset" class="btn" value="다시 입력">
 						</p>
 					</div>
 				</form>
