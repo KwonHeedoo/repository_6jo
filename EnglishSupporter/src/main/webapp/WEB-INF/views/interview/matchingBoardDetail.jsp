@@ -56,6 +56,9 @@ input[type="text"]{
 width: 100%;
 }
 
+pre{
+white-space: pre-line;
+}
 </style>
 <script>
 $(function(){

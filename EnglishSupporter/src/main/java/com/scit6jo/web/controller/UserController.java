@@ -257,7 +257,8 @@ public class UserController {
 			message = "Information Update Completed";
 			
 			// 새로 업데이트된 정보로 재로그인 
-			User uu = repository.selectOne(u);		    
+			User uu = repository.selectOne(u);		
+			System.out.println(uu);
 			if(uu != null) {
 				session.setAttribute("loginId", uu.getUserid());
 				session.setAttribute("loginNick", uu.getNickname());
@@ -272,7 +273,7 @@ public class UserController {
 		
 		model.addAttribute("msg", message);
 		
-		return "mypage/infoUpdate";
+		return goInfoUpdate(session, model);
 	}
 	
 	// 비밀번호수정 화면 요청

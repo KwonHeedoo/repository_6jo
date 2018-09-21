@@ -236,7 +236,6 @@ text-align:left;
 text-align: center;
 margin-bottom: 20px;
 margin-top: 20px;
-height: 60%;
 }
 </style>
 

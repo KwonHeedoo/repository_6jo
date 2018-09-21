@@ -8,6 +8,7 @@ public class CoverLetter {
 	private String phone;
 	private String email;
 	private String userid;
+	private String username;
 	
 	
 	public CoverLetter() {
@@ -62,10 +63,22 @@ public class CoverLetter {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	@Override
 	public String toString() {
 		return "CoverLetter [title=" + title + ", maintext=" + maintext + ", regdate=" + regdate + ", address="
-				+ address + ", phone=" + phone + ", email=" + email + ", userid=" + userid + "]";
+				+ address + ", phone=" + phone + ", email=" + email + ", userid=" + userid + ", username=" + username
+				+ "]";
 	}
+	
+	
 	
 }

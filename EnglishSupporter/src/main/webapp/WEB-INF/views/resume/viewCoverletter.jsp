@@ -50,7 +50,7 @@ text-align: center;
 			<th class="center" colspan="2">${myCL.title}</th>
 			</tr>
 			<tr>
-			<td colspan="3" class="username"></td>
+			<td colspan="3" class="username">${myCL.username}</td>
 			</tr>
 			<tr>
 			<td colspan="3" class="center">
@@ -79,7 +79,7 @@ text-align: center;
 $(function() { // 유저이름 받아옴 
 	$('#resume').addClass('active');
 	
-	var userid = '${myCL.userid}';
+/* 	var userid = '${myCL.userid}';
 	console.log(userid);
 	$.ajax({
 		method: "post",
@@ -94,7 +94,7 @@ $(function() { // 유저이름 받아옴
 			console.log("에러"+error);
 		}
 	});
-});
+}); */
 function docs() {
 	location.href = "./goMyDocs?selectedTab=coverletter";
 };

@@ -218,7 +218,6 @@ public class ResumeController {
 	@RequestMapping(value = "/viewMyCoverletter", method = RequestMethod.GET, produces = "application/text; charset=utf8")
 	public String viewCoverLetter(CoverLetter vo, Model model, HttpSession session) {
 		CoverLetter myCL = repository.getCoverletter(vo);
-		//System.out.println(myCL);
 		model.addAttribute("myCL", myCL);
 		return "resume/viewCoverletter";
 	}
@@ -229,7 +228,7 @@ public class ResumeController {
 		CoverLetter myCL = repository.getCoverletter(vo);
 		System.out.println("go update cover letter");
 
-		System.out.println(myCL);
+		//System.out.println(myCL);
 		model.addAttribute("myCL", myCL);
 		model.addAttribute("type", "update");
 		return "resume/coverletterForm";

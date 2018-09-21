@@ -52,6 +52,11 @@ border-radius: 5px;
 padding: 4px;
 }
 
+pre{
+white-space: pre-line;
+}
+
+
 </style>
 <script>
 var appraises = ["pronunciation","posture","contents"];
@@ -195,7 +200,7 @@ function output(resp){
 		commentResult += '</time>';//comment-date
 		commentResult += '</header>';//text-left
 		commentResult += '<div class="comment-post">';
-		commentResult += '<p class="comment-text"><input id="cmt'+ item.commentNum +'" value="' + item.comments + '" disabled="true" style="border:0px; background-color:white;width:100%;" /></p>';
+		commentResult += '<p class="comment-text"><input id="cmt'+ item.commentNum +'" value="' + item.comments + '" disabled="true" style="border:0px; background-color:white;width:100%; white-space: pre-line;" /></p>';
 		commentResult += '</div>';//comment-post
 		commentResult += '<p class="text-right">';
 		if(loginId === item.userid){
@@ -526,7 +531,7 @@ function getRatingAvg(){
 		</script>
 		<h5>[Writer] ${board.nickname}</h5>
 		<div>
-			<pre>${board.contents}</pre>
+			<pre style="white-space:pre-line;">${board.contents}</pre>
 			<div id ="ratingAvg"></div>
 			<video controls width="480" height = "320" src = 'getdata?dataNum=${board.datanum}'></video>
 		</div>
