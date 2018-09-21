@@ -52,6 +52,10 @@ border-radius: 5px;
 padding: 4px;
 }
 
+.img-responsive {
+width: 128px;
+height: 128px;
+}
 </style>
 <script>
 var appraises = ["pronunciation","posture","contents"];
