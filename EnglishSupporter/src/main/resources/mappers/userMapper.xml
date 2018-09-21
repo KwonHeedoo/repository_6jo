@@ -272,25 +272,19 @@
 		to_char(u.regdate, 'YYYY-MM-DD') regdate
 		, to_char(u.lastdate, 'YYYY-MM-DD') lastdate
 		, u.attendnum as attendNum
-		, b.writecount as writeCount
+		, NVL(b.writecount,0)as writeCount
 	from 
 		userlist u
-	join 
+	left outer join 
 		(select 
 			userid
 			, count(*) as writecount 
 		from 
-			userlist u
-		join 
-			(select 
-				userid
-				, count(*) as writecount 
-			from 
-				matching_board 
-			group by 
-				userid 
-			having 
-				userid = #{userid}) b
+			matching_board 
+		group by 
+			userid 
+		having 
+			userid = #{userid}) b
 		on 
 			u.userid = b.userid
 		where 

@@ -25,7 +25,7 @@ public class MypageController {
 	public @ResponseBody User goMypage(HttpSession session) {
 		String userid = (String) session.getAttribute("loginId");
 		User user = repository.getUserInfo(userid);
-		
+		System.out.println(user);
 		return user;
 	}
 	

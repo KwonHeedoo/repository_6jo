@@ -313,7 +313,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#D64E3F;}
 .overlay{color:#FFFFFF; background-color:inherit;}
 .overlay::after{color:inherit; background-color:rgba(0,0,0,.55);}
 
-.btn, .btn.inverse:hover, a .icon.fa, a.inverse:hover .icon.fa{color:#FFFFFF; background-color:#D64E3F; border-color:#D64E3F;}
+.btn, .btn.inverse:hover, a .icon.fa, a.inverse:hover .icon.fa{color:#ead7d7; background-color:#D64E3F; border-color:#D64E3F;}
 .btn:hover, .btn.inverse, a:hover .icon.fa, a.inverse .icon.fa{color:inherit; background-color:transparent; border-color:inherit;}
 
 
