@@ -146,7 +146,7 @@ function output(resp){
 		commentResult += '</time>';//comment-date
 		commentResult += '</header>';//text-left
 		commentResult += '<div class="comment-post">';
-		commentResult += '<p class="comment-text"><input id="cmt'+ item.commentNum +'" value="' + item.comments + '" disabled="true" style="border:0px; background-color:white;" /></p>';
+		commentResult += '<p class="comment-text"><input id="cmt'+ item.commentNum +'" value="' + item.comments + '" disabled="true" style="border:0px; background-color:white; width:100%;" /></p>';
 		commentResult += '</div>';//comment-post
 		commentResult += '<p class="text-right">';
 		if(loginId === item.userid){
@@ -356,7 +356,7 @@ function report(reportee, report){
 	
 	document.body.appendChild(form);
 	
-	window.open('', 'ReportBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	window.open('', 'ReportBox', 'width=450, height=585, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 	
 	form.submit();
 	
