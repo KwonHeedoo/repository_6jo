@@ -25,6 +25,7 @@ $(function(){
 	var msg2 = '${msg2}';
 	var msg3 = '${msg3}';
 	var msg4 = '${msg4}';
+	
 	if(msg1 != '' && msg2 != '' && msg3 != '' && msg4 != ''){
 		msg = msg1 + '\n\n' + msg2 + '\n\n' + msg3 + '\n\n' + msg4;
 	}

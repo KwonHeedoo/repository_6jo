@@ -43,11 +43,13 @@ $(function(){
 	<div class="row">
 		<div class="center">
 			<h2>[ LOGIN ]</h2>
+			<form id="loginCheck" action="login" method="post">
 			<div class="center">
 				<p><input type="text" id="userid" name="userid" placeholder="ID" /></p>
 				<p><input type="password" id="userpwd" name="userpwd" placeholder="PASSWORD" /></p>
 				<p><input type="button" id="login" class="btn" value="LOGIN"></p>
 			</div>
+			</form>
 		</div>
 	</div><!-- row -->
 </div>
@@ -59,26 +61,16 @@ $(function(){
 	$('#login').on('click', function(){
 		var userid = $('#userid').val();
 		var userpwd = $('#userpwd').val();
-		var sendData = {"userid" : userid, "userpwd" : userpwd};
 		
-		$.ajax({
-			type :'post'
-			, url: 'loginCheck'
-			, data : JSON.stringify(sendData)
-			, contentType : 'application/json;charset=UTF-8'
-			, success : function(resp){
-				if(resp == 1){
-					location.href = "${pageContext.request.contextPath}/";
-				}else if(resp == 0){
-					alert("Please Check your ID and Password.");
-					location.href = "${pageContext.request.contextPath}/goLoginForm";
-				}
-			}
-			, error: function(resp){
-				alert("Login Error!");
-			}
-		});
+		if(userid.length < 3 || userid.length > 10){
+			alert('ID는 3 ~ 10자리로 입력하세요');
+			return false;
+		}else if(userpwd.length < 6 || userpwd.length > 12 ){
+			alert("비밀번호는 6 ~ 12자리로 입력하세요");
+			return false;
+		}
 		
+		$('#loginCheck').submit();
 	});
 });
 </script>
