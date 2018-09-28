@@ -14,6 +14,7 @@
 		 	, phone
 		 	, email
 		 	, userid
+		 	, username
 		 FROM 
 		 	coverletter
 		 WHERE 

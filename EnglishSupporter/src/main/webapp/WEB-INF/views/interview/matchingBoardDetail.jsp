@@ -55,10 +55,12 @@ padding: 4px;
 input[type="text"]{
 width: 100%;
 }
-
 .img-responsive {
 width: 128px;
 height: 128px;
+}
+pre{
+white-space: pre-line;
 }
 </style>
 <script>

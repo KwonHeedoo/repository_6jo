@@ -18,6 +18,10 @@ background-color: transparent;
 border-color: #D7D7D7;
 background-color: white;
 }
+::placeholder{
+ color: #dad9d9;
+ font-size: 9pt;
+}
 
 </style>
 </head>

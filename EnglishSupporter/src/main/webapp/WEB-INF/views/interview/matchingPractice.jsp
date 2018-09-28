@@ -121,7 +121,7 @@ color: white;
 		<div id = "local-videos-container" class="screen"></div>
 		</div>
 		<div class="col-md-6">
-		<span class="border rounded">${partnerid}연결될 사람의 아이디</span>
+		<span class="border rounded">${partnerid}</span>
 		<br><br>
 		<div id = "remote-videos-container" class="screen"></div>
 		</div>

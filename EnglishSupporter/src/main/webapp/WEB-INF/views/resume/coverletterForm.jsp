@@ -68,8 +68,8 @@ textarea {
 		<hr>
 			<input type="hidden" name="userid" value="${sessionScope.loginId}">
 		<div class="row">
-		<div class="com-md-10">
-		 &nbsp;&nbsp;&nbsp;<span id="username">[${sessionScope.username}]</span>
+		<div class="com-md-5" align="center">
+		 &nbsp;&nbsp;&nbsp;<input type="text" id="username" name="username" placeholder="YOUR ENGLISH NAME">
 		<br>
 		<br>
 		</div>
@@ -150,12 +150,14 @@ $(function() {
 		var email = '${myCL.email}';
 		var address = '${myCL.address}';
 		var phone = '${myCL.phone}';
+		var username ='${myCL.username}';
 		
 		$('input[name="title"]').val(title);
 		$('input[name="title"]').attr("readonly", true); //편집불가 
 		$('input[name="email"]').val(email);
 		$('input[name="phone"]').val(phone);
 		$('input[name="address"]').val(address);
+		$('input[name="username"]').val(username);
 	}else{
 		var email = '${sessionScope.email}';
 		$('input[name="email"]').val(email);

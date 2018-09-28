@@ -31,7 +31,6 @@ float:left;
   margin-top: 20px;
   margin-left: 300px;
   margin-bottom: 50px;
-  height: 750px;
  }
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus{

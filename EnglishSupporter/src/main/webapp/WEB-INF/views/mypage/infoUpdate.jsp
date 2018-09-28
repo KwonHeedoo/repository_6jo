@@ -12,7 +12,7 @@
 
 <style type="text/css">
 .raw{
-height: 70%;
+height: 80%;
 
 }
 .side-menu {

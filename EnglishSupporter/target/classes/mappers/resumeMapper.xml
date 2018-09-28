@@ -14,6 +14,7 @@
 		 	, phone
 		 	, email
 		 	, userid
+		 	, username
 		 FROM 
 		 	coverletter
 		 WHERE 
@@ -183,7 +184,7 @@
 			, username = #{username}
 			, phone = #{phone}
 			, regdate = sysdate
-			, deadline = #{deadline}
+			, deadline = to_timestamp(#{deadline}, 'YYYY-MM-DD"T"HH24:MI')
 			, address = #{address}
 		WHERE 
 			resume_no =(SELECT 
