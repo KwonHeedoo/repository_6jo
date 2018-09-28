@@ -75,7 +75,7 @@ $(function(){
 					$('#idcheck').css("color" , "blue");
 					okuserid = true;
 				}else if(resp == -1){
-					$('#idcheck').text("id는 3~ 10자리로 입력해주세요");
+					$('#idcheck').text("ID는 3 ~ 10자리로 입력해주세요");
 					$('#idcheck').css("color" , "black");
 					okuserid = false;
 				}

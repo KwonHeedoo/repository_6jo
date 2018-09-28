@@ -29,8 +29,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 						+ "English Supporter의 모든 사용자분들이 즐길 수 있는 건전한 환경을 제공해 드리기 위해 "
 						+ "해당 계정은 일정 기간동안 정지 되었음을 알려드립니다.";
 			String msg2 = "정지 기간 : " + stopedUser.getRegdate() + " ~ " + stopedUser.getLastdate();
-			String msg3 =  "같은 행위가 반복해서 지속되는 경우, 강제 탈퇴가 진행될 수 있음을 알려드립니다.";
-			String msg4 =  "English Supporter 드림";
+			String msg3 = "같은 행위가 반복해서 지속되는 경우, 강제 탈퇴가 진행될 수 있음을 알려드립니다.";
+			String msg4 = "English Supporter 드림";
 			
 			session.setAttribute("msg1", msg1);
 			session.setAttribute("msg2", msg2);
