@@ -30,13 +30,13 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 					   + "updateMyCoverletter goSendMsgBox goReceiveMsgBox goMessageList goReportBox";*/
 		
 		if(loginId == null) {
-			session.setAttribute("msg", "비회원은 해당 작업을 할 수 없습니다. 로그인 해 주세요.");
+			session.setAttribute("msg", "Non-members can not do that. Please sign in.");
 			response.sendRedirect(contextPath + "/goLoginForm");  // 주소 표시줄 확인
 			
 			return false;
 		}else{
 			if(loginType.equals("user")) {
-				session.setAttribute("msg", "일반회원은 해당 작업을 할 수 없습니다. 다시 로그인 해 주세요.");
+				session.setAttribute("msg", "Normal members can not do this. Please sign in again.");
 				response.sendRedirect(contextPath + "/goLoginForm"); 
 					
 				return false;
