@@ -18,7 +18,12 @@ var today = new Date(); //오늘날짜 생성
 	today = today.toISOString();
 	today = today.substring(0,10);
 var userid = '${sessionScope.loginId}';
-function init() {
+
+var clickEvent;
+var updateId=""; 
+
+function init(){
+	console.log("init 함수 실행");
 	  $('#calendar').fullCalendar({
           themeSystem: 'bootstrap3',
           header: {
@@ -45,6 +50,7 @@ function init() {
  			// 자식창에서 값 받아서 캘린더 재시작하기 
       	  },
       	  eventClick: function(event, element) { // 일정 클릭 이벤트
+      		clickEvent = event; //update 에서 이벤트 끌어와서 사용 
       		$('#viewModalBody').text(event.title);
         	$('#id').val(event.id);
         	$('#eventDate').text(event.start.format('YYYY년 MM월 DD일 HH:mm'));
@@ -77,9 +83,9 @@ function init() {
         	            }
             	        if($(this).attr('endDate')!=null){
             	        	obj.end = $(this).attr('endDate');
-            	        }  // if end 날짜가  null이면 어캄?...?...
-        	            console.log('obj');
-        	            console.log(obj);
+            	        }  
+        	            //console.log('obj');
+        	            //console.log(obj);
         	        	events.push(obj);
         	          });        
         	          console.log(events);
@@ -105,24 +111,77 @@ $(document).ready(function() {
 			start += " " + $('#shour').val() + ":" + $('#smin').val();
 			end += " " + $('#ehour').val() + ":" + $('#emin').val();
 		}else{
-			end = moment($('#end').val()).add(1,'days').format('YYYY-MM-DD');
+			if(updateId==""){
+				end = moment($('#end').val()).add(1,'days').format('YYYY-MM-DD');
+			}else{
+				end = moment($('#end').val()).format('YYYY-MM-DD');
+			}
 		}
-    	var schedule = {'userid':userid,'startDate': start, 'endDate': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")};
-    	var scheduleview = {'start': start, 'end': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")}  
-    	$.ajax({
-  	        method:'post',
-  	        url: 'saveMyschedule',
-  	        data: schedule,
-  	        success: function(doc) {
-  	        	console.log(doc);
-  	        }
-  	      });
-    		init();
-    	 // $('#calendar').fullCalendar( 'refetchEvents' );
-    	  $('#calendar').fullCalendar('renderEvent',scheduleview, true);
-    	  $('#writeModal').modal('hide'); // 마지막으로 모달 창 지우기 
+		// updateId 값이 있을 경우 수정 ajax
+		if(updateId==""){
+				console.log("insert");
+	    	var schedule = {'userid':userid,'startDate': start, 'endDate': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")};
+	    	//var scheduleview = {'start': start, 'end': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")}  
+	    	$.ajax({
+	  	        method:'post',
+	  	        url: 'saveMyschedule',
+	  	        data: schedule,
+	  	        success: function(doc) {
+	  	        	console.log(doc);
+	  	        }
+	  	      });
+	    		init();
+	    	  $('#calendar').fullCalendar( 'refetchEvents' );
+	    	//  $('#calendar').fullCalendar('renderEvent',scheduleview, true);
+	    	  $('#writeModal').modal('hide'); // 마지막으로 모달 창 지우기 
+			
+		}else{ //수정하는 경우 
+			console.log('update'+updateId);
+	    	var schedule = {'s_id':updateId,'userid':userid,'startDate': start, 'endDate': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")};
+	        //	var scheduleview = {'start': start, 'end': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")}  
+	        	$.ajax({
+	      	        method:'post',
+	      	        url: 'updateMyschedule',
+	      	        data: schedule,
+	      	        success: function(doc) {
+	      	        	console.log(doc);
+	      	        }
+	      	      });
+	        	init();
+	          $('#calendar').fullCalendar( 'refetchEvents' );
+	      	  $('#writeModal').modal('hide'); // 마지막으로 모달 창 지우기 
+		}
     });
-        //수정버튼 클릭이벤트  해말어~~
+        
+    	// 수정버튼 클릭시 입력모달 창 띄우기 
+    	$('#updateBtn').click(function() {
+        	$('#viewModal').modal('hide');
+        	updateId = clickEvent.id;
+        	console.log(updateId);
+        	console.log(clickEvent);
+        	// 이벤트 정보 띄우기 
+        	$('#start').val(clickEvent.start.format('YYYY-MM-DD'));
+  			$('#shour').val(clickEvent.start.format('HH'));
+  			$('#smin').val(clickEvent.start.format('mm'));
+  			if(clickEvent.end!=null){
+	  			$('#end').val(clickEvent.end.format('YYYY-MM-DD'));
+	  			$('#ehour').val(clickEvent.end.format('HH'));
+	  			$('#emin').val(clickEvent.end.format('mm'));
+  			}else{
+  				$('#end').val(clickEvent.start.format('YYYY-MM-DD'));
+	  			$('#ehour').val('');
+	  			$('#emin').val('');
+  			}
+  			if(clickEvent.allDay==true){
+  			 $('#allDay').attr('checked',true);	
+  			}else{
+  	 		 $('#allDay').removeAttr('checked');
+  			}
+  			
+  			$('#title').val(clickEvent.title);  	
+        	$('#writeModal').modal('show');
+		});
+        
      
         //삭제버튼 클릭 이벤트 
         $('#deleteBtn').click(function(){
@@ -143,6 +202,12 @@ $(document).ready(function() {
 	    	  
 		}
         });
+        // 취소이벤트 
+        $('#closeWrite').click(function() {
+        	console.log('updateId: '+updateId);
+        	updateId ="";
+        	console.log('updateId: '+updateId);
+		});
 
   });
     
@@ -195,8 +260,9 @@ table,th,td{
       <div class="modal-body" id="viewModalBody">
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-warning" id="updateBtn">Update</button>
       	<button type="button" class="btn btn-warning" id="deleteBtn">Delete</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" id="closeWrite" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -209,7 +275,7 @@ table,th,td{
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">
-        	Add Schedule
+        	Add/Update Schedule
         </h4>
       </div>
       <div class="modal-body">

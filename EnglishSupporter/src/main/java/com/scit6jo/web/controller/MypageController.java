@@ -69,4 +69,13 @@ public class MypageController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/updateMyschedule", method = RequestMethod.POST)
+	public @ResponseBody String updateSchedule(Schedule vo) {
+		System.out.println(vo);
+		int cnt = repository.updateSchedult(vo);
+		if(cnt>0) {
+			return "schedule updated";
+		}
+		return "schedule update failed";
+	}
 }

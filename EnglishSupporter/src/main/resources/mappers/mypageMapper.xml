@@ -42,6 +42,24 @@
 			userid = #{userid}
 	</select>
 	
+	<update id="updateSchedule" parameterType="Schedule">
+		 update 
+		 	SCHEDULE 
+		 SET
+		    userid = #{userid}
+		    ,title = #{title}
+	 	<if test="allDay!=null">    
+		    ,allDay =#{allDay}
+		</if>
+		    ,startdate =  #{startDate}
+		<if test="endDate!=null">
+		    ,enddate = #{endDate}
+		</if>
+		where
+		    s_id =#{s_id}
+			
+	</update>
+	
 	<delete id="removeSchedule" parameterType="Schedule">
 		DELETE FROM 
 			schedule
