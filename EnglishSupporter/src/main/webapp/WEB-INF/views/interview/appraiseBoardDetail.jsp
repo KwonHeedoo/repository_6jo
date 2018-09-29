@@ -52,14 +52,14 @@ border-radius: 5px;
 padding: 4px;
 }
 
-pre{
-white-space: pre-line;
-}
-
 .img-responsive {
 width: 128px;
 height: 128px;
 }
+pre{
+white-space: pre-line;
+}
+
 </style>
 <script>
 var appraises = ["pronunciation","posture","contents"];
@@ -204,10 +204,14 @@ function output(resp){
 		commentResult += '</header>';//text-left
 		commentResult += '<div class="comment-post">';
 <<<<<<< HEAD
+<<<<<<< HEAD
 		commentResult += '<p class="comment-text"><input id="cmt'+ item.commentNum +'" value="' + item.comments + '" disabled="true" style="border:0px; background-color:white;width:100%; white-space: pre-line;" /></p>';
 =======
 		commentResult += '<p class="comment-text"><input id="cmt'+ item.commentNum +'" value="' + item.comments + '" disabled="true" style="border:0px; background-color:white; width:100%;" /></p>';
 >>>>>>> e4a8b4305b45eb0e228c87732c3b2d30c27181d0
+=======
+		commentResult += '<p class="comment-text"><input id="cmt'+ item.commentNum +'" value="' + item.comments + '" disabled="true" style="border:0px; background-color:white;width:100%; white-space: pre-line;" /></p>';
+>>>>>>> 9d58ef7ab267c9e1b801ba65969bbfda99f64167
 		commentResult += '</div>';//comment-post
 		commentResult += '<p class="text-right">';
 		if(loginId === item.userid){
