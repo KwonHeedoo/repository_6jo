@@ -166,7 +166,7 @@ public class InterviewController {
 	public @ResponseBody ArrayList<IQuestion> getQuestion() {
 		RowBounds rb = new RowBounds();
 		ArrayList<IQuestion> result = repository.selectAllQuestion(rb);
-		Collections.shuffle(result);
+		//Collections.shuffle(result);
 		return result;
 	}
 	

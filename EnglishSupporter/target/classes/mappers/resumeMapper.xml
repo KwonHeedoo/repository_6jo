@@ -45,13 +45,15 @@
 				, address
 				, phone
 				, email
+				, username
 		)VALUES(
 			#{userid}
 			, #{title}
 			, #{maintext}
 			, #{address}
 			, #{phone}
-			, #{email})
+			, #{email}
+			, #{username})
 	</insert>
 	
 	<update id="updateCoverLetter" parameterType="CoverLetter">
@@ -62,6 +64,7 @@
 			, address = #{address}
 			, phone = #{phone}
 			, email = #{email}
+			, username = #{username}
 		WHERE 
 			userid = #{userid} 
 		and 
@@ -184,7 +187,7 @@
 			, username = #{username}
 			, phone = #{phone}
 			, regdate = sysdate
-			, deadline = to_timestamp(#{deadline}, 'YYYY-MM-DD"T"HH24:MI')
+			, deadline = to_timestamp(#{deadline}, 'YYYY-MM-DD"T"HH24:MI:ss')
 			, address = #{address}
 		WHERE 
 			resume_no =(SELECT 

@@ -93,8 +93,8 @@ $(function() { // 유저이름 받아옴
 		error: function(error){
 			console.log("에러"+error);
 		}
-	});
-}); */
+	});*/
+}); 
 function docs() {
 	location.href = "./goMyDocs?selectedTab=coverletter";
 };
