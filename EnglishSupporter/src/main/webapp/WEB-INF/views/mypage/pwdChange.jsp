@@ -10,32 +10,6 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-.raw{
-height: 55%;
-}
-.side-menu {
-margin-top:0;
-position:absolute;
-float:left;
-  width: 280px;
-  height: 100%;
-  background-color: #f8f8f8;
-  border-right: 1px solid #e7e7e7;
-}
-.side-menu .navbar-nav li {
-  display: block;
-  width: 100%;
-  border-bottom: 1px solid #e7e7e7;
-}
-.side-body {
-  margin-top: 20px;
-  margin-left: 250px;
-}
-
-.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus{
-	background-color: #c7c7c7 ;
-}
-
 /* 로그인폼에서 긁어옴 ~~ */
 .center{
 margin :0 auto;
@@ -55,11 +29,9 @@ height: 35px;
 padding:8px 18px 10px; text-transform:uppercase; font-weight:700; cursor:pointer;
 border:1px solid; border-radius:22px;
 }
-.container{
-height: 40%;
+.side-body{
+height: 500px;
 }
-/* ~~ 로그인폼에서 긁어옴 */
-
 </style>
 <script src="resources/jquery-3.3.1.min.js"></script>
 <script>

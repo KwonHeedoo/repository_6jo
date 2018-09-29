@@ -18,9 +18,7 @@ var today = new Date(); //오늘날짜 생성
 	today = today.toISOString();
 	today = today.substring(0,10);
 var userid = '${sessionScope.loginId}';
-
-$(document).ready(function() {
-
+function init() {
 	  $('#calendar').fullCalendar({
           themeSystem: 'bootstrap3',
           header: {
@@ -90,7 +88,11 @@ $(document).ready(function() {
         	      });
         	    }
         });
+}
+
+$(document).ready(function() {
         // 저장버튼 클릭이벤트 
+    init();   
     $('#saveBtn').click(function(){
     	var start = $('#start').val()
 		var end = $('#end').val();
@@ -115,7 +117,8 @@ $(document).ready(function() {
   	        	console.log(doc);
   	        }
   	      });
-    	  //$('#calendar').fullCalendar( 'refetchEvents' );
+    		init();
+    	 // $('#calendar').fullCalendar( 'refetchEvents' );
     	  $('#calendar').fullCalendar('renderEvent',scheduleview, true);
     	  $('#writeModal').modal('hide'); // 마지막으로 모달 창 지우기 
     });
@@ -133,9 +136,11 @@ $(document).ready(function() {
 	    	        success: function(doc) {
 	    	        	console.log(doc);
 	    	        }
-	    	});
-	    	 // $('#calendar').fullCalendar( 'refetchEvents' );
+	    		});
+	    	  init();
+	    	  //$('#calendar').fullCalendar( 'refetchEvents' );
 	    	  $('#viewModal').modal('hide');
+	    	  
 		}
         });
 

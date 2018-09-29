@@ -63,7 +63,8 @@ $(function() {
 				 text += "<tr>";
 				 text += '<td><a href="javascript:void(0);" onclick="callPfunction(\'';
 				 text += roomNum;
-				 text += '\');">' + i +'</a></td>';
+				 var num = i + 1;
+				 text += '\');">' + num +'</a></td>';
 				 //text += '<td><a href="javascript:void(0);" onclick="callPfunction('+ 'a12345678' + ' );">' + data[i].roomNum +'</a></td>';
 				 text += '<td>'+ data[i].appointedTime + '</td>';
 				 if(loginId==data[i].userid){

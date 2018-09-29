@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>New Resume</title>
+<title>Update Resume</title>
 <script src="resources/jquery-3.3.1.min.js"></script>
 <script src="resources/jquery.serialize-object.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">

@@ -92,6 +92,8 @@
 			, question
 		from
 			interview_question
+		order by questionNum asc	
+		
 	</select>
 	<select id="selectOneIData" resultType="iData" parameterType="int">
 		select

@@ -147,7 +147,7 @@ $(function(){
 						<br>
 						<h3>[ My Info Update ]</h3>
 							<div id="imgOPT"></div><br>
-							<input type="file" id="imgInp" name="imgInp"  accept="image/jpg image/jpeg image/png image/gif" /><br>  
+							<input type="file" id="imgInp" name="imgInp" style="border: transparent;" accept="image/jpg image/jpeg image/png image/gif" /><br>  
 							
 							<input type="button" id="delImg" value="Delete Image" class="btn"/> 
 							<p>ID: <input type="text" name="userid" value="${u.userid}" readonly /></p>
