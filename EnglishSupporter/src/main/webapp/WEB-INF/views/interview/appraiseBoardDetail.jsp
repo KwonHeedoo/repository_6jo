@@ -363,7 +363,6 @@ function rating(column, ratenum){
 	for(var i = ratenum+1 ; i<=5 ; i++){
 		$('#'+column + i).attr('src','./resources/images/icons/silver.png');
 	}
-
 }
 
 // 게시물 삭제 확인

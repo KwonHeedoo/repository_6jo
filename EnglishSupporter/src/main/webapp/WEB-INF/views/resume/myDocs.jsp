@@ -261,7 +261,7 @@ function updateCL(userid,title) {
 }
 
 function deleteCL(userid,title) {
-	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	if (confirm("Are you sure you want to delete this item?") == true){    //확인
 	    // 삭제는 에이젝스로 한 후 삭제결과 받아서 alert 한 후  location.href로 페이지 재로딩
 	    var object ={'userid':userid,'title':title,'type':'coverletter'};
 	    ajaxDelete(object);
@@ -281,7 +281,7 @@ function updatedocs(resume_no) {
 
 /*이력서 삭제 확인창 띄워서 삭제확인 받고  페이지 재로딩*/
 function deletedocs(resume_no) {
-	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	if (confirm("Are you sure you want to delete this item?") == true){    //확인
 	    // 삭제는 에이젝스로 한 후 삭제결과 받아서 alert 한 후  location.href로 페이지 재로딩
 	   	var object ={'resume_no':resume_no,'type':'resume'};
 	    ajaxDelete(object);

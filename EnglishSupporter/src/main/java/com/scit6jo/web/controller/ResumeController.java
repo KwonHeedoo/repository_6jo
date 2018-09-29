@@ -103,9 +103,9 @@ public class ResumeController {
 		String text =null;
 		int num = repository.insertCoverLetter(coverletter);
 		if(num>0) {
-			text = "커버레터 저장 완료 ";
+			text = "Cover Letter Successfully Saved ";
 		}else {
-			text = "커버레터 저장 실패! 동일한 title로 중복 저장되지 않으니 확인해주세요.";
+			text = "Fail to Save: an error occurs while saving";
 		}
 		return text;
 	}
@@ -138,9 +138,9 @@ public class ResumeController {
 		String text =null;
 		int num = repository.updateCoverletter(coverletter);
 		if(num>0) {
-			text = "커버레터 수정 완료 ";
+			text = "Cover Letter Successfully Updated ";
 		}else {
-			text = "커버레터 수정 실패!";
+			text = "Fail to Update: an error occurs while saving";
 		}
 		return text;
 	}
@@ -161,9 +161,9 @@ public class ResumeController {
 		System.out.println("정보삽입수"+insertInfo);
 		
 		if(check1>0&&(insertEdu>0||insertExp>0||insertInfo>0)) {
-			text = "이력서 수정 완료";
+			text = "Resume Successfully Updated";
 		}else {
-			text = "이력서 수정 실패!";
+			text = "Fail to Update: an error occurs while saving";
 		}
 		return text;
 	}
@@ -192,9 +192,9 @@ public class ResumeController {
 		System.out.println("정보삽입수"+insertInfo);
 		
 		if(insertResume>0&&(insertEdu>0||insertExp>0||insertInfo>0)) {
-			text = "이력서 저장 완료";
+			text = "Resume Successfully Saved";
 		}else {
-			text = "이력서 저장 실패! 동일한 title로 중복 저장되지 않으니 확인해주세요.";
+			text = "Fail to Save: an error occurs while saving";
 		}
 		
 		return text;
@@ -256,10 +256,10 @@ public class ResumeController {
 		}
 		
 		if(cntC==0&&cntR==0) {
-			result="삭제실패!";
+			result="Fail to Delete: an error occurs while deleting";
 			System.out.println("삭제실패"+cntR+"이력서/커버레터"+cntC);
 		}else {
-			result = "삭제가 완료되었습니다.";
+			result = "Successfully Deleted";
 		}
 		return result;
 	}
