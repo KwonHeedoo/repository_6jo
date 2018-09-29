@@ -110,7 +110,7 @@ function read(messageNum, userid, nickname, message){
 	
 	document.body.appendChild(form);
 	
-	window.open('', 'ReceiveMsgBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	window.open('', 'ReceiveMsgBox', 'width=450, height=560, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 	
 	form.submit();
 	

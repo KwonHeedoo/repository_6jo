@@ -51,6 +51,11 @@ border-color: #e7e7e7;
 border-radius: 5px;
 padding: 4px;
 }
+
+.img-responsive {
+width: 128px;
+height: 128px;
+}
 </style>
 <script>
 $(function(){
@@ -356,7 +361,7 @@ function report(reportee, report){
 	
 	document.body.appendChild(form);
 	
-	window.open('', 'ReportBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	window.open('', 'ReportBox', 'width=450, height=585, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 	
 	form.submit();
 	

@@ -146,8 +146,8 @@ public class UserController {
 	}
 	
 	// 로그인 처리
-	@RequestMapping(value = "loginCheck", method = RequestMethod.POST)
-	public @ResponseBody Integer loginCheck(@RequestBody User user, HttpSession session, Model model) {
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login(User user, HttpSession session, Model model) {
 		System.out.println("loginCheck...");
 		User u = repository.selectOne(user);
 		System.out.println(u);
@@ -164,9 +164,12 @@ public class UserController {
 			// 방문자 등록
 			repository.visit(u.getUserid());
 			
-			return 1;
+			return "redirect:/";
 		}else {
-			return 0;
+			String msg = "Please Check your ID and Password";
+			model.addAttribute("msg", msg);
+			
+			return "user/loginForm";
 		}
 	}
 	

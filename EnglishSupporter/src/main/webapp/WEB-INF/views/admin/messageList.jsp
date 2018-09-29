@@ -7,9 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+부가적인 테마
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 <script type="text/javascript">
 $(function(){
 	messageList();
@@ -28,7 +28,7 @@ function output(resp){
 	var messageList = resp;
 	var result = '';
 	
-	result += '<div id="container">';
+	result += '<div class="container">';
 	result += '<table width="900">';
 	// 리스트 제목 부분
 	result += '<tr>';
@@ -155,16 +155,16 @@ width: 1000px;
 <%@ include file="/WEB-INF/views/header.jsp"%>
 </c:if>
 <c:if test="${sessionScope.loginType eq 'admin'}">
-<div id="container" style="margin-left:350px;">`
-	<h1>Message List</h1>
-	<br/><br/>
-	<div id="messageList" class="container"></div>
-</div>
+	<div id="container" style="margin-left:350px;">`
+		<h1>Message List</h1>
+		<br/>
+		<div id="messageList"></div>
+	</div>
 </c:if>
 <c:if test="${sessionScope.loginType eq 'user'}">
 	<div class="container">
-	<h1>Message List</h1>
-	<br/>
+		<h1>Message List</h1>
+		<br/>
 	<div id="messageList"></div></div>
 </c:if>
 <c:if test="${sessionScope.loginType eq 'user'}">

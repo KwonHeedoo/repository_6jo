@@ -31,7 +31,7 @@ function goMatching(roomid){
 </script>
 <script type="text/javascript">
 function message(){
-	window.open('./goSendMsgBox', 'SendMsgBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	window.open('./goSendMsgBox', 'SendMsgBox', 'width=450, height=560, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 }
 
 $(function(){
@@ -153,11 +153,10 @@ function outputMsg(resp){
         <!-- 로그인 한 경우 --> 
         <c:if test="${sessionScope.loginId != null}">
 		<li><a href="logout">Logout</a></li>
-		<c:if test="${sessionScope.loginType == 'user'}">
+		<%-- <c:if test="${sessionScope.loginType == 'user'}"> --%>
 		<li><a href="goMyschedule">My Page</a></li>
-		</c:if>
+		<%-- </c:if> --%>
 		<c:if test="${sessionScope.loginType == 'admin'}">
-		<li><a href="goMyschedule">My Page</a></li>
 		<li><a href="./goAdminPage">Admin Page</a></li>
 		</c:if> 
 		</c:if>

@@ -59,6 +59,10 @@ width: 100%;
 pre{
 white-space: pre-line;
 }
+.img-responsive {
+width: 128px;
+height: 128px;
+}
 </style>
 <script>
 $(function(){
@@ -438,7 +442,7 @@ function report(reportee, report){
 	
 	document.body.appendChild(form);
 	
-	window.open('', 'ReportBox', 'width=400, height=500, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+	window.open('', 'ReportBox', 'width=450, height=585, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 	
 	form.submit();
 	
