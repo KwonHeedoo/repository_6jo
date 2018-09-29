@@ -155,9 +155,9 @@ public class InterviewController {
 
 	// 1:1 매칭 페이지로 이동?
 	@RequestMapping(value = "/goMatching", method = RequestMethod.GET)
-	public String matchingPractice(HttpSession session, Model model, String roomid) {
-		System.out.println("roomid : " + roomid);
-		model.addAttribute("roomid", roomid);
+	public String matchingPractice(HttpSession session, Model model, String roomid,String matchingid) {
+		System.out.println(matchingid);
+		model.addAttribute("matchingid", matchingid);
 		return "interview/matchingPractice";
 	}
 

@@ -38,8 +38,9 @@ width: 30%;
   </table>
 </body>
 <script type="text/javascript">
-function callPfunction(roomid){
-	window.opener.goMatching(roomid);
+function callPfunction(roomid,matchingid){
+	window.opener.goMatching(roomid,matchingid);
+	window.close();
 }
 
 $(function() {
@@ -63,6 +64,8 @@ $(function() {
 				 text += "<tr>";
 				 text += '<td><a href="javascript:void(0);" onclick="callPfunction(\'';
 				 text += roomNum;
+				 text += '\',\'';
+				 text +=  data[i].matchingId;
 				 var num = i + 1;
 				 text += '\');">' + num +'</a></td>';
 				 //text += '<td><a href="javascript:void(0);" onclick="callPfunction('+ 'a12345678' + ' );">' + data[i].roomNum +'</a></td>';

@@ -25,8 +25,8 @@ function mRoomList(){
 	document.body.removeChild(form);
 
 }
-function goMatching(roomid){
-	location.href = "./goMatching?roomid=" + roomid;
+function goMatching(roomid,matchingid){
+	location.href = "./goMatching?roomid=" + roomid + "&matchingid=" + matchingid;
 }
 </script>
 <script type="text/javascript">
