@@ -112,6 +112,7 @@ public class BoardController {
 		map.put("boardType", boardType);
 		
 		Board board = repository.selectOne(map);
+		System.out.println("detailBoard : " + board);
 		
 		// 조회수 증가
 		if(loginId != null && back == false) {
