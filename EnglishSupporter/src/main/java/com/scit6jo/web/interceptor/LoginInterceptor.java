@@ -19,27 +19,36 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		
 		HttpSession session = request.getSession();
-				
-		String userid = request.getParameter("userid");
-		User stopedUser = respository.checkSanction(userid);
 		
-		// 재제 유저 체크
-		if(stopedUser != null) {
-			String msg1 = "이용에 불편을 드려 죄송하오나, 해당 계정에서 부적절한 행동 또는 언행 등이 감지되었습니다. "
-						+ "English Supporter의 모든 사용자분들이 즐길 수 있는 건전한 환경을 제공해 드리기 위해 "
-						+ "해당 계정은 일정 기간동안 정지 되었음을 알려드립니다.";
-			String msg2 = "정지 기간 : " + stopedUser.getRegdate() + " ~ " + stopedUser.getLastdate();
-			String msg3 = "같은 행위가 반복해서 지속되는 경우, 강제 탈퇴가 진행될 수 있음을 알려드립니다.";
-			String msg4 = "English Supporter 드림";
+		String contextPath = request.getContextPath();
+		String loginId = (String) session.getAttribute("loginId");
+		String loginType = (String) session.getAttribute("loginType");
+		
+		String requestURI = request.getRequestURI();
+		String uri = requestURI.substring(requestURI.lastIndexOf("/")+1);
+		
+		// 관리자만 가능한 요청목록
+		String adminURI = "goAdminPage goAdminManager goDashboard goReportManager goUserManager goWordManager goIQuestionManager";
+		/*// 유저만 가능한 요청목록
+		String userURI = "goInfoUpdate goPwdChange goUnregister detailBoard writeBoardForm updateBoardForm "
+					   + "goInterview viewQuestions goMRoomList goMatching goInterviewData goMypage goMyschedule "
+					   + "goResumeForm goCoverletter goMyDocs goUpdateResume viewMyResume viewMyCoverletter "
+					   + "updateMyCoverletter goSendMsgBox goReceiveMsgBox goMessageList goReportBox";*/
+		
+		if(loginId == null) {
+			session.setAttribute("msg", "Non-members can not do that. Please sign in.");
+			response.sendRedirect(contextPath + "/goLoginForm");
 			
-			session.setAttribute("msg1", msg1);
-			session.setAttribute("msg2", msg2);
-			session.setAttribute("msg3", msg3);
-			session.setAttribute("msg4", msg4);
-			response.sendRedirect(request.getContextPath() + "/");
 			return false;
-		}else {
-			return true;
+		}else{
+			if(loginType.equals("user") && adminURI.contains(uri)) {
+				session.setAttribute("msg", "Normal members can not do this. Please sign in again.");
+				response.sendRedirect(contextPath + "/goLoginForm"); 
+					
+				return false;
+			} else {
+				return true;
+			}
 		}
 	}
 }
