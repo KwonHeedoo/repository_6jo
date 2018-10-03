@@ -57,7 +57,17 @@
 		</if>
 		where
 		    s_id =#{s_id}
-			
+	</update>
+	
+	<update id="updateAppointment" parameterType="Schedule">
+		 update 
+		 	SCHEDULE 
+		 SET
+		    startdate =  #{startDate}
+		where
+		    userid = #{userid}
+			and
+		    title = #{title}
 	</update>
 	
 	<delete id="removeSchedule" parameterType="Schedule">

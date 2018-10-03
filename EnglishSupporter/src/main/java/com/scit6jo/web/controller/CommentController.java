@@ -141,10 +141,12 @@ public class CommentController {
 		System.out.println(board);
 		String userid = board.getUserid();
 		String matchingId = board.getMatchingId();
-		String title = "1:1 Practice Appointment"+userid+"/"+matchingId;
+		String title = "1:1 Practice Appointment-"+userid+"/"+matchingId;
 		Schedule s1 = new Schedule(userid, title);
 		Schedule s2 = new Schedule(matchingId, title);
-		
+		System.out.println(s1);
+		System.out.println(s2);
+		System.out.println(title);
 		//아이디별로 삭제해주기 
 		mypageRepository.deleteSchedule(s1);
 		mypageRepository.deleteSchedule(s2);

@@ -19,13 +19,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.scit6jo.web.repository.BoardRepository;
+import com.scit6jo.web.repository.MypageRepository;
 import com.scit6jo.web.util.PageNavigator;
 import com.scit6jo.web.vo.Board;
+import com.scit6jo.web.vo.Schedule;
 
 @Controller
 public class BoardController {
 	@Autowired
 	BoardRepository repository;
+	@Autowired
+	MypageRepository mypageRepository;
 	
 	private static final String UPLOADPATH = "파일경로";
 	private static final int countPerPage = 15;
@@ -283,6 +287,22 @@ public class BoardController {
 				//board.setOriginalfile(uploadfile.getOriginalFilename());
 				//board.setSavedfile(savedFileName);
 			}
+		}
+		System.out.println(board);
+		//스케쥴 업데이트 처리
+		if(boardType.equals("matching")&board.getMatchingId()!=null) {
+			String userid = (String) session.getAttribute("loginId");
+			String matchingId = board.getMatchingId();
+			
+			String title = "1:1 Practice Appointment-"+userid+"/"+matchingId;
+			Schedule s1 = new Schedule(userid, title);
+			Schedule s2 = new Schedule(matchingId, title);			
+			s1.setStartDate(board.getAppointedTime());
+			s2.setStartDate(board.getAppointedTime());
+			
+			mypageRepository.updateAppointment(s1);
+			mypageRepository.updateAppointment(s2);
+
 		}
 		
 		Map<String, Object> map = new HashMap<>();

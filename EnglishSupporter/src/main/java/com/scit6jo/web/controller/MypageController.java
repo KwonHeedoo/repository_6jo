@@ -72,7 +72,7 @@ public class MypageController {
 	@RequestMapping(value = "/updateMyschedule", method = RequestMethod.POST)
 	public @ResponseBody String updateSchedule(Schedule vo) {
 		System.out.println(vo);
-		int cnt = repository.updateSchedult(vo);
+		int cnt = repository.updateSchedule(vo);
 		if(cnt>0) {
 			return "schedule updated";
 		}

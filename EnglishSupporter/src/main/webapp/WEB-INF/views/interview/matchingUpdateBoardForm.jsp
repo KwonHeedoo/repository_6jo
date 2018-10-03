@@ -71,6 +71,7 @@ height: 28px;
 		<input type="hidden" name="page" value="${page}">
 		<input type="hidden" name="searchItem" value="${searchItem}">
 		<input type="hidden" name="searchText" value="${searchText}">
+		<input type="hidden" name="matchingId" value="${board.matchingId}">
 		<div>
 			<input type="hidden" name="boardType" value="matching">
 			<label>TITLE : </label>

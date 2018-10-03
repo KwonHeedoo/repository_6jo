@@ -198,6 +198,9 @@
 			title = #{board.title}
 			, contents = #{board.contents}
 			, regdate = sysdate
+			<if test="boardType == 'matching'">
+			, appointedtime = to_timestamp(#{board.appointedTime}, 'YYYY-MM-DD"T"HH24:MI')
+			</if>
 		where
 			boardnum = #{board.boardNum}
 	</update>
