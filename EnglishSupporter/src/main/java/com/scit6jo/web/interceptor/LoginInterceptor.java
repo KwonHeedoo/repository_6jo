@@ -42,6 +42,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}else{
 			if(loginType.equals("user") && adminURI.contains(uri)) {
+				session.removeAttribute("loginId");
+				session.removeAttribute("loginNick");
+				session.removeAttribute("email");
+				session.removeAttribute("loginType");
+				session.removeAttribute("img");
+				
 				session.setAttribute("msg", "Normal members can not do this. Please sign in again.");
 				response.sendRedirect(contextPath + "/goLoginForm"); 
 					
