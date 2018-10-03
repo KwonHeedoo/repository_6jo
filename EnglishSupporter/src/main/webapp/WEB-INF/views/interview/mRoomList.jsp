@@ -38,8 +38,9 @@ width: 30%;
   </table>
 </body>
 <script type="text/javascript">
-function callPfunction(roomid){
-	window.opener.goMatching(roomid);
+function callPfunction(roomid,matchingid){
+	window.opener.goMatching(roomid,matchingid);
+	window.close();
 }
 
 $(function() {
@@ -60,18 +61,24 @@ $(function() {
 				var roomNum =  data[i].roomNum +"";
 				console.log("roomNum : " + roomNum);
 				console.log(typeof(roomNum));
+				var matchingid;
+				 if(loginId==data[i].userid){
+					 matchingid = data[i].matchingId;
+				 }
+				 else{
+					 matchingid = data[i].userid;
+				 }
+				 
 				 text += "<tr>";
 				 text += '<td><a href="javascript:void(0);" onclick="callPfunction(\'';
 				 text += roomNum;
+				 text += '\',\'';
+				 text +=  matchingid;
 				 var num = i + 1;
 				 text += '\');">' + num +'</a></td>';
 				 //text += '<td><a href="javascript:void(0);" onclick="callPfunction('+ 'a12345678' + ' );">' + data[i].roomNum +'</a></td>';
 				 text += '<td>'+ data[i].appointedTime + '</td>';
-				 if(loginId==data[i].userid){
-				 text += '<td>'+ data[i].matchingId + '</td>';
-				 }else{
-				 text += '<td>'+ data[i].userid + '</td>';
-				 }
+				 text += '<td>'+ matchingid + '</td>';
 				 text += "</tr>";
 			}
 			$('table.todo-list').html(text);

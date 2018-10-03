@@ -107,7 +107,7 @@ function reportBox(report, reason, reportURL){
 	box += '<td>' + reason + '</td>';
 	box += '</tr>';
 	box += '<tr>';
-	box += '<td colspan="2" style="text-align:center;"><a href="./' + reportURL + '" target="_blank">Going to ReportURL</a></td>';
+	box += '<td colspan="2" style="text-align:center;"><a href="./' + reportURL + '" target="_blank">ReportURL</a></td>';
 	box += '</tr>';
 	box += '</table>';
 	

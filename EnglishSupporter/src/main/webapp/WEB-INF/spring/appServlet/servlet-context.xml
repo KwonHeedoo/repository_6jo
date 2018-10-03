@@ -30,24 +30,56 @@
 	<!-- 인터셉터 클래스를 빈으로 등록 -->
 	<beans:bean id="LoginInterceptor" class="com.scit6jo.web.interceptor.LoginInterceptor">
 	</beans:bean>
-	<beans:bean id="AdminInterceptor" class="com.scit6jo.web.interceptor.AdminInterceptor">
+	<beans:bean id="SanctionInterceptor" class="com.scit6jo.web.interceptor.SanctionInterceptor">
 	</beans:bean>
 	
 	<!-- 여러 요청 중 인터셉터가 가로채야 하는 요청의 종류 등록 -->
 	<interceptors>
 		<interceptor>
 			<mapping path="/login"/>
-			<beans:ref bean="LoginInterceptor"/>
+			<beans:ref bean="SanctionInterceptor"/>
 		</interceptor>
 		
 		<interceptor>
+			<mapping path="/goInfoUpdate"/>
+			<mapping path="/goPwdChange"/>
+			<mapping path="/goUnregister"/>
+			<mapping path="/goMyschedule"/>
+			<mapping path="/goWordtest"/>
+			<mapping path="/goMyWords"/>
+			<mapping path="/detailBoard"/>
+			<mapping path="/writeBoardForm"/>
+			<mapping path="/updateBoardForm"/>
+			<mapping path="/goInterview"/>
+			<mapping path="/viewQuestions"/>
+			<mapping path="/goMRoomList"/>
+			<mapping path="/goMatching"/>
+			<mapping path="/goInterviewData"/>
+			<mapping path="/goResumeForm"/>
+			<mapping path="/goCoverletter"/>
+			<mapping path="/goMyDocs"/>
+			<mapping path="/goUpdateResume"/>
+			<mapping path="/updateResumeForm"/>
+			<mapping path="/viewMyResume"/>
+			<mapping path="/viewMyCoverletter"/>
+			<mapping path="/updateMyCoverletter"/>
+			<mapping path="/goComposition"/>
+			<mapping path="/goConfirmed"/>
+			<mapping path="/goSpeakingText"/>
+			<mapping path="/goSendMsgBox"/>
+			<mapping path="/goReceiveMsgBox"/>
+			<mapping path="/goMessageList"/>
+			<mapping path="/goReportBox"/>
+		
+			<!-- 관리자만 가능한 요청 -->
 			<mapping path="/goAdminPage"/>
+			<mapping path="/goAdminManager"/>
 			<mapping path="/goDashboard"/>
 			<mapping path="/goReportManager"/>
 			<mapping path="/goUserManager"/>
 			<mapping path="/goWordManager"/>
 			<mapping path="/goIQuestionManager"/>
-			<beans:ref bean="AdminInterceptor"/>
+			<beans:ref bean="LoginInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

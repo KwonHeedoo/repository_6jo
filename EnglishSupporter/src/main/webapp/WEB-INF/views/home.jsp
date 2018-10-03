@@ -42,5 +42,6 @@ $(function(){
 
 </div>
 <%@ include file="/WEB-INF/views/Footer.jsp"%>
+<c:remove var="msg4" scope="session" />
 </body>
 </html>

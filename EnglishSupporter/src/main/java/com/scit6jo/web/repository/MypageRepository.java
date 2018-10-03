@@ -65,7 +65,7 @@ public class MypageRepository {
 		return u;
 	}
 
-	public int updateSchedult(Schedule vo) {
+	public int updateSchedule(Schedule vo) {
 		MypageMapper mapper = session.getMapper(MypageMapper.class);
 		int cnt=0;
 		try {
@@ -76,6 +76,16 @@ public class MypageRepository {
 		return cnt;
 	}
 	
+	public int updateAppointment(Schedule vo) {
+		MypageMapper mapper = session.getMapper(MypageMapper.class);
+		int cnt=0;
+		try {
+			cnt = mapper.updateAppointment(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
 
 	
 }

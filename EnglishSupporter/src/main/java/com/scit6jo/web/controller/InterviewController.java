@@ -155,9 +155,9 @@ public class InterviewController {
 
 	// 1:1 매칭 페이지로 이동?
 	@RequestMapping(value = "/goMatching", method = RequestMethod.GET)
-	public String matchingPractice(HttpSession session, Model model, String roomid) {
-		System.out.println("roomid : " + roomid);
-		model.addAttribute("roomid", roomid);
+	public String matchingPractice(HttpSession session, Model model, String roomid,String matchingid) {
+		System.out.println(matchingid);
+		model.addAttribute("matchingid", matchingid);
 		return "interview/matchingPractice";
 	}
 
@@ -227,9 +227,10 @@ public class InterviewController {
 	// Video 태그에 인터뷰가 끝난후 자기 영상을 확인용..
 	@RequestMapping(value = "/getdata", method = RequestMethod.GET)
 	public String getdata(int dataNum, HttpServletResponse response, HttpSession session) {
-		String userid = (String) session.getAttribute("loginId");
+		//String userid = (String) session.getAttribute("loginId");
 		IData result = repository.selectOneIData(dataNum);
 		String originalfile = result.getSaveFile();
+		String userid = originalfile.substring(0, originalfile.indexOf("_"));
 		String fullPath = video_uploadPath + "/" + userid + "/" + originalfile;
 
 		try {

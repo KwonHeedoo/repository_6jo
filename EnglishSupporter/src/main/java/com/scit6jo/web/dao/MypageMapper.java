@@ -13,4 +13,6 @@ public interface MypageMapper {
 	public int removeSchedule(Schedule vo);
 	
 	public int updateSchedule(Schedule vo);
+
+	public int updateAppointment(Schedule vo);
 }

@@ -25,8 +25,8 @@ function mRoomList(){
 	document.body.removeChild(form);
 
 }
-function goMatching(roomid){
-	location.href = "./goMatching?roomid=" + roomid;
+function goMatching(roomid,matchingid){
+	location.href = "./goMatching?roomid=" + roomid + "&matchingid=" + matchingid;
 }
 </script>
 <script type="text/javascript">
@@ -120,7 +120,9 @@ function outputMsg(resp){
       <ul>
         <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
         <!-- <li><i class="fa fa-envelope-o"></i> info@domain.com</li> -->
-        <li><i class="fa fa-envelope-o"></i> <a id="message" style="cursor:pointer;">Ask to English Supporter</a></li>
+        <c:if test="${sessionScope.loginType == 'user'}">
+         <li><i class="fa fa-envelope-o"></i> <a id="message" style="cursor:pointer;">Ask to English Supporter</a></li>
+        </c:if>
       </ul>
     </div>
     <div class="fl_right">
@@ -147,18 +149,18 @@ function outputMsg(resp){
         </c:if>
        	<!-- 로그인 하지 않은 경우 --> 
        	<c:if test="${sessionScope.loginId == null}">
-        <li><a href="goLoginForm">Login</a></li>
-        <li><a href="goRegisterForm">Register</a></li>
+         <li><a href="goLoginForm">Login</a></li>
+         <li><a href="goRegisterForm">Register</a></li>
         </c:if>
         <!-- 로그인 한 경우 --> 
         <c:if test="${sessionScope.loginId != null}">
-		<li><a href="logout">Logout</a></li>
-		<%-- <c:if test="${sessionScope.loginType == 'user'}"> --%>
-		<li><a href="goMyschedule">My Page</a></li>
-		<%-- </c:if> --%>
-		<c:if test="${sessionScope.loginType == 'admin'}">
-		<li><a href="./goAdminPage">Admin Page</a></li>
-		</c:if> 
+		 <li><a href="logout">Logout</a></li>
+		 <%-- <c:if test="${sessionScope.loginType == 'user'}"> --%>
+		 <li><a href="goMyschedule">My Page</a></li>
+		 <%-- </c:if> --%>
+		 <c:if test="${sessionScope.loginType == 'admin'}">
+		  <li><a href="./goAdminPage">Admin Page</a></li>
+		 </c:if> 
 		</c:if>
       </ul>
     </div>
