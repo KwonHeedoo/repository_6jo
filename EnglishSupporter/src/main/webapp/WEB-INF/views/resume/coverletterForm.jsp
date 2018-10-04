@@ -183,7 +183,7 @@ $(function(){
 				var text="";
 				text =reps;
 				alert(text);
-				if(text.includes("완료")){
+				if(text.includes("Successfully")){
 				location.href = "${pageContext.request.contextPath}/goMyDocs";
 				}
 			},
@@ -206,7 +206,7 @@ $(function(){
 					var text="";
 					text =reps;
 					alert(text);
-					if(text.includes("완료")){
+					if(text.includes("Successfully")){
 					location.href = "${pageContext.request.contextPath}/viewMyCoverletter?userid=${sessionScope.loginId}&title="+encodeURI('${myCL.title}');
 					}
 				},
