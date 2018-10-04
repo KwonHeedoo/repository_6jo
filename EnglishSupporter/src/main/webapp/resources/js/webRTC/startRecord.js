@@ -157,7 +157,7 @@ function uploadVideo(){
 	  var data;
 	  data = new FormData();
 	  data.append('file', file);
-	  data.append('questionNum', questions[count].questionNum);
+	  data.append('questionNum', questions[count-1].questionNum);
 	  console.log(JSON.stringify(data));
 	  const download = document.getElementById("download");
 	  $.ajax({
