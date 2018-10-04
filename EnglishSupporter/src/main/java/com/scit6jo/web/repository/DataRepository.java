@@ -88,6 +88,18 @@ public class DataRepository {
 		}
 		return result;
 	}
+	public IQuestion selectOneQuestion(int questionNum) {
+		DataMapper mapper = session.getMapper(DataMapper.class);
+
+		IQuestion result = null;
+		try {
+			result = mapper.selectOneQuestion(questionNum);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	public IData selectOneIData(int dataNum) {
 		DataMapper mapper = session.getMapper(DataMapper.class);

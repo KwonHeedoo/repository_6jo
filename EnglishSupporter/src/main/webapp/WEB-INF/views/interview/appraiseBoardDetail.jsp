@@ -535,6 +535,7 @@ function getRatingAvg(){
 		<div>
 			<pre style="white-space:pre-line;">${board.contents}</pre>
 			<div id ="ratingAvg"></div>
+			<h2>"${question}"</h2>
 			<video controls width="480" height = "320" src = 'getdata?dataNum=${board.datanum}'></video>
 		</div>
 		<div align="right">

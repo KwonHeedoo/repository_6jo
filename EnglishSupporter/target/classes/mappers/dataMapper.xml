@@ -95,6 +95,16 @@
 		order by questionNum asc	
 		
 	</select>
+	
+	<select id="selectOneQuestion" parameterType="int" resultType="iQuestion">
+		select
+			questionNum
+			, question
+		from
+			interview_question
+		where
+			questionNum = #{value}
+	</select>
 	<select id="selectOneIData" resultType="iData" parameterType="int">
 		select
 			dataNum
