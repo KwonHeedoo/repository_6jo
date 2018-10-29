@@ -80,7 +80,6 @@ public class BoardController {
 		Map<String, String> map = new HashMap<>();
 		map.put("searchItem", searchItem);
 		map.put("searchText", searchText);
-		System.out.println("boardType : " + boardType);
 		map.put("boardType", boardType);
 		map.put("constraint", constraint);
 				
@@ -121,7 +120,6 @@ public class BoardController {
 		map.put("boardType", boardType);
 		
 		Board board = repository.selectOne(map);
-		System.out.println("detailBoard : " + board);
 		
 		// 조회수 증가
 		if(loginId != null && back == false) {
@@ -174,7 +172,6 @@ public class BoardController {
 		board.setUserid(userid);
 		board.setNickname(nickname);
 
-		System.out.println(board);
 		Map<String, Object> map = new HashMap<>();
 		map.put("board", board);
 		map.put("boardType", boardType);
@@ -208,51 +205,10 @@ public class BoardController {
 		map.put("boardNum", boardNum);
 		map.put("boardType", boardType);
 		
-		/*if(boardType.equals("appraise")) {
-			deleteFile(map);
-		}*/
-		
 		int result = repository.deleteBoard(map);
 		
 		return goBoardList(1, boardType, null, null, model);
 	}
-	
-	// 게시글 파일 삭제
-	/*@RequestMapping(value="/deleteFile", method=RequestMethod.GET)
-	public String deleteFile(Model model, String boardNum, String boardType, int page) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("boardNum", boardNum);
-		map.put("boardType", boardType);
-		
-		if(boardType.equals("appraise")) {
-			deleteFile(map);
-			int result = repository.deleteFile(Integer.parseInt(boardNum));
-		}
-		Board board = repository.selectOne(map);
-		model.addAttribute("board", board);
-		model.addAttribute("page", page);
-		
-		if(boardType.equals("matching")) {
-			return "interview/updateMatchingBoardForm";
-		}else if(boardType.equals("notice")){
-			return "notice/updateNoticeBoardForm";
-		}else {
-			return "home";
-		}
-	}*/
-	
-	// 게시글 파일 삭제 메소드
-	/*public void deleteFile(Map<String, Object> map) {
-		Board board = repository.selectOne(map);
-		
-		if(board != null) {
-			File file = new File(UPLOADPATH + board.getSavedfile());
-			
-			if(file.exists()) {
-				file.delete();
-			}
-		}
-	}*/
 
 	// 게시글 수정 폼 요청
 	@RequestMapping(value="/updateBoardForm", method=RequestMethod.GET)
@@ -291,12 +247,8 @@ public class BoardController {
 		if(uploadfile != null) {
 			if(uploadfile.getOriginalFilename() != "") {
 				String savedFileName = saveFile(uploadfile);
-				
-				//board.setOriginalfile(uploadfile.getOriginalFilename());
-				//board.setSavedfile(savedFileName);
 			}
 		}
-		System.out.println(board);
 		//스케쥴 업데이트 처리
 		if(boardType.equals("matching")&board.getMatchingId()!=null) {
 			String userid = (String) session.getAttribute("loginId");

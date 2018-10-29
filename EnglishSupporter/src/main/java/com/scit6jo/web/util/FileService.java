@@ -31,7 +31,6 @@ public class FileService {
 		//저장할 파일명 뒤에 을 오늘 날짜의 년월일로 생성
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
 		// 날짜나 랜덤값을 붙여 저장할 파일명을 작성한다. 랜덤 데이터 크기 36
-		// String sdf = UUID.randomUUID().toString();
 		
 		//원본 파일의 확장자와 파일명 분리
 		String filename;		// 확장자를 뺀 파일명
@@ -74,10 +73,6 @@ public class FileService {
 			savedFilename = null;
 			e.printStackTrace();
 		}
-		/*System.out.println("savedFilename in fileservice :"+savedFilename);
-		System.out.println("absolute : " + serverFile.getAbsolutePath());
-		System.out.println("getPath : " + serverFile.getPath());
-		System.out.println("getName : " + serverFile.getName());*/
 		
 		return serverFile.getName();
 	}

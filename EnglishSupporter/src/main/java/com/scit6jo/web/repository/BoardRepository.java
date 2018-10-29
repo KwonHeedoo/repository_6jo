@@ -113,20 +113,6 @@ public class BoardRepository {
 		return result;
 	}
 	
-	// 게시글 파일 삭제 처리
-	/*public int deleteFile(int boardNum) {
-		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		int result = 0;
-		
-		try {
-			result = mapper.deleteFile(boardNum);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}*/
-	
 	// 게시판에 매칭 여부 추가
 	public int matching(Board board) {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);

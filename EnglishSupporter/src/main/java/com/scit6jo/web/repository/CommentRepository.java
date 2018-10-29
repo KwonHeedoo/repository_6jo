@@ -100,6 +100,7 @@ public class CommentRepository {
 		return result;
 	}
 	
+	// 평균 점수
 	public Comment selectRatingAvg(Board board) {
 		CommentMapper mapper = session.getMapper(CommentMapper.class);
 		Comment result = null;

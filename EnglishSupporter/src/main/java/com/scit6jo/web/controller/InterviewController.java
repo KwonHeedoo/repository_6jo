@@ -89,8 +89,6 @@ public class InterviewController {
 	// 관리자페이지 IQuestionManager 질문추가 요청
 	@RequestMapping(value = "questionAdd", method = RequestMethod.POST)
 	public @ResponseBody Integer questionAdd(String question) {
-		System.out.println("questionAdd...");
-		
 		IQuestion iq = new IQuestion();
 		iq.setQuestion(question);
 		
@@ -105,10 +103,6 @@ public class InterviewController {
 	// 관리자페이지 IQuestionManager 업데이트 요청 
 	@RequestMapping(value = "questionUpdate", method = RequestMethod.POST)
 	public @ResponseBody Integer questionUpdate(@RequestBody IQuestion iq) {
-		System.out.println("questionUpdate...");
-		
-		System.out.println(iq);
-		
 		int result = repository.updateQuestion(iq);
 		
 		if(result == 1) return 1;
@@ -118,9 +112,6 @@ public class InterviewController {
 	// 마이페이지 IQuestionManager 삭제 요청 
 	@RequestMapping(value = "questionDelete", method = RequestMethod.POST)
 	public @ResponseBody int questionDelete(int questionNum) {
-		System.out.println("questionDelete...");
-		System.out.println(questionNum);
-		
 		IQuestion iq = new IQuestion();
 		iq.setQuestionNum(questionNum);
 		
@@ -148,11 +139,6 @@ public class InterviewController {
 		return "interview/mRoomList";
 	}
 
-	/*
-	 * public String interview(Model model) { ArrayList<IQuestion> result =
-	 * repository.selectAllQuestion(); return "interview/interviewPractice"; }
-	 */
-
 	// 1:1 매칭 페이지로 이동?
 	@RequestMapping(value = "/goMatching", method = RequestMethod.GET)
 	public String matchingPractice(HttpSession session, Model model, String roomid,String matchingid) {
@@ -166,14 +152,12 @@ public class InterviewController {
 	public @ResponseBody ArrayList<IQuestion> getQuestion() {
 		RowBounds rb = new RowBounds();
 		ArrayList<IQuestion> result = repository.selectAllQuestion(rb);
-		//Collections.shuffle(result);
 		return result;
 	}
 	
 	@RequestMapping(value = "/getResultIData", method = RequestMethod.POST)
 	public @ResponseBody IData getResultIData(String dataNum) {
 		IData result = repository.selectOneIData(Integer.parseInt(dataNum));
-		System.out.println("getResultIData : " + result);
 		return result;
 	}
 
@@ -191,7 +175,6 @@ public class InterviewController {
 	@RequestMapping(value = "/goInterviewData", method = RequestMethod.POST)
 	public String getInterviewData(Model model, HttpSession session) {
 		String userid = (String)session.getAttribute("loginId");
-		System.out.println(userid);
 		ArrayList<IData> result = repository.selectAllIData(userid);
 		model.addAttribute("dataList", result);
 		return "interview/interviewDataList";
@@ -199,8 +182,6 @@ public class InterviewController {
 
 	// [AJAX] 인터뷰 질문이 끝나면 동영상 파일 서버로 전송
 	@RequestMapping(value = "/savedata", method = RequestMethod.POST)
-	// public @ResponseBody String senddata(@RequestParam("file") MultipartFile
-	// file) {
 	public @ResponseBody String senddata(HttpSession session, @RequestParam("file") MultipartFile file,
 			@RequestParam("questionNum") int questionNum) {
 
@@ -215,7 +196,6 @@ public class InterviewController {
 			data.setUserid(userid);
 			data.setConfidence(-1);
 			repository.insertIData(data);
-			//ArrayList<IData> result = repository.selectAllIData(userid);
 			int dataNum = data.getDataNum();
 			Thread fcThread = new AudioControlThread(dataNum, saveFile, userid);
 			fcThread.start();
@@ -227,7 +207,6 @@ public class InterviewController {
 	// Video 태그에 인터뷰가 끝난후 자기 영상을 확인용..
 	@RequestMapping(value = "/getdata", method = RequestMethod.GET)
 	public String getdata(int dataNum, HttpServletResponse response, HttpSession session) {
-		//String userid = (String) session.getAttribute("loginId");
 		IData result = repository.selectOneIData(dataNum);
 		String originalfile = result.getSaveFile();
 		String userid = originalfile.substring(0, originalfile.indexOf("_"));
@@ -271,7 +250,6 @@ public class InterviewController {
 		try {
 			audioPathFile = ac.convert();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		long endingTime = System.currentTimeMillis();
@@ -303,7 +281,6 @@ public class InterviewController {
 			try {
 				answerToText = qss.ChangeSTT(audioPathFile);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -356,7 +333,6 @@ public class InterviewController {
 		String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation";
 		String accessKey = "cd04e541-c278-4c71-b639-e6513ba4e239"; // �߱޹��� Access Key
 		String languageCode = "english"; // ��� �ڵ�
-		// String script = "welcome to the new york city bus tour center";
 		String audioFilePath = fullPath; // ������ ���� ���� ���
 		String audioContents = null;
 
@@ -374,7 +350,6 @@ public class InterviewController {
 		}
 
 		argument.put("language_code", languageCode);
-		// argument.put("script", script);
 		argument.put("audio", audioContents);
 
 		request.put("access_key", accessKey);

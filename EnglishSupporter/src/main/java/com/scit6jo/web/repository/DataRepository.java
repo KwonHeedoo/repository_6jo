@@ -62,19 +62,6 @@ public class DataRepository {
 		return result;
 	}
 	
-	/*public ArrayList<IQuestion> selectAllQuestion() {
-		DataMapper mapper = session.getMapper(DataMapper.class);
-
-		ArrayList<IQuestion> result = null;
-		try {
-			result = mapper.selectAllQuestion();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}*/
-	
 	// 페이징처리용 
 	public ArrayList<IQuestion> selectAllQuestion(RowBounds rb) {
 		DataMapper mapper = session.getMapper(DataMapper.class);

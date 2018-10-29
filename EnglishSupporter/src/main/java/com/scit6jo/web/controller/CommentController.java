@@ -84,7 +84,6 @@ public class CommentController {
 			map.put("check", false);
 			Comment comment = repository.selectOne(map);
 			if(comment.getCommentNum() == Integer.parseInt(commentNum)) {
-				//comment.setUserid("*****");
 				comment.setNickname("*****");
 				comment.setComments("[ 삭제된 코멘트 입니다. ]");
 				
@@ -106,7 +105,6 @@ public class CommentController {
 	@RequestMapping(value = "/matching", method = RequestMethod.POST)
 	public @ResponseBody int matching(Board board, String boardType, Comment comment){
 		// 스케줄 처리
-		System.out.println(board.getAppointedTime());
 		String userid = board.getUserid();
 		String matchingId = board.getMatchingId();
 		
@@ -127,7 +125,6 @@ public class CommentController {
 	    board.setRoomNum(roomnum);
 		// 게시판에 매칭 여부 추가
 		boardRepository.matching(board);
-		System.out.println(roomnum);
 		// 매칭 처리
 		int result = repository.matching(map);
 		
@@ -138,15 +135,11 @@ public class CommentController {
 	@RequestMapping(value = "/unmatching", method = RequestMethod.POST)
 	public @ResponseBody int unmatching(Board board, String boardType, Comment comment){
 		// 스케줄 처리 
-		System.out.println(board);
 		String userid = board.getUserid();
 		String matchingId = board.getMatchingId();
 		String title = "1:1 Practice Appointment-"+userid+"/"+matchingId;
 		Schedule s1 = new Schedule(userid, title);
 		Schedule s2 = new Schedule(matchingId, title);
-		System.out.println(s1);
-		System.out.println(s2);
-		System.out.println(title);
 		//아이디별로 삭제해주기 
 		mypageRepository.deleteSchedule(s1);
 		mypageRepository.deleteSchedule(s2);

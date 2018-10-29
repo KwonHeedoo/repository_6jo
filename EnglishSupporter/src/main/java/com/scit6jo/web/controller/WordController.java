@@ -84,8 +84,6 @@ public class WordController {
 	public @ResponseBody Integer wordUpdate(@RequestBody Word word) {
 		System.out.println("wordUpdate...");
 		
-		System.out.println(word);
-		
 		int result = repository.updateWord(word);
 		
 		if(result == 1) return 1;
@@ -138,8 +136,6 @@ public class WordController {
 		word.setUserid(userid);
 		word.setWordtype("user");
 		
-		System.out.println(word);
-		
 		boolean result = repository.insertMyWord(word);
 		
 		return result;
@@ -153,8 +149,6 @@ public class WordController {
 		String userid = (String) session.getAttribute("loginId");
 		word.setUserid(userid);
 		
-		System.out.println(word);
-		
 		int result = repository.updateMyWord(word);
 		
 		if(result == 1) return 1;
@@ -165,7 +159,6 @@ public class WordController {
 	@RequestMapping(value = "mywordDelete", method = RequestMethod.POST)
 	public @ResponseBody boolean mywordDelete(String myword_no, HttpSession session) {
 		System.out.println("mywordDelete...");
-		System.out.println(myword_no);
 		
 		String userid = (String) session.getAttribute("loginId");
 		Word word = new Word();
@@ -181,19 +174,14 @@ public class WordController {
 	public @ResponseBody List<Word> getMyWords(@RequestParam(value="wordlevel", defaultValue="1")String wordlevel, HttpSession session) {
 		List<Word> wList=null;
 		RowBounds rb = new RowBounds();
-		//System.out.println(wordlevel);
-		//String userid = "aaa";
 		String userid = (String) session.getAttribute("loginId");
 		//로그인과 합쳐져야 해서 세션의 로그인 
 		System.out.println("userid"+userid);
 		System.out.println(wordlevel);
 		if(wordlevel.equals("0")) {
 			wList = repository.getMyWords(rb, userid);
-			//System.out.println("0인경우 내단어장 불러오기");
-			//System.out.println(wList);
 		}else {
 			wList=repository.getWordList(wordlevel, userid);
-			//System.out.println("내단어장 아닌거 불러오기");
 		}
 		return wList;
 	}
@@ -203,23 +191,17 @@ public class WordController {
 		boolean result =false;
 		
 		//본래 세션의 아이디를 가져와서 사용
-//		word.setUserid("aaa");
 		String userid = (String) session.getAttribute("loginId");
 		word.setUserid(userid);
-/*		System.out.println(word);
-		System.out.println(command);
-		System.out.println("wordtype"+word.getWordtype());
-*/		
-		System.out.println(word);
 		
 		if(command.equals("insert")) {
 			if(word.getWordtype().equals("")) {
+				//일반단어 별찍기 in
 				word.setWordtype("star");
-				System.out.println("일반단어 별찍기 in");
 			}
 			result =repository.insertMyWord(word);
 		}else {
-			System.out.println("삭제");
+			//삭제
 			word.setMyword_no(null);
 			result =repository.deleteMyWord(word);
 		}
