@@ -389,12 +389,9 @@ $(function(){
 	
 	
 	$('#CVsend').on('click',function(){
-		console.log('들어옵니까?');
 		if(!validation()){
 			return;
-			console.log('너무어렵다구 ㅠㅠ');
 		}
-		console.log('여기 찍나요?ㅜ?')
 		//폼 오브젝트화 
 		var resume = formToObject();
 		$.ajax({
@@ -406,7 +403,7 @@ $(function(){
 				var text="";
 				text =reps;
 				alert(text);
-				if(text.includes("완료")){
+				if(text.includes("Successfully")){
 					location.href = "${pageContext.request.contextPath}/goMyDocs?selectedTab=resume";
 					}
 			},
@@ -429,7 +426,7 @@ $(function(){
 				var text="";
 				text =reps;
 				alert(text);
-				if(text.includes("완료")){
+				if(text.includes("Successfully")){
 					var title = $('input[name="title"]').val();
 					var userid = $('input[name="userid"]').val();
 					var link = 'viewMyCoverletter?userid='+userid+'&title='+encodeURI(title);

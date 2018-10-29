@@ -240,6 +240,8 @@
 			(userid = #{value} OR matchingid = #{value}) 
 		and 
 			appointedtime > sysdate
+		and
+			(userid is not null AND matchingid is not null)
 		order by 
 			appointedtime asc
 	</select>

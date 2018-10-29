@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.scit6jo.web.repository.BoardRepository;
+import com.scit6jo.web.repository.DataRepository;
 import com.scit6jo.web.repository.MypageRepository;
 import com.scit6jo.web.util.PageNavigator;
 import com.scit6jo.web.vo.Board;
+import com.scit6jo.web.vo.IData;
+import com.scit6jo.web.vo.IQuestion;
 import com.scit6jo.web.vo.Schedule;
 
 @Controller
@@ -30,6 +33,8 @@ public class BoardController {
 	BoardRepository repository;
 	@Autowired
 	MypageRepository mypageRepository;
+	@Autowired
+	DataRepository dataReprository;
 	
 	private static final String UPLOADPATH = "파일경로";
 	private static final int countPerPage = 15;
@@ -133,6 +138,9 @@ public class BoardController {
 		}else if(boardType.equals("notice")){
 			return "notice/noticeBoardDetail";
 		}else if(boardType.equals("appraise")){
+			IData tmp = dataReprository.selectOneIData(board.getDatanum());
+			IQuestion question = dataReprository.selectOneQuestion(tmp.getQuestionNum());
+			model.addAttribute("question", question.getQuestion());
 			return "interview/appraiseBoardDetail";
 		}else {
 			return "home";

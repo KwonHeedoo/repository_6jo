@@ -27,5 +27,6 @@ public interface DataMapper {
 	public int updateQuestion(IQuestion iq);
 	// 관리자페이지 IQuestionManager 삭제 처리
 	public int deleteQuestion(IQuestion iq);
+	public IQuestion selectOneQuestion(int questionNum);
 }
 
