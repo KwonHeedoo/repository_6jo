@@ -76,29 +76,10 @@ public class CompositionController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			//printMap(repMap);
 		}
 		
 		return wordList;
 	}
-	
-	/*public List<String> makeArray(String key, Integer value){
-	    List<String> firstStrings = new ArrayList<>();
-	    for (int i = 0; i < value; i++) {
-	        firstStrings.add(key);
-	    }
-	    return firstStrings;
-	}
-	
-	public void printMap(Map<String, Integer> repMap){
-	    List<List<String>> secondStrings = new ArrayList<>();
-	    for (Map.Entry<String, Integer> entry : repMap.entrySet()) {
-	        System.out.println("Element : " + entry.getKey() + " Count : " + entry.getValue());
-	        secondStrings.add(makeArray(entry.getKey(), entry.getValue()));
-	    }
-	    System.out.println(secondStrings.toString());
-	}*/
 	
 	// 중복 단어 추가
 	public List<Word> selectWord(Map<String, Integer> repMap){

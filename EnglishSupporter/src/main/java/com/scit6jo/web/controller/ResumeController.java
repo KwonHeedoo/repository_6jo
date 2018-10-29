@@ -41,7 +41,6 @@ public class ResumeController {
 	//커버레터 샘플값 바꿔주기 
 	@RequestMapping(value = "/selectSamples", method = RequestMethod.POST)
 	public @ResponseBody String selectSamples(CoverLetter vo) {
-		//System.out.println(vo);
 		CoverLetter sample = repository.getCoverletter(vo);
 		String sampletext="sampletext";
 		if(sample!=null) {
@@ -59,7 +58,6 @@ public class ResumeController {
 		vo.setTitle("sample1");
 		
 		CoverLetter sample= repository.getCoverletter(vo);
-		//System.out.println(sample);
 		
 		model.addAttribute("sample", sample);
 		model.addAttribute("type", "insert");
@@ -129,8 +127,6 @@ public class ResumeController {
 		return myResume;
 	}
 
-	
-	
 	//커버레터 수정
 	@RequestMapping(value = "/updateCoverletter", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public @ResponseBody String updateCoverletter(@RequestBody CoverLetter coverletter) {
@@ -148,7 +144,6 @@ public class ResumeController {
 	@RequestMapping(value = "/updateResumeForm", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public @ResponseBody String updateResumeForm(@RequestBody Resume resume) {
 		String text=null;
-		System.out.println(resume);
 		int check1 = repository.updateResume(resume);
 		System.out.println("이력서 업데 + 학력경력이력삭제 :"+check1);
 		
@@ -207,8 +202,6 @@ public class ResumeController {
 		 
 		 User user = userRepository.selectOne(new User(myResume.getUserid()));
 		 
-		 System.out.println(myResume);
-		 System.out.println(user);
 		 model.addAttribute("resume", myResume);
 		 model.addAttribute("user", user);
 		return "resume/viewResume";
@@ -228,7 +221,6 @@ public class ResumeController {
 		CoverLetter myCL = repository.getCoverletter(vo);
 		System.out.println("go update cover letter");
 
-		//System.out.println(myCL);
 		model.addAttribute("myCL", myCL);
 		model.addAttribute("type", "update");
 		return "resume/coverletterForm";
@@ -263,7 +255,5 @@ public class ResumeController {
 		}
 		return result;
 	}
-	
-
 	
 }

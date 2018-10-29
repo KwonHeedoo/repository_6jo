@@ -29,11 +29,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		// 관리자만 가능한 요청목록
 		String adminURI = "goAdminPage goAdminManager goDashboard goReportManager goUserManager goWordManager goIQuestionManager";
-		/*// 유저만 가능한 요청목록
-		String userURI = "goInfoUpdate goPwdChange goUnregister detailBoard writeBoardForm updateBoardForm "
-					   + "goInterview viewQuestions goMRoomList goMatching goInterviewData goMypage goMyschedule "
-					   + "goResumeForm goCoverletter goMyDocs goUpdateResume viewMyResume viewMyCoverletter "
-					   + "updateMyCoverletter goSendMsgBox goReceiveMsgBox goMessageList goReportBox";*/
 		
 		if(loginId == null) {
 			session.setAttribute("msg", "Non-members can not do that. Please sign in.");

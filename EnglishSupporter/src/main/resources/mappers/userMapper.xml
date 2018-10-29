@@ -182,7 +182,8 @@
 		and 
 			endtime <![CDATA[>=]]> sysdate
 	</select>
-	  
+	
+	<!-- 회원가입 -->
 	<insert id="insertUser" parameterType="User">
 		insert into
 			userlist(
@@ -267,28 +268,29 @@
 		</if>		
 	</delete> 
 	
+	<!-- 마이페이지 유저 정보 -->
 	<select id="userInfoPage" resultType="User" parameterType="String">
-	select 
-		to_char(u.regdate, 'YYYY-MM-DD') regdate
-		, to_char(u.lastdate, 'YYYY-MM-DD') lastdate
-		, u.attendnum as attendNum
-		, NVL(b.writecount,0)as writeCount
-	from 
-		userlist u
-	left outer join 
-		(select 
-			userid
-			, count(*) as writecount 
+		select 
+			to_char(u.regdate, 'YYYY-MM-DD') regdate
+			, to_char(u.lastdate, 'YYYY-MM-DD') lastdate
+			, u.attendnum as attendNum
+			, NVL(b.writecount,0)as writeCount
 		from 
-			matching_board 
-		group by 
-			userid 
-		having 
-			userid = #{userid}) b
-		on 
-			u.userid = b.userid
-		where 
-			u.userid = #{userid}
+			userlist u
+		left outer join 
+			(select 
+				userid
+				, count(*) as writecount 
+			from 
+				matching_board 
+			group by 
+				userid 
+			having 
+				userid = #{userid}) b
+			on 
+				u.userid = b.userid
+			where 
+				u.userid = #{userid}
 	</select>
 	
 	<!-- 유저의 권한 변경 -->

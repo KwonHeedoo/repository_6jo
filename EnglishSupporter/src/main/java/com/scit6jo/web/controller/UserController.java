@@ -51,7 +51,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/getProfileImg", method = RequestMethod.GET)
 	   public String getProfileImg(HttpServletResponse response,HttpSession session, String userid) {
-		//String userid = (String)session.getAttribute("loginId");
 		User user = new User();
 		user.setUserid(userid);
 	      User result = repository.selectOne(user);
@@ -59,7 +58,6 @@ public class UserController {
 	      String originalfile = temp.substring(0, temp.lastIndexOf("."));
 	      String fullPath = IMG_PATH + "/" + result.getImgFilePath();
 	      
-	      //String fullPath = uploadPath + "/" + userid + "/"  + board.getSavedfile();
 	      // 전체 경로 uploadPath +"/"+ board.getSavedfile() 하면 경로가됨
 	      // header에 다운로드할 정보를 실어 보냄
 	      try {
@@ -133,7 +131,6 @@ public class UserController {
 	@RequestMapping(value = "/goinsert", method = RequestMethod.GET)
 	public String goinsert(User user) {
 		
-		
 		return "user/register";
 	}
 
@@ -148,7 +145,6 @@ public class UserController {
 	// 로그인 처리
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(User user, HttpSession session, Model model) {
-		System.out.println("loginCheck...");
 		User u = repository.selectOne(user);
 		System.out.println(u);
 	    
@@ -187,7 +183,6 @@ public class UserController {
 	// 유저정보를 ajax로 받아옴..
 	@RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
 	public @ResponseBody User getUserInfo(String userid) {
-		System.out.println(userid);
 		User user = new User();
 		user.setUserid(userid);
 		User findUser =repository.selectOne(user);
@@ -208,7 +203,6 @@ public class UserController {
 		User user = repository.selectOne(u);
 		
 		user.setUserpwd("0000");	// 비밀번호 노출 방지 
-		System.out.println(user);
 		
 		model.addAttribute("u", user);	// 기존 개인정보 띄워주는 용도
 		
@@ -218,7 +212,6 @@ public class UserController {
 	// 닉네임 중복체크 
 	@RequestMapping(value = "nicknameCheck", method = RequestMethod.POST)
 	public @ResponseBody Integer nicknameCheck(User user) {
-		
 		User u = repository.nicknameCheck(user);
 		
 		if(u != null) return 1;		// 사용 불가능한 닉네임

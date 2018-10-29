@@ -1,12 +1,9 @@
 package com.scit6jo.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +22,6 @@ public class MypageController {
 	public @ResponseBody User goMypage(HttpSession session) {
 		String userid = (String) session.getAttribute("loginId");
 		User user = repository.getUserInfo(userid);
-		System.out.println(user);
 		return user;
 	}
 	
@@ -40,7 +36,6 @@ public class MypageController {
 	//새 스케쥴 생성창 
 	@RequestMapping(value = "/saveMyschedule", method = RequestMethod.POST)
 	public @ResponseBody String makeMyschedule(Schedule vo) {
-		System.out.println(vo);
 		int cnt = repository.saveSchedule(vo);
 		if(cnt>0) {
 			return "schedule saved";
@@ -50,8 +45,6 @@ public class MypageController {
 	//스케쥴 상세보기창 
 	@RequestMapping(value = "/deleteMyschedule", method = RequestMethod.POST)
 	public @ResponseBody String deleteMyschedule(String id) {
-		System.out.println("delete schedule");
-		System.out.println(id);
 		 Schedule ss= new Schedule();
 			ss.setS_id(id);
 		int cnt = repository.deleteSchedule(ss);
@@ -64,14 +57,11 @@ public class MypageController {
 	@RequestMapping(value = "/getschedule", method = RequestMethod.POST)
 	public @ResponseBody List<Schedule> getSchedule(String userid) {
 		List<Schedule> result = repository.selectAllSchedule(userid);
-		//System.out.println(result.size());
-		//System.out.println(result.get(0));
 		return result;
 	}
 	
 	@RequestMapping(value = "/updateMyschedule", method = RequestMethod.POST)
 	public @ResponseBody String updateSchedule(Schedule vo) {
-		System.out.println(vo);
 		int cnt = repository.updateSchedule(vo);
 		if(cnt>0) {
 			return "schedule updated";

@@ -19,7 +19,7 @@ public interface CommentMapper {
 	public Comment selectOne(Map<String, Object> map);
 	// 매칭 여부 처리
 	public int matching(Map<String, Object> map);
-	
+	// 평균평점
 	public Comment selectRatingAvg(Board board);
 
 }

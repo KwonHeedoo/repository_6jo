@@ -17,9 +17,6 @@ public class AudioConverter {
 
 	private String fileName;
 	private String userName;
-	
-	
-	
 
 	public AudioConverter(String fileName, String userName) {
 		super();
@@ -75,10 +72,4 @@ public class AudioConverter {
 		return audioPathFile;
 	}
 
-	/**
-	 * 
-	 * @param is
-	 */
-
-	
 }
