@@ -28,7 +28,7 @@ public interface WordMapper {
 	public int deleteWord(Word word);
 	
 	/**
-	 * 수준별 상 중 하 단어 레벨을 가져옴
+	 * 수준별 상 중 하 단어 레벨별로 가져옴
 	 * @param wordlevel
 	 * @param userid 
 	 * @return

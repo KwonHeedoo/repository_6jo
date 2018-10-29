@@ -104,7 +104,7 @@ function isAlphabet(ch) {
 				url: "controlMyWords",
 				data : newword,
 				success: function(reps){
-					var result = reps; // 성공....?
+					var result = reps; /
 					$('#result').text("새 단어 입력이 완료되었습니다.");
 					$('input[name="word"]').val('');
 					$('input[name="meaningK"]').val('');

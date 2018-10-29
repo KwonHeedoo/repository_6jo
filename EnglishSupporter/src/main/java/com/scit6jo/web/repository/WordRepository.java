@@ -69,7 +69,7 @@ public class WordRepository {
 		if(result == 1) return 1;
 		else			return 0;
 	}
-
+	// 레벨별 단어 리스트 불러오기 
 	public List<Word> getWordList(String wordlevel, String userid){
 		WordMapper mapper= session.getMapper(WordMapper.class);
 		List<Word>wordlist = mapper.selectAllWord(wordlevel, userid);
@@ -80,14 +80,14 @@ public class WordRepository {
 		
 		return wordlist;
 	}
-
+	// 내 단어 목록 불러오기 
 	public List<Word> getMyWords(RowBounds rb, String userid) {
 		WordMapper mapper= session.getMapper(WordMapper.class);
 		List<Word>wordlist = mapper.getMyWords(rb, userid);
 		
 		return wordlist;
 	}
-
+	// 예외단어 가져오기
 	public List<String> exceptionWord() {
 		WordMapper mapper = session.getMapper(WordMapper.class);
 
@@ -99,7 +99,7 @@ public class WordRepository {
 		}
 		return exceptionWord;
 	}
-
+	//나의 단어장에  내 답어 삽입하기
 	public boolean insertMyWord(Word word) {
 		WordMapper mapper = session.getMapper(WordMapper.class);
 		int cnt = mapper.insertMyWord(word);

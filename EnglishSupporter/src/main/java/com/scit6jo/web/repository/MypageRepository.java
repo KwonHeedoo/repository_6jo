@@ -31,7 +31,7 @@ public class MypageRepository {
 		return list;
 		
 	}
-
+	// 스케쥴 저장 
 	public int saveSchedule(Schedule vo) {
 		MypageMapper mapper = session.getMapper(MypageMapper.class);
 		int cnt=0;
@@ -42,7 +42,7 @@ public class MypageRepository {
 		}
 		return cnt;
 	}
-
+	// 스케쥴 삭제 
 	public int deleteSchedule(Schedule ss) {
 		MypageMapper mapper = session.getMapper(MypageMapper.class);
 		int cnt=0;
@@ -64,7 +64,7 @@ public class MypageRepository {
 		}
 		return u;
 	}
-
+	// 스케쥴 업데이트 
 	public int updateSchedule(Schedule vo) {
 		MypageMapper mapper = session.getMapper(MypageMapper.class);
 		int cnt=0;
@@ -75,7 +75,7 @@ public class MypageRepository {
 		}
 		return cnt;
 	}
-	
+	// 1:1 매칭 약속 시간 변경시 스케쥴 자동 업데이트 
 	public int updateAppointment(Schedule vo) {
 		MypageMapper mapper = session.getMapper(MypageMapper.class);
 		int cnt=0;

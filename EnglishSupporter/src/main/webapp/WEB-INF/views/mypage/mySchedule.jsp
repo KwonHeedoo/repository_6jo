@@ -33,8 +33,6 @@ function init(){
           },
           defaultDate: today,
           height: 680,
-          //weekNumbers: true,
-          //weekNumberTitle : 'weeks',
           navLinks: true, // can click day/week names to navigate views
           editable: true,
           eventLimit: true, // allow "more" link when too many events          
@@ -68,7 +66,6 @@ function init(){
         	        url: 'getschedule',
         	        data:{'userid':userid},
         	        success: function(doc) {
-        	        	//console.log(doc);
         	          var events = [];
         	          $.each(doc,function() {
         	        	var obj = {
@@ -84,8 +81,6 @@ function init(){
             	        if($(this).attr('endDate')!=null){
             	        	obj.end = $(this).attr('endDate');
             	        }  
-        	            //console.log('obj');
-        	            //console.log(obj);
         	        	events.push(obj);
         	          });        
         	          console.log(events);
@@ -121,7 +116,6 @@ $(document).ready(function() {
 		if(updateId==""){
 				console.log("insert");
 	    	var schedule = {'userid':userid,'startDate': start, 'endDate': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")};
-	    	//var scheduleview = {'start': start, 'end': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")}  
 	    	$.ajax({
 	  	        method:'post',
 	  	        url: 'saveMyschedule',
@@ -132,19 +126,16 @@ $(document).ready(function() {
 	  	      });
 	    		init();
 	    	  $('#calendar').fullCalendar( 'refetchEvents' );
-	    	//  $('#calendar').fullCalendar('renderEvent',scheduleview, true);
 	    	  $('#writeModal').modal('hide'); // 마지막으로 모달 창 지우기 
 			
 		}else{ //수정하는 경우 
 			console.log('update'+updateId);
 	    	var schedule = {'s_id':updateId,'userid':userid,'startDate': start, 'endDate': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")};
-	        //	var scheduleview = {'start': start, 'end': (end == start) ? null : end, 'title': title , 'allDay' : $('#allDay').is(":checked")}  
 	        	$.ajax({
 	      	        method:'post',
 	      	        url: 'updateMyschedule',
 	      	        data: schedule,
 	      	        success: function(doc) {
-	      	        	console.log(doc);
 	      	        }
 	      	      });
 	        	init();
@@ -157,8 +148,6 @@ $(document).ready(function() {
     	$('#updateBtn').click(function() {
         	$('#viewModal').modal('hide');
         	updateId = clickEvent.id;
-        	console.log(updateId);
-        	console.log(clickEvent);
         	// 이벤트 정보 띄우기 
         	$('#start').val(clickEvent.start.format('YYYY-MM-DD'));
   			$('#shour').val(clickEvent.start.format('HH'));
@@ -193,7 +182,6 @@ $(document).ready(function() {
 	    	        url: 'deleteMyschedule',
 	    	        data: {'id':id},
 	    	        success: function(doc) {
-	    	        	console.log(doc);
 	    	        }
 	    		});
 	    	  init();
@@ -206,7 +194,6 @@ $(document).ready(function() {
         $('#closeWrite').click(function() {
         	console.log('updateId: '+updateId);
         	updateId ="";
-        	console.log('updateId: '+updateId);
 		});
 
   });

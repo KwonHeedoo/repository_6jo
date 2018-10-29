@@ -119,7 +119,6 @@ function outputMsg(resp){
     <div class="fl_left">
       <ul>
         <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <!-- <li><i class="fa fa-envelope-o"></i> info@domain.com</li> -->
         <c:if test="${sessionScope.loginType == 'user'}">
          <li><i class="fa fa-envelope-o"></i> <a id="message" style="cursor:pointer;">Ask to English Supporter</a></li>
         </c:if>
@@ -192,25 +191,11 @@ function outputMsg(resp){
         <li id="interview"><a class="drop" href="#">Interview</a>
           <ul>
             <li><a href="./goInterview">Mock Interview</a></li>
-            <!-- <li><a href="./goBoardList?boardType=appraise">Interview Appraise</a></li> -->
             <li><a href="./goBoardList?boardType=appraise">Interview Appraise</a></li>
             <li><a href="./goBoardList?boardType=matching">1:1 Video Chat</a></li>
             <li><a href="javascript:void(0);" onclick="mRoomList();">1:1 RoomList</a></li>
           </ul>
         </li>
-<!--         <li><a class="drop" href="#">MyPage</a>
-          <ul>
-            <li><a href="goMypage">My Info</a></li>         
-            <li><a href="#">My Scheduler</a></li>
-            <li><a href="#">My Chatting</a></li> -->
-            
-<!--             <li><a class="drop" href="#">Level 2 + Drop</a>
-              <ul>
-                <li><a href="#">Level 3</a></li>
-                <li><a href="#">Level 3</a></li>
-                <li><a href="#">Level 3</a></li>
-              </ul>
-            </li> -->
             <li id="nBoard"><a href="./goBoardList?boardType=notice">Notice</a></li>
           </ul>
     </nav>
