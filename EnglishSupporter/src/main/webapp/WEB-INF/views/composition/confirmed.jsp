@@ -52,7 +52,6 @@ function grammerCheck(composition, confirm){
 		var data = composition.replace(/(\r\n\t|\r\n|\n|\r\t)/gm, " ");
 		// [TextGears] Grammar check API
 		$.ajax({
-			//url : "https://api.textgears.com/check.php?text=" + JSON.stringify(data) + "&key=o6qm0xkLbPcr4Wk0"
 			url : "https://api.textgears.com/check.php?text=" + data + "&key=o6qm0xkLbPcr4Wk0"
 			, type : "post"
 			, success : function(grammer){
@@ -149,7 +148,6 @@ function result(composition, confirm, grammer, emotion, repetition){
 				var strIndex = 0;
 				// 틀린 단어 & 개선 단어
 				$.each(gra.errors, function(index, item){
-					/* if(index != 0){ */
 						graResult += '<tr>';
 						graResult += '<td style="color:red;">' + item.bad + '</td>';
 						graResult += '<td><b> → </b></td>';
@@ -158,10 +156,8 @@ function result(composition, confirm, grammer, emotion, repetition){
 						
 						// 틀린 단어에 빨간 밑줄
 						resultComp += composition.substring(strIndex, item.offset-2);
-						//resultComp += ' <span style="text-decoration: underline dotted red;">' + composition.substring(item.offset-1, (item.offset-1) + item.length) + '</span> ';
 						resultComp += ' <span style="text-decoration: underline dotted red;">' + composition.substring(item.offset-1, item.offset + item.length) + '</span> ';
 						strIndex = item.offset + item.length;
-					/* } */
 				});
 				resultComp += composition.substring(strIndex);
 				graResult += '</table>';
@@ -204,11 +200,7 @@ function result(composition, confirm, grammer, emotion, repetition){
 			}
 			repResult += '</p>';
 		});
-	}/* else{
-		repResult += 'There is no synonym';
-		//resultComp += '<br/><br/>';
-		//repResult += '<h3>[Synonym Word]</h3>';
-	} */
+	}
 	
 	// 텍스트 감정 분석이 된 경우
 	if(emotion != null){

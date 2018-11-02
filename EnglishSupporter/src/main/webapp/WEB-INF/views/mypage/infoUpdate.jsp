@@ -188,17 +188,6 @@ $(function(){
 	$('input[name="birthdate"]').val(birthdate);
 	console.log(birthdate);
 });
-/*
-$(function(){
-	var date = $('#birthdate').val();
-	date =date.split('-');
-	console.log(date);
-
-	var birthdate = date[0]+"-"+date[1]+"-"+date[2].substring(0,2);
-	$('input[name="birthdate"]').val(birthdate);
-	console.log(birthdate);
-});
-*/
 </script>
 
 </html>

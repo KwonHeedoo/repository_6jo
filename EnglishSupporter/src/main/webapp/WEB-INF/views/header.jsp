@@ -130,7 +130,6 @@ function outputMsg(resp){
       	 <li>
       	 	<img alt="Profile" <c:if test="${sessionScope.img != null}">
       	 	src="./getProfileImg?userid=${sessionScope.loginId}"
-      	 	<%-- src="./resources/profile/${session.img}" --%>
       	 	</c:if>
       	 	<c:if test="${sessionScope.img == null}">
       	 	src="./resources/images/icons/user-avatar-placeholder.png"
@@ -154,9 +153,7 @@ function outputMsg(resp){
         <!-- 로그인 한 경우 --> 
         <c:if test="${sessionScope.loginId != null}">
 		 <li><a href="logout">Logout</a></li>
-		 <%-- <c:if test="${sessionScope.loginType == 'user'}"> --%>
 		 <li><a href="goMyschedule">My Page</a></li>
-		 <%-- </c:if> --%>
 		 <c:if test="${sessionScope.loginType == 'admin'}">
 		  <li><a href="./goAdminPage">Admin Page</a></li>
 		 </c:if> 

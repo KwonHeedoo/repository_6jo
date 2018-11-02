@@ -142,36 +142,6 @@ nav {height:50px;}
         <input id="msgList" type="hidden" value="${messageList}">
             <ul class="nav navbar-nav nav-flex-icons ml-auto" style="padding-left:88%;">
             	<li class="nav-item dropdown" id="msgItem" style="padding-right:8px;"></li>
-                <!-- <li class="nav-item dropdown" style="padding-right:8px;">
-                    <a class="nav-link dropdown-toggle alarm" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false" style="position:relative;"><i class="fa fa-comments fa-lg"><c:if test="${msgCount != 0}"><span class="nav-counter">${msgCount}</span></c:if></i></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                    <c:if test="${not empty messageList}">
-	                    <c:forEach var="message" items="${messageList}">
-	                    	<input id="message${message.messageNum}" type="hidden" value="${message.message}">
-	                    	<div class="dropdown-item" id="msg${message.messageNum}" style="width:280px;">
-	                    		<div style="float:left; width:50%;"><b>${message.userid}</b></div>
-	                    		<div style="float:right; width:50%;">${message.regdate}</div><br/>
-	                    		<div class="msg">${message.message}</div>
-	                    	</div>
-	                    	<script type="text/javascript">
-	                    		var messageNum = '${message.messageNum}';
-								$('#msg'+messageNum).on('click',function(){
-									var nickname = '${message.nickname}';
-									var message = $('#message' + messageNum).val();
-									read(messageNum, nickname, message);
-								});
-							</script>
-	                    	<div class="divider"></div>
-	                    </c:forEach>
-	                    	<a class="dropdown-item" href="./goMessageList" style="width:280px;"><nobr><b>Read All Message ></b></nobr></a>
-                    </c:if>
-                    <c:if test="${empty messageList}">
-                    	<a class="dropdown-item" href="./goMessageList" style="width:280px;"><nobr><b>Read All Message ></b></nobr></a>
-                    </c:if>
-                    </div>
-                </li> -->
-                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false"><i class="fa fa-user-circle-o fa-lg" ></i></a>
@@ -181,10 +151,6 @@ nav {height:50px;}
                     </div>
                 </li>
             </ul>
-           <!--  <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
         </div>
     </div>
     </nav>

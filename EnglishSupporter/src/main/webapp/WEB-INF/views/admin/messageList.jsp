@@ -7,9 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-부가적인 테마
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 <script type="text/javascript">
 $(function(){
 	messageList();
@@ -142,7 +139,6 @@ table{
 text-align:center;
 table-layout: fixed;
 width: 1000px;
-/* height: 200px; */
 }
 </style>
 <title>Message List</title>
